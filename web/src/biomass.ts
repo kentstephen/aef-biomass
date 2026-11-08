@@ -5,14 +5,31 @@ import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
 import { type AefArray, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
+import { CH_NODATA, MG_SCALE, PCT_SCALE } from "./change";
 import { type BiomassHead, CODE, codeValue } from "./head";
 import { Pool } from "./pool";
-import { glslRamp, VIRIDIS_50 } from "./ramp";
+import { CHANGE_50, glslRamp, VIRIDIS_50 } from "./ramp";
 
-/** One chunk-year on the GPU: the biomass codes as an r16uint texture. */
+/** One chunk on the GPU: a year's biomass codes (r16uint) or a window's change in percent x 100 (r16sint). */
 type TileData = MinimalTileData & { key: string; tex: Texture };
-/** One chunk-year's two planes on the page: [agb codes n, height codes n]. */
-type Planes = { planes: Uint16Array; w: number; h: number };
+/**
+ * One chunk's two planes on the page: a year's [agb codes n, height codes n] (Uint16), or a window's
+ * [percent x 100 n, Mg/ha x 4 n] (Int16, change.ts).
+ */
+type Planes = { planes: Uint16Array | Int16Array; w: number; h: number };
+
+/**
+ * A layer's key: a year ("2025") or a window ("2018-2025", the change from the first year to the second).
+ */
+export const yearKey = (y: number) => String(y);
+export const windowKey = (a: number, b: number) => `${a}-${b}`;
+const windowOf = (lk: string) => (lk.includes("-") ? (lk.split("-").map(Number) as [number, number]) : null);
+
+/** The change ramp's ends, percent: loss to the pixel's whole biomass, gain to one and a half times the cell's. */
+export const LOSS_END = 100;
+export const GAIN_END = 150;
+/** Below this much change (percent) a pixel fades toward transparent; exactly 0 is not drawn at all. */
+export const FADE = 40;
 
 export type Stretch = { lo: number; hi: number; rank: boolean; n: number };
 
@@ -56,6 +73,36 @@ float biomass_cdf(float t) {
   getUniforms: (p: Record<string, unknown>) => p,
 } as unknown as ShaderModule<{ agbTex: Texture; cdfTex: Texture; lo: number; hi: number; rank: number }>;
 
+/**
+ * A window's change per pixel on the 50-stop orange (loss) to white to blue (gain) ramp: loss to -LOSS_END %, gain
+ * to +GAIN_END %. No change is not drawn; small change fades toward transparent below FADE %.
+ */
+const ChangeColor = {
+  name: "change",
+  fs: `uniform changeUniforms {
+  float lossEnd;
+  float gainEnd;
+  float fade;
+} change;`,
+  inject: {
+    "fs:#decl": `precision highp isampler2D;
+uniform highp isampler2D chTex;
+${glslRamp("changeRamp", CHANGE_50)}`,
+    "fs:DECKGL_FILTER_COLOR": /* glsl */ `
+      ivec2 size = textureSize(chTex, 0);
+      ivec2 px = clamp(ivec2(geometry.uv * vec2(size)), ivec2(0), size - 1);
+      int c = texelFetch(chTex, px, 0).r;
+      if (c == 0 || c == ${CH_NODATA}) discard;
+      float pct = float(c) / ${PCT_SCALE.toFixed(1)};
+      float t = pct < 0.0 ? 0.5 - 0.5 * min(-pct / change.lossEnd, 1.0) : 0.5 + 0.5 * min(pct / change.gainEnd, 1.0);
+      float a = mix(0.1, 1.0, smoothstep(0.0, change.fade, abs(pct)));
+      color = vec4(changeRamp(t), a);
+    `,
+  },
+  uniformTypes: { lossEnd: "f32", gainEnd: "f32", fade: "f32" },
+  getUniforms: (p: Record<string, unknown>) => p,
+} as unknown as ShaderModule<{ chTex: Texture; lossEnd: number; gainEnd: number; fade: number }>;
+
 export async function createBiomass(head: BiomassHead, beforeId: () => string | undefined) {
   const { arr, attrs } = await openMosaic();
   const [, , H, W] = arr.shape as number[];
@@ -66,7 +113,7 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
   const planes = new Map<string, Planes>();
   const CAP_BYTES = 384 * 1024 ** 2;
   let planeBytes = 0;
-  const keyOf = (year: number, r: number, c: number) => `${year}:${r}-${c}`;
+  const keyOf = (lk: string, r: number, c: number) => `${lk}:${r}-${c}`;
   const keep = (k: string, p: Planes) => {
     const old = planes.get(k);
     if (old) {
@@ -85,11 +132,12 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
   const inflight = new Map<string, { p: Promise<Planes>; ac: AbortController; wants: number }>();
   // the chunks on the GPU now, by key: whether the view's chunks are in
   const loaded = new Set<string>();
-  // each year layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so release() frees them
-  const texOf = new Map<number, Set<Texture>>();
+  // each layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so release() frees them
+  const texOf = new Map<string, Set<Texture>>();
 
-  async function planesFor(year: number, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Planes> {
-    const k = keyOf(year, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
+  /** A chunk's planes for a layer key: the year read and scored, or the window's change (both years read). */
+  async function planesFor(lk: string, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Planes> {
+    const k = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
     const have = planes.get(k);
     if (have) {
       keep(k, have);
@@ -98,7 +146,11 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     let f = inflight.get(k);
     if (!f || f.ac.signal.aborted) {
       const ac = new AbortController();
-      const p = pool.read(year - YEAR_ORIGIN, py0, px0, h, w, ac.signal).then((pl) => {
+      const win = windowOf(lk);
+      const ask = win
+        ? pool.change(win[0] - YEAR_ORIGIN, win[1] - YEAR_ORIGIN, py0, px0, h, w, ac.signal)
+        : pool.read(Number(lk) - YEAR_ORIGIN, py0, px0, h, w, ac.signal);
+      const p = ask.then((pl) => {
         const out = { planes: pl, w, h };
         keep(k, out);
         return out;
@@ -124,14 +176,14 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
   }
 
   /**
-   * Read a year's chunks under a box ahead of a step to it, a few at a time, the nearest the middle first; the
+   * Read a layer's chunks under a box ahead of a step to it, a few at a time, the nearest the middle first; the
    * planes land in the cache, so the step draws without a read. Stopped by `signal` (a move, a step).
    */
-  async function prefetch(year: number, bbox: [number, number, number, number], signal: AbortSignal, onChunk?: () => void) {
+  async function prefetch(lk: string, bbox: [number, number, number, number], signal: AbortSignal, onChunk?: () => void) {
     const { c0, c1, r0, r1 } = chunkRange(bbox);
     const rm = (r0 + r1) / 2, cm = (c0 + c1) / 2;
     const todo: [number, number][] = [];
-    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (!planes.has(keyOf(year, r, c))) todo.push([r, c]);
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (!planes.has(keyOf(lk, r, c))) todo.push([r, c]);
     todo.sort((a, b) => Math.hypot(a[0] - rm, a[1] - cm) - Math.hypot(b[0] - rm, b[1] - cm));
     let i = 0;
     const lane = async () => {
@@ -139,7 +191,7 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
         const [r, c] = todo[i++]!;
         const py0 = r * CHUNK, px0 = c * CHUNK;
         try {
-          await planesFor(year, py0, px0, Math.min(CHUNK, H - py0), Math.min(CHUNK, W - px0), signal);
+          await planesFor(lk, py0, px0, Math.min(CHUNK, H - py0), Math.min(CHUNK, W - px0), signal);
           onChunk?.();
         } catch {
           // aborted, or a chunk with no data: the step reads it again if it needs it
@@ -149,11 +201,11 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     await Promise.all([lane(), lane(), lane(), lane()]);
   }
 
-  /** How many of a year's chunks under a box are in hand (read and scored), for the prefetch's count. */
-  function inHand(bbox: [number, number, number, number], year: number) {
+  /** How many of a layer's chunks under a box are in hand (read and scored), for the prefetch's count. */
+  function inHand(bbox: [number, number, number, number], lk: string) {
     const { c0, c1, r0, r1 } = chunkRange(bbox);
     let n = 0;
-    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (planes.has(keyOf(year, r, c))) n++;
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (planes.has(keyOf(lk, r, c))) n++;
     return { inHand: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
   }
 
@@ -199,7 +251,7 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     const vals: number[] = [];
     for (let r = r0; r <= r1; r++)
       for (let c = c0; c <= c1; c++) {
-        const p = planes.get(keyOf(year, r, c));
+        const p = planes.get(keyOf(yearKey(year), r, c));
         if (!p) continue;
         for (let i = 0; i < p.w * p.h; i += 5) {
           const code = p.planes[i]!;
@@ -239,41 +291,44 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     return Math.expm1(stretch.lo + ((stretch.hi - stretch.lo) * k) / (CDF_N - 1));
   }
 
-  /** The year's layer. */
-  function layer(opts: { year: number; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
-    const { year } = opts;
+  /** A layer: a year's biomass (key "2025") or a window's change (key "2018-2025"). */
+  function layer(opts: { key: string; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
+    const lk = opts.key;
+    const win = windowOf(lk);
     return new ZarrLayer<zarr.Readable, "int8", TileData>({
-      id: `biomass-${year}`,
+      id: win ? `change-${lk}` : `biomass-${lk}`,
       node: arr as AefArray,
       metadata: attrs,
-      selection: { time: year - YEAR_ORIGIN, band: null },
+      selection: { time: (win ? win[1] : Number(lk)) - YEAR_ORIGIN, band: null },
       getTileData: async (_a, o) => {
         const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;
         const py0 = ys.start ?? 0, px0 = xs.start ?? 0;
         const { width, height } = o;
         device = o.device;
-        const p = await planesFor(year, py0, px0, height, width, o.signal);
-        const key = keyOf(year, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
+        const p = await planesFor(lk, py0, px0, height, width, o.signal);
+        const key = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
         loaded.add(key);
         const tex = o.device.createTexture({
-          format: "r16uint",
+          format: win ? "r16sint" : "r16uint",
           width,
           height,
           mipLevels: 1,
           data: p.planes.slice(0, width * height),
           sampler: { minFilter: "nearest", magFilter: "nearest", addressModeU: "clamp-to-edge", addressModeV: "clamp-to-edge" },
         });
-        let set = texOf.get(year);
-        if (!set) texOf.set(year, (set = new Set()));
+        let set = texOf.get(lk);
+        if (!set) texOf.set(lk, (set = new Set()));
         set.add(tex);
         return { key, tex, width, height, byteLength: 2 * width * height };
       },
       renderTile: (data: TileData) => ({
         renderPipeline: [
-          {
-            module: BiomassColor,
-            props: { agbTex: data.tex, cdfTex: cdfTexture(device!), lo: stretch.lo, hi: stretch.hi, rank: stretch.rank ? 1 : 0 },
-          },
+          win
+            ? { module: ChangeColor, props: { chTex: data.tex, lossEnd: LOSS_END, gainEnd: GAIN_END, fade: FADE } }
+            : {
+                module: BiomassColor,
+                props: { agbTex: data.tex, cdfTex: cdfTexture(device!), lo: stretch.lo, hi: stretch.hi, rank: stretch.rank ? 1 : 0 },
+              },
         ] as RasterModule[],
       }),
       visible: opts.visible,
@@ -287,7 +342,7 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
         const t = tile.content;
         if (!t) return;
         loaded.delete(t.key);
-        texOf.get(year)?.delete(t.tex);
+        texOf.get(lk)?.delete(t.tex);
         t.tex?.destroy();
       },
       onViewportLoad: () => opts.onViewportLoad && opts.onViewportLoad(),
@@ -297,34 +352,47 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     });
   }
 
-  /** A year's layer was taken off the map: free its textures (after its last frame) and forget its tiles. */
-  function release(year: number) {
-    const set = texOf.get(year);
-    texOf.delete(year);
-    for (const k of [...loaded]) if (k.startsWith(`${year}:`)) loaded.delete(k);
+  /** A layer was taken off the map: free its textures (after its last frame) and forget its tiles. */
+  function release(lk: string) {
+    const set = texOf.get(lk);
+    texOf.delete(lk);
+    for (const k of [...loaded]) if (k.startsWith(`${lk}:`)) loaded.delete(k);
     if (set) setTimeout(() => set.forEach((t) => t.destroy()), 1500);
   }
 
-  /** Biomass (Mg/ha) and canopy height (m) at a point for a year, from the planes in hand; null where none. */
-  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number } | null {
+  /** A layer's two plane values at a point, from the planes in hand; null where none. */
+  function planeAt(lon: number, lat: number, lk: string): [number, number, Planes] | null {
     const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
     const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
-    const p = planes.get(keyOf(year, r, c));
+    const p = planes.get(keyOf(lk, r, c));
     if (!p) return null;
     const ix = px - c * CHUNK, iy = py - r * CHUNK;
     if (ix < 0 || iy < 0 || ix >= p.w || iy >= p.h) return null;
     const i = iy * p.w + ix, n = p.w * p.h;
-    if (p.planes[i] === 0) return null;
-    return { agb: codeValue(p.planes[i]!), height: codeValue(p.planes[n + i]!) };
+    return [p.planes[i]!, p.planes[n + i]!, p];
   }
 
-  /** How many of the chunks under a box are on the GPU for a year. */
-  function loadedIn(bbox: [number, number, number, number], year: number) {
+  /** Biomass (Mg/ha) and canopy height (m) at a point for a year, from the planes in hand; null where none. */
+  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number } | null {
+    const v = planeAt(lon, lat, yearKey(year));
+    if (!v || v[0] === 0) return null;
+    return { agb: codeValue(v[0]), height: codeValue(v[1]) };
+  }
+
+  /** A window's change at a point: percent (of the pixel's biomass, or its cell's for gain) and Mg/ha. */
+  function changeAtPoint(lon: number, lat: number, lk: string): { pct: number; mg: number } | null {
+    const v = planeAt(lon, lat, lk);
+    if (!v || v[0] === CH_NODATA) return null;
+    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE };
+  }
+
+  /** How many of the chunks under a box are on the GPU for a layer. */
+  function loadedIn(bbox: [number, number, number, number], lk: string) {
     const { c0, c1, r0, r1 } = chunkRange(bbox);
     let n = 0;
-    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (loaded.has(keyOf(year, r, c))) n++;
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (loaded.has(keyOf(lk, r, c))) n++;
     return { loaded: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
   }
 
-  return { layer, release, valueAtPoint, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt, stretch, pool };
+  return { layer, release, valueAtPoint, changeAtPoint, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt, stretch, pool };
 }

@@ -4,6 +4,7 @@
   --card: rgba(26, 29, 33, 0.8);
   --glass-hi: #23272c;
   --line: rgba(255, 255, 255, 0.12);
+  --faint: rgba(255, 255, 255, 0.18);
   --text: #e6e9ec;
   --muted: #9ba5af;
   --cool: #56b4e9;
@@ -25,9 +26,10 @@ kbd { font: 10.5px/1 ui-monospace, SFMono-Regular, Menlo, monospace; border: 1px
 button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
 
 /* top left: search, then the card under it, one width */
-.at-top { position: fixed; left: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; gap: 8px;
+.at-top { position: fixed; right: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; gap: 8px;
   width: 360px; max-width: calc(100vw - 24px); }
-.at-top { align-items: flex-start; }
+/* top right: the search and the card line up on their right edges */
+.at-top { align-items: flex-end; }
 .at-search { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px;
   width: var(--yw, 100%); transition: width 0.15s; }
 /* in use (or holding a query), full width again */
@@ -86,9 +88,59 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .ew-load { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 9; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
 .ew-load.on { opacity: 1; }
 .ew-load i { display: block; height: 100%; width: 0; background: var(--cool); transition: width 0.3s ease-out; }
-.ew-load-tag { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 8; display: none;
+/* the loading readout in the middle of the screen, clear of the card on the right */
+.ew-load-tag { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 8; display: none;
   padding: 5px 10px; font-size: 12px; white-space: nowrap; pointer-events: none; }
 .ew-load-tag.on { display: block; }
 .ew-load-tag.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
 .ew-load-tag span { margin-left: 6px; color: var(--muted); }
 .card:not(.collapsed) .at-cb { margin-left: auto; }
+
+/* each year or change (Earthwork's ui.css .seg-f) */
+.seg-f{display:flex;gap:2px;padding:2px;border:1px solid var(--line);border-radius:9px;width:max-content;align-items:center}
+.seg-f button{border:0;background:none;color:var(--muted);padding:3px 10px;border-radius:7px;cursor:pointer;font:inherit}
+.seg-f button:hover{color:var(--text)}
+.seg-f button.on{background:var(--text);color:var(--on)}
+.seg-f{margin:8px 0 4px;font-size:12.5px}
+.seg-f kbd{font:10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 4px;margin:0 4px 0 3px}
+
+/* the change window: Earthwork's "Years" range as is (aef-earthwork-web ui.css .at-row, .at-lab, .at-win, .at-wtxt) */
+.at-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.at-lab{font-size:12.5px;color:var(--muted);min-width:64px}
+.at-win{position:relative;width:170px;height:28px;flex:0 0 auto}
+.at-win input{position:absolute;left:0;top:0;width:100%;height:22px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+.at-win input:focus{outline:none}
+.at-win input::-webkit-slider-runnable-track{background:none;height:22px}
+.at-win input::-moz-range-track{background:none;height:22px}
+.at-win input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;appearance:none;width:14px;height:14px;margin-top:4px;border-radius:50%;background:var(--text);border:2px solid var(--on);box-shadow:0 0 0 1px rgba(255,255,255,.3);cursor:grab}
+.at-win input::-moz-range-thumb{pointer-events:auto;width:14px;height:14px;border-radius:50%;background:var(--text);border:2px solid var(--on);cursor:grab}
+.at-win .trk{position:absolute;left:8px;right:8px;top:9px;height:4px;background:var(--faint);border-radius:2px}
+.at-win .spn{position:absolute;top:9px;height:4px;background:var(--text);border-radius:2px}
+.at-win .tks{position:absolute;left:8px;right:8px;top:19px;display:flex;justify-content:space-between;font-size:9px;color:var(--muted);line-height:1}
+.at-win .tks span{width:0;display:flex;justify-content:center}
+.at-win .tks i{font-style:normal}
+.at-wtxt{font-size:12.5px;white-space:nowrap}
+/* the slider takes what the row leaves (aef-earthwork-web page.css) */
+.winrow .at-win{flex:1;width:auto;min-width:0}
+.winrow{margin:8px 0 10px}
+/* the span between the ends is also a grab: the whole window moves, its length kept */
+.at-win .spn{cursor:grab}
+.at-win .spn::before{content:"";position:absolute;left:0;right:0;top:-8px;bottom:-8px}
+.at-win .spn.held{cursor:grabbing}
+
+/* only the controls the setting uses: the year stepper for each year, the window for change; never both */
+.card:not(.ch) .winrow{display:none}
+.card.ch .yearrow{display:none}
+
+/* the pair (P), Earthwork's: Sentinel-2 on the left, the map on the right, one camera; the card goes with the map */
+#map2 { position: fixed; top: 0; bottom: 0; left: 0; right: 50%; display: none; border-right: 2px solid rgba(255, 255, 255, 0.35); }
+body.pair #map2 { display: block; }
+body.pair #map { left: 50%; }
+#map.holding { cursor: grab; }
+/* the imagery's year: a small card, the year big, top left */
+.s2card { position: fixed; left: 12px; top: 12px; z-index: 7; display: none; padding: 8px 14px 9px; pointer-events: none; }
+.s2card.on { display: block; }
+.s2card.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+.s2card .lab { font-size: 12px; color: var(--muted); }
+.s2card .yr { font-size: 34px; font-weight: 600; line-height: 1.1; }
+.s2card .keys { font-size: 11px; color: var(--muted); margin-top: 3px; }

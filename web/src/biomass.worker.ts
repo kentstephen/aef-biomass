@@ -1,14 +1,17 @@
 import * as zarr from "zarrita";
 
 import { type AefArray, NUM_BANDS, openMosaic } from "./aef";
+import { changeOf } from "./change";
 import { type BiomassHead, packHead, probeGap, scoreCpu, toCode } from "./head";
 import { makeScorer, type Scorer } from "./head-gpu";
 
 /**
  * One chunk-year per ask: AlphaEarth's 64 bands read from the mosaic, then the biomass head on them (WebGPU,
  * else the CPU). Only the two u16 planes go back to the page (256 KB per 256 x 256 chunk), never the embedding.
+ * A change ask reads the chunk in two years (the second from the disk cache, mostly) and sends back the change
+ * plane of change.ts (Int16, 256 KB).
  */
-type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number };
+type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number };
 type Msg = { type: "init"; head: BiomassHead } | Read | { type: "abort"; id: number };
 
 let head: BiomassHead | null = null;
@@ -52,11 +55,22 @@ async function read(m: Read) {
     if (!mosaic) mosaic = openMosaic().then((o) => o.arr);
     mosaic.catch(() => (mosaic = null));
     const [arr, score] = await Promise.all([mosaic, ready!]);
-    const c = await zarr.get(arr, [m.timeIdx, null, zarr.slice(m.py0, m.py0 + m.h), zarr.slice(m.px0, m.px0 + m.w)], { signal: ac.signal });
-    if (c.shape.length !== 3 || c.shape[0] !== NUM_BANDS || c.shape[1] !== m.h || c.shape[2] !== m.w)
-      throw new Error(`Unexpected chunk shape [${c.shape.join(", ")}] for a ${m.w} x ${m.h} tile`);
-    if (ac.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
-    const planes = await score(c.data as Int8Array, m.w * m.h);
+    const get = async (t: number) => {
+      const c = await zarr.get(arr, [t, null, zarr.slice(m.py0, m.py0 + m.h), zarr.slice(m.px0, m.px0 + m.w)], { signal: ac.signal });
+      if (c.shape.length !== 3 || c.shape[0] !== NUM_BANDS || c.shape[1] !== m.h || c.shape[2] !== m.w)
+        throw new Error(`Unexpected chunk shape [${c.shape.join(", ")}] for a ${m.w} x ${m.h} tile`);
+      if (ac.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
+      return c.data as Int8Array;
+    };
+    const n = m.w * m.h;
+    let planes: Uint16Array | Int16Array;
+    if (m.timeIdxB == null) planes = await score(await get(m.timeIdx), n);
+    else {
+      const [ea, eb] = await Promise.all([get(m.timeIdx), get(m.timeIdxB)]);
+      const ca = await score(ea, n);
+      const cb = await score(eb, n);
+      planes = changeOf(ea, eb, ca, cb, m.w, m.h, m.px0, m.py0, m.timeIdxB - m.timeIdx);
+    }
     postMessage({ id: m.id, planes }, { transfer: [planes.buffer as ArrayBuffer] });
   } catch (e) {
     const err = e as { name?: string; message?: string };

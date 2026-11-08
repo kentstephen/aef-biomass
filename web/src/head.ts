@@ -45,7 +45,7 @@ export function packHead(h: BiomassHead): Float32Array {
   return out;
 }
 
-const deq = (q: number) => {
+export const deq = (q: number) => {
   const f = q / 127.5;
   return f * Math.abs(f);
 };

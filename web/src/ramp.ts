@@ -11,6 +11,19 @@ export const VIRIDIS_50 = [
   "#9dd93b", "#addc30", "#c0df25", "#d0e11c", "#dfe318", "#efe51c", "#fde725", "#feef54", "#fef784", "#ffffb3",
 ];
 
+/**
+ * Biomass change as 50 stops: the Landsat CTrees notebooks' change ramp (ne-landsat-ctrees-pair.py DIV_RAMP: deep
+ * orange, orange, pale orange, white, pale blue, blue, deep blue) run in OKLab, with one deeper stop past each end.
+ * Loss (orange) first, the white middle no change, gain (blue) last: the blue to orange axis a protanope keeps.
+ */
+export const CHANGE_50 = [
+  "#6e3600", "#7e3e00", "#8f4600", "#9f4e00", "#ac5502", "#b45b06", "#bc600a", "#c4660e", "#cc6c13", "#d47216",
+  "#dc781a", "#e27f24", "#e58732", "#e8903e", "#eb9849", "#eda053", "#f0a85d", "#f3b066", "#f4b976", "#f4c28a",
+  "#f5cb9e", "#f4d4b1", "#f4ddc4", "#f3e5d6", "#f3eee9", "#edeff1", "#e2e8f0", "#d8e2ef", "#cddced", "#c3d5ec",
+  "#b9cfea", "#aec8e9", "#a3c1e6", "#98b9e3", "#8db2e0", "#82aadc", "#77a2d9", "#6c9bd5", "#6193d2", "#578ccd",
+  "#4f85c7", "#477ec2", "#3e77bc", "#3670b6", "#2d69b1", "#2462ab", "#1d5aa1", "#1a5194", "#164887", "#133f7a",
+];
+
 export const hexToRgb = (h: string): [number, number, number] => [
   parseInt(h.slice(1, 3), 16) / 255,
   parseInt(h.slice(3, 5), 16) / 255,
