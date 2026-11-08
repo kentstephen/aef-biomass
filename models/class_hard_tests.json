@@ -1,0 +1,125 @@
+{
+ "olmo": {
+  "offset": {
+   "a": 0.1673,
+   "b": -0.3,
+   "cutoffs_90": [
+    0.72134,
+    0.59252
+   ]
+  },
+  "offset_per_continent": {
+   "africa": {
+    "a": 0.172,
+    "b": -0.5488,
+    "cutoffs_90": [
+     0.79377,
+     0.5045
+    ]
+   },
+   "asia": {
+    "a": 0.1555,
+    "b": 0.0401,
+    "cutoffs_90": [
+     0.63305,
+     0.66437
+    ]
+   },
+   "europe": {
+    "a": 0.1949,
+    "b": -0.7564,
+    "cutoffs_90": [
+     0.79531,
+     0.51327
+    ]
+   },
+   "north-america": {
+    "a": 0.257,
+    "b": -0.6685,
+    "cutoffs_90": [
+     0.8221,
+     0.55161
+    ]
+   },
+   "oceania": {
+    "a": 0.03,
+    "b": -0.1616,
+    "cutoffs_90": [
+     0.57937,
+     0.49816
+    ]
+   },
+   "south-america": {
+    "a": 0.1489,
+    "b": 0.1074,
+    "cutoffs_90": [
+     0.58031,
+     0.69503
+    ]
+   }
+  },
+  "hard_temperature": 3.5186
+ },
+ "note": "hard pixels (WorldCover and IO disagree, one says trees): L = trees logit minus logsumexp of the other class logits; P(trees) = sigmoid(a * L + b); 90 % set holds trees if P >= 1 - cutoffs_90[0], not trees if 1 - P >= 1 - cutoffs_90[1]; per continent where fit",
+ "all": {
+  "offset": {
+   "a": 0.157,
+   "b": -0.3355,
+   "cutoffs_90": [
+    0.73083,
+    0.60339
+   ]
+  },
+  "offset_per_continent": {
+   "africa": {
+    "a": 0.1526,
+    "b": -0.6282,
+    "cutoffs_90": [
+     0.77618,
+     0.51735
+    ]
+   },
+   "asia": {
+    "a": 0.1233,
+    "b": 0.0318,
+    "cutoffs_90": [
+     0.62766,
+     0.65679
+    ]
+   },
+   "europe": {
+    "a": 0.1341,
+    "b": -0.7329,
+    "cutoffs_90": [
+     0.78727,
+     0.48971
+    ]
+   },
+   "north-america": {
+    "a": 0.2704,
+    "b": -0.8455,
+    "cutoffs_90": [
+     0.84599,
+     0.54867
+    ]
+   },
+   "oceania": {
+    "a": 0.1887,
+    "b": 0.055,
+    "cutoffs_90": [
+     0.71217,
+     0.61872
+    ]
+   },
+   "south-america": {
+    "a": 0.1546,
+    "b": -0.0007,
+    "cutoffs_90": [
+     0.62041,
+     0.72207
+    ]
+   }
+  },
+  "hard_temperature": 3.8747
+ }
+}

@@ -1,7 +1,8 @@
 # Findings: biomass, land cover and tree loss from yearly embeddings
 
 What the tests in this repo found, November 2026. Sections 1 to 5 are tree loss (the first session); sections 6 to
-10 are biomass and land cover over every kind of ground (the second). Three 10 m yearly embeddings, compared on the same pixels:
+10 are biomass and land cover over every kind of ground (the second); sections 11 to 16 work through the open items
+of the second (margins of error, calibrated change, the top end, regrowth, hard ground, airborne lidar). Three 10 m yearly embeddings, compared on the same pixels:
 AlphaEarth Foundations (AEF, 64 numbers), TESSERA v1.1 (128) and OlmoEarth v1.3 (128). Years 2018 to 2025 (2017
 is left out: TESSERA lacks much of it and AEF rebuilt it differently). Reference: Hansen Global Forest Change v1.12
 (30 m, loss year to 2024), which has its own errors. The pixels in sections 1 to 3 come from Earthwork
@@ -235,6 +236,905 @@ of pixels whose biomass changed by a quarter and by 10 Mg/ha or more, plain (gat
 - The forest beside the burns lights 36 to 55 %: much of it is probably real (scorch, edge mortality, salvage), but
   not checked.
 
+## 11. A margin of error per pixel for the classes (`scripts/class_calibrate.py`, `models/class_temperature.json`)
+
+Same pixels as section 8 (2020 and 2021, WorldCover and IO agree, each square by its held-out fold head). Both fixes
+are fit across folds: a square's fold is calibrated on the other folds only.
+
+- **Temperature.** One number dividing the logits (1.47 for OlmoEarth, 1.64 all three, 1.78 AEF, 1.60 TESSERA).
+  Calibration error falls from .031 to .006 (OlmoEarth), .043 to .006 (all three), .074 to .012 (AEF). After it,
+  a pixel at .75 confidence is right 74 % of the time, at .85 right 84 %, at .93 right 92 %.
+- **Class sets.** Every class whose calibrated probability passes a cutoff, the cutoff set so the true class is
+  inside 90 % of the time. One cutoff for all classes holds 90 % on average but not per class (OlmoEarth: wetland
+  37 %, shrub 65 %), because trees fill most pixels. One cutoff per class fixes that:
+
+| 90 % sets, one cutoff per class | AEF | TESSERA | OlmoEarth | All three |
+|---|---|---|---|---|
+| True class inside the set | .93 | .92 | .95 | .94 |
+| Classes per set, mean | 1.37 | 1.55 | 1.13 | 1.17 |
+| Pixels with a single class (right) | .71 (.95) | .61 (.93) | .88 (.95) | .85 (.95) |
+
+  OlmoEarth per class, inside the set / mean set size: trees .98 / 1.04, built .98 / 1.02, crop .96 / 1.10, water
+  .96 / 1.39, grass .90 / 1.20, shrub .89 / 1.34, bare .89 / 1.20, wetland .88 / 1.71, moss .82 / 1.67. A map
+  can show the set: one class where it is sure, two where it is not (wetland and grass, shrub and grass).
+- These are the easy pixels; section 15 is the hard ground.
+
+## 12. Change calibrated per window length (`scripts/change_calibrate.py`, `results/change_calibrate.json`)
+
+From the cell tables of section 9 (one-year changes add up, so every window of 1 to 7 years is there). Section 9's
+factor was pooled over all windows and overshot the long span. Fit per window length it reaches a slope of 1 at
+every length, but loss cells then come out 1.2 to 1.5 times CTrees' size: CTrees' own year-to-year noise on small
+changes pulls the fitted slope down, so dividing by it overshoots. The factor that works is the muting measured on
+clear loss cells only (CTrees fell by half and 20 Mg/ha), applied to the gated change:
+
+| All three embeddings, tree-loss squares | Plain | Gated | Gated / loss factor |
+|---|---|---|---|
+| One year: loss size / found | .44 / .55 | .31 / .45 | 1.06 / .65 |
+| One year: steady cells lit (tree-loss squares; elsewhere) | .14; .037 | .014; .002 | .049; .024 |
+| 2018 to 2025: loss size / found | .83 / .83 | .77 / .77 | 1.02 / .82 |
+| 2018 to 2025: steady lit (tree-loss squares; elsewhere) | .28; .089 | .072; .010 | .093; .020 |
+
+The factor by window length (fit on the other folds) runs from about .40 to .53 for one year to .69 to .91 for
+seven, over the folds and embeddings. Loss now comes out at full size over any span; the price is that
+steady ground inside the tree-loss squares lights at 5 % a year (elsewhere 2 %).
+
+## 13. The squeezed top end (`scripts/top_end.py`, `results/top_end.json`, `scripts/read_cci.py`, `scripts/cci_compare.py`)
+
+The training cells' draw replayed (checked equal to the stored biomass) gives CTrees' own error per cell.
+
+| CTrees bin, Mg/ha | 150 to 250 | 250 to 300 | 300 to 400 | 400 and up |
+|---|---|---|---|---|
+| CTrees median | 189 | 272 | 331 | 440 |
+| CTrees' own error, median | | | 75 | 89 |
+| OlmoEarth head | 142 | 203 | 234 | 238 |
+| OlmoEarth, quantile mapped | 169 | 250 | 286 | 287 |
+| OlmoEarth, taught with weight on the top | 148 | 217 | 217 | 198 |
+| All three, quantile mapped | 165 | 252 | 296 | 291 |
+
+- Above about 250 Mg/ha the heads stop separating one level from the next: 300 to 400 and 400 and up come out the
+  same. Weighting the loss toward the top does not help (worse above 400). Quantile mapping across folds lifts the
+  top by 50 to 60 Mg/ha but costs R2 of log everywhere (.73 to .69).
+- 77 to 80 % of the head's misses in the 300 to 400 bin are within twice CTrees' own error.
+- **A second map disagrees with CTrees at the top.** ESA CCI Biomass v7.0 (radar, ICESat-2 calibrated, not GEDI;
+  read under all 110 squares, 2018 to 2024) puts intact closed forest at 260 Mg/ha where CTrees puts 215, and the
+  two rank its cells together at only .35 (the head ranks with CTrees at .80, with CCI at .41). The top end is
+  squeezed against a label that another map does not share.
+
+CTrees against CCI against the head (OlmoEarth), median over the training cells and rank correlation:
+
+| Kind | CTrees | CCI (share 0) | Head | CTrees with CCI | Head with CTrees | Head with CCI | Change 2018 to 2024, CTrees with CCI |
+|---|---|---|---|---|---|---|---|
+| All | 24 | 14 (.39) | 19 | .75 | .87 | .79 | .17 |
+| Closed forest | 215 | 260 (.02) | 177 | .35 | .80 | .41 | .01 |
+| Tree-loss squares | 60 | 88 (.13) | 54 | .67 | .80 | .69 | .28 |
+| Savanna | 19 | 9 (.30) | 12 | .52 | .75 | .63 | .05 |
+| Wetland | 17 | 15 (.30) | 14 | .64 | .74 | .63 | .07 |
+| Tundra | 19 | 0 (.93) | 11 | .44 | .22 | .18 | -.07 |
+| Crop | 14 | 0 (.76) | 8 | .32 | .61 | .33 | .05 |
+| Grass | 3 | 0 (.88) | 4 | .17 | .68 | .28 | .07 |
+
+- CCI counts the woody parts of living trees only, so grass, crop, shrub and tundra read 0; that is a definition,
+  not a disagreement. Tundra's 19 Mg/ha rests on CTrees alone, and no lidar here covers tundra (NEON's Alaska
+  sites need an account token since June 2026).
+- The two maps barely agree on change from 2018 to 2024 (rank .17 overall, .28 on the tree-loss squares), and the
+  head agrees with CTrees' change about as well as CCI does (.24, .39 on tree-loss squares). Year-to-year change
+  in any one map is a weak reference; section 16 uses lidar instead.
+
+## 14. A head on the whole series, for regrowth (`scripts/trajectory_head.py`, `results/trajectory_head.json`)
+
+Eight years of a pixel in at once (each year through a layer of 64, then mixed across neighboring years), biomass
+for every year out, taught on CTrees' state and on its change between every pair of years. Same folds, scored on
+the same 341,571 cells as section 9. State is as good as the one-year head (R2 of log .73 to .74 on cells).
+
+| 2018 to 2025, tree-loss squares | One-year head (all three) | Trajectory head (all three) |
+|---|---|---|
+| Regrowth (gain cells): size / found | .09 / .34 | .37 / .61 |
+| Regrowth, divided by the loss factor (section 12): size / found | .11 / .37 | .55 / .72 |
+| Loss: size / found | .83 / .83 | .67 / .76 |
+| Steady lit, tree-loss squares; elsewhere | .28; .089 | .25; .048 |
+| Correlation with CTrees' change | .49 | .54 |
+
+- Regrowth comes through at four times the size, and steady ground elsewhere is half as noisy, but loss is more
+  muted than with the one-year head; the loss factor brings both to full size. OlmoEarth alone is similar
+  (regrowth .24 / .47, divided .43 / .58).
+- The forest gate (the embedding moved past the frozen cutoff) removes regrowth for both heads: gradual change
+  never passes a cutoff set on clearcuts.
+
+## 15. Classes on hard ground (`scripts/class_hard_ground.py`, `results/class_hard_ground.json`)
+
+Every pixel of the 92 squares in 2020 and 2021 where both WorldCover and IO have a class: they disagree on 25 % of
+them (wetland squares 54 %, desert edge 86 %, city edge 43 %, savanna 39 %, closed forest 4 %). The commonest
+disagreements: WorldCover trees where IO says rangeland (15 % of them), bare against rangeland (13 %), grass
+against crops (9 %), wetland against rangeland (8 %), shrub against trees (8 %).
+
+| OlmoEarth, calibrated | Maps agree | Maps disagree |
+|---|---|---|
+| Confidence, mean | .92 | .77 |
+| Single-class sets | .88 | .70 |
+| Classes per set | 1.13 | 1.34 |
+
+- The margin of error widens where the maps disagree, as it should. On disagreed pixels the head takes
+  WorldCover's class 51 % of the time, IO's 38 %, another 11 %.
+- **Trees, settled by Meta's height** (4.3 million pixels where one map says trees and the other does not; 5 m or
+  more = trees, under 2 m = not): WorldCover is right 49 %, IO 51 %, the head 63 % (all three: 63 %). The head,
+  taught only where the maps agree, beats both on the pixels where they do not.
+- But it is still overconfident there: .78 confidence when right, .73 when wrong, so a pixel at .77 is right
+  about 63 % of the time on this ground, not 77 %. A calibration fit on agreed pixels understates the error on
+  hard ground; one fit on referee-labeled hard pixels is the fix to try.
+- Meta's mean height is a rough referee for WorldCover's tree definition (tree cover, not mean height): open
+  woodland with a low mean height counts as not trees here.
+
+## 16. Against airborne lidar (`scripts/read_lidar.py`, `scripts/lidar_check.py`, `results/lidar_check.json`)
+
+The independent check. Canopy height = surface model minus ground model of the same flight, from the national
+programs Earthwork reads for bare ground, with the surface product swapped in: LINZ (New Zealand, 1 m), Estonia's
+point clouds already on disk in Earthwork (highest return minus ground, 3 x 3 km a site), and NASA WERK's 1 m
+canopy height over Los Angeles before (2023) and just after (January 2025) the Eaton and Palisades fires; plus WERK's
+statewide 10 m height, one flight per place, at six California squares. Each lidar square is a new 6 km square, so
+it is predicted by all 8 fold heads averaged; none was in training. The epoch is paired with the embedding of its
+flight year (a survey's middle date). Pixels with lidar on 80 % or more of their 2 m samples.
+
+**Height.** Pooled over 15 squares (6.7 million pixel-epochs):
+
+| | AEF | TESSERA | OlmoEarth | All three | Meta (the label) |
+|---|---|---|---|---|---|
+| R2 against lidar | .73 | .61 | .66 | .65 | .72 |
+| Mean error, m | 2.5 | 3.0 | 2.8 | 2.8 | 2.8 |
+| Bias, m | -1.1 | -2.1 | -2.3 | -2.4 | -1.4 |
+| Lidar 30 to 45 m reads as | 33 | 22 | 24 | 21 | 27 |
+
+- Against lidar, AEF's height is as good as Meta's, the label it was taught on; against Meta (section 7) OlmoEarth
+  and all three looked better. AEF was taught to reconstruct GEDI canopy height, and here, against lidar that is
+  neither GEDI nor Meta, that shows. OlmoEarth and all three squeeze tall forest more.
+- Inside single squares the agreement drops (R2 .47 to .76 at Glenbervie, Esk Valley, Banks and Lahemaa; near
+  zero or below at most California statewide 10 m squares), but Meta drops as much there (.04 to .28 in the
+  Sierra, redwoods, oak savanna and chaparral; .71 in the Central Valley): the statewide 10 m product likely measures height differently (its definition
+  not checked). Those six squares count for the pooled height only.
+- Biomass ranks with lidar height at .68 to .71 (rank correlation, all pixel-epochs).
+
+**Change between flights** (9 squares with two flights; canopy lost = lidar height fell 5 m or more from 5 m or
+more, median fall 23 m; gained = rose 3 m or more, median 5.8 m; steady = under 1 m):
+
+| Pooled | AEF | TESSERA | OlmoEarth | All three |
+|---|---|---|---|---|
+| Canopy lost: found (gated) | .85 (.79) | .89 (.71) | .89 (.84) | .87 (.81) |
+| Height fall at lost pixels, head (lidar 22.9 m) | 12.9 m | 11.0 m | 12.7 m | 14.6 m |
+| Canopy gained: found | .70 | .78 | .48 | .67 |
+| Steady lit (gated) | .23 (.08) | .34 (.08) | .24 (.10) | .21 (.07) |
+| Correlation of height change with lidar's, per pixel | .73 | .66 | .66 | .72 |
+| **Biomass change against lidar height change, per 100 m cell** | **.82** | | | **.70** |
+| CTrees' change on the same cells | .50 | | | .50 |
+| ESA CCI's change on the same cells (2024 and before) | .58 | | | .58 |
+
+- Per CTrees cell, the heads' biomass change follows lidar canopy change more closely than CTrees' own change does
+  (.82 AEF, .70 all three, against .50), and more closely than CCI's (.58). The head was taught on CTrees' state,
+  not its change; differencing it at 10 m and averaging up beats the label's own year-to-year change.
+- The size is muted as before: lost canopy reads as about 13 m of a 23 m fall (slope of the head's height change
+  on lidar's, .42 to .60).
+- The trajectory head (section 14) on the same pixels, judged on biomass alone: lost found .74 (all three), gained
+  .53, steady lit .14, correlation with lidar change .67 (one-year head .60). Its regrowth gain over CTrees
+  (section 14) shows here as a better correlation and quieter steady ground, not as more gained pixels found (the
+  one-year head's count also uses its height output).
+
+By square (all three; AEF where it differs much):
+
+| Square, flights | Lost px: found | Gained px: found | Steady lit (gated) | Cell correlation: head / CTrees / CCI |
+|---|---|---|---|---|
+| Glenbervie NZ plantation, 2019 / 2024 | 47,855: .96 | 127,595: .68 (AEF .86) | .23 (.02) | .78 (AEF .88) / .49 / .68 |
+| Esk Valley NZ, cyclone, 2020 / 2024 | 13,052: .91 | 6,838: .65 | .43 (.15) | .72 / .52 / .49 |
+| Banks Peninsula NZ, 2018 / 2023 | 4,543: .95 | 11,152: .47 | .08 (.00) | .82 / .77 / -.32 |
+| Lahemaa EE, boreal, 2018 / 2022 | 5,030: .76 (gated .46) | 33,328: .78 | .49 (.01) | .54 (AEF .71) / .07 / .18 |
+| Kivioli EE, 2018 / 2022 | 461: .42 | 2,199: .17 | .04 (.02) | -.14 (AEF .36) / .11 / .17 |
+| Tartu EE, 2019 / 2023 | 2,138: .42 | 3,955: .35 | .16 (.01) | .34 / .13 / .09 |
+| Eaton fire LA, 2023 / Jan 2025 | 4,286: .60 | 335: .02 | .34 (.20) | .27 / .39 / none |
+| Palisades fire LA, 2023 / Jan 2025 | 3,764: .42 | 57: .11 | .20 (.12) | .74 / .43 / none |
+| Roxburgh NZ, 2021 / 2022 | 4 | 111: .01 | .00 (.00) | -.06 / .17 / .12 |
+
+- Harvest, cyclone slips and storm loss in New Zealand: 91 to 96 % of lost canopy found, cell correlation .72 to
+  .88 against CTrees' .49 to .77.
+- The Los Angeles fires are the weak case: 42 to 60 % found. The post-fire flight was days after the fires, while
+  the 2025 embedding is a whole year of resprouting chaparral; burned houses also count as lost height there.
+- Estonia's spring flights at the small sites (Kivioli, Tartu) change little and are read poorly; Lahemaa's loss is
+  found plainly (.76) but the gate drops much of it (.46).
+- Not read: Canada (HRDEM Fort McMurray, Timmins) and the Netherlands (AHN4 / AHN5 Heuvelrug) did not finish
+  in time (full-resolution 0.5 to 1 m surfaces read over HTTP, over an hour each); Mojave has lidar on only 10 %.
+
+## 17. Grass against RAP, a map that is not CTrees (`scripts/pick_us_squares.py`, `read_rap.py`, `map_check.py`, `results/map_check_rap.json`)
+
+Every amount check before this one leaned on CTrees (which uses GEDI, one of AEF's training targets) or on canopy
+(CCI, Meta, lidar). The Rangeland Analysis Platform (RAP v3, Univ. of Montana) is a yearly 30 m map of herbaceous
+biomass across the lower 48, built from Landsat and weather and taught on BLM AIM and NRCS NRI field plots: not
+GEDI, not CTrees. It shares Landsat with the embeddings as an input, not as a target. It counts herbaceous mass only
+(annual and perennial forbs and grasses; shrubs and trees are left out), so amounts here compare by rank.
+
+Ten new US rangeland squares, picked from WorldCover as in section 6 (Flint Hills tallgrass, North Dakota mixed-grass,
+Pawnee shortgrass, Texas Rolling Plains, San Rafael desert grassland, California foothill annual grass, Wyoming
+sagebrush, Snake River sagebrush and cheatgrass, Mojave creosote, Edwards Plateau oak-juniper savanna), plus
+sandhills-us and great-basin-us: 12 squares, 2018 to 2025, 43,200 blocks of 100 m. RAP's median is 1.1 Mg/ha; its
+year-to-year swings are real (Snake River 0.7 to 0.2 in the 2021 drought and back to 1.0; Great Basin 0.45 to 0.04).
+
+Three things against RAP on the same blocks: the CTrees-taught heads of section 7 (never saw these squares, or
+by their held-out fold), CTrees itself, and a head taught on RAP from one year's embedding, each square held out in
+turn (same 64-unit head).
+
+| Against RAP, 12 squares | CTrees | CTrees head, all three | RAP head AEF | TESSERA | OlmoEarth | All three |
+|---|---|---|---|---|---|---|
+| R2 of log, blocks | -3.4 | -2.5 | .45 | **.71** | .63 | .69 |
+| Median error, Mg/ha | .90 | 1.18 | .24 | .30 | .32 | **.23** |
+| Rank within a square (median of 12) | .10 | -.16 | .68 | .70 | **.71** | .69 |
+| Rank of the square medians | **.87** | .60 | .74 | .89 | .85 | .89 |
+| Each block's departure from its own mean, correlation | .22 | .04 | .39 | .44 | .35 | **.51** |
+| Square's yearly median: correlation (median), squares positive | .40, 12/12 | .13, 7/12 | .49, 11/12 | .41, 10/12 | .28, 11/12 | **.51, 11/12** |
+| Year-to-year steps, correlation | .10 | .03 | .33 | .28 | .25 | **.46** |
+| RAP swings (25 % of steps) caught the same way | .36 | .40 | .56 | .53 | .49 | **.65** |
+
+- **The CTrees-taught heads do not see grass.** Across squares they rank roughly right (.57 to .72 for single
+  embeddings), but inside a square they rank backward (AEF -.20, OlmoEarth -.28), and they do not follow RAP's
+  years (departure correlation .02 to .08).
+- **The embeddings do.** Taught on RAP and scored on squares it never saw, the head reads herbaceous amounts
+  (R2 of log .69 all three, median error 0.23 Mg/ha), ranks within a square at .69 and follows the years: .51 on
+  each block's departure, .46 on year-to-year steps, 65 % of RAP's swings caught the same way.
+- **The fault is the label.** CTrees itself ranks squares well (.87) but barely moves inside a square (.10) or from
+  year to year (.22): a head taught on it learns what it has to give, which for grass is a level per place.
+- **Herbaceous ground only** (blocks under 10 % tree plus shrub cover in RAP every year, 37 % of them, where RAP's
+  herbaceous mass is most of the living mass): the same. The CTrees heads rank within a square at -.19 to .00 and
+  follow the years at .00 to .13; the RAP head at .79 and .51. So the backward ranking is not only woody pixels
+  that RAP leaves out.
+- TESSERA, the weakest on CTrees amounts (section 7), is the best single embedding for grass amounts here (.71; on
+  herbaceous ground .63 against AEF .12). All three together follow the years best.
+- Per square (all three, RAP head; correlation of the yearly median with RAP's): Great Basin .94, Snake River .88
+  (the 2021 low read as 0.10 against RAP's 0.19), Pawnee .79, San Rafael .66, Sandhills .55, North Dakota .54,
+  Flint Hills .48, Rolling Plains .45, Edwards Plateau .40, Mojave .37, Wyoming sagebrush .10, and California
+  foothill annual grass **-.85**: there RAP drops in 2025 (3.1 to 2.5) while the head rises. Annual grass peaks
+  and cures in spring; a yearly embedding and RAP's yearly production may weigh the season differently.
+- Swings are small: no RAP step reaches 10 Mg/ha, so section 9's 10 Mg/ha floor would hide all of them. The rule
+  used here (the model moves a third of 0.25 Mg/ha and 10 %) also lights about half of RAP's steady steps, for
+  every model, CTrees included: a yearly grass map moves 10 % in most years, and this rule cannot tell a real
+  small change from noise. A grass change map needs its own threshold, set against RAP's year noise.
+- RAP is US only. A grass head taught on it would need a check abroad before it is used there.
+
+## 18. Classes calibrated on hard ground (`scripts/class_hard_calibrate.py`, `results/class_hard_calibrate.json`)
+
+Section 15 found the class confidence too high where WorldCover and IO disagree. Here a second calibration is fit
+on those pixels. Hard pixels: 2020 and 2021, both maps have a class, they disagree, and one says trees while the
+other does not (1.8 million kept, 43 % trees). Referee: Meta's mean height, 5 m or more trees, under 2 m not
+(between: left out). Only trees against not trees can be refereed this way. Each square by its held-out fold head;
+each fix fit on the other folds only. Whether a pixel is hard is known at map time (both maps are public).
+
+| Trees or not, on hard pixels | OlmoEarth before | OlmoEarth hard fit | All three before | All three hard fit |
+|---|---|---|---|---|
+| Call right | .64 | .64 | .65 | .65 |
+| Confidence stated, mean | .84 | .73 | .85 | .73 |
+| Calibration error | .20 | .074 | .19 | .068 |
+| 90 % sets: truth inside | .70 | .90 | .72 | .90 |
+| 90 % sets: one answer | .86 | .40 | .83 | .42 |
+
+- The fix: a temperature of 3.5 (OlmoEarth) or 3.9 (all three) on the logits where the maps disagree, against
+  1.5 to 1.6 where they agree; and 90 % sets with one cutoff each for trees and not trees. Saved under
+  "hard_ground" in models/class_temperature.json.
+- After it, stated confidence is closer but still high in the upper bins (all three: .85 stated, .73 right;
+  .97 stated, .87 right). One temperature cannot fix it all; a fit with an offset, or one per region, is the next
+  step.
+- The honest set is wide: to hold 90 %, more than half of hard pixels get both answers. That is the margin of
+  error on this ground.
+- Coverage holds for most kinds of square (all three: closed forest .90, savanna .95, wetland .92, city edge .92,
+  grass .99) but not shrub squares (.81) or crop (.86). On shrub squares the head is right only 37 % of the time
+  on hard pixels: worse than a coin, so the trees call there runs the wrong way, not only too sure.
+- **Against airborne lidar** (the 18 lidar squares of section 16, none in training; lidar canopy as the referee,
+  fits from all 92 squares), on 423,000 hard pixels:
+
+| Lidar referee, hard pixels | OlmoEarth before | after | All three before | after |
+|---|---|---|---|---|
+| Call right | .55 | .55 | .72 | .72 |
+| Confidence stated | .84 | .71 | .85 | .76 |
+| Calibration error | .29 | .096 | .14 | .043 |
+| 90 % sets: truth inside / one answer | .66 / .85 | .82 / .42 | .80 / .86 | **.90** / .45 |
+
+  With all three embeddings the hard fit holds on the independent referee: 90 % coverage, calibration error .043.
+  OlmoEarth alone falls short (.82) and is barely better than a coin on this ground (.55). On agreed pixels the
+  lidar referee agrees with the maps-based calibration (right .94, stated .98, error .04), so that one stands.
+
+## 19. Shrub against the SoCal chaparral map (`scripts/read_chaparral.py`, `map_check.py --label chaparral`, `results/map_check_chaparral.json`)
+
+The SoCal annual biomass map (Schrader-Patton, Underwood et al., Dryad doi:10.5061/dryad.qz612jmjt, CC0): yearly
+aboveground live biomass at ~30 m over the national forests' ecoregions of southern California, from a random forest
+on 766 field plots with Landsat July-August NDVI and the year's precipitation. Not GEDI, not CTrees. Ten squares
+under it: the six fire squares inside MTBS perimeters and the steady one (`pick_us_squares.py`), and three lidar
+squares (Eaton, Palisades, Los Padres).
+
+The map itself, first:
+- **Its 2022 and 2023 fall on every square, burned or not**: the steady square 5.9 to 3.7 to 1.4 Mg/ha, Los Padres
+  7.8 to 3.6, while 2023 was a wet year. The later-added years do not join the earlier ones. Only 2018 to 2021
+  are used below.
+- **It barely sees fire.** On pixels where the embedding moved past the frozen cutoff in the fire's step, Holy
+  drops 9.9 to 6.1 and is back to 9.1 two years later (chaparral takes a decade or more); Woolsey's and Valley's
+  burned pixels hardly move (2.2 flat; 5.8 to 5.1); Bobcat's rise the year after (14.0 to 15.1). CTrees shows the
+  fires more plausibly (Holy 17.4 to 10.8, Fairview 20 to 13, slow regrowth after). So this map checks shrub
+  amounts and steady years, not fire change.
+- Its level is about half of CTrees' (median 6.7 against 14 Mg/ha; Eaton and Palisades 8 to 11 against 39 to 40).
+
+| Against the chaparral map, 2018 to 2021 | CTrees | CTrees head AEF | TESSERA | OlmoEarth | All three | Map head, all three |
+|---|---|---|---|---|---|---|
+| R2 of log, blocks | -1.5 | -1.0 | -.12 | .01 | -.22 | **.64** |
+| Median error, Mg/ha (map median 6.7) | 7.7 | 9.1 | 5.2 | 5.1 | 5.8 | **1.9** |
+| Rank within a square (median of 10) | .39 | .36 | .66 | .58 | .58 | **.78** |
+| Rank of the square medians | .33 | .31 | **.81** | .71 | .73 | .76 |
+| Each block's departure from its own mean | .29 | .22 | **.56** | .20 | .23 | .54 |
+| Year-to-year steps, correlation | .29 | .11 | .55 | .30 | .15 | **.57** |
+| Map swings (5 Mg/ha and 25 %) caught / steady lit | .24 / .09 | .44 / .49 | .77 / .57 | .56 / .50 | .40 / .45 | .77 / .20 |
+
+(Map head: taught on the map, each square held out; single embeddings .57 to .65 R2 of log.)
+
+- **Shrubs are not grass.** Here the CTrees-taught heads do rank inside a square (.58 all three, .66 TESSERA),
+  better than CTrees itself (.39): the head's 10 m pixels separate chaparral stands that CTrees' 100 m cells blur.
+  Their level is about twice the map's, as CTrees' is.
+- Taught on the map, the head takes the map's level (median 6.4 against 6.7, error 1.9 Mg/ha) and follows its
+  years (steps .57, swings caught .77 with steady ground lit .20). It also learns the map's habits, including its
+  weak fire response, so this is agreement with the map, not proof of the fires.
+- TESSERA again follows the years best among the CTrees heads (.56 on departures, .55 on steps), as it shows
+  regrowth best in section 1.
+- Which level is right, CTrees' or the map's, these tests cannot say. The map was fit on shrub plots; CTrees
+  leans on GEDI, whose canopy heights over low shrub are least sure. Lidar canopy height and cover under the same
+  stands (NASA WERK statewide 10 m covers them) with a shrub allometry would be one referee.
+
+## 20. Grass, the open directions (`scripts/grass_tests.py`, `results/grass_tests.json`)
+
+Four tests after section 17, on the same 12 RAP squares and 100 m blocks.
+
+**A change threshold for grass, set against RAP's year noise.** RAP's own grass moves a lot from year to year:
+the median step is 21 % of the year before, the 90th percentile 92 %, and only 17 % of steps are steady (under
+5 %). For each model, the smallest relative step r (with at least 0.05 Mg/ha) that lights steady ground at most
+10 %, and RAP's swings (0.25 Mg/ha and 25 %) caught the same way at that r:
+
+| Model | r for 10 % steady lit | Mg/ha at the model's median | RAP swings caught | Swings over 50 % caught |
+|---|---|---|---|---|
+| CTrees | .83 | 1.15 | .07 | .10 |
+| CTrees head, all three | .85 | 1.50 | .06 | .11 |
+| RAP head AEF | .44 | .32 | .29 | .42 |
+| RAP head TESSERA | .44 | .45 | .26 | .40 |
+| RAP head OlmoEarth | .56 | .52 | .16 | .25 |
+| RAP head, all three | .48 | .45 | .26 | .41 |
+
+- A grass change map needs a step of about half the year before (r .44 to .48) to keep steady ground quiet; at
+  that cutoff the RAP heads catch a quarter of RAP's swings and about 40 % of the large ones. The CTrees heads
+  need r .85 and then catch almost nothing (.06).
+- Looser cutoffs light steady ground for every model, the label included: at r .25 the RAP head (all three)
+  catches .49 of swings with steady ground lit .27. Grass years are noisy in the label as well as the heads, so a
+  grass change map is a map of large swings, or of several years' trend, not of single small steps.
+
+**California annual grass** (foothill-annual-ca, where the RAP head ran opposite to RAP, -.85). RAP's herbaceous
+mass there is 77 to 96 % annual grass. RAP's annual grass is highest in 2022 (3.4 Mg/ha) and falls in 2024 and
+2025 (2.6, 1.9), with annual grass cover 63 % in 2022 and 37 % in 2025, while its perennial grass rises (0.1 to
+0.5 Mg/ha). The head's year-to-year departures follow RAP's perennial grass (.28), not its annual grass (-.02), and
+run against bare ground (-.28) and litter (-.17) cover. Taught on squares that are mostly perennial grass, the head
+reads the green, lasting cover a yearly embedding sees, while RAP's annual grass is a spring crop that has cured by
+summer. It also sets the level low (1.2 against RAP's 3.2 Mg/ha). Annual grassland needs its own teaching, or a
+seasonal embedding.
+
+**A two-part head.** One head, two outputs: total biomass taught on CTrees (all 92 squares, the cell-mean loss of
+section 7) and herbaceous biomass taught on RAP (the 12 squares). The 8 square folds of section 7; the 10 new RAP
+squares dealt to the folds in turn. Three fits per fold with the same code, scored on held-out squares only:
+
+| | CTrees only, all three | RAP only | Both | CTrees only, OlmoEarth | RAP only | Both |
+|---|---|---|---|---|---|---|
+| CTrees, R2 of log, all cells | .729 | | .726 | .724 | | .720 |
+| CTrees, R2 of log, grass squares | .38 | | .29 | .42 | | .49 |
+| CTrees, R2 of log, shrub squares | .56 | | .38 | .36 | | .36 |
+| RAP, R2 of log | | .61 | .68 | | .62 | .71 |
+| RAP, rank within a square | | .74 | .70 | | .63 | .70 |
+| RAP, block departures | | .52 | .45 | | .34 | .44 |
+| RAP, square years positive | | 11/12 | 11/12 | | 9/12 | 12/12 |
+| RAP, swings caught | | .60 | .57 | | .59 | .64 |
+
+- Adding RAP's target keeps CTrees' overall score (.726 against .729; OlmoEarth .720 against .724), and the RAP
+  side stays near the RAP-only head (within a square .70 against .74; section 17's leave-one-out head .69).
+  OlmoEarth gains on the RAP side when the targets are shared (departures .34 to .44, every square positive).
+- Inside the kinds the trade shows: with all three embeddings, CTrees' grass squares fall .38 to .29 and shrub
+  squares .56 to .38; with OlmoEarth, grass squares rise .42 to .49. One shared hidden layer of 64 serves both;
+  a wider layer or separate last layers are the next things to try.
+- So one head can carry both, the woody total from CTrees and the herbaceous part from RAP, at little cost overall.
+
+**The RAP head abroad.** A RAP head taught on all 12 US squares, run on the 7 world grass, 7 shrub and 2
+desert-edge squares of section 6, beside CTrees:
+
+| Square | RAP head, all three, yearly medians 2018 to 2025 (Mg/ha) | CTrees |
+|---|---|---|
+| Mongolian steppe | .45 to .83 | .1 to .3 |
+| Kazakh steppe | .36 to 1.16 | 1.2 to 1.8 |
+| Serengeti | .59 to 1.10 | 6.1 to 7.0 |
+| Pampas | 1.35 to 1.97 | 16 to 18 |
+| Mitchell grass, Queensland | .09 to .53 | 2.5 to 4.5 |
+| Tibet | .50 to .60 | 4.5 to 4.9 |
+| Karoo | .18 to .42 | 11.7 to 12.7 |
+| Patagonia | .38 to .68 | .5 to 1.0 |
+| Chihuahua | .42 to .98 | 1.7 to 2.1 |
+| Sahel | .29 to .50 | .5 to 1.0 |
+| Mulga, central Australia | .06 to .27 | 13.4 to 14.1 |
+| Caatinga | 1.00 to 1.42 | 11.6 to 12.4 |
+| Sahara edge | .02 to .09 | 3.7 to 4.0 |
+| Gobi edge | .23 to .46 | .1 to .3 |
+
+- The head's grass levels abroad are in the range RAP gives at home (0 to 2 Mg/ha) and order the dry end
+  sensibly (Sahara .04, Mulga .1 to .3, Pampas and Caatinga highest). They rank with CTrees across squares at
+  .24 (all three) and .60 (TESSERA), but the two measure different things: CTrees counts the shrubs and trees in
+  Karoo, Mulga and Caatinga (12 to 14 Mg/ha), and its Sahara edge reading of 3.7 Mg/ha is the bare-sand floor of
+  section 6.
+- Inside a square it does not rank with CTrees (mostly near 0), as at home: CTrees does not see grass inside a
+  square.
+- Four droughts were checked, each expected with moderate confidence only: the 2022/23 Pampas drought (2023
+  against 2019 and 2024), and 2019 against the wet years 2021 and 2022 in the Karoo, Mitchell grass and Mulga.
+  None came out lower in the expected dry year (head dry over wet 1.18, 1.37, 3.23, 1.58; TESSERA 1.10 to 1.75).
+  CTrees is flat in all four (.95 to 1.05). Either the head does not carry grass years abroad, or the expected
+  years are wrong for these squares (northwest Queensland had a large monsoon flood in February 2019, for one).
+  A label abroad is needed to say which: national rangeland maps or field plots; none was read here.
+- Mulga falls steadily from 2022 (.27 to .06), with CTrees flat.
+
+RAM peaks: two-part 6.8 GB (one input per run; a first run with two inputs stopped itself at 8.2 GB), abroad
+4.5 GB, the rest under 2 GB.
+
+## 21. Classes on hard ground, the next steps (`scripts/class_hard_tests.py`, `results/class_hard_tests.json`, `models/class_hard_tests.json`)
+
+Section 18 left four directions: a fit with an offset, a fit per region, shrub against grass with lidar as the
+referee, and open woodland as its own class. Same hard pixels as section 18 (1.8 million Meta-refereed trees-against-
+not pixels where WorldCover and IO disagree), each square by its held-out fold head, every fit on the other folds
+only. The 18 lidar squares are the outside referee, with 40,000 pixels kept per square, so the lidar numbers differ
+a little from section 18's. Held-out logits are saved to data/heads/class_hard_logits_<input>.npz. Peak RAM 3.6 GB.
+
+**An offset fit.** P(trees) = sigmoid(a * L + b), where L is the head's log odds of trees (a = .17, b = -.30 for
+OlmoEarth; .16 and -.34 for all three).
+
+| Trees or not, hard pixels | OlmoEarth temperature | OlmoEarth offset | All three temperature | All three offset |
+|---|---|---|---|---|
+| Stated / right (Meta referee) | .73 / .65 | .66 / .65 | .73 / .67 | .66 / .66 |
+| Calibration error | .074 | **.009** | .068 | **.007** |
+| Top bins, stated to right | .85 to .69, .97 to .93 | .84 to .83, .96 to .97 | .85 to .73, .97 to .87 | .84 to .83, .96 to .88 |
+| 90 % sets: truth inside / one answer | .90 / .40 | .90 / .41 | .90 / .42 | .90 / .42 |
+| Lidar referee: stated / right | .71 / .63 | .66 / .63 | .77 / .71 | .70 / .72 |
+| Lidar referee: calibration error | .085 | .024 | .054 | .044 |
+| Lidar referee: 90 % sets inside / one answer | .84 / .41 | .85 / .43 | .90 / .44 | .90 / .50 |
+
+- The offset closes the gap section 18 left in the upper bins. Stated confidence now matches the share right on
+  the Meta referee (error under .01). On the lidar referee the error falls to .024 (OlmoEarth) and .044 (all
+  three). The sets keep their 90 %, and against lidar with all three they give one answer on half the pixels.
+- OlmoEarth alone still falls short against lidar (.85 inside); all three hold .90.
+- On agreed pixels the offset is too modest (lidar: stated .87, right .92). It is for hard pixels only, as the
+  temperature was. Fits for maps are in models/class_hard_tests.json.
+
+**One fit per continent** (continent known at map time; fit on the other folds' pixels of that continent). Worse,
+not better. Held out, coverage falls to .87 (OlmoEarth) and .88 (all three), calibration error rises to .065 and
+.036, and shrub squares fall further (.63 and .54 inside). It is worse on the lidar referee too (OlmoEarth error
+.13). A continent's other squares do not predict a held-out square's bias. With the single offset fit, coverage per
+continent is already .83 to .92 for OlmoEarth (Oceania lowest) and .89 to .93 for all three. Shrub squares stay
+short under every fit (.78 to .81): their trees call runs the wrong way (section 18), and no recalibration fixes
+that.
+
+**Shrub against grass, lidar as referee.** On the lidar squares, pixels where WorldCover says shrub or grass or IO
+says rangeland. IO's rangeland covers both, so IO cannot be scored. Lidar mean height 0.5 to 5 m = shrub, under
+0.3 m = grass (418,000 pixels, 43 % shrub). A p90 rule (p90 1 to 5 m = shrub, under 0.3 m = grass) gives the same
+picture.
+
+| Shrub or grass, lidar referee | WorldCover | Head, OlmoEarth | Head, all three |
+|---|---|---|---|
+| Right, on WorldCover's shrub or grass pixels | .75 | .78 | .77 |
+| Right on shrub / on grass (all pixels) | | .52 / .97 | .50 / .97 |
+| Stated confidence (right / wrong) | | .91 (.92 / .86) | .95 (.96 / .90) |
+
+- The head is about as good as WorldCover (.78 against .75) but leans to grass: right on grass 97 % of the time,
+  on shrub only half. It is too sure: .91 stated, .78 right.
+- By square, the head beats WorldCover in southern California chaparral (Los Padres .69 against .50, Palisades
+  .81 against .76, Eaton .95 against .91). It loses in Sierra and San Joaquin oak woodland with a grass floor
+  (Sierra TEAK .55 / .35 and SJER .38 / .40 for OlmoEarth / all three; WorldCover .24 and .43). Both are poor
+  there, because the lidar's 0.5 to 5 m mean often catches oak crowns over grass. New Zealand and Estonia: both
+  .76 to .90, close.
+- Shrub and grass is where the class margin of error is least honest. A calibration fit on lidar-refereed shrub
+  and grass pixels would be the same move as the offset fit. But only 14 lidar squares have shrub or grass, so it
+  would be fit and checked on the same handful of places.
+
+**Open woodland as its own class.** Rule: agreed trees, shrub or grass pixels (2020, 2021) whose Meta mean height
+(imagery 2017 on) is 2 to 5 m become class 9, open woodland. That is 5.6 % of agreed pixels (9.6 % of agreed trees,
+6.3 % of shrub, 2.8 % of grass). One 10-class OlmoEarth head, otherwise as in section 7. The all-three head hit the
+6 GB cap and was stopped.
+- The head barely learns the class: recall .04, and it still calls most of those pixels trees. A mean height of 2
+  to 5 m at 10 m does not mark a kind of ground the embedding separates. It marks sparse or short trees inside
+  forest as often as woodland.
+- The other classes are unchanged within run-to-run noise (trees .97, crop .95, grass .88). Wetland moves between
+  .37 and .61 across identical reruns of the 9-class head, so its change here is noise.
+- On the hard trees-against-not pixels it helps a little: right .665 (open woodland counted as not trees), against
+  .640 to .645 for 9-class heads retrained with two other seeds, at a lower raw confidence (.70 against .80). It
+  calls open woodland on 7.6 % of hard pixels, and the referee says a third of those are trees.
+- Still open: a class from a better rule, such as canopy cover at 100 m or lidar-refereed woodland.
+
+## 22. Change for the map: loss from one head, gain from another, every pairing (`scripts/change_combined.py`, `results/change_combined.json`)
+
+Section 12 gave loss at full size from the gated one-year head. Section 14 gave regrowth from the trajectory head,
+which the clearcut gate removes. Here loss and gain come from separate sources and every pairing is scored, so the
+map's embeddings can be picked by evidence.
+- **Loss source X:** the gated one-year head of AEF, TESSERA, OlmoEarth or all three. Its negative part is divided
+  by the muting on clear loss cells.
+- **Gain source Y:** the trajectory head where one exists (OlmoEarth and all three; none was trained for AEF or
+  TESSERA), or the one-year head of any input (its rise).
+- A pairing reads X's and Y's embeddings.
+
+One pass over the 92 squares scores each square by its held-out fold heads. The cell tables match sections 9 and 14
+to a correlation of .99 to 1.00. Every factor and cutoff is fit on the other folds. Scored against CTrees' cells as
+in section 9, and against airborne lidar on section 16's two-flight squares, using the mean of the 8 fold heads.
+Peak RAM 10.5 GB.
+
+**Gain at full size lights steady ground.** The gain factors are small (all-three trajectory head: .12 for one
+year, .36 for seven; one-year heads: .15 to .39). Scaling the rise up to CTrees' size scales its noise with it.
+2018 to 2025, tree-loss squares:
+
+| CTrees cells, 2018 to 2025 | Reads | Corr. | Loss: size / found | Gain found | Steady lit (elsewhere) |
+|---|---|---|---|---|---|
+| Loss alone, AEF | aef | .53 | 1.02 / .82 | 0 | .082 (.006) |
+| Loss alone, OlmoEarth | olmo | .57 | 1.00 / .86 | 0 | .100 (.010) |
+| Loss alone, all three | all three | .56 | 1.02 / .82 | 0 | .075 (.009) |
+| Loss alone, TESSERA | tes | .43 | 1.03 / .79 | 0 | .124 (.011) |
+| Loss all three + gain trajectory all three, full size | all three | .41 | 1.02 / .81 | .83 | .44 (.18) |
+| Loss AEF + gain trajectory all three, full size | all three | .41 | 1.01 / .81 | .84 | .45 (.17) |
+| Loss AEF + gain AEF one-year, full size | aef | .34 | 1.02 / .81 | .73 | .48 (.33) |
+
+- "Loss alone" here is the negative part only. It is quieter than section 12's signed gated change, with the same
+  loss found. All three, one year: steady lit .035 against .049; seven years: .075 against .093.
+- Every full-size gain pairing finds 61 to 84 % of CTrees' gain cells. It also lights 42 to 58 % of steady cells in
+  the tree-loss squares and 16 to 43 % elsewhere. The trajectory heads are the quietest gain source; the one-year
+  heads' rise is noisier.
+- **The gradual gate does not help.** Cutoffs below the clearcut one, on the move from the first year and on the
+  move summed over the years, each picked on steady cells, keep nearly the same noise: the embedding moves on
+  steady ground about as much as on slow regrowth.
+
+**A floor on gain, at the head's own size.** Gain counts where the gain source's 100 m cell rises by at least τ and
+by a quarter of the cell's biomass. τ is the lowest value that keeps steady ground within .01 of the loss-only map,
+picked on the other folds. The gain is not scaled up, so it reads as a 100 m layer; in a map, that means averaging
+the gain source's change over 10 x 10 pixels before applying the floor. Scaling the floored gain up again by its
+mean muting brings the noise back and drops the lidar correlation to .49 to .56.
+
+| Floor rule | Reads | τ (Mg/ha): 1 yr; 7 yr | CTrees, 1 yr: corr / gain found / steady (else) | CTrees, 2018 to 2025: corr / gain found / steady (else) | Lidar per 100 m cell: corr / lost / gained / steady |
+|---|---|---|---|---|---|
+| Loss AEF alone | aef | | .31 / 0 / .043 (.012) | .53 / 0 / .082 (.006) | .80 / .85 / .29 / .070 |
+| Loss AEF + gain AEF one-year | aef | 20; 30 to 40 | .30 / .15 / .076 (.020) | .51 / .14 / .111 (.021) | **.84 / .87 / .41 / .032** |
+| Loss AEF + gain trajectory all three | all three | 0; 40 | .31 / .22 / .063 (.016) | .52 / .18 / .123 (.011) | .83 / .87 / .36 / .030 |
+| Loss AEF + gain trajectory OlmoEarth | aef + olmo | 0; 20 to 30 | .31 / .17 / .052 (.013) | .53 / .20 / .116 (.014) | .82 / .87 / .28 / .034 |
+| Loss all three + gain trajectory all three | all three | 0; 40 | .34 / .23 / .056 (.016) | .55 / .18 / .116 (.015) | .72 / .80 / .36 / .052 |
+| Loss all three alone | all three | | .34 / 0 / .035 (.012) | .56 / 0 / .075 (.009) | .69 / .79 / .24 / .080 |
+| Loss OlmoEarth + gain trajectory OlmoEarth | olmo | 0; 20 to 30 | .32 / .17 / .047 (.012) | .57 / .26 / .143 (.019) | .75 / .86 / .31 / .15 |
+| Loss OlmoEarth alone | olmo | | .32 / 0 / .038 (.011) | .57 / 0 / .100 (.010) | .71 / .84 / .18 / .19 |
+
+Lidar cells are CTrees 100 m cells with at least 40 lidar pixels, on the nine two-flight squares: 25,378 cells.
+Lost: mean canopy fell 3 m, from 5 m or more. Gained: mean canopy rose 2 m. Steady: canopy moved under 0.5 m. Loss
+sizes stay at 1.00 to 1.06 throughout; gain size reads 0 as a median, because most gain cells stay under the floor.
+(In the lidar-cells stage the "loss alone" pools were appended once per pairing: the statistics are the same, only
+the cell counts printed were tripled; the script is fixed, not rerun.)
+
+- **The floor buys regrowth cheaply.** Lidar's gained cells are found .29 to .41 of the time (.18 to .29 with loss
+  alone), fewer steady cells light (.030 against .070, since the negative part alone is quieter), and the
+  correlation rises (.80 to .84). On CTrees' cells the floor finds 14 to 26 % of gain cells, with steady ground
+  near the loss-only level.
+- **By the evidence, AEF for both parts:** against lidar, AEF loss leads every other loss source per pixel
+  (correlation .71 against .52 to .60; lost found .77) and per cell (.80 against .69 to .71). AEF loss with AEF's
+  own rise above the floor is the best lidar pairing (.84), and it reads one embedding. On CTrees' cells, OlmoEarth
+  and all three are slightly ahead on seven-year loss (.56 to .57 against .53), and the trajectory heads find more
+  gain (.18 to .26 against .14); against lidar they are behind, and OlmoEarth's steady ground is the noisiest (.15
+  to .19). Read cost (section 25): the AEF-only pairing reads about a fifth of what all three need.
+- Regrowth is still the weak half: at most four in ten of lidar's gained cells, and one in seven of CTrees'.
+
+**Ramp limits for the change map.** From a pixel sample of 1.6 million one-year and 227,500 seven-year pixels valid
+in all three embeddings, using AEF loss plus AEF one-year gain above the floor. Percentages are of the pixel's own
+biomass the year before.
+- **Loss, per pixel:** the loss factor (.34 for one year) restores a 100 m cell's loss size, but per pixel it
+  overshoots: the median lit one-year loss is -92 %, and about half of lit pixels fall past -100 % (one in eight
+  over seven years). The map should cap loss at the pixel's own biomass. Median lit loss: one year -13 Mg/ha
+  (trees -77, grass -6.5, shrub -6, crop -7.5); seven years -19 (trees -65); the 10th percentile -141 (trees
+  -250) for one year. 5.5 % of pixels show loss in a year (crop 14 %, the noisiest; built 1 %), 14 % over seven.
+- **Gain, per 100 m cell:** 1.7 % of cells gain in a year, 1.4 % over seven years. Median gain 30 Mg/ha for one
+  year and 56 for seven; 98th percentile 91 and 144. In percent: median 42 to 54 %, 90th percentile 105 to 165 %.
+- **Steady ground:** with the gate on loss and the floor on gain, steady ground is exactly zero in 96 % of one-year
+  pixels (4 % lit; crop 13 %) and in 98 % of cells. So the white at the center can be the zero itself, fully
+  transparent, with the low-alpha band only around it.
+- **The plain difference instead** (the one-year AEF head, ungated, unscaled): 90 % of steady ground sits within
+  ±21 Mg/ha in a year (trees ±31, grass ±9, shrub ±8, crop ±7.5, bare ±3.4) and ±32 over seven years (trees ±50).
+  In percent the band is more even across classes: ±36 to 48 % in a year, ±43 to 66 % over seven. The 2nd and
+  98th percentiles are -36 and +31 Mg/ha in a year (-51 and +79 %), and -91 and +47 over seven (-80 and +107 %).
+- A percent ramp fits every kind of ground with one setting: loss to -100 %, gain to about +100 to +150 %, and a
+  low-alpha band around ±40 % for a plain difference. An Mg/ha ramp needs a range per kind: trees ±150 to 250,
+  grass and shrub ±20 to 40.
+
+## 23. The top end and the shrub level against airborne lidar (`scripts/top_end_lidar.py`, `results/top_end_lidar.json`)
+
+Lidar canopy height (section 16) is neither GEDI, CTrees nor Meta. Per CTrees 100 m cell with lidar under 40 or more
+of its pixels: the cell's lidar mean height, against CTrees and ESA CCI in the lidar's year and against the heads
+(square-fold heads averaged; no lidar square was in training) on the embedding of that year. 11 lidar squares with
+woody cover, 36,539 cells. Lidar height alone cannot set a biomass level (that needs an allometry); it can say which
+map orders the cells the way canopy does, and where each one stops rising.
+
+**The top end.**
+
+| Rank correlation with lidar mean height | CTrees | CCI | Head AEF | OlmoEarth | All three | All three, top-weighted |
+|---|---|---|---|---|---|---|
+| All cells | **.80** | .72 | .75 | .79 | **.80** | .77 |
+| Cells 20 m and taller | .62 | .38 | .50 | .58 | **.65** | .64 |
+| Cells 30 m and taller (mostly the redwoods) | .26 | .20 | -.17 | .08 | .25 | **.34** |
+
+Median biomass, Mg/ha, by lidar mean height:
+
+| Lidar height | 10-15 m | 15-20 | 20-25 | 25-30 | 30-40 | 40-50 | 50 m + |
+|---|---|---|---|---|---|---|---|
+| CTrees | 102 | 114 | 170 | 247 | 331 | 363 | 393 |
+| CCI | 136 | 189 | 245 | 295 | 336 | 370 | 443 |
+| Head, all three | 67 | 125 | 150 | 181 | 241 | 244 | 279 |
+| Head, all three, top-weighted | 67 | 141 | 178 | 218 | 268 | 276 | 325 |
+| Head, OlmoEarth | 61 | 130 | 150 | 181 | 225 | 227 | 230 |
+
+- Neither map saturates against lidar height: CTrees and CCI both keep rising to the tallest cells (50 m and more:
+  393 and 443 Mg/ha). The squeeze of section 13 is in the heads: OlmoEarth's stops near 230 Mg/ha above 30 m,
+  all three near 245 to 280, while lidar height keeps rising.
+- CTrees orders tall forest by height better than CCI: .62 against .38 on cells 20 m and taller, .26 against .20
+  above 30 m. CCI reads more per meter in mid-height forest: its cells at 200 Mg/ha or more have a lidar median of
+  25 m, CTrees' 33 m. The largest gap is Glenbervie's plantation pine (lidar 10 m mean, 14 m p90): CCI 214, CTrees
+  63, the heads 97 to 124.
+- CCI reads 0 under short woody cover that lidar measures: Tartu (5 m mean height, CCI 0, CTrees 41), Banks
+  Peninsula, SJER oak savanna. Its definition counts trees only, so short stands drop out.
+- The top-weighted head (section 13) helps here: it ranks the cells above 30 m best of all (.34) and lifts the top
+  band from 279 to 325 Mg/ha without losing rank over all cells (.77). AEF alone reads the redwoods highest (341,
+  against CTrees 306 and CCI 318) but ranks inside them backward (-.17).
+- On this evidence CTrees is the better guide to the top end for rank; nothing here says CCI's higher level is
+  right or wrong, which needs plot biomass, not height. Redwood cells: lidar median 32.5 m, CTrees 306, CCI 318,
+  the all-three head 227, top-weighted 255.
+
+**The shrub level.** Cells on the chaparral lidar squares (Eaton and Palisades, 2023 flights before the fires;
+Los Padres, statewide 10 m) where most pixels are WorldCover shrub with a lidar mean height of 0.3 to 6 m: 1,869
+cells, median lidar height 1.75 m. The chaparral map is its 2021 layer (the last before its 2022 fall).
+
+| Shrub cells | CTrees | Chaparral map | CCI | Head, all three | Head, OlmoEarth |
+|---|---|---|---|---|---|
+| Median, Mg/ha | 31.7 | 6.5 | 66 | 18.3 | 19.6 |
+| Rank with lidar mean height | .31 | .17 | .41 | .37 | **.53** |
+| Median per meter of lidar height | 18.6 | 3.8 | 35.7 | 10.6 | 11.3 |
+| Median by height, 0.3-1 / 1-2 / 2-3 / 3-4 m | 15 / 31 / 38 / 29 | 5.6 / 6.4 / 6.7 / 8.4 | 39 / 65 / 71 / 74 | 13 / 18 / 20 / 21 | 14 / 19 / 23 / 25 |
+
+- On these cells CTrees reads about 4.9 times the chaparral map, not twice (section 19's whole squares mix in
+  grass and burned ground). CCI reads twice CTrees; the heads sit between the map and CTrees.
+- The chaparral map barely follows stand height: 5.6 Mg/ha in stands under a meter, 8.4 in stands of 3 to 4 m,
+  and it ranks cells by lidar height worst of all (.17). A stand four times as tall holding about 1.5 times the
+  biomass is hard to square with structure. The OlmoEarth head follows height best (.53) and roughly doubles from
+  the lowest to the tallest band.
+- Which level is right the lidar cannot settle without a chaparral height-to-biomass relation, and none is applied
+  here (none known with enough confidence to cite). What it does say: the map's level is nearly flat across stand
+  heights, so its low median is at least partly a missing response to structure, not a well-measured low level;
+  and no map is consistent per meter (each one's biomass per meter falls as stands get taller, CTrees' most
+  steeply above 3 m).
+- Caveats: lidar mean height averages 2 m cells and gaps, so it runs below stand top height (p90 ranks the same
+  way); the lidar years (2023, and the statewide campaign years) and the map's 2021 differ; NASA WERK notes
+  unclassified high returns that can inflate height; WorldCover's shrub class is the only cover filter.
+
+**Tundra.** Nothing on disk can check CTrees' tundra values (yamal-ru 32, noatak-us 18, nunavik-ca 6 Mg/ha):
+Meta's height reads 0 m at the median and 90th percentile on all three (0 to 2 % of pixels at 2 m or more), CCI
+reads 0, and there is no lidar. Both only say there are no trees, which does not test shrub, moss and lichen mass.
+
+## 24. More airborne lidar, read at 2 m (`scripts/read_lidar2m.py`, `scripts/lidar_check2.py`, `results/lidar_check2.json`)
+
+Section 16 read surface and ground models at full resolution and averaged down, which took over an hour a square.
+Here each COG is opened at its overview nearest 2 m (or the server is asked for 2 m): a few centimeters of overview
+error matter for bare-ground change, not for canopy height in meters. Five new 6 km squares, none in training,
+canopy height = the program's surface model minus its ground model (France: IGN's own canopy height model):
+
+| Square | Source | Flights | Read |
+|---|---|---|---|
+| Landes, France: pine plantations and clearcuts | IGN LiDAR HD canopy height (MNH), WMS at 2 m | Aug to Oct 2023 | 22 s |
+| Devilla Forest, Fife, Scotland: conifer plantation and farms | SRSP Phase 4 and 5, 0.5 m DSM and DTM COGs at their 2 m overview | May to Jun 2018, Jul 2020 | 2 min |
+| Timmins, Ontario: boreal forest, the Dome mine, town | NRCan HRDEM 1 m DSM and DTM (Cochrane 2018, Timmins 2024) | 2018 to 2019 (46 % of the square), Jan to May 2024 | 42 s |
+| Utrechtse Heuvelrug, Netherlands: forest and heath | AHN5 0.5 m DSM and DTM at 2 m overview | Feb 2023 | 10 min |
+| Holmenkollen, Oslo: forest edge, suburbs | Kartverket per-project DOM and DTM, exported at 2 m | Jun to Sep 2019, Feb to May 2024 | 74 s |
+
+Not read: Switzerland (swissSURFACE3D 2018 and 2024 releases minus swissALTI3D; forty-nine 0.5 m tiles a release,
+stopped at the 20 minute limit), England (the EA's DSM tiles come only as whole 50 to 70 MB zips per 5 km tile).
+AHN4 was read but dropped: its DSM through the 2 m overview reads tall forest at half height (8.4 m where AHN5
+reads 17.3 m and Meta over 15 m), so the Dutch square is AHN5 alone.
+
+**Height (all five squares, 2.4 million pixels):**
+
+| Against the new lidar | AEF | TESSERA | OlmoEarth | All three | Meta |
+|---|---|---|---|---|---|
+| Height R2 (section 16) | .55 (.73) | .63 (.61) | .70 (.66) | **.72** (.65) | .61 |
+| Mean error, m | 2.50 | 2.36 | 2.16 | **2.05** | 2.61 |
+| Biomass rank against lidar height | .75 | **.78** | .74 | .76 | |
+
+- On these squares the order flips from section 16: all three embeddings read height best (.72) and AEF worst
+  (.55); the heads beat Meta's map (.61), the label they were taught on. AEF's drop is the Dutch square: leaf-off
+  February lidar, where AEF reads 3.7 m taller than the lidar (R2 .01; OlmoEarth .67).
+- By square, all three: Devilla .79, Timmins .84 (2018) and .63 (2024), Landes .58, Heuvelrug .66, Holmenkollen
+  .50 and .36 (Meta itself -.17 there).
+
+**Change, three two-flight squares (13,300 lost-canopy pixels, 2,100 gained):**
+
+| | AEF | TESSERA | OlmoEarth | All three |
+|---|---|---|---|---|
+| Canopy lost: found (gated); section 16 | .38 (.21); .85 | .51 (.25); .89 | .43 (.29); .89 | .45 (.24); .87 |
+| Canopy gained: found | .49 | .47 | .34 | .40 |
+| Steady lit (gated) | .23 (.01) | .42 (.05) | .29 (.04) | .27 (.01) |
+| Biomass change against lidar change, per 100 m cell (CTrees .09) | **.48** | | | -.10 |
+
+- **Devilla, the clean pair** (both flights in summer, two years apart): canopy lost found .69 (AEF) to .84 (all
+  three), .63 to .70 gated; steady ground lit .14 to .24, gated .01 to .06; per cell, AEF's biomass change follows
+  lidar's at .66 against CTrees' .24. That repeats section 16 on new ground.
+- **Timmins and Holmenkollen mix seasons**: a summer flight against a January to May one. Much of the "lost
+  canopy" there is likely leaves and snow, not trees: at Holmenkollen the heads' height falls a median 0.8 to 1.4 m
+  where the lidar falls 7.2 m, and the gate passes only 9 to 20 % of it; at Timmins 46 to 68 % is found. These two
+  pull the pooled numbers down and are not a fair test of change; a pair from the same season is needed there.
+- Per cell, AEF's change follows lidar change at .48 pooled against CTrees' .09; all three together do not
+  (-.10, Timmins and Holmenkollen).
+- The trajectory head (section 14) finds little here (gain .01 to .08): the two-flight squares are short, and
+  seasonal loss is not what it was taught.
+
+Memory: the reads stayed under 2 GB; lidar_check2 (a copy of lidar_check.py, which keeps every square's pixels
+for the pooled numbers and has no stop) reached 20 GB, over its 12 GB budget.
+
+## 25. Which embeddings for the map: accuracy against what each costs to read (`scripts/embedding_bandwidth.py`, `pair_heads.py`, `pair_scores.py`, `results/pair_heads.json`, `results/embedding_bandwidth.json`)
+
+The map reads embeddings on the fly, so each one costs bandwidth: one 6 km square, one year, as zarr fetches it
+(whole chunks; median of Flint Hills, Olympic and Congo): AlphaEarth 21 MB, TESSERA 46, OlmoEarth 57, all three
+123. The change map reads two years, so twice that. Heads on two embeddings at once (AlphaEarth + TESSERA,
+AlphaEarth + OlmoEarth, TESSERA + OlmoEarth) were taught exactly as the all-three head (same rows, 8 square folds,
+epochs). Every input is scored here the same way on the tests of the map's two settings; the singles and all three
+reproduce sections 16, 17 and 19 exactly. Gate for a pair: both of its embeddings moved (a majority, as two of three
+for all three).
+
+| Input | MB per square-year (per change pair) | Lidar lost found | Lidar gained found | Lidar steady lit, gated | Change vs lidar, per cell | Grass departures (RAP head) | Grass steps (RAP head) | Chaparral departures (CTrees head) |
+|---|---|---|---|---|---|---|---|---|
+| AlphaEarth | 21 (42) | .85 | .70 | .075 | **.82** | .39 | .33 | .22 |
+| TESSERA | 46 (93) | **.89** | **.78** | .076 | .64 | .44 | .28 | **.56** |
+| OlmoEarth | 57 (114) | **.89** | .48 | .104 | .72 | .35 | .25 | .20 |
+| AlphaEarth + TESSERA | 68 (136) | .87 | .72 | .051 | .80 | .44 | .25 | .32 |
+| AlphaEarth + OlmoEarth | 77 (154) | .87 | .45 | **.037** | .81 | .44 | .38 | .35 |
+| TESSERA + OlmoEarth | 103 (207) | .87 | .51 | .040 | .67 | .51 | .43 | .30 |
+| All three | 123 (246) | .87 | .67 | .068 | .70 | **.51** | **.46** | .23 |
+
+| Input | MB per square-year | Biomass vs CTrees, R2 of log | Height vs Meta | Classes right | Height vs lidar | Grass amounts, R2 of log (RAP head) | Grass rank within square | Chaparral rank within square |
+|---|---|---|---|---|---|---|---|---|
+| AlphaEarth | 21 | .70 | .63 | .86 | .73 | .45 | .68 | .36 |
+| TESSERA | 46 | .61 | .56 | .85 | .61 | .71 | .70 | **.66** |
+| OlmoEarth | 57 | **.74** | .72 | .92 | .66 | .63 | .71 | .58 |
+| AlphaEarth + TESSERA | 68 | .72 | .69 | .88 | **.77** | **.75** | .74 | .59 |
+| AlphaEarth + OlmoEarth | 77 | .73 | .76 | .91 | .66 | .53 | .71 | .64 |
+| TESSERA + OlmoEarth | 103 | .71 | .76 | **.92** | .71 | .60 | **.77** | .60 |
+| All three | 123 | .73 | **.78** | .91 | .65 | .69 | .69 | .58 |
+
+Mean rank over each setting's seven tests (1 best of 7; wins in brackets):
+
+| Input | Change map | Each-year map |
+|---|---|---|
+| AlphaEarth | 4.6 (1) | 5.9 (0) |
+| TESSERA | 3.7 (3) | 5.1 (1) |
+| OlmoEarth | 5.6 (1) | 3.4 (1) |
+| AlphaEarth + TESSERA | 3.6 (0) | 3.1 (2) |
+| AlphaEarth + OlmoEarth | 3.4 (1) | 3.6 (0) |
+| TESSERA + OlmoEarth | 3.9 (0) | **2.9** (2) |
+| All three | **3.3** (2) | 4.0 (1) |
+
+- No input wins every test, so on the strict frontier (no other input both cheaper and at least as good on every
+  test of the setting) all seven stand, for both settings. The tests pull different ways: woody change against
+  lidar favors AlphaEarth, regrowth and shrub years TESSERA, grass years all three, steady ground the pairs with
+  OlmoEarth.
+- **All three is not clearly best.** For the change map it ranks first on average, by a small margin (3.3 against
+  3.4 for AlphaEarth + OlmoEarth at 63 % of the cost), and it loses woody change per cell (.70 against
+  AlphaEarth's .82). For the each-year map it ranks fifth: TESSERA + OlmoEarth, AlphaEarth + TESSERA and
+  OlmoEarth alone all rank above it.
+- What each step up in cost buys, change map (per change pair):
+  - AlphaEarth alone, 42 MB: the best woody change against lidar (.82), weakest on shrub years (.22).
+  - TESSERA alone, 93 MB: the most regrowth found (.78) and shrub years (.56), but woody change per cell drops
+    to .64 and plain steady ground lights most (.34 before the gate).
+  - AlphaEarth + TESSERA, 136 MB: keeps most of AlphaEarth's woody change (.80) with TESSERA's regrowth (.72) and
+    quieter steady ground (.051); shrub years .32; grass steps lower (.25).
+  - AlphaEarth + OlmoEarth, 154 MB: the quietest steady ground (.037), woody change .81, grass steps .38; regrowth
+    found lowest of all (.45).
+  - All three, 246 MB: grass years best (.51 / .46) and regrowth .67, at woody change .70 and shrub years .23.
+- What each step buys, each-year map (per square-year): OlmoEarth alone (57 MB) holds CTrees amounts best (.74)
+  and classes (.92); AlphaEarth + TESSERA (68 MB) gives the best height against lidar (.77) and grass amounts
+  (.75); TESSERA + OlmoEarth (103 MB) the best grass rank (.77), classes (.92) and the best mean rank; all three
+  (123 MB) the best height against Meta (.78) and nothing else.
+- Caveats: the grass and chaparral tests are US only (RAP, the SoCal map); lidar is 18 squares; costs are for
+  three places and include TESSERA's per-year observation counts, which a map would not need; the change tests
+  above use the one-year heads, not the trajectory head or combined loss and gain of section 22.
+
+## 26. Tree loss, the open items of section 4 (`scripts/tree_loss_tests.py`, `results/tree_loss_tests.json`)
+
+The 37 tree-loss squares, the definitions of section 4 (plain change over the frozen cutoff, a gate on the year
+before, vote 2 of 3; found within a year of Hansen's year; standing forest and open ground lit). The frozen
+detectors are unchanged; each variant below is scored beside them. The squares' held-out fold heads of section 7
+give the height gate, so no square is judged by a head that saw it.
+
+**The gate, and dry and open forest.** Variants: the frozen gate; no gate; a height gate (the biomass head's
+canopy height the year before, 3 m or more); the gate re-fit on these squares (5 folds of squares, held out:
+before-year embeddings of Hansen loss and standing forest against open ground of these and the 55 vegetation
+squares); the re-fit gate with the cutoff scaled by Hansen 2000 cover (cut x clip(cover / 60, .35, 1)); the
+re-fit gate with the cutoff x .7.
+
+| Vote, median of squares: found / standing forest lit / open lit | Frozen | No gate | Height gate | Re-fit gate | Re-fit, scaled cut | Re-fit, cut x .7 |
+|---|---|---|---|---|---|---|
+| All 37 | .76 / .033 / .003 | .87 / .053 / .152 | **.81 / .036 / .000** | .78 / .038 / .000 | .80 / .045 / .006 | .88 / .101 / .001 |
+| Dry and open (5: Chaco, Manavgat, Mpumalanga, Yakutia, Cote d'Ivoire) | .08 / .000 / .000 | .87 / .033 / .109 | **.73 / .011 / .000** | .27 / .003 / .000 | .46 / .010 / .000 | .48 / .018 / .000 |
+| The other 32 | .79 / .045 / .004 | .87 / .070 / .168 | .82 / .039 / .001 | .84 / .043 / .000 | .84 / .050 / .006 | .91 / .141 / .001 |
+| Fire squares (3) | .08 / .000 / .000 | .91 / .005 / .190 | .73 / .004 / .000 | .64 / .003 / .000 | .67 / .010 / .000 | .69 / .021 / .000 |
+
+- **The height gate fixes dry and open forest.** "Was there canopy 3 m tall the year before," from the biomass
+  head, replaces "did it look like the forests the gate was taught on." On the five dry or open squares it finds
+  .73 of the loss against .08, with standing forest lit .011 and open ground 0; over all 37 it finds .81 against
+  .76 at about the same standing lit (.036 against .033). Gran Chaco goes from 0 to .96 (AEF .96, OlmoEarth 1.00),
+  Manavgat .08 to .73, Mpumalanga .31 to .80, NSW .62 to .90, Maule .76 to .85.
+- **Re-fitting the logistic gate does not fix Chaco** (.01): with dry forest among the positives, open dry ground
+  still sits beside it. It helps Mpumalanga (.77) and Manavgat (.64). Height is the better gate.
+- **The cost in Chaco**: its standing forest moves from year to year in the embeddings. With no gate, TESSERA lights
+  99.5 % of it, OlmoEarth 52 %, AEF 16 %; with the height gate the vote lights 36 % (AEF 11 %). The frozen gate
+  looked quiet there only because it passed nothing. Dry forest needs its own change cutoff, or the change read
+  over more than one year.
+- Shifting cultivation loses a little under the height gate (.65 to .52): fallow regrowth under 3 m is cut again.
+  Portugal and Galicia too (.82 to .54, .67 to .46): eucalyptus cut young. A lower height (2 m) or the gate only
+  where the head's cover is low are the next things to try.
+
+**Sparse forest, by cover band** (Hansen 2000 cover; vote, pooled over the 37 squares; found on loss pixels / lit
+on never-lost pixels away from loss):
+
+| Cover | Loss px | Frozen | No gate | Height gate | Re-fit | Scaled cut | Cut x .7 |
+|---|---|---|---|---|---|---|---|
+| 10 to 30 % | 82,877 | .48 / .031 | .82 / .133 | .58 / .022 | .58 / .024 | .72 / .217 | .66 / .063 |
+| 30 to 60 % | 405,127 | .42 / .034 | .70 / .167 | .56 / .087 | .44 / .033 | .52 / .068 | .57 / .088 |
+| 60 % and up | 1,806,209 | .76 / .073 | .82 / .088 | .78 / .075 | .80 / .078 | .80 / .078 | .90 / .185 |
+
+- Sparse and middle cover is where the frozen detector loses most (.48 and .42 against .76 in dense forest). The
+  height gate lifts both (.58, .56) without more lit at low cover; scaling the cutoff by cover lifts the sparse
+  band to .72 but lights 22 % of its never-lost ground. The middle band (30 to 60 %) holds most of the dry-forest
+  loss.
+- **Yakutia's larch burn** needs a lower cutoff, not a different gate: .01 found under every gate, .42 at cut x .7
+  (TESSERA .54, OlmoEarth .58, AEF 0) with standing forest lit .003. AEF does not move there at any cutoff tried.
+- Cote d'Ivoire (cocoa land) gains only from a lower or scaled cutoff (.29 to .46 / .48), at standing lit .074
+  to .080.
+
+**Loss kinds.** The driver label of WRI and Google DeepMind (1 km, 2001 to 2025) needs a Global Forest Watch API
+key for its tiles, so it was skipped. GLAD's forest loss due to fire (Tyukavina et al., 2001 to 2025, public
+continental tiles, 30 m; fire = its codes 3 to 5, other = code 1, low-certainty code 2 left out) splits Hansen's
+2019 to 2024 loss under the 37 squares: about 395,000 pixels from fire, 2.07 million from other causes. Frozen
+detectors:
+
+| Found (pixel-weighted) | AEF | TESSERA | OlmoEarth | Vote |
+|---|---|---|---|---|
+| Fire-related loss, all | .62 | .55 | .48 | .55 |
+| Fire-related loss, without Yakutia | .76 | .67 | .58 | .67 |
+| Other loss | .78 | .73 | .65 | .71 |
+| Fire in clearing squares (commodity) | .89 | .83 | .58 | .80 |
+| Fire in the wildfire squares | .35 | .16 | .27 | .24 |
+
+- Fire as such is not the hard kind: fire used in clearing (Mato Grosso 77 % of its loss from fire, Ucayali 46 %)
+  is found as well as other loss or better (.80 against .72 in the commodity squares). The hard kind is wildfire in
+  open or sparse forest (Yakutia larch, Manavgat pine), where the frozen gate and the dense-forest cutoff both
+  fail; the height gate and the lower cutoff above are the fixes for those.
+- Storm, landslide and river loss have no public label read here; the lidar squares (Esk Valley slips) are the
+  closest check, in section 16.
+
+**The flags Hansen does not have** (section 4's third failure). Sentinel-2 L2A from Earth Search (no sign-in): the
+4 clearest dry- or growing-season scenes a year (Riau June to September, Nicaragua January to April, Latvia May to
+September), cloud-masked by the scene classification, NBR = (B8 - B12) / (B8 + B12) with the 2022-on reflectance
+offset removed, per-year median; the drop from the year before the flag to the year after.
+
+| NBR drop, median (share over .1) | Flagged, no Hansen loss | Hansen loss, flagged | Steady forest, not flagged |
+|---|---|---|---|
+| Riau | .17 (.84) | .16 (.73) | -.04 (.06) |
+| Nicaragua | .14 (.59) | .18 (.63) | .04 (.26) |
+| Latvia | -.02 (.28) | .22 (.70) | -.07 (.02) |
+
+- **Riau's flags are real loss Hansen missed**: flagged pixels outside Hansen's loss drop as much as Hansen's own
+  loss pixels (.17 against .16), while steady forest greens. The square is plantation land; short acacia or oil
+  palm rotations cleared and replanted between Hansen's passes fit.
+- **Nicaragua's are mostly real**: .14 against Hansen's .18, 59 % dropping over .1 against 26 % of steady forest
+  (the dry season is noisier there).
+- **Latvia's are mostly not stand-replacing**: the median flagged pixel does not drop at all, though 28 % drop over
+  .1 against 2 % of steady forest: a minority of real change, likely thinning or partial cuts, and a majority lit
+  with no canopy loss. This fits section 4: AEF lit 71 % there, TESSERA 12 %.
+- So "standing forest lit" against Hansen overstates false alarms in Riau and Nicaragua; in Latvia it is mostly
+  false alarm.
+
+RAM peaks: gates 4.4 GB, fire 3.6 GB, Sentinel-2 0.5 GB.
+
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -247,30 +1147,59 @@ of pixels whose biomass changed by a quarter and by 10 Mg/ha or more, plain (gat
 | Land cover, share right (8) | .86 | .85 | .92 | .91 |
 | Biomass change 2018 to 2025, tree-loss squares: loss size / steady lit (9) | .86 / .26 | .73 / .40 | .86 / .27 | .81 / .28 |
 | Trouble spots lit, worst set (10) | .13 marsh | .35 marsh | .13 marsh | .054 marsh |
+| Class calibration error, raw / calibrated (11) | .074 / .012 | .064 / .010 | .031 / .006 | .043 / .006 |
+| 90 % class sets, one cutoff per class: single-class pixels (11) | .71 | .61 | .88 | .85 |
+| Height against airborne lidar, R2 (16) | .73 | .61 | .66 | .65 |
+| Lidar canopy lost: found (16) | .85 | .89 | .89 | .87 |
+| Biomass change against lidar canopy change, per 100 m cell (16; CTrees .50) | .82 | | | .70 |
+| Grass amounts against RAP, head taught on RAP, R2 of log (17) | .45 | .71 | .63 | .69 |
+| Grass years against RAP: block departures / year-to-year steps (17) | .39 / .33 | .44 / .28 | .35 / .25 | .51 / .46 |
+| Hard-ground class sets against lidar: truth inside 90 % sets (18) | | | .82 | .90 |
+| Chaparral, CTrees head: rank within a square / year departures (19) | .36 / .22 | .66 / .56 | .58 / .20 | .58 / .23 |
+| Shrub stands, rank of biomass with lidar height (23) | | | .53 | .37 |
+| Height against the 2 m lidar of five new squares, R2 (24; Meta .61) | .55 | .63 | .70 | .72 |
+| Change against lidar per cell, loss and floored gain from the same input (22) | .84 | | .75 | .72 |
+| Read cost, MB per 6 km square-year (25) | 21 | 46 | 57 | 123 |
+| Mean rank over the change map's tests / the each-year map's tests, of seven inputs (25) | 4.6 / 5.9 | 3.7 / 5.1 | 5.6 / 3.4 | 3.3 / 4.0 |
 
-AEF dates and finds loss best; OlmoEarth reads amounts, height and classes best and is quietest; TESSERA shows
-regrowth best and is the noisiest; together they are the safest on trouble spots. Gaps: AEF has no 2025 in central
+AEF dates and finds loss best, and against section 16's lidar it reads height and change best (on section 24's
+leaf-off Dutch lidar it reads height worst); OlmoEarth reads amounts and classes best against the map labels and is
+quietest; TESSERA shows regrowth best, follows shrub years and grass amounts best, and is the noisiest; together
+they are the safest on trouble spots, follow grass years best and hold the hard-ground class sets. The pairs of
+section 25 sit between: AlphaEarth + TESSERA and TESSERA + OlmoEarth rank above all three for the each-year map,
+AlphaEarth + OlmoEarth nearly level with it for change at 63 % of its read cost. Gaps: AEF has no 2025 in central
 Chile; TESSERA lacks much of 2017 (dropped everywhere).
 
 ## Next
 
-Biomass and land cover:
-- Calibrate the class confidence (temperature on held-out squares) so each pixel carries its margin of error.
-- Calibrate change per window length; try a pair head on longer spans, and a head on the whole 2018 to 2025 trajectory
-  for regrowth.
-- Squeeze at the top: CTrees above 300 Mg/ha comes out near 250 at best. A loss weighted toward the high end, or the
-  error layer CTrees gives, to check how much is CTrees' own noise.
-- An independent check: repeat-lidar canopy change. Earthwork's lidar is bare-ground only; surface models from the
-  same programs (AHN in the Netherlands, swissSURFACE3D, England's NLP, NRCan HRDEM, 3DEP point clouds) or NEON would
-  be needed.
-- Tundra: check CTrees there against another map before trusting either.
-- Labels where WorldCover and IO disagree, to score the classes on hard ground; open woodland vs closed forest as
-  their own classes.
+Tested in sections 17 to 26; what is still open (directions, not ranked):
+- **The map's embeddings**: section 25 lays out accuracy against read cost for every single, pair and all three;
+  no input wins every test, so it is a choice by setting (change, each year), still to make.
+- **Grass**: one head can carry the woody total (CTrees) and the grass part (RAP) at little cost (section 20); a
+  wider shared layer or separate last layers; a grass label abroad to check the RAP head's years (the four drought
+  checks there did not come out); annual grassland, which a yearly embedding reads as its lasting green, not its
+  spring crop; a grass change map of large swings or of trends, since single small steps are noise in the label too.
+- **Shrub**: no map of the three (CTrees, the chaparral map, CCI) is consistent with lidar height across stands
+  (section 23), and none is refereed; a chaparral height-to-biomass relation from field plots would set the level.
+  The head leans grass on shrub against grass (section 21).
+- **Classes**: the offset fit (section 21) is the hard-ground calibration to use; shrub squares stay short under
+  every fit; open woodland needs a better rule than a 2 to 5 m mean height (canopy cover at 100 m, or lidar).
+- **Change**: loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
+  own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
+  most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not
+  quiet it. Per-pixel loss overshoots the pixel's own biomass and needs a cap.
+- **The top end**: the heads, not CTrees or CCI, are what flattens against lidar height (section 23); the
+  top-weighted head helps. Which map's level is right above 250 Mg/ha needs plot biomass.
+- **Lidar**: Switzerland and England still unread (whole-tile reads); Canada and Norway need same-season flight
+  pairs before they test change (section 24).
+- **Tundra**: nothing on disk checks CTrees' values (section 23); NEON's Alaska lidar and plots need a free account
+  token.
+- **The Los Angeles fires**: a flight a year after, when one is flown.
 
-Tree loss (from section 4, still open):
-- A gate that knows dry and open forest: the volume head's canopy cover, or the gate taught with dry forest
-  (Chaco, Mediterranean, savanna woodland) added.
-- A lower or per-cover cutoff for sparse forest (larch, cocoa, savanna).
-- A look at Sentinel-2 under the flags Hansen does not have (Riau, Nicaragua, Latvia).
-- Loss kinds: cut, burned, storm, landslide, river.
-- Volume head retrained on global labels (canopy height maps, WorldCover) for amounts outside California.
+Tree loss (section 26):
+- The height gate (canopy 3 m the year before, from the biomass head) fixes dry and open forest; Chaco's standing
+  forest still moves year to year and needs its own cutoff or a longer window; young eucalyptus and fallow need a
+  lower height.
+- Yakutia's larch responds only to a lower cutoff; wildfire in open forest is the hard kind of loss.
+- The WRI and Google DeepMind driver label needs a Global Forest Watch API key; storm, landslide and river loss
+  have no public label read.

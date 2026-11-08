@@ -1,0 +1,1562 @@
+{
+ "state": {
+  "aef+tes": {
+   "all": {
+    "agb_r2_log": 0.724,
+    "agb_r2": 0.638,
+    "agb_mae": 10.1,
+    "agb_true_med": 23.9,
+    "agb_pred_med": 20.0,
+    "agb_bins": {
+     "0-10": [
+      100975,
+      5.6
+     ],
+     "10-50": [
+      141674,
+      16.4
+     ],
+     "50-150": [
+      85130,
+      64.3
+     ],
+     "150-300": [
+      30287,
+      128.2
+     ],
+     "300-": [
+      8066,
+      205.8
+     ]
+    },
+    "height_r2": 0.686,
+    "height_mae": 2.12,
+    "cls_acc": 0.88,
+    "cls_macro_f1": 0.757
+   },
+   "city-edge": {
+    "agb_r2_log": 0.183,
+    "agb_r2": 0.284,
+    "agb_mae": 6.9,
+    "agb_true_med": 16.0,
+    "agb_pred_med": 13.7,
+    "agb_bins": {
+     "0-10": [
+      6347,
+      6.3
+     ],
+     "10-50": [
+      18658,
+      14.1
+     ],
+     "50-150": [
+      2474,
+      33.4
+     ],
+     "150-300": [
+      430,
+      58.1
+     ],
+     "300-": [
+      9,
+      39.7
+     ]
+    },
+    "height_r2": 0.345,
+    "height_mae": 0.87,
+    "cls_acc": 0.922,
+    "cls_macro_f1": 0.657
+   },
+   "closed-forest": {
+    "agb_r2_log": 0.643,
+    "agb_r2": 0.256,
+    "agb_mae": 53.2,
+    "agb_true_med": 215.2,
+    "agb_pred_med": 143.7,
+    "agb_bins": {
+     "0-10": [
+      609,
+      17.2
+     ],
+     "10-50": [
+      2263,
+      31.9
+     ],
+     "50-150": [
+      6029,
+      77.8
+     ],
+     "150-300": [
+      8323,
+      167.3
+     ],
+     "300-": [
+      6721,
+      208.4
+     ]
+    },
+    "height_r2": 0.355,
+    "height_mae": 6.25,
+    "cls_acc": 0.99,
+    "cls_macro_f1": 0.695
+   },
+   "crop": {
+    "agb_r2_log": 0.247,
+    "agb_r2": 0.404,
+    "agb_mae": 5.4,
+    "agb_true_med": 13.6,
+    "agb_pred_med": 10.6,
+    "agb_bins": {
+     "0-10": [
+      12306,
+      6.8
+     ],
+     "10-50": [
+      17584,
+      12.8
+     ],
+     "50-150": [
+      1959,
+      19.7
+     ],
+     "150-300": [
+      103,
+      144.4
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.689,
+    "height_mae": 0.71,
+    "cls_acc": 0.961,
+    "cls_macro_f1": 0.77
+   },
+   "desert-edge": {
+    "agb_r2_log": 0.58,
+    "agb_r2": 0.574,
+    "agb_mae": 0.6,
+    "agb_true_med": 0.6,
+    "agb_pred_med": 1.4,
+    "agb_bins": {
+     "0-10": [
+      7608,
+      0.9
+     ],
+     "10-50": [
+      392,
+      8.1
+     ],
+     "50-150": [
+      0,
+      null
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -10.433,
+    "height_mae": 0.17,
+    "cls_acc": 0.634,
+    "cls_macro_f1": 0.459
+   },
+   "forest-loss": {
+    "agb_r2_log": 0.56,
+    "agb_r2": 0.452,
+    "agb_mae": 20.2,
+    "agb_true_med": 59.8,
+    "agb_pred_med": 51.4,
+    "agb_bins": {
+     "0-10": [
+      11910,
+      13.2
+     ],
+     "10-50": [
+      51150,
+      28.5
+     ],
+     "50-150": [
+      62931,
+      69.0
+     ],
+     "150-300": [
+      19546,
+      116.5
+     ],
+     "300-": [
+      952,
+      236.7
+     ]
+    },
+    "height_r2": 0.545,
+    "height_mae": 3.48,
+    "cls_acc": 0.952,
+    "cls_macro_f1": 0.591
+   },
+   "grass": {
+    "agb_r2_log": 0.263,
+    "agb_r2": 0.096,
+    "agb_mae": 2.6,
+    "agb_true_med": 3.1,
+    "agb_pred_med": 2.7,
+    "agb_bins": {
+     "0-10": [
+      22380,
+      2.1
+     ],
+     "10-50": [
+      4936,
+      9.7
+     ],
+     "50-150": [
+      681,
+      9.3
+     ],
+     "150-300": [
+      3,
+      4.4
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.535,
+    "height_mae": 0.22,
+    "cls_acc": 0.855,
+    "cls_macro_f1": 0.514
+   },
+   "savanna": {
+    "agb_r2_log": 0.188,
+    "agb_r2": 0.34,
+    "agb_mae": 9.4,
+    "agb_true_med": 18.8,
+    "agb_pred_med": 13.0,
+    "agb_bins": {
+     "0-10": [
+      7025,
+      10.2
+     ],
+     "10-50": [
+      20431,
+      12.1
+     ],
+     "50-150": [
+      4375,
+      42.2
+     ],
+     "150-300": [
+      169,
+      56.7
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.524,
+    "height_mae": 1.52,
+    "cls_acc": 0.622,
+    "cls_macro_f1": 0.654
+   },
+   "shrub": {
+    "agb_r2_log": 0.622,
+    "agb_r2": 0.491,
+    "agb_mae": 2.3,
+    "agb_true_med": 4.6,
+    "agb_pred_med": 3.9,
+    "agb_bins": {
+     "0-10": [
+      18412,
+      2.5
+     ],
+     "10-50": [
+      9548,
+      10.5
+     ],
+     "50-150": [
+      17,
+      7.3
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.105,
+    "height_mae": 0.63,
+    "cls_acc": 0.654,
+    "cls_macro_f1": 0.566
+   },
+   "tundra": {
+    "agb_r2_log": -0.442,
+    "agb_r2": -0.646,
+    "agb_mae": 13.4,
+    "agb_true_med": 18.7,
+    "agb_pred_med": 12.5,
+    "agb_bins": {
+     "0-10": [
+      3679,
+      15.1
+     ],
+     "10-50": [
+      7959,
+      11.1
+     ],
+     "50-150": [
+      362,
+      8.8
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -1.442,
+    "height_mae": 0.18,
+    "cls_acc": 0.713,
+    "cls_macro_f1": 0.444
+   },
+   "wetland": {
+    "agb_r2_log": 0.559,
+    "agb_r2": 0.455,
+    "agb_mae": 11.0,
+    "agb_true_med": 16.8,
+    "agb_pred_med": 19.7,
+    "agb_bins": {
+     "0-10": [
+      10699,
+      11.4
+     ],
+     "10-50": [
+      8753,
+      20.7
+     ],
+     "50-150": [
+      6302,
+      58.7
+     ],
+     "150-300": [
+      1713,
+      94.0
+     ],
+     "300-": [
+      384,
+      103.2
+     ]
+    },
+    "height_r2": 0.6,
+    "height_mae": 1.94,
+    "cls_acc": 0.756,
+    "cls_macro_f1": 0.689
+   }
+  },
+  "aef+olmo": {
+   "all": {
+    "agb_r2_log": 0.729,
+    "agb_r2": 0.679,
+    "agb_mae": 9.8,
+    "agb_true_med": 23.9,
+    "agb_pred_med": 19.7,
+    "agb_bins": {
+     "0-10": [
+      100975,
+      5.4
+     ],
+     "10-50": [
+      141674,
+      16.4
+     ],
+     "50-150": [
+      85130,
+      61.7
+     ],
+     "150-300": [
+      30287,
+      140.8
+     ],
+     "300-": [
+      8066,
+      246.7
+     ]
+    },
+    "height_r2": 0.755,
+    "height_mae": 1.89,
+    "cls_acc": 0.906,
+    "cls_macro_f1": 0.783
+   },
+   "city-edge": {
+    "agb_r2_log": 0.18,
+    "agb_r2": 0.303,
+    "agb_mae": 7.5,
+    "agb_true_med": 16.0,
+    "agb_pred_med": 15.5,
+    "agb_bins": {
+     "0-10": [
+      6347,
+      6.5
+     ],
+     "10-50": [
+      18658,
+      15.9
+     ],
+     "50-150": [
+      2474,
+      33.4
+     ],
+     "150-300": [
+      430,
+      54.4
+     ],
+     "300-": [
+      9,
+      33.8
+     ]
+    },
+    "height_r2": 0.458,
+    "height_mae": 0.83,
+    "cls_acc": 0.936,
+    "cls_macro_f1": 0.784
+   },
+   "closed-forest": {
+    "agb_r2_log": 0.681,
+    "agb_r2": 0.404,
+    "agb_mae": 46.3,
+    "agb_true_med": 215.2,
+    "agb_pred_med": 158.4,
+    "agb_bins": {
+     "0-10": [
+      609,
+      14.6
+     ],
+     "10-50": [
+      2263,
+      27.2
+     ],
+     "50-150": [
+      6029,
+      77.1
+     ],
+     "150-300": [
+      8323,
+      196.2
+     ],
+     "300-": [
+      6721,
+      250.8
+     ]
+    },
+    "height_r2": 0.412,
+    "height_mae": 5.93,
+    "cls_acc": 0.994,
+    "cls_macro_f1": 0.783
+   },
+   "crop": {
+    "agb_r2_log": 0.225,
+    "agb_r2": 0.449,
+    "agb_mae": 5.8,
+    "agb_true_med": 13.6,
+    "agb_pred_med": 7.5,
+    "agb_bins": {
+     "0-10": [
+      12306,
+      5.2
+     ],
+     "10-50": [
+      17584,
+      10.7
+     ],
+     "50-150": [
+      1959,
+      22.4
+     ],
+     "150-300": [
+      103,
+      139.4
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.709,
+    "height_mae": 0.57,
+    "cls_acc": 0.985,
+    "cls_macro_f1": 0.828
+   },
+   "desert-edge": {
+    "agb_r2_log": 0.471,
+    "agb_r2": 0.441,
+    "agb_mae": 0.6,
+    "agb_true_med": 0.6,
+    "agb_pred_med": 1.1,
+    "agb_bins": {
+     "0-10": [
+      7608,
+      0.1
+     ],
+     "10-50": [
+      392,
+      6.5
+     ],
+     "50-150": [
+      0,
+      null
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -21.32,
+    "height_mae": 0.25,
+    "cls_acc": 0.537,
+    "cls_macro_f1": 0.417
+   },
+   "forest-loss": {
+    "agb_r2_log": 0.596,
+    "agb_r2": 0.499,
+    "agb_mae": 19.0,
+    "agb_true_med": 59.8,
+    "agb_pred_med": 51.2,
+    "agb_bins": {
+     "0-10": [
+      11910,
+      11.3
+     ],
+     "10-50": [
+      51150,
+      26.7
+     ],
+     "50-150": [
+      62931,
+      67.3
+     ],
+     "150-300": [
+      19546,
+      133.4
+     ],
+     "300-": [
+      952,
+      213.0
+     ]
+    },
+    "height_r2": 0.689,
+    "height_mae": 2.95,
+    "cls_acc": 0.958,
+    "cls_macro_f1": 0.677
+   },
+   "grass": {
+    "agb_r2_log": 0.412,
+    "agb_r2": 0.28,
+    "agb_mae": 2.5,
+    "agb_true_med": 3.1,
+    "agb_pred_med": 3.1,
+    "agb_bins": {
+     "0-10": [
+      22380,
+      2.2
+     ],
+     "10-50": [
+      4936,
+      13.8
+     ],
+     "50-150": [
+      681,
+      17.9
+     ],
+     "150-300": [
+      3,
+      16.7
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.584,
+    "height_mae": 0.19,
+    "cls_acc": 0.874,
+    "cls_macro_f1": 0.552
+   },
+   "savanna": {
+    "agb_r2_log": 0.334,
+    "agb_r2": 0.445,
+    "agb_mae": 7.8,
+    "agb_true_med": 18.8,
+    "agb_pred_med": 12.0,
+    "agb_bins": {
+     "0-10": [
+      7025,
+      7.4
+     ],
+     "10-50": [
+      20431,
+      12.3
+     ],
+     "50-150": [
+      4375,
+      40.3
+     ],
+     "150-300": [
+      169,
+      67.9
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.517,
+    "height_mae": 1.53,
+    "cls_acc": 0.803,
+    "cls_macro_f1": 0.81
+   },
+   "shrub": {
+    "agb_r2_log": 0.382,
+    "agb_r2": 0.392,
+    "agb_mae": 3.5,
+    "agb_true_med": 4.6,
+    "agb_pred_med": 5.0,
+    "agb_bins": {
+     "0-10": [
+      18412,
+      4.1
+     ],
+     "10-50": [
+      9548,
+      7.9
+     ],
+     "50-150": [
+      17,
+      12.5
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.084,
+    "height_mae": 0.52,
+    "cls_acc": 0.697,
+    "cls_macro_f1": 0.743
+   },
+   "tundra": {
+    "agb_r2_log": -0.497,
+    "agb_r2": -0.661,
+    "agb_mae": 14.5,
+    "agb_true_med": 18.7,
+    "agb_pred_med": 12.5,
+    "agb_bins": {
+     "0-10": [
+      3679,
+      17.1
+     ],
+     "10-50": [
+      7959,
+      11.6
+     ],
+     "50-150": [
+      362,
+      6.3
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -0.615,
+    "height_mae": 0.16,
+    "cls_acc": 0.766,
+    "cls_macro_f1": 0.512
+   },
+   "wetland": {
+    "agb_r2_log": 0.547,
+    "agb_r2": 0.392,
+    "agb_mae": 10.2,
+    "agb_true_med": 16.8,
+    "agb_pred_med": 16.1,
+    "agb_bins": {
+     "0-10": [
+      10699,
+      8.6
+     ],
+     "10-50": [
+      8753,
+      19.4
+     ],
+     "50-150": [
+      6302,
+      42.1
+     ],
+     "150-300": [
+      1713,
+      92.5
+     ],
+     "300-": [
+      384,
+      100.1
+     ]
+    },
+    "height_r2": 0.621,
+    "height_mae": 1.9,
+    "cls_acc": 0.777,
+    "cls_macro_f1": 0.72
+   }
+  },
+  "tes+olmo": {
+   "all": {
+    "agb_r2_log": 0.706,
+    "agb_r2": 0.607,
+    "agb_mae": 10.1,
+    "agb_true_med": 23.9,
+    "agb_pred_med": 18.3,
+    "agb_bins": {
+     "0-10": [
+      100975,
+      5.0
+     ],
+     "10-50": [
+      141674,
+      15.3
+     ],
+     "50-150": [
+      85130,
+      62.0
+     ],
+     "150-300": [
+      30287,
+      143.1
+     ],
+     "300-": [
+      8066,
+      198.5
+     ]
+    },
+    "height_r2": 0.764,
+    "height_mae": 1.87,
+    "cls_acc": 0.917,
+    "cls_macro_f1": 0.838
+   },
+   "city-edge": {
+    "agb_r2_log": 0.246,
+    "agb_r2": 0.195,
+    "agb_mae": 6.8,
+    "agb_true_med": 16.0,
+    "agb_pred_med": 15.5,
+    "agb_bins": {
+     "0-10": [
+      6347,
+      6.1
+     ],
+     "10-50": [
+      18658,
+      16.0
+     ],
+     "50-150": [
+      2474,
+      24.7
+     ],
+     "150-300": [
+      430,
+      40.5
+     ],
+     "300-": [
+      9,
+      27.8
+     ]
+    },
+    "height_r2": 0.441,
+    "height_mae": 0.79,
+    "cls_acc": 0.932,
+    "cls_macro_f1": 0.767
+   },
+   "closed-forest": {
+    "agb_r2_log": 0.553,
+    "agb_r2": 0.095,
+    "agb_mae": 59.9,
+    "agb_true_med": 215.2,
+    "agb_pred_med": 154.0,
+    "agb_bins": {
+     "0-10": [
+      609,
+      15.7
+     ],
+     "10-50": [
+      2263,
+      30.0
+     ],
+     "50-150": [
+      6029,
+      88.9
+     ],
+     "150-300": [
+      8323,
+      180.8
+     ],
+     "300-": [
+      6721,
+      200.8
+     ]
+    },
+    "height_r2": 0.619,
+    "height_mae": 4.76,
+    "cls_acc": 0.993,
+    "cls_macro_f1": 0.741
+   },
+   "crop": {
+    "agb_r2_log": 0.13,
+    "agb_r2": 0.388,
+    "agb_mae": 6.8,
+    "agb_true_med": 13.6,
+    "agb_pred_med": 7.4,
+    "agb_bins": {
+     "0-10": [
+      12306,
+      5.5
+     ],
+     "10-50": [
+      17584,
+      8.2
+     ],
+     "50-150": [
+      1959,
+      17.2
+     ],
+     "150-300": [
+      103,
+      110.5
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.707,
+    "height_mae": 0.58,
+    "cls_acc": 0.981,
+    "cls_macro_f1": 0.839
+   },
+   "desert-edge": {
+    "agb_r2_log": 0.53,
+    "agb_r2": 0.368,
+    "agb_mae": 0.8,
+    "agb_true_med": 0.6,
+    "agb_pred_med": 1.5,
+    "agb_bins": {
+     "0-10": [
+      7608,
+      1.3
+     ],
+     "10-50": [
+      392,
+      3.9
+     ],
+     "50-150": [
+      0,
+      null
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -1.911,
+    "height_mae": 0.08,
+    "cls_acc": 0.809,
+    "cls_macro_f1": 0.551
+   },
+   "forest-loss": {
+    "agb_r2_log": 0.589,
+    "agb_r2": 0.475,
+    "agb_mae": 19.3,
+    "agb_true_med": 59.8,
+    "agb_pred_med": 51.2,
+    "agb_bins": {
+     "0-10": [
+      11910,
+      12.2
+     ],
+     "10-50": [
+      51150,
+      27.6
+     ],
+     "50-150": [
+      62931,
+      69.0
+     ],
+     "150-300": [
+      19546,
+      133.1
+     ],
+     "300-": [
+      952,
+      241.2
+     ]
+    },
+    "height_r2": 0.653,
+    "height_mae": 3.08,
+    "cls_acc": 0.96,
+    "cls_macro_f1": 0.7
+   },
+   "grass": {
+    "agb_r2_log": 0.388,
+    "agb_r2": 0.176,
+    "agb_mae": 1.9,
+    "agb_true_med": 3.1,
+    "agb_pred_med": 2.8,
+    "agb_bins": {
+     "0-10": [
+      22380,
+      2.0
+     ],
+     "10-50": [
+      4936,
+      11.2
+     ],
+     "50-150": [
+      681,
+      9.8
+     ],
+     "150-300": [
+      3,
+      7.7
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.471,
+    "height_mae": 0.27,
+    "cls_acc": 0.935,
+    "cls_macro_f1": 0.596
+   },
+   "savanna": {
+    "agb_r2_log": 0.12,
+    "agb_r2": 0.3,
+    "agb_mae": 8.6,
+    "agb_true_med": 18.8,
+    "agb_pred_med": 12.1,
+    "agb_bins": {
+     "0-10": [
+      7025,
+      9.0
+     ],
+     "10-50": [
+      20431,
+      11.7
+     ],
+     "50-150": [
+      4375,
+      32.2
+     ],
+     "150-300": [
+      169,
+      56.3
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.407,
+    "height_mae": 1.69,
+    "cls_acc": 0.752,
+    "cls_macro_f1": 0.754
+   },
+   "shrub": {
+    "agb_r2_log": 0.507,
+    "agb_r2": 0.34,
+    "agb_mae": 2.8,
+    "agb_true_med": 4.6,
+    "agb_pred_med": 4.2,
+    "agb_bins": {
+     "0-10": [
+      18412,
+      3.1
+     ],
+     "10-50": [
+      9548,
+      7.8
+     ],
+     "50-150": [
+      17,
+      5.0
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": 0.063,
+    "height_mae": 0.55,
+    "cls_acc": 0.74,
+    "cls_macro_f1": 0.741
+   },
+   "tundra": {
+    "agb_r2_log": -0.657,
+    "agb_r2": -0.819,
+    "agb_mae": 13.9,
+    "agb_true_med": 18.7,
+    "agb_pred_med": 9.6,
+    "agb_bins": {
+     "0-10": [
+      3679,
+      12.2
+     ],
+     "10-50": [
+      7959,
+      8.7
+     ],
+     "50-150": [
+      362,
+      5.2
+     ],
+     "150-300": [
+      0,
+      null
+     ],
+     "300-": [
+      0,
+      null
+     ]
+    },
+    "height_r2": -0.502,
+    "height_mae": 0.17,
+    "cls_acc": 0.784,
+    "cls_macro_f1": 0.452
+   },
+   "wetland": {
+    "agb_r2_log": 0.401,
+    "agb_r2": 0.39,
+    "agb_mae": 12.0,
+    "agb_true_med": 16.8,
+    "agb_pred_med": 16.2,
+    "agb_bins": {
+     "0-10": [
+      10699,
+      9.5
+     ],
+     "10-50": [
+      8753,
+      20.0
+     ],
+     "50-150": [
+      6302,
+      27.2
+     ],
+     "150-300": [
+      1713,
+      94.5
+     ],
+     "300-": [
+      384,
+      117.5
+     ]
+    },
+    "height_r2": 0.62,
+    "height_mae": 1.81,
+    "cls_acc": 0.853,
+    "cls_macro_f1": 0.796
+   }
+  }
+ },
+ "peak_gb_train": 7.5,
+ "lidar": {
+  "aef": {
+   "height_r2": 0.73,
+   "lost_found": 0.849,
+   "lost_found_gated": 0.792,
+   "gain_found": 0.697,
+   "steady_lit": 0.231,
+   "steady_lit_gated": 0.075,
+   "cell_corr_dH": 0.824,
+   "cells": 25379
+  },
+  "tes": {
+   "height_r2": 0.607,
+   "lost_found": 0.885,
+   "lost_found_gated": 0.711,
+   "gain_found": 0.778,
+   "steady_lit": 0.342,
+   "steady_lit_gated": 0.076,
+   "cell_corr_dH": 0.644,
+   "cells": 25378
+  },
+  "olmo": {
+   "height_r2": 0.663,
+   "lost_found": 0.885,
+   "lost_found_gated": 0.838,
+   "gain_found": 0.477,
+   "steady_lit": 0.241,
+   "steady_lit_gated": 0.104,
+   "cell_corr_dH": 0.722,
+   "cells": 25379
+  },
+  "aef+tes": {
+   "height_r2": 0.765,
+   "lost_found": 0.871,
+   "lost_found_gated": 0.687,
+   "gain_found": 0.721,
+   "steady_lit": 0.271,
+   "steady_lit_gated": 0.051,
+   "cell_corr_dH": 0.801,
+   "cells": 25378
+  },
+  "aef+olmo": {
+   "height_r2": 0.664,
+   "lost_found": 0.869,
+   "lost_found_gated": 0.776,
+   "gain_found": 0.445,
+   "steady_lit": 0.167,
+   "steady_lit_gated": 0.037,
+   "cell_corr_dH": 0.813,
+   "cells": 25379
+  },
+  "tes+olmo": {
+   "height_r2": 0.707,
+   "lost_found": 0.865,
+   "lost_found_gated": 0.665,
+   "gain_found": 0.509,
+   "steady_lit": 0.196,
+   "steady_lit_gated": 0.04,
+   "cell_corr_dH": 0.666,
+   "cells": 25378
+  },
+  "all": {
+   "height_r2": 0.652,
+   "lost_found": 0.874,
+   "lost_found_gated": 0.811,
+   "gain_found": 0.667,
+   "steady_lit": 0.21,
+   "steady_lit_gated": 0.068,
+   "cell_corr_dH": 0.7,
+   "cells": 25378
+  }
+ },
+ "lidar_reproduces": {
+  "aef": {
+   "height_r2": 0.73,
+   "lost_found": 0.849,
+   "cell_corr_dH": 0.824
+  },
+  "tes": {
+   "height_r2": 0.607,
+   "lost_found": 0.885,
+   "cell_corr_dH": null
+  },
+  "olmo": {
+   "height_r2": 0.663,
+   "lost_found": 0.885,
+   "cell_corr_dH": null
+  },
+  "all": {
+   "height_r2": 0.652,
+   "lost_found": 0.874,
+   "cell_corr_dH": 0.7
+  }
+ },
+ "peak_gb_lidar": 5.3,
+ "rap": {
+  "aef": {
+   "r2_log": 0.454,
+   "median_error": 0.238,
+   "rank_within_square_median": 0.676,
+   "departure_corr": 0.388,
+   "step_corr": 0.332,
+   "square_series_corr_median": 0.485,
+   "swings_found": 0.558,
+   "steady_lit": 0.521,
+   "reproduces_departure_corr": 0.388
+  },
+  "tes": {
+   "r2_log": 0.706,
+   "median_error": 0.297,
+   "rank_within_square_median": 0.696,
+   "departure_corr": 0.436,
+   "step_corr": 0.282,
+   "square_series_corr_median": 0.406,
+   "swings_found": 0.534,
+   "steady_lit": 0.556,
+   "reproduces_departure_corr": 0.436
+  },
+  "olmo": {
+   "r2_log": 0.627,
+   "median_error": 0.316,
+   "rank_within_square_median": 0.713,
+   "departure_corr": 0.352,
+   "step_corr": 0.254,
+   "square_series_corr_median": 0.278,
+   "swings_found": 0.491,
+   "steady_lit": 0.582,
+   "reproduces_departure_corr": 0.352
+  },
+  "aef+tes": {
+   "r2_log": 0.749,
+   "median_error": 0.236,
+   "rank_within_square_median": 0.738,
+   "departure_corr": 0.444,
+   "step_corr": 0.247,
+   "square_series_corr_median": 0.303,
+   "swings_found": 0.531,
+   "steady_lit": 0.527
+  },
+  "aef+olmo": {
+   "r2_log": 0.531,
+   "median_error": 0.248,
+   "rank_within_square_median": 0.712,
+   "departure_corr": 0.442,
+   "step_corr": 0.384,
+   "square_series_corr_median": 0.504,
+   "swings_found": 0.623,
+   "steady_lit": 0.505
+  },
+  "tes+olmo": {
+   "r2_log": 0.6,
+   "median_error": 0.261,
+   "rank_within_square_median": 0.766,
+   "departure_corr": 0.506,
+   "step_corr": 0.429,
+   "square_series_corr_median": 0.487,
+   "swings_found": 0.611,
+   "steady_lit": 0.471
+  },
+  "all": {
+   "r2_log": 0.692,
+   "median_error": 0.233,
+   "rank_within_square_median": 0.692,
+   "departure_corr": 0.508,
+   "step_corr": 0.463,
+   "square_series_corr_median": 0.51,
+   "swings_found": 0.654,
+   "steady_lit": 0.509,
+   "reproduces_departure_corr": 0.508
+  }
+ },
+ "peak_gb_rap": 7.6,
+ "chaparral": {
+  "aef": {
+   "rank_within_square_median": 0.364,
+   "rank_square_medians": 0.309,
+   "departure_corr": 0.216,
+   "step_corr": 0.105,
+   "median_error": 9.102,
+   "reproduces_departure_corr": 0.216
+  },
+  "tes": {
+   "rank_within_square_median": 0.656,
+   "rank_square_medians": 0.806,
+   "departure_corr": 0.56,
+   "step_corr": 0.551,
+   "median_error": 5.216,
+   "reproduces_departure_corr": 0.56
+  },
+  "olmo": {
+   "rank_within_square_median": 0.582,
+   "rank_square_medians": 0.709,
+   "departure_corr": 0.197,
+   "step_corr": 0.298,
+   "median_error": 5.1,
+   "reproduces_departure_corr": 0.197
+  },
+  "aef+tes": {
+   "rank_within_square_median": 0.587,
+   "rank_square_medians": 0.745,
+   "departure_corr": 0.316,
+   "step_corr": 0.206,
+   "median_error": 3.723
+  },
+  "aef+olmo": {
+   "rank_within_square_median": 0.64,
+   "rank_square_medians": 0.745,
+   "departure_corr": 0.354,
+   "step_corr": 0.341,
+   "median_error": 2.741
+  },
+  "tes+olmo": {
+   "rank_within_square_median": 0.604,
+   "rank_square_medians": 0.782,
+   "departure_corr": 0.299,
+   "step_corr": 0.289,
+   "median_error": 4.285
+  },
+  "all": {
+   "rank_within_square_median": 0.581,
+   "rank_square_medians": 0.733,
+   "departure_corr": 0.227,
+   "step_corr": 0.154,
+   "median_error": 5.75,
+   "reproduces_departure_corr": 0.227
+  }
+ },
+ "peak_gb_chaparral": 7.6,
+ "table": {
+  "aef": {
+   "MB_per_square_year": 20.9,
+   "MB_per_change_pair": 41.8,
+   "lidar canopy lost found": 0.849,
+   "lidar canopy gained found": 0.697,
+   "lidar steady lit, gated": 0.075,
+   "biomass change vs lidar, per cell": 0.824,
+   "grass block departures (RAP head)": 0.388,
+   "grass year steps (RAP head)": 0.332,
+   "chaparral departures (CTrees head)": 0.216,
+   "biomass R2 of log vs CTrees": 0.702,
+   "height R2 vs Meta": 0.634,
+   "class share right": 0.858,
+   "height R2 vs lidar": 0.73,
+   "grass R2 of log (RAP head)": 0.454,
+   "grass rank within square (RAP head)": 0.676,
+   "chaparral rank within square (CTrees head)": 0.364
+  },
+  "tes": {
+   "MB_per_square_year": 46.3,
+   "MB_per_change_pair": 92.6,
+   "lidar canopy lost found": 0.885,
+   "lidar canopy gained found": 0.778,
+   "lidar steady lit, gated": 0.076,
+   "biomass change vs lidar, per cell": 0.644,
+   "grass block departures (RAP head)": 0.436,
+   "grass year steps (RAP head)": 0.282,
+   "chaparral departures (CTrees head)": 0.56,
+   "biomass R2 of log vs CTrees": 0.606,
+   "height R2 vs Meta": 0.564,
+   "class share right": 0.849,
+   "height R2 vs lidar": 0.607,
+   "grass R2 of log (RAP head)": 0.706,
+   "grass rank within square (RAP head)": 0.696,
+   "chaparral rank within square (CTrees head)": 0.656
+  },
+  "olmo": {
+   "MB_per_square_year": 57.1,
+   "MB_per_change_pair": 114.2,
+   "lidar canopy lost found": 0.885,
+   "lidar canopy gained found": 0.477,
+   "lidar steady lit, gated": 0.104,
+   "biomass change vs lidar, per cell": 0.722,
+   "grass block departures (RAP head)": 0.352,
+   "grass year steps (RAP head)": 0.254,
+   "chaparral departures (CTrees head)": 0.197,
+   "biomass R2 of log vs CTrees": 0.735,
+   "height R2 vs Meta": 0.72,
+   "class share right": 0.916,
+   "height R2 vs lidar": 0.663,
+   "grass R2 of log (RAP head)": 0.627,
+   "grass rank within square (RAP head)": 0.713,
+   "chaparral rank within square (CTrees head)": 0.582
+  },
+  "aef+tes": {
+   "MB_per_square_year": 68.1,
+   "MB_per_change_pair": 136.2,
+   "lidar canopy lost found": 0.871,
+   "lidar canopy gained found": 0.721,
+   "lidar steady lit, gated": 0.051,
+   "biomass change vs lidar, per cell": 0.801,
+   "grass block departures (RAP head)": 0.444,
+   "grass year steps (RAP head)": 0.247,
+   "chaparral departures (CTrees head)": 0.316,
+   "biomass R2 of log vs CTrees": 0.724,
+   "height R2 vs Meta": 0.686,
+   "class share right": 0.88,
+   "height R2 vs lidar": 0.765,
+   "grass R2 of log (RAP head)": 0.749,
+   "grass rank within square (RAP head)": 0.738,
+   "chaparral rank within square (CTrees head)": 0.587
+  },
+  "aef+olmo": {
+   "MB_per_square_year": 77.0,
+   "MB_per_change_pair": 154.0,
+   "lidar canopy lost found": 0.869,
+   "lidar canopy gained found": 0.445,
+   "lidar steady lit, gated": 0.037,
+   "biomass change vs lidar, per cell": 0.813,
+   "grass block departures (RAP head)": 0.442,
+   "grass year steps (RAP head)": 0.384,
+   "chaparral departures (CTrees head)": 0.354,
+   "biomass R2 of log vs CTrees": 0.729,
+   "height R2 vs Meta": 0.755,
+   "class share right": 0.906,
+   "height R2 vs lidar": 0.664,
+   "grass R2 of log (RAP head)": 0.531,
+   "grass rank within square (RAP head)": 0.712,
+   "chaparral rank within square (CTrees head)": 0.64
+  },
+  "tes+olmo": {
+   "MB_per_square_year": 103.4,
+   "MB_per_change_pair": 206.8,
+   "lidar canopy lost found": 0.865,
+   "lidar canopy gained found": 0.509,
+   "lidar steady lit, gated": 0.04,
+   "biomass change vs lidar, per cell": 0.666,
+   "grass block departures (RAP head)": 0.506,
+   "grass year steps (RAP head)": 0.429,
+   "chaparral departures (CTrees head)": 0.299,
+   "biomass R2 of log vs CTrees": 0.706,
+   "height R2 vs Meta": 0.764,
+   "class share right": 0.917,
+   "height R2 vs lidar": 0.707,
+   "grass R2 of log (RAP head)": 0.6,
+   "grass rank within square (RAP head)": 0.766,
+   "chaparral rank within square (CTrees head)": 0.604
+  },
+  "all": {
+   "MB_per_square_year": 123.2,
+   "MB_per_change_pair": 246.4,
+   "lidar canopy lost found": 0.874,
+   "lidar canopy gained found": 0.667,
+   "lidar steady lit, gated": 0.068,
+   "biomass change vs lidar, per cell": 0.7,
+   "grass block departures (RAP head)": 0.508,
+   "grass year steps (RAP head)": 0.463,
+   "chaparral departures (CTrees head)": 0.227,
+   "biomass R2 of log vs CTrees": 0.727,
+   "height R2 vs Meta": 0.775,
+   "class share right": 0.91,
+   "height R2 vs lidar": 0.652,
+   "grass R2 of log (RAP head)": 0.692,
+   "grass rank within square (RAP head)": 0.692,
+   "chaparral rank within square (CTrees head)": 0.581
+  }
+ },
+ "frontier": {
+  "change": [
+   "aef",
+   "tes",
+   "olmo",
+   "aef+tes",
+   "aef+olmo",
+   "tes+olmo",
+   "all"
+  ],
+  "each_year": [
+   "aef",
+   "tes",
+   "olmo",
+   "aef+tes",
+   "aef+olmo",
+   "tes+olmo",
+   "all"
+  ]
+ },
+ "cost_MB_per_square_year": {
+  "aef": 20.9,
+  "tes": 46.3,
+  "olmo": 57.1,
+  "aef+tes": 68.1,
+  "aef+olmo": 77.0,
+  "tes+olmo": 103.4,
+  "all": 123.2
+ },
+ "peak_gb_table": 7.6,
+ "ranks": {
+  "change": {
+   "aef": {
+    "mean_rank": 4.57,
+    "wins": 1,
+    "MB_pair": 41.8
+   },
+   "tes": {
+    "mean_rank": 3.71,
+    "wins": 3,
+    "MB_pair": 92.6
+   },
+   "olmo": {
+    "mean_rank": 5.57,
+    "wins": 1,
+    "MB_pair": 114.2
+   },
+   "aef+tes": {
+    "mean_rank": 3.57,
+    "wins": 0,
+    "MB_pair": 136.2
+   },
+   "aef+olmo": {
+    "mean_rank": 3.43,
+    "wins": 1,
+    "MB_pair": 154.0
+   },
+   "tes+olmo": {
+    "mean_rank": 3.86,
+    "wins": 0,
+    "MB_pair": 206.8
+   },
+   "all": {
+    "mean_rank": 3.29,
+    "wins": 2,
+    "MB_pair": 246.4
+   }
+  },
+  "each_year": {
+   "aef": {
+    "mean_rank": 5.86,
+    "wins": 0,
+    "MB_year": 20.9
+   },
+   "tes": {
+    "mean_rank": 5.14,
+    "wins": 1,
+    "MB_year": 46.3
+   },
+   "olmo": {
+    "mean_rank": 3.43,
+    "wins": 1,
+    "MB_year": 57.1
+   },
+   "aef+tes": {
+    "mean_rank": 3.14,
+    "wins": 2,
+    "MB_year": 68.1
+   },
+   "aef+olmo": {
+    "mean_rank": 3.57,
+    "wins": 0,
+    "MB_year": 77.0
+   },
+   "tes+olmo": {
+    "mean_rank": 2.86,
+    "wins": 2,
+    "MB_year": 103.4
+   },
+   "all": {
+    "mean_rank": 4.0,
+    "wins": 1,
+    "MB_year": 123.2
+   }
+  }
+ }
+}

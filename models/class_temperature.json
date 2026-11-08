@@ -1,0 +1,135 @@
+{
+ "temperature": {
+  "aef": 1.7841,
+  "tes": 1.5966,
+  "olmo": 1.4739,
+  "all": 1.6428
+ },
+ "class_cutoffs": {
+  "aef": {
+   "90": [
+    0.12116,
+    0.94463,
+    0.82032,
+    0.8564,
+    0.27574,
+    0.97193,
+    0.21972,
+    0.97462,
+    0.8532
+   ],
+   "95": [
+    0.30558,
+    0.97366,
+    0.92934,
+    0.94149,
+    0.53244,
+    0.98004,
+    0.61327,
+    0.98331,
+    0.89931
+   ]
+  },
+  "tes": {
+   "90": [
+    0.26588,
+    0.96755,
+    0.77991,
+    0.79006,
+    0.44832,
+    0.94555,
+    0.35688,
+    0.99301,
+    0.95845
+   ],
+   "95": [
+    0.53886,
+    0.98933,
+    0.89287,
+    0.92746,
+    0.70421,
+    0.98419,
+    0.70456,
+    0.99777,
+    0.97867
+   ]
+  },
+  "olmo": {
+   "90": [
+    0.08434,
+    0.87039,
+    0.58541,
+    0.35675,
+    0.06333,
+    0.80843,
+    0.20867,
+    0.9898,
+    0.93287
+   ],
+   "95": [
+    0.26119,
+    0.95061,
+    0.80829,
+    0.51632,
+    0.2038,
+    0.91827,
+    0.50251,
+    0.99537,
+    0.9773
+   ]
+  },
+  "all": {
+   "90": [
+    0.05601,
+    0.91493,
+    0.61209,
+    0.3711,
+    0.04384,
+    0.9221,
+    0.16265,
+    0.9839,
+    0.80996
+   ],
+   "95": [
+    0.20283,
+    0.96624,
+    0.79323,
+    0.69968,
+    0.10422,
+    0.95828,
+    0.53428,
+    0.99494,
+    0.93489
+   ]
+  }
+ },
+ "classes": [
+  "trees",
+  "shrub",
+  "grass",
+  "crop",
+  "built",
+  "bare",
+  "water",
+  "wetland",
+  "moss"
+ ],
+ "note": "divide the class logits of the <input> heads by the temperature before softmax; a pixel's 90 % (95 %) set holds every class c with probability >= 1 - class_cutoffs[level][c]",
+ "hard_ground": {
+  "olmo": {
+   "temperature": 3.5186,
+   "cutoffs_90": [
+    0.8464,
+    0.58869
+   ]
+  },
+  "all": {
+   "temperature": 3.8747,
+   "cutoffs_90": [
+    0.84863,
+    0.59256
+   ]
+  },
+  "note": "where WorldCover and IO disagree (one says trees): P(trees) = softmax(logits / temperature)[trees]; the 90 % set holds trees if P >= 1 - cutoffs_90[0], not trees if 1 - P >= 1 - cutoffs_90[1]; fit on Meta-height-refereed hard pixels of all 92 squares"
+ }
+}

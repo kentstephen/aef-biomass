@@ -1,0 +1,1391 @@
+{
+ "noise": {
+  "ctrees": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.557,
+    "swings_found": 0.371
+   },
+   "at_25pct": {
+    "steady_lit": 0.346,
+    "swings_found": 0.252
+   },
+   "threshold": {
+    "r": 0.83,
+    "steady_lit": 0.099,
+    "swings_found": 0.071,
+    "mg_ha_at_median": 1.15,
+    "swings50_found": 0.101
+   }
+  },
+  "ctrees_head_aef": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.731,
+    "swings_found": 0.471
+   },
+   "at_25pct": {
+    "steady_lit": 0.439,
+    "swings_found": 0.326
+   },
+   "threshold": {
+    "r": 0.87,
+    "steady_lit": 0.099,
+    "swings_found": 0.061,
+    "mg_ha_at_median": 1.612,
+    "swings50_found": 0.098
+   }
+  },
+  "own_head_aef": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.573,
+    "swings_found": 0.573
+   },
+   "at_25pct": {
+    "steady_lit": 0.25,
+    "swings_found": 0.421
+   },
+   "threshold": {
+    "r": 0.44,
+    "steady_lit": 0.097,
+    "swings_found": 0.29,
+    "mg_ha_at_median": 0.318,
+    "swings50_found": 0.417
+   }
+  },
+  "ctrees_head_tes": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.792,
+    "swings_found": 0.587
+   },
+   "at_25pct": {
+    "steady_lit": 0.549,
+    "swings_found": 0.468
+   },
+   "threshold": {
+    "r": 0.72,
+    "steady_lit": 0.099,
+    "swings_found": 0.212,
+    "mg_ha_at_median": 2.987,
+    "swings50_found": 0.23
+   }
+  },
+  "own_head_tes": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.59,
+    "swings_found": 0.55
+   },
+   "at_25pct": {
+    "steady_lit": 0.273,
+    "swings_found": 0.41
+   },
+   "threshold": {
+    "r": 0.44,
+    "steady_lit": 0.096,
+    "swings_found": 0.262,
+    "mg_ha_at_median": 0.453,
+    "swings50_found": 0.397
+   }
+  },
+  "ctrees_head_olmo": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.804,
+    "swings_found": 0.318
+   },
+   "at_25pct": {
+    "steady_lit": 0.547,
+    "swings_found": 0.186
+   },
+   "threshold": {
+    "r": 0.88,
+    "steady_lit": 0.1,
+    "swings_found": 0.032,
+    "mg_ha_at_median": 2.224,
+    "swings50_found": 0.043
+   }
+  },
+  "own_head_olmo": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.62,
+    "swings_found": 0.506
+   },
+   "at_25pct": {
+    "steady_lit": 0.283,
+    "swings_found": 0.356
+   },
+   "threshold": {
+    "r": 0.56,
+    "steady_lit": 0.099,
+    "swings_found": 0.163,
+    "mg_ha_at_median": 0.517,
+    "swings50_found": 0.246
+   }
+  },
+  "ctrees_head_all": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.738,
+    "swings_found": 0.412
+   },
+   "at_25pct": {
+    "steady_lit": 0.459,
+    "swings_found": 0.27
+   },
+   "threshold": {
+    "r": 0.85,
+    "steady_lit": 0.098,
+    "swings_found": 0.062,
+    "mg_ha_at_median": 1.5,
+    "swings50_found": 0.114
+   }
+  },
+  "own_head_all": {
+   "steady_n": 50692,
+   "swings_n": 77971,
+   "at_10pct": {
+    "steady_lit": 0.547,
+    "swings_found": 0.669
+   },
+   "at_25pct": {
+    "steady_lit": 0.268,
+    "swings_found": 0.487
+   },
+   "threshold": {
+    "r": 0.48,
+    "steady_lit": 0.098,
+    "swings_found": 0.263,
+    "mg_ha_at_median": 0.451,
+    "swings50_found": 0.405
+   }
+  },
+  "rap_year_noise": {
+   "median_rel_step": 0.206,
+   "p90_rel_step": 0.919,
+   "steady_share": 0.168
+  }
+ },
+ "california": {
+  "years": [
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "rap_annual_herb_mg_ha": [
+   3.01,
+   2.98,
+   3.21,
+   2.85,
+   3.44,
+   3.15,
+   2.56,
+   1.92
+  ],
+  "rap_perennial_herb_mg_ha": [
+   0.13,
+   0.31,
+   0.14,
+   0.36,
+   0.07,
+   0.22,
+   0.48,
+   0.49
+  ],
+  "annual_share_of_herb": [
+   0.946,
+   0.882,
+   0.942,
+   0.871,
+   0.964,
+   0.907,
+   0.827,
+   0.768
+  ],
+  "cover_pct_mean": {
+   "annual_forb_grass": [
+    58.1,
+    55.0,
+    57.2,
+    52.4,
+    63.1,
+    55.3,
+    46.1,
+    37.3
+   ],
+   "bare": [
+    3.7,
+    4.0,
+    6.2,
+    5.1,
+    3.1,
+    2.1,
+    0.7,
+    0.8
+   ],
+   "litter": [
+    7.4,
+    9.0,
+    9.4,
+    8.9,
+    6.9,
+    5.9,
+    2.9,
+    4.2
+   ],
+   "perennial_forb_grass": [
+    4.3,
+    7.7,
+    4.6,
+    10.1,
+    3.8,
+    5.2,
+    8.3,
+    9.8
+   ],
+   "shrub": [
+    0.6,
+    1.3,
+    0.7,
+    0.4,
+    0.4,
+    0.7,
+    0.4,
+    0.5
+   ],
+   "tree": [
+    1.2,
+    1.0,
+    1.4,
+    1.4,
+    1.0,
+    2.9,
+    2.0,
+    0.6
+   ]
+  },
+  "own_head_all": [
+   1.31,
+   1.27,
+   1.18,
+   1.23,
+   0.9,
+   1.22,
+   1.2,
+   1.57
+  ],
+  "own_head_tes": [
+   1.88,
+   1.85,
+   1.84,
+   1.77,
+   1.77,
+   1.3,
+   1.15,
+   1.48
+  ],
+  "ctrees_head_all": [
+   2.99,
+   6.54,
+   6.06,
+   5.17,
+   5.76,
+   8.2,
+   4.43,
+   4.83
+  ],
+  "ctrees": [
+   30.95,
+   30.12,
+   30.77,
+   30.9,
+   30.05,
+   30.85,
+   30.31,
+   29.85
+  ],
+  "label_blocks": [
+   3.2,
+   3.43,
+   3.44,
+   3.28,
+   3.59,
+   3.43,
+   3.12,
+   2.47
+  ],
+  "departure_corr_head_vs": {
+   "rap_total": 0.104,
+   "rap_annual": -0.022,
+   "rap_perennial": 0.281,
+   "bare_cover": -0.276,
+   "litter_cover": -0.172
+  }
+ },
+ "twopart": {
+  "folds": {
+   "flint-hills-ks": 0,
+   "mixed-grass-nd": 1,
+   "shortgrass-co": 2,
+   "rolling-plains-tx": 3,
+   "san-rafael-az": 4,
+   "foothill-annual-ca": 5,
+   "sagebrush-wy": 6,
+   "snake-river-id": 7,
+   "mojave-ca": 0,
+   "edwards-plateau-tx": 1,
+   "sandhills-us": 4,
+   "great-basin-us": 3
+  },
+  "rap_px_per_square_year": 12000,
+  "all": {
+   "ctrees_only": {
+    "ctrees_r2_log": 0.729,
+    "ctrees_r2_log_grass": 0.379,
+    "ctrees_r2_log_shrub": 0.56,
+    "ctrees_r2_log_savanna": 0.195,
+    "ctrees_r2_log_closed-forest": 0.665,
+    "ctrees_median_error": 9.45
+   },
+   "rap_only": {
+    "rap": {
+     "blocks": 43200,
+     "block_years": 345599,
+     "r2_log": 0.61,
+     "median_error": 0.253,
+     "label_median": 1.09,
+     "model_median": 0.869,
+     "rank_blocks": 0.829,
+     "rank_within_square_median": 0.739,
+     "rank_square_medians": 0.776,
+     "departure_corr": 0.523,
+     "square_series_corr_median": 0.485,
+     "square_series_corr_positive": "11/12",
+     "step_corr": 0.403,
+     "swings": {
+      "n": 77971,
+      "share_of_steps": 0.258,
+      "up": 40099,
+      "down": 37872,
+      "found_same_way": 0.601,
+      "found_down": 0.52,
+      "found_up": 0.678,
+      "steady_n": 50692,
+      "steady_lit": 0.48,
+      "label_steps_over_10": 0.0
+     }
+    },
+    "rap_series_corr": {
+     "flint-hills-ks": 0.27,
+     "mixed-grass-nd": 0.724,
+     "shortgrass-co": 0.808,
+     "rolling-plains-tx": 0.499,
+     "san-rafael-az": 0.191,
+     "foothill-annual-ca": -0.006,
+     "sagebrush-wy": 0.065,
+     "snake-river-id": 0.826,
+     "mojave-ca": 0.471,
+     "edwards-plateau-tx": 0.317,
+     "sandhills-us": 0.91,
+     "great-basin-us": 0.876
+    }
+   },
+   "both": {
+    "ctrees_r2_log": 0.726,
+    "ctrees_r2_log_grass": 0.287,
+    "ctrees_r2_log_shrub": 0.38,
+    "ctrees_r2_log_savanna": 0.31,
+    "ctrees_r2_log_closed-forest": 0.671,
+    "ctrees_median_error": 9.49,
+    "rap": {
+     "blocks": 43200,
+     "block_years": 345599,
+     "r2_log": 0.679,
+     "median_error": 0.239,
+     "label_median": 1.09,
+     "model_median": 0.907,
+     "rank_blocks": 0.851,
+     "rank_within_square_median": 0.699,
+     "rank_square_medians": 0.839,
+     "departure_corr": 0.449,
+     "square_series_corr_median": 0.538,
+     "square_series_corr_positive": "11/12",
+     "step_corr": 0.379,
+     "swings": {
+      "n": 77971,
+      "share_of_steps": 0.258,
+      "up": 40099,
+      "down": 37872,
+      "found_same_way": 0.574,
+      "found_down": 0.498,
+      "found_up": 0.646,
+      "steady_n": 50692,
+      "steady_lit": 0.481,
+      "label_steps_over_10": 0.0
+     }
+    },
+    "rap_series_corr": {
+     "flint-hills-ks": 0.18,
+     "mixed-grass-nd": 0.507,
+     "shortgrass-co": 0.697,
+     "rolling-plains-tx": 0.587,
+     "san-rafael-az": 0.045,
+     "foothill-annual-ca": -0.577,
+     "sagebrush-wy": 0.286,
+     "snake-river-id": 0.834,
+     "mojave-ca": 0.435,
+     "edwards-plateau-tx": 0.569,
+     "sandhills-us": 0.867,
+     "great-basin-us": 0.992
+    }
+   }
+  },
+  "peak_gb_all": 6.8,
+  "olmo": {
+   "ctrees_only": {
+    "ctrees_r2_log": 0.724,
+    "ctrees_r2_log_grass": 0.418,
+    "ctrees_r2_log_shrub": 0.359,
+    "ctrees_r2_log_savanna": 0.304,
+    "ctrees_r2_log_closed-forest": 0.59,
+    "ctrees_median_error": 9.54
+   },
+   "rap_only": {
+    "rap": {
+     "blocks": 43200,
+     "block_years": 345599,
+     "r2_log": 0.618,
+     "median_error": 0.294,
+     "label_median": 1.09,
+     "model_median": 0.924,
+     "rank_blocks": 0.813,
+     "rank_within_square_median": 0.631,
+     "rank_square_medians": 0.741,
+     "departure_corr": 0.34,
+     "square_series_corr_median": 0.392,
+     "square_series_corr_positive": "9/12",
+     "step_corr": 0.301,
+     "swings": {
+      "n": 77971,
+      "share_of_steps": 0.258,
+      "up": 40099,
+      "down": 37872,
+      "found_same_way": 0.586,
+      "found_down": 0.551,
+      "found_up": 0.62,
+      "steady_n": 50692,
+      "steady_lit": 0.608,
+      "label_steps_over_10": 0.0
+     }
+    },
+    "rap_series_corr": {
+     "flint-hills-ks": -0.063,
+     "mixed-grass-nd": 0.187,
+     "shortgrass-co": 0.531,
+     "rolling-plains-tx": -0.158,
+     "san-rafael-az": 0.698,
+     "foothill-annual-ca": -0.623,
+     "sagebrush-wy": 0.392,
+     "snake-river-id": 0.88,
+     "mojave-ca": 0.142,
+     "edwards-plateau-tx": 0.411,
+     "sandhills-us": 0.391,
+     "great-basin-us": 0.935
+    }
+   },
+   "both": {
+    "ctrees_r2_log": 0.72,
+    "ctrees_r2_log_grass": 0.491,
+    "ctrees_r2_log_shrub": 0.356,
+    "ctrees_r2_log_savanna": 0.191,
+    "ctrees_r2_log_closed-forest": 0.616,
+    "ctrees_median_error": 9.9,
+    "rap": {
+     "blocks": 43200,
+     "block_years": 345599,
+     "r2_log": 0.714,
+     "median_error": 0.28,
+     "label_median": 1.09,
+     "model_median": 0.92,
+     "rank_blocks": 0.867,
+     "rank_within_square_median": 0.703,
+     "rank_square_medians": 0.881,
+     "departure_corr": 0.444,
+     "square_series_corr_median": 0.426,
+     "square_series_corr_positive": "12/12",
+     "step_corr": 0.384,
+     "swings": {
+      "n": 77971,
+      "share_of_steps": 0.258,
+      "up": 40099,
+      "down": 37872,
+      "found_same_way": 0.643,
+      "found_down": 0.57,
+      "found_up": 0.711,
+      "steady_n": 50692,
+      "steady_lit": 0.582,
+      "label_steps_over_10": 0.0
+     }
+    },
+    "rap_series_corr": {
+     "flint-hills-ks": 0.032,
+     "mixed-grass-nd": 0.475,
+     "shortgrass-co": 0.617,
+     "rolling-plains-tx": 0.809,
+     "san-rafael-az": 0.187,
+     "foothill-annual-ca": 0.293,
+     "sagebrush-wy": 0.166,
+     "snake-river-id": 0.837,
+     "mojave-ca": 0.24,
+     "edwards-plateau-tx": 0.55,
+     "sandhills-us": 0.377,
+     "great-basin-us": 0.923
+    }
+   }
+  },
+  "peak_gb_olmo": 3.9
+ },
+ "abroad": {
+  "squares": [
+   "mongolia-steppe",
+   "kazakh-steppe",
+   "serengeti-tz",
+   "pampas-ar",
+   "mitchell-grass-au",
+   "tibet-cn",
+   "karoo-za",
+   "patagonia-ar",
+   "chihuahua-mx",
+   "sahel-ne",
+   "mulga-au",
+   "caatinga-br",
+   "sahara-dz",
+   "gobi-mn"
+  ],
+  "droughts_checked": {
+   "pampas-ar": "2022/23 Pampas drought, among the worst in decades",
+   "karoo-za": "2018 to 2020 Karoo and Northern Cape drought, broken by rains from 2021",
+   "mitchell-grass-au": "2019 eastern Australia drought; La Nina wet years 2020 to 2022",
+   "mulga-au": "2019 drought in central Australia; La Nina wet years 2020 to 2022"
+  },
+  "all": {
+   "per_square": {
+    "mongolia-steppe": {
+     "kind": "grass",
+     "head": [
+      0.72,
+      0.52,
+      0.45,
+      0.51,
+      0.83,
+      0.68,
+      0.8,
+      0.51
+     ],
+     "ctrees": [
+      0.26,
+      0.14,
+      0.1,
+      0.13,
+      0.28,
+      0.27,
+      0.16,
+      0.19
+     ],
+     "rank_within_vs_ctrees": 0.081,
+     "series_corr_vs_ctrees": 0.718
+    },
+    "kazakh-steppe": {
+     "kind": "grass",
+     "head": [
+      0.36,
+      0.67,
+      0.73,
+      0.66,
+      0.7,
+      0.88,
+      0.55,
+      1.16
+     ],
+     "ctrees": [
+      1.58,
+      1.82,
+      1.22,
+      1.37,
+      1.49,
+      1.3,
+      1.48,
+      1.79
+     ],
+     "rank_within_vs_ctrees": -0.246,
+     "series_corr_vs_ctrees": 0.168
+    },
+    "serengeti-tz": {
+     "kind": "grass",
+     "head": [
+      1.1,
+      0.77,
+      1.0,
+      0.96,
+      0.59,
+      0.8,
+      0.91,
+      0.8
+     ],
+     "ctrees": [
+      6.13,
+      6.79,
+      6.46,
+      6.97,
+      6.81,
+      6.9,
+      6.94,
+      6.8
+     ],
+     "rank_within_vs_ctrees": -0.435,
+     "series_corr_vs_ctrees": -0.588
+    },
+    "pampas-ar": {
+     "kind": "grass",
+     "head": [
+      1.59,
+      1.42,
+      1.51,
+      1.78,
+      1.56,
+      1.97,
+      1.92,
+      1.35
+     ],
+     "ctrees": [
+      17.21,
+      17.55,
+      16.96,
+      16.77,
+      17.22,
+      16.18,
+      16.4,
+      16.87
+     ],
+     "rank_within_vs_ctrees": -0.287,
+     "series_corr_vs_ctrees": -0.807,
+     "drought": {
+      "low_years": [
+       2023
+      ],
+      "high_years": [
+       2019,
+       2024
+      ],
+      "head_low_over_high": 1.18,
+      "ctrees_low_over_high": 0.953
+     }
+    },
+    "mitchell-grass-au": {
+     "kind": "grass",
+     "head": [
+      0.22,
+      0.42,
+      0.27,
+      0.17,
+      0.09,
+      0.43,
+      0.53,
+      0.51
+     ],
+     "ctrees": [
+      2.84,
+      3.06,
+      2.54,
+      2.72,
+      3.09,
+      3.56,
+      3.32,
+      4.5
+     ],
+     "rank_within_vs_ctrees": -0.015,
+     "series_corr_vs_ctrees": 0.653,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 3.231,
+      "ctrees_low_over_high": 1.053
+     }
+    },
+    "tibet-cn": {
+     "kind": "grass",
+     "head": [
+      0.51,
+      0.57,
+      0.59,
+      0.5,
+      0.59,
+      0.51,
+      0.6,
+      0.58
+     ],
+     "ctrees": [
+      4.9,
+      4.86,
+      4.82,
+      4.52,
+      4.59,
+      4.66,
+      4.64,
+      4.76
+     ],
+     "rank_within_vs_ctrees": -0.131,
+     "series_corr_vs_ctrees": 0.101
+    },
+    "karoo-za": {
+     "kind": "shrub",
+     "head": [
+      0.35,
+      0.41,
+      0.28,
+      0.42,
+      0.18,
+      0.39,
+      0.36,
+      0.34
+     ],
+     "ctrees": [
+      11.65,
+      11.92,
+      12.0,
+      12.06,
+      12.18,
+      12.29,
+      12.66,
+      12.06
+     ],
+     "rank_within_vs_ctrees": 0.193,
+     "series_corr_vs_ctrees": -0.04,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 1.367,
+      "ctrees_low_over_high": 0.983
+     }
+    },
+    "patagonia-ar": {
+     "kind": "shrub",
+     "head": [
+      0.56,
+      0.47,
+      0.52,
+      0.68,
+      0.51,
+      0.45,
+      0.38,
+      0.66
+     ],
+     "ctrees": [
+      0.63,
+      0.81,
+      0.53,
+      0.73,
+      0.83,
+      0.45,
+      0.97,
+      0.84
+     ],
+     "rank_within_vs_ctrees": 0.104,
+     "series_corr_vs_ctrees": -0.057
+    },
+    "chihuahua-mx": {
+     "kind": "shrub",
+     "head": [
+      0.98,
+      0.65,
+      0.42,
+      0.71,
+      0.83,
+      0.63,
+      0.57,
+      0.86
+     ],
+     "ctrees": [
+      2.0,
+      1.83,
+      1.73,
+      2.08,
+      1.96,
+      1.84,
+      1.91,
+      2.02
+     ],
+     "rank_within_vs_ctrees": 0.103,
+     "series_corr_vs_ctrees": 0.756
+    },
+    "sahel-ne": {
+     "kind": "shrub",
+     "head": [
+      0.29,
+      0.36,
+      0.44,
+      0.29,
+      0.32,
+      0.29,
+      0.39,
+      0.5
+     ],
+     "ctrees": [
+      1.03,
+      0.6,
+      0.47,
+      0.58,
+      0.47,
+      0.94,
+      0.48,
+      0.71
+     ],
+     "rank_within_vs_ctrees": -0.451,
+     "series_corr_vs_ctrees": -0.383
+    },
+    "mulga-au": {
+     "kind": "shrub",
+     "head": [
+      0.25,
+      0.26,
+      0.27,
+      0.22,
+      0.11,
+      0.09,
+      0.06,
+      0.12
+     ],
+     "ctrees": [
+      13.6,
+      14.0,
+      14.08,
+      13.59,
+      13.69,
+      13.5,
+      13.53,
+      13.39
+     ],
+     "rank_within_vs_ctrees": 0.144,
+     "series_corr_vs_ctrees": 0.703,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 1.576,
+      "ctrees_low_over_high": 1.026
+     }
+    },
+    "caatinga-br": {
+     "kind": "shrub",
+     "head": [
+      1.3,
+      1.0,
+      1.22,
+      1.17,
+      1.18,
+      1.3,
+      1.42,
+      1.1
+     ],
+     "ctrees": [
+      11.64,
+      11.56,
+      11.9,
+      11.72,
+      11.96,
+      12.44,
+      12.33,
+      12.07
+     ],
+     "rank_within_vs_ctrees": -0.07,
+     "series_corr_vs_ctrees": 0.598
+    },
+    "sahara-dz": {
+     "kind": "desert-edge",
+     "head": [
+      0.04,
+      0.04,
+      0.05,
+      0.03,
+      0.05,
+      0.02,
+      0.08,
+      0.09
+     ],
+     "ctrees": [
+      3.75,
+      3.95,
+      3.66,
+      3.91,
+      3.79,
+      3.7,
+      3.96,
+      4.04
+     ],
+     "rank_within_vs_ctrees": 0.565,
+     "series_corr_vs_ctrees": 0.614
+    },
+    "gobi-mn": {
+     "kind": "desert-edge",
+     "head": [
+      0.46,
+      0.27,
+      0.26,
+      0.31,
+      0.23,
+      0.26,
+      0.43,
+      0.28
+     ],
+     "ctrees": [
+      0.19,
+      0.12,
+      0.26,
+      0.22,
+      0.28,
+      0.3,
+      0.26,
+      0.25
+     ],
+     "rank_within_vs_ctrees": -0.029,
+     "series_corr_vs_ctrees": -0.224
+    }
+   },
+   "rank_square_medians_vs_ctrees": 0.24,
+   "head_median_of_medians": 0.54,
+   "ctrees_median_of_medians": 3.46
+  },
+  "tes": {
+   "per_square": {
+    "mongolia-steppe": {
+     "kind": "grass",
+     "head": [
+      0.66,
+      0.65,
+      0.38,
+      0.62,
+      0.64,
+      0.6,
+      0.53,
+      0.41
+     ],
+     "ctrees": [
+      0.26,
+      0.14,
+      0.1,
+      0.13,
+      0.28,
+      0.27,
+      0.16,
+      0.19
+     ],
+     "rank_within_vs_ctrees": 0.135,
+     "series_corr_vs_ctrees": 0.486
+    },
+    "kazakh-steppe": {
+     "kind": "grass",
+     "head": [
+      0.39,
+      0.58,
+      0.76,
+      0.58,
+      0.27,
+      0.24,
+      0.41,
+      0.89
+     ],
+     "ctrees": [
+      1.58,
+      1.82,
+      1.22,
+      1.37,
+      1.49,
+      1.3,
+      1.48,
+      1.79
+     ],
+     "rank_within_vs_ctrees": -0.111,
+     "series_corr_vs_ctrees": 0.292
+    },
+    "serengeti-tz": {
+     "kind": "grass",
+     "head": [
+      0.7,
+      0.68,
+      0.77,
+      0.78,
+      0.56,
+      0.94,
+      0.56,
+      1.03
+     ],
+     "ctrees": [
+      6.13,
+      6.79,
+      6.46,
+      6.97,
+      6.81,
+      6.9,
+      6.94,
+      6.8
+     ],
+     "rank_within_vs_ctrees": -0.087,
+     "series_corr_vs_ctrees": 0.073
+    },
+    "pampas-ar": {
+     "kind": "grass",
+     "head": [
+      0.98,
+      1.42,
+      1.21,
+      1.37,
+      1.43,
+      1.59,
+      1.46,
+      0.89
+     ],
+     "ctrees": [
+      17.21,
+      17.55,
+      16.96,
+      16.77,
+      17.22,
+      16.18,
+      16.4,
+      16.87
+     ],
+     "rank_within_vs_ctrees": -0.325,
+     "series_corr_vs_ctrees": -0.35,
+     "drought": {
+      "low_years": [
+       2023
+      ],
+      "high_years": [
+       2019,
+       2024
+      ],
+      "head_low_over_high": 1.104,
+      "ctrees_low_over_high": 0.953
+     }
+    },
+    "mitchell-grass-au": {
+     "kind": "grass",
+     "head": [
+      0.32,
+      0.77,
+      0.57,
+      0.47,
+      0.41,
+      0.71,
+      0.95,
+      0.72
+     ],
+     "ctrees": [
+      2.84,
+      3.06,
+      2.54,
+      2.72,
+      3.09,
+      3.56,
+      3.32,
+      4.5
+     ],
+     "rank_within_vs_ctrees": 0.043,
+     "series_corr_vs_ctrees": 0.461,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 1.75,
+      "ctrees_low_over_high": 1.053
+     }
+    },
+    "tibet-cn": {
+     "kind": "grass",
+     "head": [
+      0.72,
+      0.57,
+      0.63,
+      0.6,
+      0.45,
+      0.6,
+      0.68,
+      0.72
+     ],
+     "ctrees": [
+      4.9,
+      4.86,
+      4.82,
+      4.52,
+      4.59,
+      4.66,
+      4.64,
+      4.76
+     ],
+     "rank_within_vs_ctrees": -0.165,
+     "series_corr_vs_ctrees": 0.451
+    },
+    "karoo-za": {
+     "kind": "shrub",
+     "head": [
+      0.67,
+      0.82,
+      0.61,
+      0.71,
+      0.58,
+      0.64,
+      0.85,
+      0.77
+     ],
+     "ctrees": [
+      11.65,
+      11.92,
+      12.0,
+      12.06,
+      12.18,
+      12.29,
+      12.66,
+      12.06
+     ],
+     "rank_within_vs_ctrees": 0.133,
+     "series_corr_vs_ctrees": 0.298,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 1.271,
+      "ctrees_low_over_high": 0.983
+     }
+    },
+    "patagonia-ar": {
+     "kind": "shrub",
+     "head": [
+      0.54,
+      0.55,
+      0.65,
+      0.66,
+      0.56,
+      0.42,
+      0.44,
+      0.77
+     ],
+     "ctrees": [
+      0.63,
+      0.81,
+      0.53,
+      0.73,
+      0.83,
+      0.45,
+      0.97,
+      0.84
+     ],
+     "rank_within_vs_ctrees": -0.186,
+     "series_corr_vs_ctrees": 0.122
+    },
+    "chihuahua-mx": {
+     "kind": "shrub",
+     "head": [
+      0.86,
+      0.58,
+      0.33,
+      0.6,
+      0.79,
+      0.58,
+      0.57,
+      0.89
+     ],
+     "ctrees": [
+      2.0,
+      1.83,
+      1.73,
+      2.08,
+      1.96,
+      1.84,
+      1.91,
+      2.02
+     ],
+     "rank_within_vs_ctrees": 0.196,
+     "series_corr_vs_ctrees": 0.74
+    },
+    "sahel-ne": {
+     "kind": "shrub",
+     "head": [
+      0.96,
+      1.07,
+      1.56,
+      1.09,
+      1.35,
+      1.13,
+      1.09,
+      1.7
+     ],
+     "ctrees": [
+      1.03,
+      0.6,
+      0.47,
+      0.58,
+      0.47,
+      0.94,
+      0.48,
+      0.71
+     ],
+     "rank_within_vs_ctrees": -0.308,
+     "series_corr_vs_ctrees": -0.356
+    },
+    "mulga-au": {
+     "kind": "shrub",
+     "head": [
+      0.87,
+      0.86,
+      0.76,
+      0.89,
+      0.35,
+      0.47,
+      0.4,
+      0.94
+     ],
+     "ctrees": [
+      13.6,
+      14.0,
+      14.08,
+      13.59,
+      13.69,
+      13.5,
+      13.53,
+      13.39
+     ],
+     "rank_within_vs_ctrees": 0.219,
+     "series_corr_vs_ctrees": 0.138,
+     "drought": {
+      "low_years": [
+       2019
+      ],
+      "high_years": [
+       2021,
+       2022
+      ],
+      "head_low_over_high": 1.387,
+      "ctrees_low_over_high": 1.026
+     }
+    },
+    "caatinga-br": {
+     "kind": "shrub",
+     "head": [
+      1.65,
+      1.17,
+      1.37,
+      1.15,
+      1.22,
+      1.64,
+      1.52,
+      1.35
+     ],
+     "ctrees": [
+      11.64,
+      11.56,
+      11.9,
+      11.72,
+      11.96,
+      12.44,
+      12.33,
+      12.07
+     ],
+     "rank_within_vs_ctrees": -0.328,
+     "series_corr_vs_ctrees": 0.508
+    },
+    "sahara-dz": {
+     "kind": "desert-edge",
+     "head": [
+      0.17,
+      0.19,
+      0.17,
+      0.2,
+      0.0,
+      0.02,
+      0.01,
+      0.16
+     ],
+     "ctrees": [
+      3.75,
+      3.95,
+      3.66,
+      3.91,
+      3.79,
+      3.7,
+      3.96,
+      4.04
+     ],
+     "rank_within_vs_ctrees": -0.058,
+     "series_corr_vs_ctrees": 0.174
+    },
+    "gobi-mn": {
+     "kind": "desert-edge",
+     "head": [
+      0.69,
+      0.23,
+      0.22,
+      0.65,
+      0.33,
+      0.44,
+      0.54,
+      0.49
+     ],
+     "ctrees": [
+      0.19,
+      0.12,
+      0.26,
+      0.22,
+      0.28,
+      0.3,
+      0.26,
+      0.25
+     ],
+     "rank_within_vs_ctrees": 0.074,
+     "series_corr_vs_ctrees": 0.035
+    }
+   },
+   "rank_square_medians_vs_ctrees": 0.6,
+   "head_median_of_medians": 0.63,
+   "ctrees_median_of_medians": 3.46
+  },
+  "peak_gb": 4.5
+ }
+}

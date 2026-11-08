@@ -15,7 +15,7 @@ Per square, data/labels/<name>.npz (n = 600 x 600 AlphaEarth pixels, row-major a
 
 All public, no sign-in. One square takes about 40 s; four at a time; peak well under 2 GB. Resumable.
 
-    uv run scripts/read_labels.py [--workers 4] [--max-gb 6]
+    uv run scripts/read_labels.py [--workers 4] [--max-gb 6] [--picks squares.json veg_squares.json]
 """
 import argparse
 import json
@@ -191,6 +191,7 @@ def main():
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--max-gb", type=float, default=6)
     ap.add_argument("--only", nargs="*")
+    ap.add_argument("--picks", nargs="*", default=["squares.json", "veg_squares.json"], help="picks files in data/")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     p, peak = psutil.Process(), [0.0]
@@ -205,7 +206,7 @@ def main():
             time.sleep(0.5)
     threading.Thread(target=guard, daemon=True).start()
     sq = {}
-    for f in ("squares.json", "veg_squares.json"):
+    for f in args.picks:
         sq.update(json.load(open(HERE / "data" / f)))
     todo = [n for n in sq if not (OUT / f"{n}.npz").exists() and (not args.only or n in args.only)]
     print(f"{len(todo)} squares to read", flush=True)

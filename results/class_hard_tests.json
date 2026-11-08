@@ -1,0 +1,1954 @@
+{
+ "peak_gb": 3.6,
+ "olmo": {
+  "fit": {
+   "px": 1797907,
+   "fits_by_fold": {
+    "T": {
+     "0": 3.448,
+     "1": 3.596,
+     "2": 3.476,
+     "3": 3.535,
+     "4": 3.597,
+     "5": 3.531,
+     "6": 3.556,
+     "7": 3.423
+    },
+    "P": {
+     "0": [
+      0.177,
+      -0.304
+     ],
+     "1": [
+      0.16,
+      -0.327
+     ],
+     "2": [
+      0.159,
+      -0.226
+     ],
+     "3": [
+      0.169,
+      -0.322
+     ],
+     "4": [
+      0.176,
+      -0.405
+     ],
+     "5": [
+      0.161,
+      -0.277
+     ],
+     "6": [
+      0.172,
+      -0.34
+     ],
+     "7": [
+      0.166,
+      -0.204
+     ]
+    },
+    "C": {}
+   },
+   "hard_temperature": {
+    "right": 0.65,
+    "stated": 0.725,
+    "ece": 0.0744,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.226,
+      "stated": 0.55,
+      "right": 0.539
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.231,
+      "stated": 0.65,
+      "right": 0.601
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.229,
+      "stated": 0.75,
+      "right": 0.664
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.185,
+      "stated": 0.848,
+      "right": 0.688
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.075,
+      "stated": 0.924,
+      "right": 0.803
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.054,
+      "stated": 0.97,
+      "right": 0.928
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.898,
+     "single": 0.401,
+     "single_right": 0.745,
+     "coverage_trees": 0.897,
+     "coverage_not": 0.899,
+     "per_kind": {
+      "city-edge": {
+       "n": 222148,
+       "coverage": 0.945,
+       "single": 0.359
+      },
+      "closed-forest": {
+       "n": 67174,
+       "coverage": 0.835,
+       "single": 0.409
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.872,
+       "single": 0.463
+      },
+      "forest-loss": {
+       "n": 828442,
+       "coverage": 0.893,
+       "single": 0.4
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.992,
+       "single": 0.748
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.901,
+       "single": 0.27
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.8,
+       "single": 0.334
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 0.968,
+       "single": 0.796
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.888,
+       "single": 0.422
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 385313,
+       "coverage": 0.91,
+       "single": 0.421
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.9,
+       "single": 0.388
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.903,
+       "single": 0.321
+      },
+      "north-america": {
+       "n": 259574,
+       "coverage": 0.91,
+       "single": 0.526
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.81,
+       "single": 0.383
+      },
+      "south-america": {
+       "n": 264288,
+       "coverage": 0.907,
+       "single": 0.367
+      }
+     }
+    }
+   },
+   "offset": {
+    "right": 0.65,
+    "stated": 0.655,
+    "ece": 0.0085,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.373,
+      "stated": 0.549,
+      "right": 0.554
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.308,
+      "stated": 0.647,
+      "right": 0.641
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.207,
+      "stated": 0.745,
+      "right": 0.729
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.092,
+      "stated": 0.842,
+      "right": 0.827
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.018,
+      "stated": 0.921,
+      "right": 0.924
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.003,
+      "stated": 0.961,
+      "right": 0.966
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.898,
+     "single": 0.41,
+     "single_right": 0.751,
+     "coverage_trees": 0.896,
+     "coverage_not": 0.899,
+     "per_kind": {
+      "city-edge": {
+       "n": 222148,
+       "coverage": 0.93,
+       "single": 0.359
+      },
+      "closed-forest": {
+       "n": 67174,
+       "coverage": 0.83,
+       "single": 0.415
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.866,
+       "single": 0.492
+      },
+      "forest-loss": {
+       "n": 828442,
+       "coverage": 0.895,
+       "single": 0.416
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.99,
+       "single": 0.745
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.91,
+       "single": 0.269
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.806,
+       "single": 0.329
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 0.973,
+       "single": 0.797
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.892,
+       "single": 0.42
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 385313,
+       "coverage": 0.901,
+       "single": 0.413
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.899,
+       "single": 0.404
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.906,
+       "single": 0.346
+      },
+      "north-america": {
+       "n": 259574,
+       "coverage": 0.922,
+       "single": 0.518
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.829,
+       "single": 0.367
+      },
+      "south-america": {
+       "n": 264288,
+       "coverage": 0.899,
+       "single": 0.4
+      }
+     }
+    }
+   },
+   "offset_per_continent": {
+    "right": 0.613,
+    "stated": 0.678,
+    "ece": 0.065,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.321,
+      "stated": 0.549,
+      "right": 0.526
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.283,
+      "stated": 0.648,
+      "right": 0.571
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.222,
+      "stated": 0.747,
+      "right": 0.677
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.116,
+      "stated": 0.844,
+      "right": 0.716
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.033,
+      "stated": 0.924,
+      "right": 0.851
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.025,
+      "stated": 0.974,
+      "right": 0.851
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.873,
+     "single": 0.438,
+     "single_right": 0.71,
+     "coverage_trees": 0.841,
+     "coverage_not": 0.897,
+     "per_kind": {
+      "city-edge": {
+       "n": 222148,
+       "coverage": 0.922,
+       "single": 0.405
+      },
+      "closed-forest": {
+       "n": 67174,
+       "coverage": 0.787,
+       "single": 0.502
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.82,
+       "single": 0.562
+      },
+      "forest-loss": {
+       "n": 828442,
+       "coverage": 0.869,
+       "single": 0.443
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.993,
+       "single": 0.749
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.908,
+       "single": 0.25
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.634,
+       "single": 0.529
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 0.982,
+       "single": 0.808
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.875,
+       "single": 0.404
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 385313,
+       "coverage": 0.883,
+       "single": 0.449
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.892,
+       "single": 0.419
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.899,
+       "single": 0.388
+      },
+      "north-america": {
+       "n": 259574,
+       "coverage": 0.883,
+       "single": 0.569
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.683,
+       "single": 0.418
+      },
+      "south-america": {
+       "n": 264288,
+       "coverage": 0.893,
+       "single": 0.391
+      }
+     }
+    }
+   },
+   "lidar": {
+    "hard": {
+     "px": 321367,
+     "hard_temperature": {
+      "right": 0.627,
+      "stated": 0.712,
+      "ece": 0.085,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.254,
+        "stated": 0.55,
+        "right": 0.526
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.239,
+        "stated": 0.649,
+        "right": 0.586
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.217,
+        "stated": 0.749,
+        "right": 0.646
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.187,
+        "stated": 0.848,
+        "right": 0.722
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.071,
+        "stated": 0.924,
+        "right": 0.746
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.032,
+        "stated": 0.966,
+        "right": 0.802
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.843,
+       "single": 0.409,
+       "single_right": 0.617,
+       "coverage_trees": 0.869,
+       "coverage_not": 0.829
+      }
+     },
+     "offset": {
+      "right": 0.63,
+      "stated": 0.655,
+      "ece": 0.0242,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.366,
+        "stated": 0.549,
+        "right": 0.538
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.311,
+        "stated": 0.648,
+        "right": 0.631
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.214,
+        "stated": 0.745,
+        "right": 0.729
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.098,
+        "stated": 0.842,
+        "right": 0.737
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.011,
+        "stated": 0.917,
+        "right": 0.809
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.849,
+       "single": 0.433,
+       "single_right": 0.652,
+       "coverage_trees": 0.834,
+       "coverage_not": 0.857
+      }
+     },
+     "offset_per_continent": {
+      "right": 0.644,
+      "stated": 0.67,
+      "ece": 0.1341,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.448,
+        "stated": 0.546,
+        "right": 0.666
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.176,
+        "stated": 0.648,
+        "right": 0.578
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.152,
+        "stated": 0.749,
+        "right": 0.613
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.138,
+        "stated": 0.849,
+        "right": 0.662
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.056,
+        "stated": 0.924,
+        "right": 0.645
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.029,
+        "stated": 0.966,
+        "right": 0.761
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.83,
+       "single": 0.439,
+       "per_continent": {
+        "europe": {
+         "n": 43891,
+         "coverage": 0.816
+        },
+        "north-america": {
+         "n": 186803,
+         "coverage": 0.76
+        },
+        "oceania": {
+         "n": 90673,
+         "coverage": 0.981
+        }
+       }
+      }
+     }
+    },
+    "agree": {
+     "px": 560000,
+     "hard_temperature": {
+      "right": 0.918,
+      "stated": 0.912,
+      "ece": 0.0547,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.026,
+        "stated": 0.551,
+        "right": 0.59
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.034,
+        "stated": 0.654,
+        "right": 0.735
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.061,
+        "stated": 0.757,
+        "right": 0.85
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.214,
+        "stated": 0.862,
+        "right": 0.949
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.157,
+        "stated": 0.923,
+        "right": 0.937
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.509,
+        "stated": 0.984,
+        "right": 0.936
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.933,
+       "single": 0.909,
+       "single_right": 0.927,
+       "coverage_trees": 0.862,
+       "coverage_not": 0.968
+      }
+     },
+     "offset": {
+      "right": 0.918,
+      "stated": 0.853,
+      "ece": 0.0683,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.039,
+        "stated": 0.552,
+        "right": 0.62
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.058,
+        "stated": 0.655,
+        "right": 0.791
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.136,
+        "stated": 0.759,
+        "right": 0.915
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.349,
+        "stated": 0.849,
+        "right": 0.949
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.25,
+        "stated": 0.924,
+        "right": 0.924
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.167,
+        "stated": 0.968,
+        "right": 0.958
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.935,
+       "single": 0.917,
+       "single_right": 0.929,
+       "coverage_trees": 0.859,
+       "coverage_not": 0.972
+      }
+     }
+    }
+   }
+  },
+  "shrub_grass_lidar": {
+   "mean": {
+    "px": 418526,
+    "shrub_share": 0.425,
+    "worldcover": {
+     "says_shrub_or_grass": 0.771,
+     "right_where_it_says_shrub_or_grass": 0.753,
+     "says_other": {
+      "trees": 0.173,
+      "crop": 0.027,
+      "bare": 0.026
+     }
+    },
+    "io_rangeland_share": 0.819,
+    "head_two_way": {
+     "right": 0.778,
+     "right_on_shrub": 0.517,
+     "right_on_grass": 0.971,
+     "stated": 0.905,
+     "stated_when_right": 0.918,
+     "stated_when_wrong": 0.86
+    },
+    "head_top_class": {
+     "trees": 0.164,
+     "shrub": 0.121,
+     "grass": 0.585,
+     "crop": 0.089,
+     "built": 0.012,
+     "bare": 0.029
+    },
+    "on_worldcover_shrub_or_grass": {
+     "px": 322837,
+     "worldcover_right": 0.753,
+     "head_right": 0.783
+    },
+    "per_square": {
+     "lidar-ee-kivioli": {
+      "px": 32660,
+      "shrub_share": 0.096,
+      "head_right": 0.904,
+      "worldcover_right": 0.907
+     },
+     "lidar-ee-lahemaa": {
+      "px": 27616,
+      "shrub_share": 0.217,
+      "head_right": 0.783,
+      "worldcover_right": 0.802
+     },
+     "lidar-ee-tartu": {
+      "px": 11145,
+      "shrub_share": 0.22,
+      "head_right": 0.78,
+      "worldcover_right": 0.793
+     },
+     "lidar-nz-banks": {
+      "px": 31806,
+      "shrub_share": 0.217,
+      "head_right": 0.786,
+      "worldcover_right": 0.838
+     },
+     "lidar-nz-esk-valley": {
+      "px": 34893,
+      "shrub_share": 0.175,
+      "head_right": 0.828,
+      "worldcover_right": 0.844
+     },
+     "lidar-nz-glenbervie": {
+      "px": 34003,
+      "shrub_share": 0.24,
+      "head_right": 0.76,
+      "worldcover_right": 0.821
+     },
+     "lidar-nz-roxburgh": {
+      "px": 35675,
+      "shrub_share": 0.183,
+      "head_right": 0.884,
+      "worldcover_right": 0.871
+     },
+     "lidar-us-central-valley": {
+      "px": 39849,
+      "shrub_share": 0.002,
+      "head_right": 0.998,
+      "worldcover_right": 0.969
+     },
+     "lidar-us-eaton": {
+      "px": 34400,
+      "shrub_share": 0.969,
+      "head_right": 0.949,
+      "worldcover_right": 0.911
+     },
+     "lidar-us-los-padres": {
+      "px": 33377,
+      "shrub_share": 0.781,
+      "head_right": 0.686,
+      "worldcover_right": 0.504
+     },
+     "lidar-us-palisades": {
+      "px": 34217,
+      "shrub_share": 0.922,
+      "head_right": 0.814,
+      "worldcover_right": 0.756
+     },
+     "lidar-us-redwood": {
+      "px": 5733,
+      "shrub_share": 0.58,
+      "head_right": 0.42,
+      "worldcover_right": 0.559
+     },
+     "lidar-us-sierra-teak": {
+      "px": 29369,
+      "shrub_share": 0.793,
+      "head_right": 0.553,
+      "worldcover_right": 0.241
+     },
+     "lidar-us-sjer": {
+      "px": 33783,
+      "shrub_share": 0.622,
+      "head_right": 0.378,
+      "worldcover_right": 0.43
+     }
+    }
+   },
+   "p90": {
+    "px": 349294,
+    "shrub_share": 0.398,
+    "worldcover": {
+     "says_shrub_or_grass": 0.776,
+     "right_where_it_says_shrub_or_grass": 0.783,
+     "says_other": {
+      "trees": 0.159,
+      "crop": 0.032,
+      "bare": 0.03
+     }
+    },
+    "io_rangeland_share": 0.806,
+    "head_two_way": {
+     "right": 0.809,
+     "right_on_shrub": 0.547,
+     "right_on_grass": 0.982,
+     "stated": 0.914,
+     "stated_when_right": 0.927,
+     "stated_when_wrong": 0.859
+    },
+    "head_top_class": {
+     "trees": 0.152,
+     "shrub": 0.117,
+     "grass": 0.58,
+     "crop": 0.104,
+     "built": 0.013,
+     "bare": 0.034
+    },
+    "on_worldcover_shrub_or_grass": {
+     "px": 271210,
+     "worldcover_right": 0.783,
+     "head_right": 0.809
+    },
+    "per_square": {
+     "lidar-ee-kivioli": {
+      "px": 31350,
+      "shrub_share": 0.059,
+      "head_right": 0.941,
+      "worldcover_right": 0.942
+     },
+     "lidar-ee-lahemaa": {
+      "px": 25518,
+      "shrub_share": 0.16,
+      "head_right": 0.84,
+      "worldcover_right": 0.851
+     },
+     "lidar-ee-tartu": {
+      "px": 9971,
+      "shrub_share": 0.146,
+      "head_right": 0.854,
+      "worldcover_right": 0.86
+     },
+     "lidar-nz-banks": {
+      "px": 22157,
+      "shrub_share": 0.206,
+      "head_right": 0.797,
+      "worldcover_right": 0.84
+     },
+     "lidar-nz-esk-valley": {
+      "px": 28216,
+      "shrub_share": 0.148,
+      "head_right": 0.853,
+      "worldcover_right": 0.862
+     },
+     "lidar-nz-glenbervie": {
+      "px": 26667,
+      "shrub_share": 0.217,
+      "head_right": 0.783,
+      "worldcover_right": 0.83
+     },
+     "lidar-nz-roxburgh": {
+      "px": 31573,
+      "shrub_share": 0.214,
+      "head_right": 0.863,
+      "worldcover_right": 0.841
+     },
+     "lidar-us-central-valley": {
+      "px": 39489,
+      "shrub_share": 0.001,
+      "head_right": 0.999,
+      "worldcover_right": 0.97
+     },
+     "lidar-us-eaton": {
+      "px": 28625,
+      "shrub_share": 0.979,
+      "head_right": 0.962,
+      "worldcover_right": 0.934
+     },
+     "lidar-us-los-padres": {
+      "px": 24468,
+      "shrub_share": 0.798,
+      "head_right": 0.712,
+      "worldcover_right": 0.541
+     },
+     "lidar-us-palisades": {
+      "px": 29414,
+      "shrub_share": 0.951,
+      "head_right": 0.836,
+      "worldcover_right": 0.799
+     },
+     "lidar-us-redwood": {
+      "px": 4340,
+      "shrub_share": 0.521,
+      "head_right": 0.479,
+      "worldcover_right": 0.631
+     },
+     "lidar-us-sierra-teak": {
+      "px": 21183,
+      "shrub_share": 0.782,
+      "head_right": 0.546,
+      "worldcover_right": 0.246
+     },
+     "lidar-us-sjer": {
+      "px": 26323,
+      "shrub_share": 0.601,
+      "head_right": 0.399,
+      "worldcover_right": 0.442
+     }
+    }
+   }
+  },
+  "open_woodland": {
+   "rule": "agreed trees, shrub or grass with Meta mean height 2 to 5 m (imagery 2017 on) -> open woodland",
+   "share_of_agreed": 0.056,
+   "moved_from": {
+    "trees": 0.096,
+    "shrub": 0.063,
+    "grass": 0.028
+   },
+   "recall_10_class": {
+    "trees": 0.965,
+    "shrub": 0.644,
+    "grass": 0.881,
+    "crop": 0.951,
+    "built": 0.976,
+    "bare": 0.775,
+    "water": 0.946,
+    "wetland": 0.608,
+    "moss": 0.753,
+    "open woodland": 0.043
+   },
+   "recall_9_class": {
+    "trees": 0.978,
+    "shrub": 0.648,
+    "grass": 0.889,
+    "crop": 0.959,
+    "built": 0.983,
+    "bare": 0.77,
+    "water": 0.958,
+    "wetland": 0.368,
+    "moss": 0.74
+   },
+   "acc_10": 0.86,
+   "acc_9": 0.916,
+   "nine_class_head_on_open_woodland": {
+    "trees": 0.794,
+    "shrub": 0.083,
+    "grass": 0.107
+   },
+   "hard_nine_class": {
+    "called_open_woodland": 0.0,
+    "right_ow_as_not_trees": 0.625,
+    "right_excluding_ow_calls": 0.625,
+    "confidence": 0.836,
+    "ow_calls_truth_trees_share": null,
+    "binary_trees_vs_rest": 0.63
+   },
+   "hard_ten_class": {
+    "called_open_woodland": 0.076,
+    "right_ow_as_not_trees": 0.665,
+    "right_excluding_ow_calls": 0.666,
+    "confidence": 0.7,
+    "ow_calls_truth_trees_share": 0.346,
+    "binary_trees_vs_rest": 0.677
+   }
+  }
+ },
+ "all": {
+  "fit": {
+   "px": 1797069,
+   "fits_by_fold": {
+    "T": {
+     "0": 3.916,
+     "1": 3.975,
+     "2": 3.771,
+     "3": 3.827,
+     "4": 3.954,
+     "5": 3.861,
+     "6": 3.915,
+     "7": 3.791
+    },
+    "P": {
+     "0": [
+      0.156,
+      -0.351
+     ],
+     "1": [
+      0.149,
+      -0.339
+     ],
+     "2": [
+      0.156,
+      -0.253
+     ],
+     "3": [
+      0.165,
+      -0.378
+     ],
+     "4": [
+      0.161,
+      -0.422
+     ],
+     "5": [
+      0.155,
+      -0.314
+     ],
+     "6": [
+      0.161,
+      -0.385
+     ],
+     "7": [
+      0.153,
+      -0.245
+     ]
+    },
+    "C": {}
+   },
+   "hard_temperature": {
+    "right": 0.665,
+    "stated": 0.733,
+    "ece": 0.068,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.207,
+      "stated": 0.55,
+      "right": 0.532
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.212,
+      "stated": 0.65,
+      "right": 0.599
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.232,
+      "stated": 0.751,
+      "right": 0.681
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.224,
+      "stated": 0.849,
+      "right": 0.733
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.089,
+      "stated": 0.924,
+      "right": 0.836
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.036,
+      "stated": 0.966,
+      "right": 0.871
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.899,
+     "single": 0.42,
+     "single_right": 0.758,
+     "coverage_trees": 0.897,
+     "coverage_not": 0.9,
+     "per_kind": {
+      "city-edge": {
+       "n": 222142,
+       "coverage": 0.924,
+       "single": 0.421
+      },
+      "closed-forest": {
+       "n": 67142,
+       "coverage": 0.9,
+       "single": 0.399
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.855,
+       "single": 0.46
+      },
+      "forest-loss": {
+       "n": 827642,
+       "coverage": 0.873,
+       "single": 0.424
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.992,
+       "single": 0.726
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.954,
+       "single": 0.297
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.813,
+       "single": 0.337
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 1.0,
+       "single": 0.677
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.919,
+       "single": 0.42
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 384766,
+       "coverage": 0.908,
+       "single": 0.422
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.879,
+       "single": 0.419
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.886,
+       "single": 0.354
+      },
+      "north-america": {
+       "n": 259542,
+       "coverage": 0.923,
+       "single": 0.505
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.906,
+       "single": 0.411
+      },
+      "south-america": {
+       "n": 264029,
+       "coverage": 0.904,
+       "single": 0.409
+      }
+     }
+    }
+   },
+   "offset": {
+    "right": 0.658,
+    "stated": 0.664,
+    "ece": 0.0067,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.334,
+      "stated": 0.55,
+      "right": 0.543
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.299,
+      "stated": 0.649,
+      "right": 0.644
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.248,
+      "stated": 0.747,
+      "right": 0.749
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.104,
+      "stated": 0.839,
+      "right": 0.827
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.013,
+      "stated": 0.92,
+      "right": 0.846
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.002,
+      "stated": 0.962,
+      "right": 0.88
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.899,
+     "single": 0.416,
+     "single_right": 0.757,
+     "coverage_trees": 0.898,
+     "coverage_not": 0.899,
+     "per_kind": {
+      "city-edge": {
+       "n": 222142,
+       "coverage": 0.915,
+       "single": 0.398
+      },
+      "closed-forest": {
+       "n": 67142,
+       "coverage": 0.891,
+       "single": 0.409
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.86,
+       "single": 0.453
+      },
+      "forest-loss": {
+       "n": 827642,
+       "coverage": 0.87,
+       "single": 0.436
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.989,
+       "single": 0.695
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.965,
+       "single": 0.282
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.779,
+       "single": 0.376
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 1.0,
+       "single": 0.701
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.941,
+       "single": 0.376
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 384766,
+       "coverage": 0.907,
+       "single": 0.405
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.889,
+       "single": 0.404
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.889,
+       "single": 0.368
+      },
+      "north-america": {
+       "n": 259542,
+       "coverage": 0.929,
+       "single": 0.481
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.898,
+       "single": 0.417
+      },
+      "south-america": {
+       "n": 264029,
+       "coverage": 0.886,
+       "single": 0.442
+      }
+     }
+    }
+   },
+   "offset_per_continent": {
+    "right": 0.638,
+    "stated": 0.674,
+    "ece": 0.0364,
+    "bins": [
+     {
+      "confidence": "0.50-0.60",
+      "share": 0.332,
+      "stated": 0.549,
+      "right": 0.535
+     },
+     {
+      "confidence": "0.60-0.70",
+      "share": 0.29,
+      "stated": 0.649,
+      "right": 0.632
+     },
+     {
+      "confidence": "0.70-0.80",
+      "share": 0.211,
+      "stated": 0.744,
+      "right": 0.733
+     },
+     {
+      "confidence": "0.80-0.90",
+      "share": 0.109,
+      "stated": 0.844,
+      "right": 0.757
+     },
+     {
+      "confidence": "0.90-0.95",
+      "share": 0.034,
+      "stated": 0.925,
+      "right": 0.703
+     },
+     {
+      "confidence": "0.95-1.00",
+      "share": 0.024,
+      "stated": 0.971,
+      "right": 0.661
+     }
+    ],
+    "sets_90": {
+     "coverage": 0.882,
+     "single": 0.435,
+     "single_right": 0.73,
+     "coverage_trees": 0.862,
+     "coverage_not": 0.898,
+     "per_kind": {
+      "city-edge": {
+       "n": 222142,
+       "coverage": 0.91,
+       "single": 0.425
+      },
+      "closed-forest": {
+       "n": 67142,
+       "coverage": 0.809,
+       "single": 0.564
+      },
+      "crop": {
+       "n": 99710,
+       "coverage": 0.843,
+       "single": 0.493
+      },
+      "forest-loss": {
+       "n": 827642,
+       "coverage": 0.864,
+       "single": 0.439
+      },
+      "grass": {
+       "n": 59641,
+       "coverage": 0.96,
+       "single": 0.684
+      },
+      "savanna": {
+       "n": 220467,
+       "coverage": 0.964,
+       "single": 0.249
+      },
+      "shrub": {
+       "n": 61598,
+       "coverage": 0.542,
+       "single": 0.65
+      },
+      "tundra": {
+       "n": 29359,
+       "coverage": 1.0,
+       "single": 0.782
+      },
+      "wetland": {
+       "n": 209332,
+       "coverage": 0.943,
+       "single": 0.377
+      }
+     },
+     "per_continent": {
+      "africa": {
+       "n": 384766,
+       "coverage": 0.899,
+       "single": 0.41
+      },
+      "asia": {
+       "n": 459900,
+       "coverage": 0.892,
+       "single": 0.39
+      },
+      "europe": {
+       "n": 283871,
+       "coverage": 0.904,
+       "single": 0.333
+      },
+      "north-america": {
+       "n": 259542,
+       "coverage": 0.875,
+       "single": 0.626
+      },
+      "oceania": {
+       "n": 144961,
+       "coverage": 0.781,
+       "single": 0.506
+      },
+      "south-america": {
+       "n": 264029,
+       "coverage": 0.88,
+       "single": 0.434
+      }
+     }
+    }
+   },
+   "lidar": {
+    "hard": {
+     "px": 321321,
+     "hard_temperature": {
+      "right": 0.712,
+      "stated": 0.765,
+      "ece": 0.0541,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.158,
+        "stated": 0.551,
+        "right": 0.556
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.177,
+        "stated": 0.651,
+        "right": 0.646
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.208,
+        "stated": 0.752,
+        "right": 0.717
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.257,
+        "stated": 0.852,
+        "right": 0.776
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.134,
+        "stated": 0.925,
+        "right": 0.798
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.065,
+        "stated": 0.965,
+        "right": 0.833
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.899,
+       "single": 0.444,
+       "single_right": 0.772,
+       "coverage_trees": 0.814,
+       "coverage_not": 0.944
+      }
+     },
+     "offset": {
+      "right": 0.724,
+      "stated": 0.701,
+      "ece": 0.0437,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.237,
+        "stated": 0.551,
+        "right": 0.583
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.262,
+        "stated": 0.651,
+        "right": 0.715
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.264,
+        "stated": 0.75,
+        "right": 0.782
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.206,
+        "stated": 0.845,
+        "right": 0.807
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.03,
+        "stated": 0.918,
+        "right": 0.817
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.001,
+        "stated": 0.956,
+        "right": 0.89
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.895,
+       "single": 0.497,
+       "single_right": 0.788,
+       "coverage_trees": 0.771,
+       "coverage_not": 0.962
+      }
+     },
+     "offset_per_continent": {
+      "right": 0.717,
+      "stated": 0.758,
+      "ece": 0.0491,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.176,
+        "stated": 0.55,
+        "right": 0.558
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.187,
+        "stated": 0.65,
+        "right": 0.662
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.208,
+        "stated": 0.751,
+        "right": 0.742
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.232,
+        "stated": 0.851,
+        "right": 0.787
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.11,
+        "stated": 0.925,
+        "right": 0.805
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.088,
+        "stated": 0.971,
+        "right": 0.795
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.875,
+       "single": 0.55,
+       "per_continent": {
+        "europe": {
+         "n": 43891,
+         "coverage": 0.823
+        },
+        "north-america": {
+         "n": 186761,
+         "coverage": 0.87
+        },
+        "oceania": {
+         "n": 90669,
+         "coverage": 0.912
+        }
+       }
+      }
+     }
+    },
+    "agree": {
+     "px": 560000,
+     "hard_temperature": {
+      "right": 0.923,
+      "stated": 0.932,
+      "ece": 0.0351,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.019,
+        "stated": 0.551,
+        "right": 0.562
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.023,
+        "stated": 0.652,
+        "right": 0.696
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.037,
+        "stated": 0.755,
+        "right": 0.821
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.105,
+        "stated": 0.863,
+        "right": 0.919
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.213,
+        "stated": 0.931,
+        "right": 0.949
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.603,
+        "stated": 0.978,
+        "right": 0.942
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.937,
+       "single": 0.943,
+       "single_right": 0.933,
+       "coverage_trees": 0.857,
+       "coverage_not": 0.976
+      }
+     },
+     "offset": {
+      "right": 0.924,
+      "stated": 0.873,
+      "ece": 0.0558,
+      "bins": [
+       {
+        "confidence": "0.50-0.60",
+        "share": 0.024,
+        "stated": 0.552,
+        "right": 0.578
+       },
+       {
+        "confidence": "0.60-0.70",
+        "share": 0.039,
+        "stated": 0.656,
+        "right": 0.761
+       },
+       {
+        "confidence": "0.70-0.80",
+        "share": 0.1,
+        "stated": 0.758,
+        "right": 0.914
+       },
+       {
+        "confidence": "0.80-0.90",
+        "share": 0.37,
+        "stated": 0.861,
+        "right": 0.95
+       },
+       {
+        "confidence": "0.90-0.95",
+        "share": 0.269,
+        "stated": 0.924,
+        "right": 0.924
+       },
+       {
+        "confidence": "0.95-1.00",
+        "share": 0.198,
+        "stated": 0.967,
+        "right": 0.954
+       }
+      ],
+      "sets_90": {
+       "coverage": 0.938,
+       "single": 0.947,
+       "single_right": 0.934,
+       "coverage_trees": 0.854,
+       "coverage_not": 0.979
+      }
+     }
+    }
+   }
+  },
+  "shrub_grass_lidar": {
+   "mean": {
+    "px": 418631,
+    "shrub_share": 0.425,
+    "worldcover": {
+     "says_shrub_or_grass": 0.772,
+     "right_where_it_says_shrub_or_grass": 0.753,
+     "says_other": {
+      "trees": 0.173,
+      "crop": 0.027,
+      "bare": 0.026
+     }
+    },
+    "io_rangeland_share": 0.819,
+    "head_two_way": {
+     "right": 0.769,
+     "right_on_shrub": 0.503,
+     "right_on_grass": 0.966,
+     "stated": 0.948,
+     "stated_when_right": 0.962,
+     "stated_when_wrong": 0.902
+    },
+    "head_top_class": {
+     "trees": 0.089,
+     "shrub": 0.176,
+     "grass": 0.6,
+     "crop": 0.119,
+     "built": 0.012
+    },
+    "on_worldcover_shrub_or_grass": {
+     "px": 323024,
+     "worldcover_right": 0.753,
+     "head_right": 0.766
+    },
+    "per_square": {
+     "lidar-ee-kivioli": {
+      "px": 32660,
+      "shrub_share": 0.096,
+      "head_right": 0.904,
+      "worldcover_right": 0.907
+     },
+     "lidar-ee-lahemaa": {
+      "px": 27616,
+      "shrub_share": 0.217,
+      "head_right": 0.783,
+      "worldcover_right": 0.802
+     },
+     "lidar-ee-tartu": {
+      "px": 11145,
+      "shrub_share": 0.22,
+      "head_right": 0.78,
+      "worldcover_right": 0.793
+     },
+     "lidar-nz-banks": {
+      "px": 31806,
+      "shrub_share": 0.217,
+      "head_right": 0.783,
+      "worldcover_right": 0.838
+     },
+     "lidar-nz-esk-valley": {
+      "px": 34893,
+      "shrub_share": 0.175,
+      "head_right": 0.825,
+      "worldcover_right": 0.844
+     },
+     "lidar-nz-glenbervie": {
+      "px": 33985,
+      "shrub_share": 0.239,
+      "head_right": 0.761,
+      "worldcover_right": 0.821
+     },
+     "lidar-nz-roxburgh": {
+      "px": 35675,
+      "shrub_share": 0.183,
+      "head_right": 0.824,
+      "worldcover_right": 0.871
+     },
+     "lidar-us-central-valley": {
+      "px": 39849,
+      "shrub_share": 0.002,
+      "head_right": 0.941,
+      "worldcover_right": 0.969
+     },
+     "lidar-us-eaton": {
+      "px": 34520,
+      "shrub_share": 0.969,
+      "head_right": 0.974,
+      "worldcover_right": 0.909
+     },
+     "lidar-us-los-padres": {
+      "px": 33377,
+      "shrub_share": 0.781,
+      "head_right": 0.76,
+      "worldcover_right": 0.504
+     },
+     "lidar-us-palisades": {
+      "px": 34217,
+      "shrub_share": 0.922,
+      "head_right": 0.911,
+      "worldcover_right": 0.756
+     },
+     "lidar-us-redwood": {
+      "px": 5733,
+      "shrub_share": 0.58,
+      "head_right": 0.423,
+      "worldcover_right": 0.559
+     },
+     "lidar-us-sierra-teak": {
+      "px": 29372,
+      "shrub_share": 0.79,
+      "head_right": 0.35,
+      "worldcover_right": 0.243
+     },
+     "lidar-us-sjer": {
+      "px": 33783,
+      "shrub_share": 0.622,
+      "head_right": 0.378,
+      "worldcover_right": 0.43
+     }
+    }
+   },
+   "p90": {
+    "px": 349405,
+    "shrub_share": 0.398,
+    "worldcover": {
+     "says_shrub_or_grass": 0.777,
+     "right_where_it_says_shrub_or_grass": 0.783,
+     "says_other": {
+      "trees": 0.159,
+      "crop": 0.032,
+      "bare": 0.03
+     }
+    },
+    "io_rangeland_share": 0.806,
+    "head_two_way": {
+     "right": 0.801,
+     "right_on_shrub": 0.537,
+     "right_on_grass": 0.975,
+     "stated": 0.954,
+     "stated_when_right": 0.966,
+     "stated_when_wrong": 0.902
+    },
+    "head_top_class": {
+     "trees": 0.079,
+     "shrub": 0.176,
+     "grass": 0.588,
+     "crop": 0.141,
+     "built": 0.012
+    },
+    "on_worldcover_shrub_or_grass": {
+     "px": 271397,
+     "worldcover_right": 0.783,
+     "head_right": 0.793
+    },
+    "per_square": {
+     "lidar-ee-kivioli": {
+      "px": 31350,
+      "shrub_share": 0.059,
+      "head_right": 0.941,
+      "worldcover_right": 0.942
+     },
+     "lidar-ee-lahemaa": {
+      "px": 25518,
+      "shrub_share": 0.16,
+      "head_right": 0.84,
+      "worldcover_right": 0.851
+     },
+     "lidar-ee-tartu": {
+      "px": 9971,
+      "shrub_share": 0.146,
+      "head_right": 0.854,
+      "worldcover_right": 0.86
+     },
+     "lidar-nz-banks": {
+      "px": 22157,
+      "shrub_share": 0.206,
+      "head_right": 0.794,
+      "worldcover_right": 0.84
+     },
+     "lidar-nz-esk-valley": {
+      "px": 28216,
+      "shrub_share": 0.148,
+      "head_right": 0.852,
+      "worldcover_right": 0.862
+     },
+     "lidar-nz-glenbervie": {
+      "px": 26664,
+      "shrub_share": 0.217,
+      "head_right": 0.783,
+      "worldcover_right": 0.83
+     },
+     "lidar-nz-roxburgh": {
+      "px": 31573,
+      "shrub_share": 0.214,
+      "head_right": 0.794,
+      "worldcover_right": 0.841
+     },
+     "lidar-us-central-valley": {
+      "px": 39489,
+      "shrub_share": 0.001,
+      "head_right": 0.949,
+      "worldcover_right": 0.97
+     },
+     "lidar-us-eaton": {
+      "px": 28660,
+      "shrub_share": 0.98,
+      "head_right": 0.988,
+      "worldcover_right": 0.933
+     },
+     "lidar-us-los-padres": {
+      "px": 24468,
+      "shrub_share": 0.798,
+      "head_right": 0.803,
+      "worldcover_right": 0.541
+     },
+     "lidar-us-palisades": {
+      "px": 29414,
+      "shrub_share": 0.951,
+      "head_right": 0.932,
+      "worldcover_right": 0.799
+     },
+     "lidar-us-redwood": {
+      "px": 4340,
+      "shrub_share": 0.521,
+      "head_right": 0.483,
+      "worldcover_right": 0.631
+     },
+     "lidar-us-sierra-teak": {
+      "px": 21262,
+      "shrub_share": 0.779,
+      "head_right": 0.345,
+      "worldcover_right": 0.249
+     },
+     "lidar-us-sjer": {
+      "px": 26323,
+      "shrub_share": 0.601,
+      "head_right": 0.399,
+      "worldcover_right": 0.442
+     }
+    }
+   }
+  }
+ }
+}

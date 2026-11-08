@@ -40,7 +40,13 @@ forest.
 - `FINDINGS.md`: what the tests found so far. Biomass, canopy height and land cover from one year's embedding over 92
   squares of every kind of ground, held out by square and by continent; biomass change against CTrees; Earthwork's
   trouble spots through the biomass head; the three embeddings side by side. Before that, tree loss (signal, false
-  alarms, 37 squares wall to wall, fire-knn's volume head abroad).
+  alarms, 37 squares wall to wall, fire-knn's volume head abroad). After it: class margins of error, change
+  calibrated per window length, the squeezed top end and a second biomass map (ESA CCI), a head on the whole
+  series for regrowth, classes where the land cover maps disagree, and airborne lidar canopy height and change.
+  Then grass against RAP (a yearly rangeland biomass map that is not CTrees), the classes calibrated on the pixels
+  where the land cover maps disagree, shrub against the SoCal chaparral map, the open directions tested (grass,
+  hard-ground classes, combined change, the top end and shrub level against lidar, more lidar read at 2 m, tree
+  loss), and which embeddings the map should read, accuracy against bandwidth.
 - `PLAN.md`: the plan for the biomass classes and their change.
 
 ## Scripts
@@ -59,6 +65,26 @@ forest.
 | `class_report.py` | Land cover with its margins of error: per class with intervals, and the head's confidence against how often it is right |
 | `biomass_change.py` | Biomass change between years against CTrees' change: plain difference, calibrated, gated by embedding change, a pair head; and the 10 m view at Hansen loss |
 | `biomass_lookalikes.py` | Earthwork's trouble spots (crop switches, farms, marsh, reservoirs, floods, burns) through the biomass head |
+| `class_calibrate.py` | Temperature scaling and conformal class sets, fit across folds (`models/class_temperature.json`) |
+| `change_calibrate.py` | Biomass change calibrated per window length, from the saved cell tables |
+| `top_end.py` | CTrees' own error at the top end, quantile mapping, and the head taught with weight on high biomass (`biomass_head.py --weight-top 1 --tag _top`) |
+| `read_cci.py`, `cci_compare.py` | ESA CCI Biomass v7.0 under every square; CTrees against CCI against the heads |
+| `trajectory_head.py` | A head on all eight years of a pixel at once, scored on change and regrowth |
+| `class_hard_ground.py` | The classes where WorldCover and IO disagree, with Meta's height as referee for trees |
+| `read_lidar.py`, `lidar_check.py` | Airborne lidar canopy height (LINZ, Estonia, NASA WERK; surface minus ground through Earthwork's readers) under 18 new squares, and the heads against it; read with `read_squares.py --picks lidar_squares.json` and `read_labels.py --picks lidar_squares.json` |
+| `pick_us_squares.py` | 10 US rangeland squares under RAP and 7 southern California chaparral squares (six inside MTBS fire perimeters); read with `read_squares.py --picks us_squares.json` and `read_labels.py --picks us_squares.json` |
+| `read_rap.py` | Rangeland Analysis Platform v3 herbaceous biomass and cover, 2018 to 2025, under every square in the lower 48 |
+| `read_chaparral.py` | The SoCal annual biomass map (Dryad doi:10.5061/dryad.qz612jmjt), 2018 to 2023, from the yearly zips in `data/chaparral/zips` |
+| `map_check.py` | The CTrees-taught heads, CTrees, and a head taught on the map itself (held out by square) against RAP (`--label rap`) or the chaparral map (`--label chaparral`), on amounts, years and swings |
+| `class_hard_calibrate.py` | Class calibration fit on hard pixels (the maps disagree, Meta height as referee), checked against airborne lidar |
+| `grass_tests.py` | Grass: a change threshold set against RAP's year noise, California annual grass, a two-part head (CTrees total and RAP grass), the RAP head abroad |
+| `class_hard_tests.py` | Hard-ground classes: an offset calibration, per-continent fits, shrub against grass refereed by lidar, open woodland as a tenth class (`models/class_hard_tests.json`) |
+| `top_end_lidar.py` | The top end and the shrub level against airborne lidar: CTrees, CCI, the chaparral map and the heads by lidar height |
+| `read_lidar2m.py`, `lidar_check2.py` | More airborne lidar, read at 2 m (France, Scotland, Canada, the Netherlands, Norway), and the heads against it |
+| `change_combined.py` | Change for the map: loss from one head and gain from another, every pairing, against CTrees and lidar; a gradual gate; a floor on gain; the ramp limits |
+| `embedding_bandwidth.py` | What each embedding costs to read on the fly: bytes and requests per square-year from each public store |
+| `pair_heads.py`, `pair_scores.py` | Heads on two embeddings at once, scored beside one and all three on the map's tests, with read cost |
+| `tree_loss_tests.py` | Tree loss: a height gate for dry and open forest, cutoffs by cover, loss from fire (GLAD), Sentinel-2 under the flags Hansen lacks |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold
@@ -74,4 +100,12 @@ Cooperative), OlmoEarth v1.3 embeddings (Source Cooperative; OlmoEarth Artifact 
 v1.12, ESA WorldCover 2020 and 2021, CTrees aboveground biomass (100 m, AWS Open Data, CC-BY 4.0), Meta and WRI canopy
 height v2 (AWS, CC BY 4.0), Impact Observatory annual land use v02 (Planetary Computer), Vizzuality and Impact
 Observatory biodiversity intactness v1.1 (Source Cooperative, CC-BY 4.0), and the Earthwork labels (USGS 3DEP, USDA
-Cropland Data Layer). The picks are in `results/veg_squares.json`; trained heads and cell tables stay in `data/`.
+Cropland Data Layer), ESA CCI Biomass v7.0 (CEDA, free and open with citation), LINZ nz-elevation DSM and DEM (CC BY
+4.0), Estonia's Maa- ja Ruumiamet lidar point clouds, NASA WERK California lidar canopy height (CC0), the
+Rangeland Analysis Platform v3 (Univ. of Montana), MTBS burned area perimeters (USGS and USFS, via Source
+Cooperative), and the SoCal annual biomass map (Schrader-Patton et al., Dryad, CC0; its download needs a browser or a
+Dryad account token), GLAD forest loss due to fire (University of Maryland), Sentinel-2 L2A (Earth Search), and airborne
+lidar read at 2 m: IGN LiDAR HD canopy height (France), the Scottish Remote Sensing Portal, NRCan HRDEM (Canada),
+AHN5 (the Netherlands) and Kartverket (Norway). The picks are in `results/veg_squares.json`,
+`results/lidar_squares.json`, `results/lidar2_squares.json` and `results/us_squares.json`; trained heads and cell
+tables stay in `data/`.

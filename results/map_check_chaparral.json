@@ -1,0 +1,1637 @@
+{
+ "label": "chaparral",
+ "years": [
+  2018,
+  2019,
+  2020,
+  2021
+ ],
+ "squares": [
+  "cleveland-steady-ca",
+  "thomas-fire-ca",
+  "woolsey-fire-ca",
+  "holy-fire-ca",
+  "bobcat-fire-ca",
+  "valley-fire-ca",
+  "fairview-fire-ca",
+  "lidar-us-eaton",
+  "lidar-us-los-padres",
+  "lidar-us-palisades"
+ ],
+ "swing_threshold": 5.0,
+ "ctrees": {
+  "blocks": 32193,
+  "block_years": 127554,
+  "r2_log": -1.535,
+  "median_error": 7.724,
+  "label_median": 6.686,
+  "model_median": 14.157,
+  "rank_blocks": 0.394,
+  "rank_within_square_median": 0.388,
+  "rank_square_medians": 0.333,
+  "departure_corr": 0.292,
+  "square_series_corr_median": 0.126,
+  "square_series_corr_positive": "6/10",
+  "series": {
+   "cleveland-steady-ca": {
+    "corr": 0.845,
+    "label": [
+     5.76,
+     5.16,
+     5.23,
+     5.99
+    ],
+    "model": [
+     13.09,
+     13.03,
+     12.92,
+     13.15
+    ]
+   },
+   "thomas-fire-ca": {
+    "corr": 0.11,
+    "label": [
+     6.77,
+     7.1,
+     7.96,
+     7.14
+    ],
+    "model": [
+     11.55,
+     11.66,
+     11.61,
+     11.71
+    ]
+   },
+   "woolsey-fire-ca": {
+    "corr": 0.141,
+    "label": [
+     5.07,
+     4.87,
+     4.94,
+     4.09
+    ],
+    "model": [
+     8.86,
+     9.17,
+     9.14,
+     8.97
+    ]
+   },
+   "holy-fire-ca": {
+    "corr": 0.681,
+    "label": [
+     11.07,
+     6.82,
+     9.29,
+     9.44
+    ],
+    "model": [
+     17.84,
+     11.27,
+     10.63,
+     10.94
+    ]
+   },
+   "bobcat-fire-ca": {
+    "corr": -0.771,
+    "label": [
+     18.3,
+     18.04,
+     19.14,
+     22.43
+    ],
+    "model": [
+     14.77,
+     14.13,
+     13.94,
+     13.56
+    ]
+   },
+   "valley-fire-ca": {
+    "corr": 0.861,
+    "label": [
+     6.38,
+     5.83,
+     5.84,
+     5.32
+    ],
+    "model": [
+     9.97,
+     9.26,
+     8.0,
+     7.75
+    ]
+   },
+   "fairview-fire-ca": {
+    "corr": -0.942,
+    "label": [
+     3.01,
+     2.63,
+     2.72,
+     3.91
+    ],
+    "model": [
+     20.31,
+     20.46,
+     20.21,
+     19.69
+    ]
+   },
+   "lidar-us-eaton": {
+    "corr": 0.428,
+    "label": [
+     7.59,
+     8.47,
+     9.96,
+     8.52
+    ],
+    "model": [
+     38.67,
+     38.6,
+     38.84,
+     38.31
+    ]
+   },
+   "lidar-us-los-padres": {
+    "corr": -0.207,
+    "label": [
+     9.24,
+     9.54,
+     10.05,
+     8.02
+    ],
+    "model": [
+     12.1,
+     12.68,
+     12.44,
+     12.61
+    ]
+   },
+   "lidar-us-palisades": {
+    "corr": -0.082,
+    "label": [
+     8.42,
+     11.47,
+     11.59,
+     7.99
+    ],
+    "model": [
+     40.3,
+     39.9,
+     40.32,
+     40.04
+    ]
+   }
+  },
+  "step_corr": 0.286,
+  "swings": {
+   "n": 7326,
+   "share_of_steps": 0.077,
+   "up": 2300,
+   "down": 5026,
+   "found_same_way": 0.241,
+   "found_down": 0.299,
+   "found_up": 0.114,
+   "steady_n": 23602,
+   "steady_lit": 0.089,
+   "label_steps_over_10": 0.0259
+  }
+ },
+ "ctrees_head": {
+  "aef": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": -0.991,
+   "median_error": 9.102,
+   "label_median": 6.686,
+   "model_median": 15.442,
+   "rank_blocks": 0.425,
+   "rank_within_square_median": 0.364,
+   "rank_square_medians": 0.309,
+   "departure_corr": 0.216,
+   "square_series_corr_median": 0.11,
+   "square_series_corr_positive": "5/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": 0.99,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      11.72,
+      11.01,
+      11.02,
+      12.23
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": -0.087,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      18.42,
+      18.05,
+      18.35,
+      18.88
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": -0.371,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      14.47,
+      13.98,
+      12.11,
+      14.52
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": -0.909,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      16.43,
+      20.01,
+      19.1,
+      17.43
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.119,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      12.98,
+      11.1,
+      10.05,
+      11.43
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.557,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      11.43,
+      10.9,
+      8.8,
+      9.84
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": -0.329,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      14.77,
+      14.85,
+      13.28,
+      13.66
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.307,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      19.76,
+      21.35,
+      21.73,
+      24.53
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.753,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      16.16,
+      17.16,
+      16.73,
+      15.92
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.644,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      27.3,
+      38.36,
+      27.08,
+      24.05
+     ]
+    }
+   },
+   "step_corr": 0.105,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.44,
+    "found_down": 0.424,
+    "found_up": 0.477,
+    "steady_n": 23602,
+    "steady_lit": 0.488,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "tes": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": -0.121,
+   "median_error": 5.216,
+   "label_median": 6.686,
+   "model_median": 11.569,
+   "rank_blocks": 0.619,
+   "rank_within_square_median": 0.656,
+   "rank_square_medians": 0.806,
+   "departure_corr": 0.56,
+   "square_series_corr_median": 0.362,
+   "square_series_corr_positive": "7/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": -0.784,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      8.82,
+      11.39,
+      9.25,
+      8.5
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.499,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      9.69,
+      12.66,
+      12.0,
+      9.27
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": 0.874,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      10.6,
+      8.07,
+      7.65,
+      5.46
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": 0.762,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      19.28,
+      12.0,
+      12.86,
+      12.06
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.82,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      13.87,
+      11.86,
+      11.95,
+      10.03
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.418,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      8.99,
+      10.43,
+      11.8,
+      6.69
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": -0.578,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      8.77,
+      11.94,
+      11.21,
+      9.69
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.307,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      17.5,
+      19.47,
+      18.72,
+      15.67
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.3,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      11.05,
+      14.52,
+      11.45,
+      11.21
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.963,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      23.47,
+      36.95,
+      32.54,
+      20.58
+     ]
+    }
+   },
+   "step_corr": 0.551,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.766,
+    "found_down": 0.828,
+    "found_up": 0.63,
+    "steady_n": 23602,
+    "steady_lit": 0.569,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "olmo": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": 0.011,
+   "median_error": 5.1,
+   "label_median": 6.686,
+   "model_median": 11.894,
+   "rank_blocks": 0.661,
+   "rank_within_square_median": 0.582,
+   "rank_square_medians": 0.709,
+   "departure_corr": 0.197,
+   "square_series_corr_median": 0.547,
+   "square_series_corr_positive": "6/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": -0.935,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      8.91,
+      10.05,
+      9.51,
+      7.41
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.737,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      9.36,
+      14.64,
+      15.54,
+      9.59
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": 0.699,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      8.2,
+      10.09,
+      9.45,
+      7.0
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": -0.243,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      9.86,
+      13.43,
+      18.81,
+      17.02
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.924,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      15.68,
+      14.41,
+      12.56,
+      10.09
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.836,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      9.37,
+      9.55,
+      8.17,
+      5.65
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": -0.891,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      9.06,
+      11.25,
+      9.59,
+      7.67
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.396,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      19.75,
+      21.97,
+      21.84,
+      16.98
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.782,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      13.55,
+      18.21,
+      17.36,
+      13.07
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.933,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      16.1,
+      19.46,
+      19.92,
+      12.23
+     ]
+    }
+   },
+   "step_corr": 0.298,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.562,
+    "found_down": 0.51,
+    "found_up": 0.676,
+    "steady_n": 23602,
+    "steady_lit": 0.498,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "all": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": -0.221,
+   "median_error": 5.75,
+   "label_median": 6.686,
+   "model_median": 12.022,
+   "rank_blocks": 0.58,
+   "rank_within_square_median": 0.581,
+   "rank_square_medians": 0.733,
+   "departure_corr": 0.227,
+   "square_series_corr_median": 0.296,
+   "square_series_corr_positive": "6/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": -0.825,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      8.75,
+      10.15,
+      9.23,
+      8.79
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.392,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      10.24,
+      12.93,
+      11.89,
+      10.09
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": 0.893,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      9.87,
+      10.31,
+      10.54,
+      8.5
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": -0.931,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      13.35,
+      15.21,
+      14.35,
+      13.55
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.686,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      13.81,
+      12.79,
+      10.97,
+      11.02
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.618,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      9.7,
+      10.18,
+      9.95,
+      8.66
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": -0.795,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      10.42,
+      12.04,
+      10.66,
+      9.79
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.2,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      20.35,
+      21.88,
+      21.02,
+      18.45
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.903,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      11.95,
+      13.21,
+      13.15,
+      11.3
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.642,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      29.38,
+      32.68,
+      27.61,
+      19.16
+     ]
+    }
+   },
+   "step_corr": 0.154,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.395,
+    "found_down": 0.481,
+    "found_up": 0.208,
+    "steady_n": 23602,
+    "steady_lit": 0.452,
+    "label_steps_over_10": 0.0259
+   }
+  }
+ },
+ "own_head": {
+  "aef": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": 0.601,
+   "median_error": 1.922,
+   "label_median": 6.686,
+   "model_median": 6.746,
+   "rank_blocks": 0.729,
+   "rank_within_square_median": 0.756,
+   "rank_square_medians": 0.745,
+   "departure_corr": 0.363,
+   "square_series_corr_median": 0.594,
+   "square_series_corr_positive": "8/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": 0.485,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      5.05,
+      4.66,
+      5.28,
+      5.26
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.894,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      5.95,
+      5.73,
+      6.82,
+      5.98
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": 0.714,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      6.15,
+      5.73,
+      5.56,
+      5.44
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": -0.769,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      6.21,
+      8.27,
+      8.4,
+      7.76
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.511,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      11.35,
+      9.89,
+      13.35,
+      8.8
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.703,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      5.15,
+      5.18,
+      5.46,
+      4.16
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": 0.138,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      6.17,
+      5.48,
+      6.35,
+      6.0
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.464,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      9.24,
+      12.29,
+      11.04,
+      10.72
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.86,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      7.6,
+      8.37,
+      9.65,
+      7.28
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.838,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      8.94,
+      10.03,
+      12.16,
+      8.84
+     ]
+    }
+   },
+   "step_corr": 0.348,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.56,
+    "found_down": 0.639,
+    "found_up": 0.387,
+    "steady_n": 23602,
+    "steady_lit": 0.255,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "tes": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": 0.572,
+   "median_error": 2.058,
+   "label_median": 6.686,
+   "model_median": 6.699,
+   "rank_blocks": 0.685,
+   "rank_within_square_median": 0.742,
+   "rank_square_medians": 0.636,
+   "departure_corr": 0.505,
+   "square_series_corr_median": 0.436,
+   "square_series_corr_positive": "6/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": 0.933,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      5.05,
+      4.79,
+      4.59,
+      5.22
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.72,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      4.1,
+      4.6,
+      5.3,
+      5.37
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": -0.772,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      4.57,
+      5.03,
+      5.11,
+      5.33
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": 0.684,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      8.56,
+      7.98,
+      8.68,
+      8.09
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.807,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      11.27,
+      11.83,
+      9.99,
+      9.72
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": -0.666,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      4.6,
+      4.24,
+      4.85,
+      5.43
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": -0.941,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      6.54,
+      6.85,
+      6.57,
+      6.14
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.653,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      10.37,
+      12.03,
+      12.5,
+      9.58
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.219,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      6.13,
+      10.19,
+      8.98,
+      8.44
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.963,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      8.22,
+      10.83,
+      10.69,
+      8.78
+     ]
+    }
+   },
+   "step_corr": 0.52,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.697,
+    "found_down": 0.711,
+    "found_up": 0.665,
+    "steady_n": 23602,
+    "steady_lit": 0.209,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "olmo": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": 0.652,
+   "median_error": 1.943,
+   "label_median": 6.686,
+   "model_median": 6.557,
+   "rank_blocks": 0.739,
+   "rank_within_square_median": 0.765,
+   "rank_square_medians": 0.77,
+   "departure_corr": 0.501,
+   "square_series_corr_median": 0.544,
+   "square_series_corr_positive": "8/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": 0.901,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      5.09,
+      3.71,
+      4.0,
+      4.78
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.316,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      6.02,
+      5.69,
+      6.12,
+      5.19
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": -0.704,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      4.7,
+      5.7,
+      5.34,
+      5.81
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": 0.873,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      9.48,
+      7.48,
+      8.13,
+      7.84
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.756,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      17.17,
+      14.19,
+      15.34,
+      12.4
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": 0.493,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      4.97,
+      5.39,
+      3.83,
+      4.07
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": 0.788,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      5.91,
+      6.15,
+      5.84,
+      6.49
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.596,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      9.65,
+      11.27,
+      11.55,
+      8.71
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.392,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      6.13,
+      7.8,
+      9.21,
+      7.67
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.928,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      8.62,
+      11.05,
+      12.95,
+      8.79
+     ]
+    }
+   },
+   "step_corr": 0.495,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.72,
+    "found_down": 0.78,
+    "found_up": 0.588,
+    "steady_n": 23602,
+    "steady_lit": 0.301,
+    "label_steps_over_10": 0.0259
+   }
+  },
+  "all": {
+   "blocks": 32193,
+   "block_years": 127554,
+   "r2_log": 0.643,
+   "median_error": 1.852,
+   "label_median": 6.686,
+   "model_median": 6.406,
+   "rank_blocks": 0.741,
+   "rank_within_square_median": 0.781,
+   "rank_square_medians": 0.758,
+   "departure_corr": 0.543,
+   "square_series_corr_median": 0.532,
+   "square_series_corr_positive": "7/10",
+   "series": {
+    "cleveland-steady-ca": {
+     "corr": 0.91,
+     "label": [
+      5.76,
+      5.16,
+      5.23,
+      5.99
+     ],
+     "model": [
+      4.97,
+      3.93,
+      4.07,
+      4.73
+     ]
+    },
+    "thomas-fire-ca": {
+     "corr": 0.296,
+     "label": [
+      6.77,
+      7.1,
+      7.96,
+      7.14
+     ],
+     "model": [
+      5.96,
+      5.53,
+      5.97,
+      5.55
+     ]
+    },
+    "woolsey-fire-ca": {
+     "corr": -0.866,
+     "label": [
+      5.07,
+      4.87,
+      4.94,
+      4.09
+     ],
+     "model": [
+      4.81,
+      5.07,
+      5.53,
+      6.01
+     ]
+    },
+    "holy-fire-ca": {
+     "corr": 0.862,
+     "label": [
+      11.07,
+      6.82,
+      9.29,
+      9.44
+     ],
+     "model": [
+      7.73,
+      6.28,
+      7.73,
+      6.96
+     ]
+    },
+    "bobcat-fire-ca": {
+     "corr": -0.457,
+     "label": [
+      18.3,
+      18.04,
+      19.14,
+      22.43
+     ],
+     "model": [
+      13.05,
+      11.14,
+      13.27,
+      11.02
+     ]
+    },
+    "valley-fire-ca": {
+     "corr": -0.885,
+     "label": [
+      6.38,
+      5.83,
+      5.84,
+      5.32
+     ],
+     "model": [
+      4.82,
+      5.17,
+      4.91,
+      5.32
+     ]
+    },
+    "fairview-fire-ca": {
+     "corr": 0.628,
+     "label": [
+      3.01,
+      2.63,
+      2.72,
+      3.91
+     ],
+     "model": [
+      5.86,
+      5.16,
+      5.99,
+      6.11
+     ]
+    },
+    "lidar-us-eaton": {
+     "corr": 0.793,
+     "label": [
+      7.59,
+      8.47,
+      9.96,
+      8.52
+     ],
+     "model": [
+      9.31,
+      10.73,
+      11.29,
+      9.24
+     ]
+    },
+    "lidar-us-los-padres": {
+     "corr": 0.437,
+     "label": [
+      9.24,
+      9.54,
+      10.05,
+      8.02
+     ],
+     "model": [
+      6.42,
+      7.98,
+      8.7,
+      7.54
+     ]
+    },
+    "lidar-us-palisades": {
+     "corr": 0.968,
+     "label": [
+      8.42,
+      11.47,
+      11.59,
+      7.99
+     ],
+     "model": [
+      7.78,
+      10.32,
+      11.13,
+      8.15
+     ]
+    }
+   },
+   "step_corr": 0.569,
+   "swings": {
+    "n": 7326,
+    "share_of_steps": 0.077,
+    "up": 2300,
+    "down": 5026,
+    "found_same_way": 0.769,
+    "found_down": 0.799,
+    "found_up": 0.703,
+    "steady_n": 23602,
+    "steady_lit": 0.203,
+    "label_steps_over_10": 0.0259
+   }
+  }
+ }
+}

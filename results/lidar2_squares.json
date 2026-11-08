@@ -1,0 +1,77 @@
+{
+ "lidar-fr-landes": {
+  "rc": [
+   439254,
+   439854,
+   1993441,
+   1994041
+  ],
+  "center": [
+   -0.9,
+   44.2
+  ],
+  "kind": "lidar",
+  "source": "fr",
+  "note": "Landes pine plantations, clearcuts and regrowth (one flight)"
+ },
+ "lidar-gb-devilla": {
+  "rc": [
+   307095,
+   307695,
+   1962382,
+   1962982
+  ],
+  "center": [
+   -3.69,
+   56.072
+  ],
+  "kind": "lidar",
+  "source": "gb",
+  "note": "Devilla Forest conifer plantation and farmland, Fife"
+ },
+ "lidar-ca-timmins-dome": {
+  "rc": [
+   392055,
+   392655,
+   1099408,
+   1100008
+  ],
+  "center": [
+   -81.212,
+   48.44
+  ],
+  "kind": "lidar",
+  "source": "ca",
+  "note": "Timmins: boreal forest, the Dome mine and town (the pair Earthwork checked for overlap)"
+ },
+ "lidar-nl-heuvelrug": {
+  "rc": [
+   351757,
+   352357,
+   2062793,
+   2063393
+  ],
+  "center": [
+   5.33,
+   52.06
+  ],
+  "kind": "lidar",
+  "source": "nl",
+  "note": "Utrechtse Heuvelrug forest and heath"
+ },
+ "lidar-no-holmenkollen": {
+  "rc": [
+   263758,
+   264358,
+   2122238,
+   2122838
+  ],
+  "center": [
+   10.67,
+   59.965
+  ],
+  "kind": "lidar",
+  "source": "no",
+  "note": "Holmenkollen and Nordmarka's edge, Oslo: forest, suburbs, ski slopes"
+ }
+}

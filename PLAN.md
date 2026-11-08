@@ -158,3 +158,71 @@ it is calibrated (raw, it runs overconfident; see FINDINGS section 8).
   Earthwork's trouble spots mostly stay quiet in the biomass head, wetland the exception, handled by the gate.
 - Open, in FINDINGS "Next": class confidence calibration, change calibration per window length, the squeezed top end,
   a canopy lidar check, tundra, hard-ground class labels, open woodland as its own class.
+
+## 2026-11-08, later: the open items, and where each one's data comes from
+
+The "Next" list of FINDINGS sections 6 to 10, in this order:
+
+1. **Class margin of error** (`class_calibrate.py`): a temperature on the class logits and split conformal class
+   sets, both fit across folds. No new data.
+2. **Change calibrated per window length** (`change_calibrate.py`): from the saved cell tables
+   (`data/heads/change_cells_*.npz`); one-year changes add up to every window. No new data.
+3. **The squeezed top end** (`top_end.py`, `biomass_head.py --weight-top`): CTrees' own error per cell (the training
+   draw replayed), quantile mapping across folds, and a head taught with more weight above 100 Mg/ha.
+4. **Trajectory head** (`trajectory_head.py`): the eight years of a pixel in at once, biomass per year out, for
+   regrowth.
+5. **Independent lidar check** (`read_lidar.py`, `lidar_check.py`): 18 new squares, canopy height = surface minus
+   ground from the programs Earthwork reads for bare ground (LINZ, NRCan HRDEM, AHN, Estonia's point clouds on disk)
+   plus NASA WERK in California (1 m before and after the 2025 Los Angeles fires; statewide 10 m, one flight per
+   place). NEON AOP needs an account token since 2026-06-30 (not used).
+6. **A second biomass map** (`read_cci.py`): ESA CCI Biomass v7.0 (radar, ICESat-2 calibrated, 100 m, 2018 to
+   2024) under every square, for tundra and as a check on CTrees.
+7. **Hard ground for classes** (`class_hard_ground.py`): pixels where WorldCover and IO disagree, with Meta's
+   height as referee for trees.
+
+## 2026-11-08, afternoon: non-tree checks against maps that are not CTrees
+
+1. **Grass against RAP** (`pick_us_squares.py`, `read_rap.py`, `map_check.py --label rap`): 10 new US rangeland
+   squares plus two of section 6; the CTrees-taught heads, CTrees, and a head taught on RAP (held out by square),
+   on amounts, years and swings. Done: FINDINGS 17.
+2. **Shrub against the SoCal chaparral map** (`read_chaparral.py`, `map_check.py --label chaparral`): six fire
+   squares inside MTBS perimeters and one steady square, read; the map's yearly zips are still to download.
+3. **Classes calibrated on hard ground** (`class_hard_calibrate.py`): a temperature and set cutoffs fit on
+   Meta-refereed hard pixels, checked against the lidar squares. Done: FINDINGS 18.
+
+## The map: Earthwork's pair map, for biomass
+
+Fork the pair map of aef-earthwork-web: one year against another. Two settings, both on the long 50-stop ramps:
+- **Change** (first): biomass change between the two years, blue through a low-alpha white at no change to
+  orange, in the manner of the CTrees Landsat change viewer.
+- **Each year**: biomass of one year in viridis, stepping year over year.
+Full window by default, no dark casings on strokes. GPU shading notes above (deck.gl-raster, Earthwork and fire-knn
+web code).
+
+### How the fork goes (read from the Earthwork, fire-knn and usgs-mrms-flood web code)
+- Base: `aef-earthwork-web/web` (Vite, TypeScript, deck.gl 9.4, deck.gl-raster / deck.gl-zarr 0.8.1, MapLibre,
+  zarrita; GitHub Pages workflow). It reads the AlphaEarth GeoZarr mosaic (`data.source.coop/tge-labs/aef-mosaic`,
+  int8 [time, band, y, x], 256-pixel chunks) in a worker, takes two years from the "AEF Years" range slider
+  (`ui.js`), and has the pair (P: a second synced map), full screen (F), the loading bar and the key handling to keep.
+- The head on the GPU: fire-knn's `fuel/volume-gpu.ts` (WebGPU compute, int8 packed in u32, one thread per pixel:
+  dequantize, standardize, Linear 64, ReLU, Linear) and `fuel/volume.ts` (CPU fallback, `probeGap` check), with
+  weights in fire-knn's `fuel_volume.json` format (`mean`, `scale`, `w1`, `b1`, `w2`, `b2`, probe inputs and
+  outputs). The biomass head has the same shape: export it in that format, one output (log biomass).
+- Which embeddings (open): all three are public Zarr on Source Cooperative and readable in the browser with
+  zarrita. AlphaEarth: the mosaic, already on the map's grid. TESSERA: `aef-tessera-earthwork/web/src/tessera.ts`
+  reads it already, onto AlphaEarth's grid. OlmoEarth: `s3://olmoearth/olmoearth-v1-3-embeddings/embeddings.zarr`
+  (https://data.source.coop), one group per UTM zone, so a worker projects each pixel center into the zone as
+  `read_olmo.py` and TESSERA's `utm.ts` do; no browser reader yet. The heads exist for each alone and all three
+  together (section 7 and the side-by-side table). One head taught on all squares for the map, or the mean of
+  the fold heads.
+- The worker scores each chunk-year once and keeps the biomass planes (256 KB per chunk-year), so stepping a year
+  or changing the pair reads nothing new.
+- Shaders, after usgs-mrms-flood `elev.ts` (`Elev`: a 50-stop GLSL const array, a 256-bin CDF over the pixels in
+  view for the rank stretch):
+  - change: d = B - A, t = clamp(d / dmax, -1, 1), 50 stops blue to white to orange, alpha low near zero
+    (rising with |t|), rank stretch on |d| with the sign kept;
+  - each year: 50-stop viridis (`VIRIDIS_STOPS` in fire-knn `aef/ramp.ts`), stepping the year with [ ].
+- First build: no side-by-side imagery and no Earth Genome Sentinel-2 mosaic. Only the biomass layers, and the work
+  goes into getting their look right: the change map, then the individual years. Imagery can come later.
+- Drop from the Earthwork base for that first build: Sentinel-2 and the pair's imagery, the paint, hexes. Which
+  embeddings it reads is open (section 25). Keep the tooltip value (CPU forward pass).

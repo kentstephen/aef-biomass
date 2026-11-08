@@ -1,0 +1,2278 @@
+{
+ "classes": [
+  "trees",
+  "shrub",
+  "grass",
+  "crop",
+  "built",
+  "bare",
+  "water",
+  "wetland",
+  "moss"
+ ],
+ "note": "2020-2021 pixels where WorldCover and Impact Observatory agree; fits across folds",
+ "aef": {
+  "pixels": 549006,
+  "temperature_by_fold": {
+   "0": 1.692,
+   "1": 1.801,
+   "2": 1.81,
+   "3": 1.762,
+   "4": 1.782,
+   "5": 1.756,
+   "6": 1.817,
+   "7": 1.846
+  },
+  "temperature_all": 1.7841,
+  "ece_raw": 0.0738,
+  "ece_calibrated": 0.0124,
+  "reliability_raw": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.016,
+    "mean_confidence": 0.441,
+    "right": 0.322
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.037,
+    "mean_confidence": 0.55,
+    "right": 0.454
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.038,
+    "mean_confidence": 0.651,
+    "right": 0.509
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.753,
+    "right": 0.571
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.069,
+    "mean_confidence": 0.855,
+    "right": 0.645
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.059,
+    "mean_confidence": 0.927,
+    "right": 0.723
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.116,
+    "mean_confidence": 0.975,
+    "right": 0.813
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.62,
+    "mean_confidence": 0.999,
+    "right": 0.984
+   }
+  ],
+  "reliability_calibrated": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.058,
+    "mean_confidence": 0.43,
+    "right": 0.413
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.065,
+    "mean_confidence": 0.55,
+    "right": 0.553
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.07,
+    "mean_confidence": 0.651,
+    "right": 0.627
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.079,
+    "mean_confidence": 0.751,
+    "right": 0.718
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.107,
+    "mean_confidence": 0.854,
+    "right": 0.822
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.09,
+    "mean_confidence": 0.927,
+    "right": 0.912
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.182,
+    "mean_confidence": 0.975,
+    "right": 0.981
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.35,
+    "mean_confidence": 0.997,
+    "right": 1.0
+   }
+  ],
+  "sets": {
+   "90": {
+    "coverage": 0.899,
+    "mean_size": 1.13,
+    "share_single": 0.877,
+    "single_right": 0.903,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.987,
+      "mean_size": 1.03
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.595,
+      "mean_size": 1.33
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.872,
+      "mean_size": 1.2
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.851,
+      "mean_size": 1.17
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.972,
+      "mean_size": 1.04
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.545,
+      "mean_size": 1.38
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.96,
+      "mean_size": 1.04
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.542,
+      "mean_size": 1.4
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.695,
+      "mean_size": 1.7
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.923,
+      "mean_size": 1.08
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.994,
+      "mean_size": 1.02
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.903,
+      "mean_size": 1.14
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.447,
+      "mean_size": 1.43
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.966,
+      "mean_size": 1.06
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.819,
+      "mean_size": 1.13
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.859,
+      "mean_size": 1.39
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.623,
+      "mean_size": 1.25
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.83,
+      "mean_size": 1.37
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.842,
+      "mean_size": 1.18
+     }
+    },
+    "squares_below": {
+     "under_0.8": 16,
+     "squares": 92,
+     "min": 0.089
+    },
+    "min_prob_in_set": [
+     0.2337,
+     0.3149
+    ]
+   },
+   "95": {
+    "coverage": 0.948,
+    "mean_size": 1.38,
+    "share_single": 0.698,
+    "single_right": 0.963,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.995,
+      "mean_size": 1.1
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.802,
+      "mean_size": 1.9
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.927,
+      "mean_size": 1.68
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.922,
+      "mean_size": 1.39
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.987,
+      "mean_size": 1.18
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.752,
+      "mean_size": 2.34
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.979,
+      "mean_size": 1.19
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.697,
+      "mean_size": 2.38
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.953,
+      "mean_size": 2.4
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.95,
+      "mean_size": 1.32
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.998,
+      "mean_size": 1.08
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.95,
+      "mean_size": 1.32
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.678,
+      "mean_size": 2.45
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.984,
+      "mean_size": 1.17
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.876,
+      "mean_size": 1.56
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.939,
+      "mean_size": 1.91
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.829,
+      "mean_size": 1.79
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.969,
+      "mean_size": 2.27
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.877,
+      "mean_size": 1.58
+     }
+    },
+    "squares_below": {
+     "under_0.8": 11,
+     "squares": 92,
+     "min": 0.285
+    },
+    "min_prob_in_set": [
+     0.0946,
+     0.125
+    ]
+   },
+   "by_class_90": {
+    "coverage": 0.933,
+    "mean_size": 1.37,
+    "share_single": 0.706,
+    "single_right": 0.952,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.978,
+      "mean_size": 1.09
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.893,
+      "mean_size": 1.84
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.892,
+      "mean_size": 1.67
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.882,
+      "mean_size": 1.34
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.96,
+      "mean_size": 1.27
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.89,
+      "mean_size": 2.22
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.954,
+      "mean_size": 1.61
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.853,
+      "mean_size": 2.0
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.813,
+      "mean_size": 2.19
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.923,
+      "mean_size": 1.38
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.993,
+      "mean_size": 1.09
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.912,
+      "mean_size": 1.28
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.853,
+      "mean_size": 2.65
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.971,
+      "mean_size": 1.15
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.836,
+      "mean_size": 1.55
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.889,
+      "mean_size": 1.78
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.865,
+      "mean_size": 1.95
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.924,
+      "mean_size": 2.14
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.912,
+      "mean_size": 1.58
+     }
+    },
+    "squares_below": {
+     "under_0.8": 10,
+     "squares": 92,
+     "min": 0.091
+    }
+   },
+   "by_class_95": {
+    "coverage": 0.956,
+    "mean_size": 1.59,
+    "share_single": 0.597,
+    "single_right": 0.976,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.978,
+      "mean_size": 1.19
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.949,
+      "mean_size": 2.2
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.933,
+      "mean_size": 2.02
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.937,
+      "mean_size": 1.57
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.961,
+      "mean_size": 1.41
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.916,
+      "mean_size": 2.61
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.956,
+      "mean_size": 1.91
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.919,
+      "mean_size": 2.55
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.884,
+      "mean_size": 2.6
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.941,
+      "mean_size": 1.64
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.993,
+      "mean_size": 1.14
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.943,
+      "mean_size": 1.48
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.892,
+      "mean_size": 2.9
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.981,
+      "mean_size": 1.28
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.876,
+      "mean_size": 1.89
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.919,
+      "mean_size": 2.14
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.948,
+      "mean_size": 2.32
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.949,
+      "mean_size": 2.54
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.933,
+      "mean_size": 1.98
+     }
+    },
+    "squares_below": {
+     "under_0.8": 6,
+     "squares": 92,
+     "min": 0.231
+    }
+   }
+  }
+ },
+ "tes": {
+  "pixels": 545979,
+  "temperature_by_fold": {
+   "0": 1.594,
+   "1": 1.611,
+   "2": 1.593,
+   "3": 1.618,
+   "4": 1.546,
+   "5": 1.556,
+   "6": 1.613,
+   "7": 1.64
+  },
+  "temperature_all": 1.5966,
+  "ece_raw": 0.0641,
+  "ece_calibrated": 0.0097,
+  "reliability_raw": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.028,
+    "mean_confidence": 0.435,
+    "right": 0.374
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.55,
+    "right": 0.482
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.047,
+    "mean_confidence": 0.651,
+    "right": 0.553
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.055,
+    "mean_confidence": 0.752,
+    "right": 0.627
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.079,
+    "mean_confidence": 0.855,
+    "right": 0.707
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.071,
+    "mean_confidence": 0.928,
+    "right": 0.775
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.144,
+    "mean_confidence": 0.974,
+    "right": 0.858
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.53,
+    "mean_confidence": 0.999,
+    "right": 0.983
+   }
+  ],
+  "reliability_calibrated": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.074,
+    "mean_confidence": 0.421,
+    "right": 0.445
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.07,
+    "mean_confidence": 0.55,
+    "right": 0.578
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.072,
+    "mean_confidence": 0.651,
+    "right": 0.666
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.085,
+    "mean_confidence": 0.752,
+    "right": 0.748
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.118,
+    "mean_confidence": 0.853,
+    "right": 0.832
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.1,
+    "mean_confidence": 0.928,
+    "right": 0.91
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.22,
+    "mean_confidence": 0.975,
+    "right": 0.975
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.261,
+    "mean_confidence": 0.996,
+    "right": 0.997
+   }
+  ],
+  "sets": {
+   "90": {
+    "coverage": 0.9,
+    "mean_size": 1.16,
+    "share_single": 0.846,
+    "single_right": 0.904,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.976,
+      "mean_size": 1.06
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.598,
+      "mean_size": 1.46
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.891,
+      "mean_size": 1.25
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.889,
+      "mean_size": 1.15
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.959,
+      "mean_size": 1.08
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.747,
+      "mean_size": 1.28
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.956,
+      "mean_size": 1.09
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.281,
+      "mean_size": 1.33
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.631,
+      "mean_size": 1.42
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.89,
+      "mean_size": 1.17
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.995,
+      "mean_size": 1.01
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.937,
+      "mean_size": 1.13
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.86,
+      "mean_size": 1.26
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.959,
+      "mean_size": 1.09
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.927,
+      "mean_size": 1.27
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.696,
+      "mean_size": 1.36
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.723,
+      "mean_size": 1.32
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.806,
+      "mean_size": 1.28
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.751,
+      "mean_size": 1.18
+     }
+    },
+    "squares_below": {
+     "under_0.8": 17,
+     "squares": 92,
+     "min": 0.118
+    },
+    "min_prob_in_set": [
+     0.2214,
+     0.2679
+    ]
+   },
+   "95": {
+    "coverage": 0.949,
+    "mean_size": 1.48,
+    "share_single": 0.655,
+    "single_right": 0.959,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.991,
+      "mean_size": 1.17
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.779,
+      "mean_size": 2.18
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.955,
+      "mean_size": 1.74
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.938,
+      "mean_size": 1.51
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.983,
+      "mean_size": 1.31
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.872,
+      "mean_size": 2.03
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.968,
+      "mean_size": 1.4
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.517,
+      "mean_size": 2.41
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.805,
+      "mean_size": 2.36
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.946,
+      "mean_size": 1.52
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.998,
+      "mean_size": 1.04
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.974,
+      "mean_size": 1.47
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.956,
+      "mean_size": 1.86
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.982,
+      "mean_size": 1.26
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.961,
+      "mean_size": 1.88
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.872,
+      "mean_size": 1.97
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.844,
+      "mean_size": 1.87
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.895,
+      "mean_size": 1.93
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.828,
+      "mean_size": 1.74
+     }
+    },
+    "squares_below": {
+     "under_0.8": 6,
+     "squares": 92,
+     "min": 0.491
+    },
+    "min_prob_in_set": [
+     0.088,
+     0.1036
+    ]
+   },
+   "by_class_90": {
+    "coverage": 0.922,
+    "mean_size": 1.55,
+    "share_single": 0.609,
+    "single_right": 0.927,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.955,
+      "mean_size": 1.29
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.878,
+      "mean_size": 1.93
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.895,
+      "mean_size": 1.88
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.893,
+      "mean_size": 1.51
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.935,
+      "mean_size": 1.38
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.9,
+      "mean_size": 1.94
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.94,
+      "mean_size": 1.55
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.893,
+      "mean_size": 2.54
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.756,
+      "mean_size": 2.44
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.91,
+      "mean_size": 1.52
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.995,
+      "mean_size": 1.25
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.938,
+      "mean_size": 1.49
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.986,
+      "mean_size": 1.9
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.948,
+      "mean_size": 1.34
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.937,
+      "mean_size": 2.23
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.751,
+      "mean_size": 1.75
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.858,
+      "mean_size": 1.87
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.885,
+      "mean_size": 2.21
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.907,
+      "mean_size": 1.79
+     }
+    },
+    "squares_below": {
+     "under_0.8": 9,
+     "squares": 92,
+     "min": 0.384
+    }
+   },
+   "by_class_95": {
+    "coverage": 0.949,
+    "mean_size": 2.0,
+    "share_single": 0.431,
+    "single_right": 0.953,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.956,
+      "mean_size": 1.6
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.933,
+      "mean_size": 2.42
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.942,
+      "mean_size": 2.51
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.946,
+      "mean_size": 1.94
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.947,
+      "mean_size": 1.77
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.944,
+      "mean_size": 2.73
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.951,
+      "mean_size": 1.84
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.934,
+      "mean_size": 3.6
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.926,
+      "mean_size": 3.45
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.942,
+      "mean_size": 2.05
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.997,
+      "mean_size": 1.46
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.976,
+      "mean_size": 1.9
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.992,
+      "mean_size": 2.8
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.96,
+      "mean_size": 1.68
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.963,
+      "mean_size": 3.12
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.83,
+      "mean_size": 2.27
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.906,
+      "mean_size": 2.28
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.956,
+      "mean_size": 3.04
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.928,
+      "mean_size": 2.34
+     }
+    },
+    "squares_below": {
+     "under_0.8": 7,
+     "squares": 92,
+     "min": 0.525
+    }
+   }
+  }
+ },
+ "olmo": {
+  "pixels": 549006,
+  "temperature_by_fold": {
+   "0": 1.478,
+   "1": 1.503,
+   "2": 1.472,
+   "3": 1.507,
+   "4": 1.461,
+   "5": 1.416,
+   "6": 1.489,
+   "7": 1.465
+  },
+  "temperature_all": 1.4739,
+  "ece_raw": 0.0307,
+  "ece_calibrated": 0.0056,
+  "reliability_raw": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.008,
+    "mean_confidence": 0.443,
+    "right": 0.414
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.029,
+    "mean_confidence": 0.55,
+    "right": 0.512
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.032,
+    "mean_confidence": 0.651,
+    "right": 0.58
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.038,
+    "mean_confidence": 0.752,
+    "right": 0.66
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.056,
+    "mean_confidence": 0.854,
+    "right": 0.736
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.049,
+    "mean_confidence": 0.928,
+    "right": 0.808
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.107,
+    "mean_confidence": 0.975,
+    "right": 0.903
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.681,
+    "mean_confidence": 0.999,
+    "right": 0.994
+   }
+  ],
+  "reliability_calibrated": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.02,
+    "mean_confidence": 0.437,
+    "right": 0.47
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.044,
+    "mean_confidence": 0.551,
+    "right": 0.562
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.047,
+    "mean_confidence": 0.651,
+    "right": 0.665
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.057,
+    "mean_confidence": 0.752,
+    "right": 0.741
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.079,
+    "mean_confidence": 0.854,
+    "right": 0.835
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.075,
+    "mean_confidence": 0.928,
+    "right": 0.921
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.168,
+    "mean_confidence": 0.976,
+    "right": 0.977
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.509,
+    "mean_confidence": 0.997,
+    "right": 0.999
+   }
+  ],
+  "sets": {
+   "90": {
+    "coverage": 0.916,
+    "mean_size": 1.0,
+    "share_single": 1.0,
+    "single_right": 0.916,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.978,
+      "mean_size": 1.0
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.647,
+      "mean_size": 1.0
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.889,
+      "mean_size": 1.0
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.959,
+      "mean_size": 1.0
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.983,
+      "mean_size": 1.0
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.77,
+      "mean_size": 1.0
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.959,
+      "mean_size": 1.0
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.369,
+      "mean_size": 1.0
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.74,
+      "mean_size": 1.0
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.943,
+      "mean_size": 1.0
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.994,
+      "mean_size": 1.0
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.978,
+      "mean_size": 1.0
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.768,
+      "mean_size": 1.0
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.956,
+      "mean_size": 1.0
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.961,
+      "mean_size": 1.0
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.802,
+      "mean_size": 1.0
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.721,
+      "mean_size": 1.0
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.758,
+      "mean_size": 1.0
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.797,
+      "mean_size": 1.0
+     }
+    },
+    "squares_below": {
+     "under_0.8": 12,
+     "squares": 92,
+     "min": 0.27
+    },
+    "min_prob_in_set": [
+     0.5071,
+     0.5673
+    ]
+   },
+   "95": {
+    "coverage": 0.949,
+    "mean_size": 1.09,
+    "share_single": 0.908,
+    "single_right": 0.951,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.987,
+      "mean_size": 1.03
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.802,
+      "mean_size": 1.38
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.934,
+      "mean_size": 1.13
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.977,
+      "mean_size": 1.07
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.99,
+      "mean_size": 1.02
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.86,
+      "mean_size": 1.23
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.969,
+      "mean_size": 1.04
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.472,
+      "mean_size": 1.35
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.822,
+      "mean_size": 1.19
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.961,
+      "mean_size": 1.06
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.996,
+      "mean_size": 1.01
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.986,
+      "mean_size": 1.04
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.847,
+      "mean_size": 1.28
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.973,
+      "mean_size": 1.05
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.974,
+      "mean_size": 1.04
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.881,
+      "mean_size": 1.22
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.868,
+      "mean_size": 1.37
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.826,
+      "mean_size": 1.2
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.839,
+      "mean_size": 1.13
+     }
+    },
+    "squares_below": {
+     "under_0.8": 7,
+     "squares": 92,
+     "min": 0.406
+    },
+    "min_prob_in_set": [
+     0.2472,
+     0.2922
+    ]
+   },
+   "by_class_90": {
+    "coverage": 0.947,
+    "mean_size": 1.13,
+    "share_single": 0.876,
+    "single_right": 0.953,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.978,
+      "mean_size": 1.04
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.893,
+      "mean_size": 1.34
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.903,
+      "mean_size": 1.2
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.959,
+      "mean_size": 1.1
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.983,
+      "mean_size": 1.02
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.887,
+      "mean_size": 1.2
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.959,
+      "mean_size": 1.39
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.884,
+      "mean_size": 1.71
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.815,
+      "mean_size": 1.67
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.948,
+      "mean_size": 1.14
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.995,
+      "mean_size": 1.04
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.983,
+      "mean_size": 1.09
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.856,
+      "mean_size": 1.23
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.96,
+      "mean_size": 1.04
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.966,
+      "mean_size": 1.07
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.873,
+      "mean_size": 1.21
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.887,
+      "mean_size": 1.4
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.822,
+      "mean_size": 1.57
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.927,
+      "mean_size": 1.51
+     }
+    },
+    "squares_below": {
+     "under_0.8": 5,
+     "squares": 92,
+     "min": 0.532
+    }
+   },
+   "by_class_95": {
+    "coverage": 0.964,
+    "mean_size": 1.27,
+    "share_single": 0.778,
+    "single_right": 0.972,
+    "per_class": {
+     "trees": {
+      "n": 253338,
+      "coverage": 0.978,
+      "mean_size": 1.1
+     },
+     "shrub": {
+      "n": 42132,
+      "coverage": 0.951,
+      "mean_size": 1.63
+     },
+     "grass": {
+      "n": 133762,
+      "coverage": 0.947,
+      "mean_size": 1.39
+     },
+     "crop": {
+      "n": 68014,
+      "coverage": 0.96,
+      "mean_size": 1.24
+     },
+     "built": {
+      "n": 21678,
+      "coverage": 0.983,
+      "mean_size": 1.06
+     },
+     "bare": {
+      "n": 3448,
+      "coverage": 0.934,
+      "mean_size": 1.62
+     },
+     "water": {
+      "n": 13724,
+      "coverage": 0.959,
+      "mean_size": 1.49
+     },
+     "wetland": {
+      "n": 7620,
+      "coverage": 0.938,
+      "mean_size": 2.43
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.904,
+      "mean_size": 1.97
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31951,
+      "coverage": 0.954,
+      "mean_size": 1.28
+     },
+     "closed-forest": {
+      "n": 46372,
+      "coverage": 0.997,
+      "mean_size": 1.08
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.986,
+      "mean_size": 1.22
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.917,
+      "mean_size": 1.65
+     },
+     "forest-loss": {
+      "n": 241387,
+      "coverage": 0.969,
+      "mean_size": 1.11
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.976,
+      "mean_size": 1.16
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.913,
+      "mean_size": 1.43
+     },
+     "shrub": {
+      "n": 46414,
+      "coverage": 0.957,
+      "mean_size": 1.72
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.901,
+      "mean_size": 1.9
+     },
+     "wetland": {
+      "n": 26234,
+      "coverage": 0.942,
+      "mean_size": 1.88
+     }
+    },
+    "squares_below": {
+     "under_0.8": 3,
+     "squares": 92,
+     "min": 0.537
+    }
+   }
+  }
+ },
+ "all": {
+  "pixels": 545979,
+  "temperature_by_fold": {
+   "0": 1.61,
+   "1": 1.664,
+   "2": 1.653,
+   "3": 1.666,
+   "4": 1.613,
+   "5": 1.603,
+   "6": 1.66,
+   "7": 1.671
+  },
+  "temperature_all": 1.6428,
+  "ece_raw": 0.0428,
+  "ece_calibrated": 0.0056,
+  "reliability_raw": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.008,
+    "mean_confidence": 0.44,
+    "right": 0.325
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.025,
+    "mean_confidence": 0.55,
+    "right": 0.472
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.027,
+    "mean_confidence": 0.651,
+    "right": 0.528
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.032,
+    "mean_confidence": 0.753,
+    "right": 0.586
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.049,
+    "mean_confidence": 0.855,
+    "right": 0.685
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.928,
+    "right": 0.785
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.105,
+    "mean_confidence": 0.975,
+    "right": 0.88
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.708,
+    "mean_confidence": 0.999,
+    "right": 0.99
+   }
+  ],
+  "reliability_calibrated": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.024,
+    "mean_confidence": 0.432,
+    "right": 0.391
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.041,
+    "mean_confidence": 0.55,
+    "right": 0.531
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.045,
+    "mean_confidence": 0.652,
+    "right": 0.63
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.057,
+    "mean_confidence": 0.753,
+    "right": 0.744
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.088,
+    "mean_confidence": 0.855,
+    "right": 0.853
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.074,
+    "mean_confidence": 0.927,
+    "right": 0.913
+   },
+   {
+    "confidence": "0.95-0.99",
+    "share_of_pixels": 0.161,
+    "mean_confidence": 0.975,
+    "right": 0.971
+   },
+   {
+    "confidence": "0.99-1.00",
+    "share_of_pixels": 0.51,
+    "mean_confidence": 0.998,
+    "right": 0.999
+   }
+  ],
+  "sets": {
+   "90": {
+    "coverage": 0.911,
+    "mean_size": 1.0,
+    "share_single": 1.0,
+    "single_right": 0.911,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.981,
+      "mean_size": 1.0
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.656,
+      "mean_size": 1.0
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.88,
+      "mean_size": 1.0
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.931,
+      "mean_size": 1.0
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.989,
+      "mean_size": 1.0
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.589,
+      "mean_size": 1.0
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.958,
+      "mean_size": 1.0
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.277,
+      "mean_size": 1.0
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.783,
+      "mean_size": 1.0
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.917,
+      "mean_size": 1.0
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.993,
+      "mean_size": 1.0
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.963,
+      "mean_size": 1.0
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.485,
+      "mean_size": 1.0
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.959,
+      "mean_size": 1.0
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.951,
+      "mean_size": 1.0
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.817,
+      "mean_size": 1.0
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.696,
+      "mean_size": 1.0
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.796,
+      "mean_size": 1.0
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.761,
+      "mean_size": 1.0
+     }
+    },
+    "squares_below": {
+     "under_0.8": 16,
+     "squares": 92,
+     "min": 0.227
+    },
+    "min_prob_in_set": [
+     0.4797,
+     0.5464
+    ]
+   },
+   "95": {
+    "coverage": 0.949,
+    "mean_size": 1.11,
+    "share_single": 0.891,
+    "single_right": 0.953,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.99,
+      "mean_size": 1.03
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.785,
+      "mean_size": 1.36
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.945,
+      "mean_size": 1.18
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.962,
+      "mean_size": 1.09
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.994,
+      "mean_size": 1.02
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.748,
+      "mean_size": 1.35
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.976,
+      "mean_size": 1.06
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.425,
+      "mean_size": 1.48
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.888,
+      "mean_size": 1.31
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.948,
+      "mean_size": 1.1
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.996,
+      "mean_size": 1.01
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.986,
+      "mean_size": 1.06
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.7,
+      "mean_size": 1.45
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.977,
+      "mean_size": 1.05
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.971,
+      "mean_size": 1.07
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.904,
+      "mean_size": 1.28
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.838,
+      "mean_size": 1.36
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.888,
+      "mean_size": 1.27
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.821,
+      "mean_size": 1.21
+     }
+    },
+    "squares_below": {
+     "under_0.8": 9,
+     "squares": 92,
+     "min": 0.469
+    },
+    "min_prob_in_set": [
+     0.2134,
+     0.2578
+    ]
+   },
+   "by_class_90": {
+    "coverage": 0.944,
+    "mean_size": 1.17,
+    "share_single": 0.852,
+    "single_right": 0.95,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.981,
+      "mean_size": 1.05
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.882,
+      "mean_size": 1.32
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.9,
+      "mean_size": 1.3
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.931,
+      "mean_size": 1.1
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.989,
+      "mean_size": 1.05
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.836,
+      "mean_size": 1.57
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.958,
+      "mean_size": 1.41
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.888,
+      "mean_size": 1.89
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.844,
+      "mean_size": 1.7
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.936,
+      "mean_size": 1.19
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.995,
+      "mean_size": 1.05
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.968,
+      "mean_size": 1.1
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.769,
+      "mean_size": 1.73
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.965,
+      "mean_size": 1.04
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.961,
+      "mean_size": 1.34
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.877,
+      "mean_size": 1.25
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.848,
+      "mean_size": 1.4
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.849,
+      "mean_size": 1.48
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.931,
+      "mean_size": 1.53
+     }
+    },
+    "squares_below": {
+     "under_0.8": 7,
+     "squares": 92,
+     "min": 0.524
+    }
+   },
+   "by_class_95": {
+    "coverage": 0.964,
+    "mean_size": 1.31,
+    "share_single": 0.75,
+    "single_right": 0.973,
+    "per_class": {
+     "trees": {
+      "n": 250848,
+      "coverage": 0.981,
+      "mean_size": 1.11
+     },
+     "shrub": {
+      "n": 42055,
+      "coverage": 0.948,
+      "mean_size": 1.58
+     },
+     "grass": {
+      "n": 133646,
+      "coverage": 0.949,
+      "mean_size": 1.53
+     },
+     "crop": {
+      "n": 68005,
+      "coverage": 0.947,
+      "mean_size": 1.25
+     },
+     "built": {
+      "n": 21593,
+      "coverage": 0.989,
+      "mean_size": 1.14
+     },
+     "bare": {
+      "n": 3446,
+      "coverage": 0.897,
+      "mean_size": 2.35
+     },
+     "water": {
+      "n": 13479,
+      "coverage": 0.96,
+      "mean_size": 1.54
+     },
+     "wetland": {
+      "n": 7617,
+      "coverage": 0.907,
+      "mean_size": 2.35
+     },
+     "moss": {
+      "n": 5290,
+      "coverage": 0.933,
+      "mean_size": 2.17
+     }
+    },
+    "per_kind": {
+     "city-edge": {
+      "n": 31842,
+      "coverage": 0.944,
+      "mean_size": 1.37
+     },
+     "closed-forest": {
+      "n": 46306,
+      "coverage": 0.996,
+      "mean_size": 1.11
+     },
+     "crop": {
+      "n": 53683,
+      "coverage": 0.98,
+      "mean_size": 1.23
+     },
+     "desert-edge": {
+      "n": 2195,
+      "coverage": 0.847,
+      "mean_size": 2.63
+     },
+     "forest-loss": {
+      "n": 238718,
+      "coverage": 0.975,
+      "mean_size": 1.11
+     },
+     "grass": {
+      "n": 45615,
+      "coverage": 0.968,
+      "mean_size": 1.56
+     },
+     "savanna": {
+      "n": 39037,
+      "coverage": 0.916,
+      "mean_size": 1.45
+     },
+     "shrub": {
+      "n": 46327,
+      "coverage": 0.942,
+      "mean_size": 1.72
+     },
+     "tundra": {
+      "n": 16118,
+      "coverage": 0.915,
+      "mean_size": 1.84
+     },
+     "wetland": {
+      "n": 26138,
+      "coverage": 0.945,
+      "mean_size": 1.78
+     }
+    },
+    "squares_below": {
+     "under_0.8": 4,
+     "squares": 92,
+     "min": 0.536
+    }
+   }
+  }
+ }
+}

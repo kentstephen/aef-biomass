@@ -1,0 +1,321 @@
+{
+ "classes": [
+  "trees",
+  "shrub",
+  "grass",
+  "crop",
+  "built",
+  "bare",
+  "water",
+  "wetland",
+  "moss"
+ ],
+ "olmo": {
+  "agree": {
+   "px": 49400876,
+   "mean_confidence": 0.917,
+   "share_single": 0.875,
+   "mean_set_size": 1.13
+  },
+  "disagree": {
+   "px": 16679179,
+   "mean_confidence": 0.77,
+   "share_single": 0.703,
+   "mean_set_size": 1.34,
+   "share_of_pixels": 0.252
+  },
+  "follows": {
+   "worldcover": 0.507,
+   "io": 0.38,
+   "other": 0.114
+  },
+  "per_kind": {
+   "forest-loss": {
+    "disagree_share": 0.182,
+    "single_agree": 0.966,
+    "single_disagree": 0.848
+   },
+   "grass": {
+    "disagree_share": 0.188,
+    "single_agree": 0.937,
+    "single_disagree": 0.711
+   },
+   "shrub": {
+    "disagree_share": 0.174,
+    "single_agree": 0.601,
+    "single_disagree": 0.656
+   },
+   "savanna": {
+    "disagree_share": 0.392,
+    "single_agree": 0.793,
+    "single_disagree": 0.823
+   },
+   "crop": {
+    "disagree_share": 0.16,
+    "single_agree": 0.943,
+    "single_disagree": 0.818
+   },
+   "wetland": {
+    "disagree_share": 0.54,
+    "single_agree": 0.51,
+    "single_disagree": 0.434
+   },
+   "city-edge": {
+    "disagree_share": 0.428,
+    "single_agree": 0.881,
+    "single_disagree": 0.667
+   },
+   "desert-edge": {
+    "disagree_share": 0.859,
+    "single_agree": 0.717,
+    "single_disagree": 0.722
+   },
+   "tundra": {
+    "disagree_share": 0.277,
+    "single_agree": 0.457,
+    "single_disagree": 0.247
+   },
+   "closed-forest": {
+    "disagree_share": 0.036,
+    "single_agree": 0.953,
+    "single_disagree": 0.6
+   }
+  },
+  "top_disagreements": {
+   "WC trees / IO rangeland": {
+    "share": 0.146,
+    "head_wc": 0.646,
+    "head_io": 0.339,
+    "single": 0.764
+   },
+   "WC bare / IO rangeland": {
+    "share": 0.128,
+    "head_wc": 0.544,
+    "head_io": 0.429,
+    "single": 0.689
+   },
+   "WC grass / IO crops": {
+    "share": 0.088,
+    "head_wc": 0.616,
+    "head_io": 0.337,
+    "single": 0.872
+   },
+   "WC wetland / IO rangeland": {
+    "share": 0.081,
+    "head_wc": 0.323,
+    "head_io": 0.459,
+    "single": 0.406
+   },
+   "WC shrub / IO trees": {
+    "share": 0.075,
+    "head_wc": 0.533,
+    "head_io": 0.337,
+    "single": 0.763
+   },
+   "WC grass / IO trees": {
+    "share": 0.065,
+    "head_wc": 0.472,
+    "head_io": 0.429,
+    "single": 0.772
+   },
+   "WC crop / IO rangeland": {
+    "share": 0.059,
+    "head_wc": 0.517,
+    "head_io": 0.463,
+    "single": 0.836
+   },
+   "WC trees / IO built": {
+    "share": 0.049,
+    "head_wc": 0.459,
+    "head_io": 0.421,
+    "single": 0.887
+   },
+   "WC wetland / IO trees": {
+    "share": 0.047,
+    "head_wc": 0.473,
+    "head_io": 0.47,
+    "single": 0.547
+   },
+   "WC trees / IO crops": {
+    "share": 0.047,
+    "head_wc": 0.627,
+    "head_io": 0.214,
+    "single": 0.855
+   },
+   "WC grass / IO flooded veg": {
+    "share": 0.029,
+    "head_wc": 0.846,
+    "head_io": 0.02,
+    "single": 0.415
+   },
+   "WC crop / IO built": {
+    "share": 0.028,
+    "head_wc": 0.585,
+    "head_io": 0.342,
+    "single": 0.87
+   }
+  },
+  "trees_by_height": {
+   "px": 4258037,
+   "worldcover_right": 0.49,
+   "io_right": 0.51,
+   "head_right": 0.634,
+   "head_conf_when_right": 0.782,
+   "head_conf_when_wrong": 0.729
+  }
+ },
+ "all": {
+  "agree": {
+   "px": 49124976,
+   "mean_confidence": 0.915,
+   "share_single": 0.851,
+   "mean_set_size": 1.17
+  },
+  "disagree": {
+   "px": 16629815,
+   "mean_confidence": 0.757,
+   "share_single": 0.616,
+   "mean_set_size": 1.46,
+   "share_of_pixels": 0.253
+  },
+  "follows": {
+   "worldcover": 0.466,
+   "io": 0.421,
+   "other": 0.113
+  },
+  "per_kind": {
+   "forest-loss": {
+    "disagree_share": 0.183,
+    "single_agree": 0.959,
+    "single_disagree": 0.817
+   },
+   "grass": {
+    "disagree_share": 0.188,
+    "single_agree": 0.73,
+    "single_disagree": 0.47
+   },
+   "shrub": {
+    "disagree_share": 0.174,
+    "single_agree": 0.606,
+    "single_disagree": 0.594
+   },
+   "savanna": {
+    "disagree_share": 0.392,
+    "single_agree": 0.746,
+    "single_disagree": 0.68
+   },
+   "crop": {
+    "disagree_share": 0.16,
+    "single_agree": 0.896,
+    "single_disagree": 0.716
+   },
+   "wetland": {
+    "disagree_share": 0.54,
+    "single_agree": 0.575,
+    "single_disagree": 0.391
+   },
+   "city-edge": {
+    "disagree_share": 0.428,
+    "single_agree": 0.842,
+    "single_disagree": 0.592
+   },
+   "desert-edge": {
+    "disagree_share": 0.859,
+    "single_agree": 0.389,
+    "single_disagree": 0.395
+   },
+   "tundra": {
+    "disagree_share": 0.277,
+    "single_agree": 0.585,
+    "single_disagree": 0.438
+   },
+   "closed-forest": {
+    "disagree_share": 0.035,
+    "single_agree": 0.961,
+    "single_disagree": 0.564
+   }
+  },
+  "top_disagreements": {
+   "WC trees / IO rangeland": {
+    "share": 0.146,
+    "head_wc": 0.621,
+    "head_io": 0.363,
+    "single": 0.7
+   },
+   "WC bare / IO rangeland": {
+    "share": 0.128,
+    "head_wc": 0.442,
+    "head_io": 0.535,
+    "single": 0.421
+   },
+   "WC grass / IO crops": {
+    "share": 0.088,
+    "head_wc": 0.612,
+    "head_io": 0.342,
+    "single": 0.832
+   },
+   "WC wetland / IO rangeland": {
+    "share": 0.081,
+    "head_wc": 0.25,
+    "head_io": 0.535,
+    "single": 0.485
+   },
+   "WC shrub / IO trees": {
+    "share": 0.076,
+    "head_wc": 0.504,
+    "head_io": 0.394,
+    "single": 0.77
+   },
+   "WC grass / IO trees": {
+    "share": 0.065,
+    "head_wc": 0.433,
+    "head_io": 0.491,
+    "single": 0.731
+   },
+   "WC crop / IO rangeland": {
+    "share": 0.059,
+    "head_wc": 0.451,
+    "head_io": 0.529,
+    "single": 0.672
+   },
+   "WC trees / IO built": {
+    "share": 0.049,
+    "head_wc": 0.396,
+    "head_io": 0.502,
+    "single": 0.733
+   },
+   "WC wetland / IO trees": {
+    "share": 0.047,
+    "head_wc": 0.429,
+    "head_io": 0.434,
+    "single": 0.337
+   },
+   "WC trees / IO crops": {
+    "share": 0.047,
+    "head_wc": 0.626,
+    "head_io": 0.18,
+    "single": 0.737
+   },
+   "WC grass / IO flooded veg": {
+    "share": 0.03,
+    "head_wc": 0.828,
+    "head_io": 0.017,
+    "single": 0.411
+   },
+   "WC crop / IO built": {
+    "share": 0.028,
+    "head_wc": 0.456,
+    "head_io": 0.452,
+    "single": 0.837
+   }
+  },
+  "trees_by_height": {
+   "px": 4241713,
+   "worldcover_right": 0.491,
+   "io_right": 0.509,
+   "head_right": 0.629,
+   "head_conf_when_right": 0.793,
+   "head_conf_when_wrong": 0.714
+  }
+ }
+}

@@ -1,0 +1,331 @@
+{
+ "flint-hills-ks": {
+  "rc": [
+   501396,
+   501996,
+   927037,
+   927637
+  ],
+  "center": [
+   -96.6963,
+   38.6178
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "trees": 0.052,
+   "grass": 0.75,
+   "crop": 0.192
+  },
+  "group": "rap",
+  "note": "tallgrass prairie, burned and grazed"
+ },
+ "mixed-grass-nd": {
+  "rc": [
+   410069,
+   410669,
+   871349,
+   871949
+  ],
+  "center": [
+   -101.6988,
+   46.8218
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "trees": 0.011,
+   "grass": 0.75,
+   "crop": 0.231,
+   "bare": 0.006
+  },
+  "group": "rap",
+  "note": "northern mixed-grass prairie; 2021 drought"
+ },
+ "shortgrass-co": {
+  "rc": [
+   475982,
+   476582,
+   841838,
+   842438
+  ],
+  "center": [
+   -104.3498,
+   40.9008
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "grass": 0.75,
+   "crop": 0.242
+  },
+  "group": "rap",
+  "note": "Pawnee shortgrass steppe"
+ },
+ "rolling-plains-tx": {
+  "rc": [
+   558358,
+   558958,
+   888236,
+   888836
+  ],
+  "center": [
+   -100.1817,
+   33.5007
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "trees": 0.172,
+   "shrub": 0.064,
+   "grass": 0.75,
+   "bare": 0.011
+  },
+  "group": "rap",
+  "note": "southern mixed-grass; 2022 drought"
+ },
+ "san-rafael-az": {
+  "rc": [
+   578730,
+   579330,
+   771645,
+   772245
+  ],
+  "center": [
+   -110.6552,
+   31.6708
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "trees": 0.007,
+   "shrub": 0.224,
+   "grass": 0.75,
+   "built": 0.011,
+   "bare": 0.005
+  },
+  "group": "rap",
+  "note": "desert grassland, monsoon-driven"
+ },
+ "foothill-annual-ca": {
+  "rc": [
+   513079,
+   513679,
+   662440,
+   663040
+  ],
+  "center": [
+   -120.4652,
+   37.5682
+  ],
+  "kind": "grass",
+  "score": 0.0,
+  "wc2021": {
+   "trees": 0.145,
+   "grass": 0.75,
+   "crop": 0.102
+  },
+  "group": "rap",
+  "note": "California annual grassland, rain-year swings"
+ },
+ "sagebrush-wy": {
+  "rc": [
+   457987,
+   458587,
+   800800,
+   801400
+  ],
+  "center": [
+   -108.0362,
+   42.5172
+  ],
+  "kind": "shrub",
+  "score": -0.015,
+  "wc2021": {
+   "shrub": 0.585,
+   "grass": 0.397,
+   "bare": 0.015
+  },
+  "group": "rap",
+  "note": "Wyoming big sagebrush"
+ },
+ "snake-river-id": {
+  "rc": [
+   453974,
+   454574,
+   711900,
+   712500
+  ],
+  "center": [
+   -116.0222,
+   42.8778
+  ],
+  "kind": "shrub",
+  "score": -0.115,
+  "wc2021": {
+   "shrub": 0.485,
+   "grass": 0.347,
+   "crop": 0.023,
+   "bare": 0.144
+  },
+  "group": "rap",
+  "note": "sagebrush and cheatgrass, frequent fire"
+ },
+ "mojave-ca": {
+  "rc": [
+   536445,
+   537045,
+   713920,
+   714520
+  ],
+  "center": [
+   -115.8408,
+   35.4692
+  ],
+  "kind": "shrub",
+  "score": -0.0,
+  "wc2021": {
+   "shrub": 0.6,
+   "grass": 0.081,
+   "bare": 0.319
+  },
+  "group": "rap",
+  "note": "creosote desert shrub"
+ },
+ "edwards-plateau-tx": {
+  "rc": [
+   591582,
+   592182,
+   893752,
+   894352
+  ],
+  "center": [
+   -99.6862,
+   30.5162
+  ],
+  "kind": "savanna",
+  "score": -0.03,
+  "wc2021": {
+   "trees": 0.376,
+   "shrub": 0.04,
+   "grass": 0.513,
+   "crop": 0.044,
+   "bare": 0.013,
+   "water": 0.007
+  },
+  "group": "rap",
+  "note": "oak-juniper savanna"
+ },
+ "cleveland-steady-ca": {
+  "rc": [
+   563546,
+   564146,
+   703584,
+   704184
+  ],
+  "center": [
+   -116.7692,
+   33.0347
+  ],
+  "kind": "chaparral",
+  "score": -0.0,
+  "wc2021": {
+   "trees": 0.245,
+   "shrub": 0.53,
+   "grass": 0.196,
+   "built": 0.025
+  },
+  "group": "chaparral",
+  "note": "chaparral last burned 2007 (Witch; Cedar 2003)"
+ },
+ "thomas-fire-ca": {
+  "rc": [
+   548037,
+   548637,
+   678646,
+   679246
+  ],
+  "center": [
+   -119.0095,
+   34.4279
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Thomas Fire, Dec 2017: regrowth 2018 on"
+ },
+ "woolsey-fire-ca": {
+  "rc": [
+   550627,
+   551227,
+   682104,
+   682704
+  ],
+  "center": [
+   -118.6988,
+   34.1953
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Woolsey Fire, Nov 2018"
+ },
+ "holy-fire-ca": {
+  "rc": [
+   556137,
+   556737,
+   695731,
+   696331
+  ],
+  "center": [
+   -117.4747,
+   33.7003
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Holy Fire, Aug 2018"
+ },
+ "bobcat-fire-ca": {
+  "rc": [
+   548419,
+   549019,
+   691521,
+   692121
+  ],
+  "center": [
+   -117.8529,
+   34.3936
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Bobcat Fire, Sep 2020"
+ },
+ "valley-fire-ca": {
+  "rc": [
+   567026,
+   567626,
+   704663,
+   705263
+  ],
+  "center": [
+   -116.6723,
+   32.7221
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Valley Fire, Sep 2020"
+ },
+ "fairview-fire-ca": {
+  "rc": [
+   556632,
+   557232,
+   702914,
+   703514
+  ],
+  "center": [
+   -116.8295,
+   33.6558
+  ],
+  "kind": "chaparral",
+  "group": "chaparral",
+  "note": "Fairview Fire, Sep 2022"
+ }
+}

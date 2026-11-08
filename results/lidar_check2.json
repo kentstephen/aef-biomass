@@ -1,0 +1,865 @@
+{
+ "squares": {
+  "lidar-fr-landes": {
+   "source": "fr",
+   "note": "Landes pine plantations, clearcuts and regrowth (one flight)",
+   "years": [
+    2023
+   ],
+   "dates": [
+    [
+     "2023-08-23",
+     "2023-10-11"
+    ]
+   ],
+   "lidar_px": 360000,
+   "meta": {
+    "meta_r2": 0.39,
+    "meta_mae": 2.54
+   },
+   "aef": {
+    "height_r2": 0.61,
+    "height_mae": 1.72,
+    "height_bias": -0.31,
+    "biomass_vs_height_spearman": 0.699
+   },
+   "tes": {
+    "height_r2": 0.474,
+    "height_mae": 2.06,
+    "height_bias": -0.46,
+    "biomass_vs_height_spearman": 0.717
+   },
+   "olmo": {
+    "height_r2": 0.479,
+    "height_mae": 2.37,
+    "height_bias": -1.59,
+    "biomass_vs_height_spearman": 0.635
+   },
+   "all": {
+    "height_r2": 0.579,
+    "height_mae": 2.11,
+    "height_bias": -1.35,
+    "biomass_vs_height_spearman": 0.692
+   }
+  },
+  "lidar-gb-devilla": {
+   "source": "gb",
+   "note": "Devilla Forest conifer plantation and farmland, Fife",
+   "years": [
+    2018,
+    2020
+   ],
+   "dates": [
+    [
+     "2018-05-19",
+     "2018-06-05"
+    ],
+    [
+     "2020-07-24",
+     "2020-07-31"
+    ]
+   ],
+   "lidar_px": 339249,
+   "meta": {
+    "meta_r2": 0.598,
+    "meta_mae": 1.76,
+    "meta_years": [
+     2018,
+     2019
+    ]
+   },
+   "aef": {
+    "height_r2_e0": 0.7,
+    "height_mae_e0": 1.53,
+    "height_r2_e1": 0.674,
+    "height_mae_e1": 1.71,
+    "biomass_vs_height_spearman": 0.767,
+    "n_lost": 748,
+    "n_gain": 665,
+    "n_steady": 258586,
+    "lost_found": 0.689,
+    "lost_found_gated": 0.628,
+    "lost_dh_median": -5.2,
+    "lost_dH_median": -12.74,
+    "gain_found": 0.689,
+    "gain_dh_median": 0.88,
+    "gain_dH_median": 3.25,
+    "steady_lit": 0.238,
+    "steady_lit_gated": 0.021,
+    "corr_dh_dH": 0.38,
+    "corr_da_dH": 0.492,
+    "cell_corr_head_dH": 0.656,
+    "cell_corr_ctrees_dH": 0.243,
+    "cells": 3526
+   },
+   "tes": {
+    "height_r2_e0": 0.576,
+    "height_mae_e0": 2.01,
+    "height_r2_e1": 0.67,
+    "height_mae_e1": 1.87,
+    "biomass_vs_height_spearman": 0.758,
+    "n_lost": 727,
+    "n_gain": 665,
+    "n_steady": 257099,
+    "lost_found": 0.818,
+    "lost_found_gated": 0.649,
+    "lost_dh_median": -9.72,
+    "lost_dH_median": -12.95,
+    "gain_found": 0.544,
+    "gain_dh_median": 0.05,
+    "gain_dH_median": 3.25,
+    "steady_lit": 0.49,
+    "steady_lit_gated": 0.097,
+    "corr_dh_dH": -0.098,
+    "corr_da_dH": -0.009
+   },
+   "olmo": {
+    "height_r2_e0": 0.776,
+    "height_mae_e0": 1.34,
+    "height_r2_e1": 0.794,
+    "height_mae_e1": 1.37,
+    "biomass_vs_height_spearman": 0.711,
+    "n_lost": 748,
+    "n_gain": 665,
+    "n_steady": 258586,
+    "lost_found": 0.828,
+    "lost_found_gated": 0.699,
+    "lost_dh_median": -9.76,
+    "lost_dH_median": -12.74,
+    "gain_found": 0.226,
+    "gain_dh_median": 0.42,
+    "gain_dH_median": 3.25,
+    "steady_lit": 0.172,
+    "steady_lit_gated": 0.055,
+    "corr_dh_dH": 0.219,
+    "corr_da_dH": 0.159,
+    "traj_corr_da_dH": -0.13,
+    "traj_lost_found": 0.66,
+    "traj_gain_found": 0.003,
+    "traj_steady_lit": 0.079
+   },
+   "all": {
+    "height_r2_e0": 0.791,
+    "height_mae_e0": 1.27,
+    "height_r2_e1": 0.792,
+    "height_mae_e1": 1.37,
+    "biomass_vs_height_spearman": 0.732,
+    "n_lost": 727,
+    "n_gain": 665,
+    "n_steady": 257099,
+    "lost_found": 0.839,
+    "lost_found_gated": 0.653,
+    "lost_dh_median": -10.19,
+    "lost_dH_median": -12.95,
+    "gain_found": 0.188,
+    "gain_dh_median": 0.25,
+    "gain_dH_median": 3.25,
+    "steady_lit": 0.138,
+    "steady_lit_gated": 0.011,
+    "corr_dh_dH": 0.176,
+    "corr_da_dH": 0.265,
+    "traj_corr_da_dH": 0.299,
+    "traj_lost_found": 0.641,
+    "traj_gain_found": 0.015,
+    "traj_steady_lit": 0.062,
+    "cell_corr_head_dH": 0.401,
+    "cell_corr_ctrees_dH": 0.245,
+    "cells": 3519
+   }
+  },
+  "lidar-ca-timmins-dome": {
+   "source": "ca",
+   "note": "Timmins: boreal forest, the Dome mine and town (the pair Earthwork checked for overlap)",
+   "years": [
+    2018,
+    2024
+   ],
+   "dates": [
+    [
+     "2018-01-01",
+     "2019-08-04"
+    ],
+    [
+     "2024-01-01",
+     "2024-05-09"
+    ]
+   ],
+   "lidar_px": 166075,
+   "meta": {
+    "meta_r2": 0.806,
+    "meta_mae": 1.33,
+    "meta_years": [
+     2019,
+     2019
+    ]
+   },
+   "aef": {
+    "height_r2_e0": 0.76,
+    "height_mae_e0": 1.39,
+    "height_r2_e1": 0.779,
+    "height_mae_e1": 1.33,
+    "biomass_vs_height_spearman": 0.794,
+    "n_lost": 3378,
+    "n_gain": 91,
+    "n_steady": 120850,
+    "lost_found": 0.501,
+    "lost_found_gated": 0.437,
+    "lost_dh_median": -2.27,
+    "lost_dH_median": -7.21,
+    "gain_found": 0.692,
+    "gain_dh_median": 2.27,
+    "gain_dH_median": 3.32,
+    "steady_lit": 0.338,
+    "steady_lit_gated": 0.016,
+    "corr_dh_dH": 0.417,
+    "corr_da_dH": -0.055,
+    "cell_corr_head_dH": -0.053,
+    "cell_corr_ctrees_dH": 0.035,
+    "cells": 1691
+   },
+   "tes": {
+    "height_r2_e0": 0.702,
+    "height_mae_e0": 1.57,
+    "height_r2_e1": 0.655,
+    "height_mae_e1": 1.72,
+    "biomass_vs_height_spearman": 0.814,
+    "n_lost": 3378,
+    "n_gain": 91,
+    "n_steady": 120850,
+    "lost_found": 0.684,
+    "lost_found_gated": 0.544,
+    "lost_dh_median": -4.31,
+    "lost_dH_median": -7.21,
+    "gain_found": 0.89,
+    "gain_dh_median": 2.3,
+    "gain_dH_median": 3.32,
+    "steady_lit": 0.402,
+    "steady_lit_gated": 0.022,
+    "corr_dh_dH": 0.34,
+    "corr_da_dH": 0.084
+   },
+   "olmo": {
+    "height_r2_e0": 0.823,
+    "height_mae_e0": 1.26,
+    "height_r2_e1": 0.458,
+    "height_mae_e1": 2.17,
+    "biomass_vs_height_spearman": 0.839,
+    "n_lost": 3378,
+    "n_gain": 91,
+    "n_steady": 120850,
+    "lost_found": 0.468,
+    "lost_found_gated": 0.459,
+    "lost_dh_median": -1.93,
+    "lost_dH_median": -7.21,
+    "gain_found": 0.978,
+    "gain_dh_median": 4.65,
+    "gain_dH_median": 3.32,
+    "steady_lit": 0.439,
+    "steady_lit_gated": 0.068,
+    "corr_dh_dH": 0.147,
+    "corr_da_dH": 0.017,
+    "traj_corr_da_dH": 0.079,
+    "traj_lost_found": 0.287,
+    "traj_gain_found": 0.154,
+    "traj_steady_lit": 0.179
+   },
+   "all": {
+    "height_r2_e0": 0.838,
+    "height_mae_e0": 1.24,
+    "height_r2_e1": 0.632,
+    "height_mae_e1": 1.76,
+    "biomass_vs_height_spearman": 0.838,
+    "n_lost": 3378,
+    "n_gain": 91,
+    "n_steady": 120850,
+    "lost_found": 0.538,
+    "lost_found_gated": 0.483,
+    "lost_dh_median": -2.9,
+    "lost_dH_median": -7.21,
+    "gain_found": 0.956,
+    "gain_dh_median": 3.58,
+    "gain_dH_median": 3.32,
+    "steady_lit": 0.45,
+    "steady_lit_gated": 0.017,
+    "corr_dh_dH": 0.236,
+    "corr_da_dH": -0.039,
+    "traj_corr_da_dH": 0.051,
+    "traj_lost_found": 0.28,
+    "traj_gain_found": 0.659,
+    "traj_steady_lit": 0.312,
+    "cell_corr_head_dH": -0.067,
+    "cell_corr_ctrees_dH": 0.035,
+    "cells": 1691
+   }
+  },
+  "lidar-nl-heuvelrug": {
+   "source": "nl",
+   "note": "Utrechtse Heuvelrug forest and heath; AHN5 only: the AHN4 DSM read through its 2 m overview halves the canopy (median 8.4 m where AHN5 reads 17.3 and Meta over 15 m), so that epoch is dropped",
+   "years": [
+    2023
+   ],
+   "dates": [
+    [
+     "2023-02-07",
+     "2023-02-08"
+    ]
+   ],
+   "lidar_px": 331458,
+   "meta": {
+    "meta_r2": 0.67,
+    "meta_mae": 3.04
+   },
+   "aef": {
+    "height_r2": 0.013,
+    "height_mae": 5.69,
+    "height_bias": 3.71,
+    "biomass_vs_height_spearman": 0.479
+   },
+   "tes": {
+    "height_r2": 0.545,
+    "height_mae": 3.72,
+    "height_bias": -0.02,
+    "biomass_vs_height_spearman": 0.538
+   },
+   "olmo": {
+    "height_r2": 0.673,
+    "height_mae": 3.1,
+    "height_bias": 0.28,
+    "biomass_vs_height_spearman": 0.564
+   },
+   "all": {
+    "height_r2": 0.659,
+    "height_mae": 3.17,
+    "height_bias": 0.28,
+    "biomass_vs_height_spearman": 0.509
+   }
+  },
+  "lidar-no-holmenkollen": {
+   "source": "no",
+   "note": "Holmenkollen and Nordmarka's edge, Oslo: forest, suburbs, ski slopes",
+   "years": [
+    2019,
+    2024
+   ],
+   "dates": [
+    [
+     "2019-06-16",
+     "2019-09-14"
+    ],
+    [
+     "2024-02-18",
+     "2024-05-18"
+    ]
+   ],
+   "lidar_px": 346710,
+   "meta": {
+    "meta_r2": -0.173,
+    "meta_mae": 3.7,
+    "meta_years": [
+     2020,
+     2020
+    ]
+   },
+   "aef": {
+    "height_r2_e0": 0.356,
+    "height_mae_e0": 2.77,
+    "height_r2_e1": 0.283,
+    "height_mae_e1": 2.81,
+    "biomass_vs_height_spearman": 0.491,
+    "n_lost": 9237,
+    "n_gain": 1321,
+    "n_steady": 229818,
+    "lost_found": 0.315,
+    "lost_found_gated": 0.094,
+    "lost_dh_median": -0.78,
+    "lost_dH_median": -7.18,
+    "gain_found": 0.372,
+    "gain_dh_median": 0.74,
+    "gain_dH_median": 3.77,
+    "steady_lit": 0.156,
+    "steady_lit_gated": 0.003,
+    "corr_dh_dH": 0.266,
+    "corr_da_dH": 0.135,
+    "cell_corr_head_dH": 0.424,
+    "cell_corr_ctrees_dH": 0.064,
+    "cells": 3590
+   },
+   "tes": {
+    "height_r2_e0": 0.316,
+    "height_mae_e0": 2.72,
+    "height_r2_e1": 0.383,
+    "height_mae_e1": 2.48,
+    "biomass_vs_height_spearman": 0.565,
+    "n_lost": 9237,
+    "n_gain": 1321,
+    "n_steady": 229818,
+    "lost_found": 0.417,
+    "lost_found_gated": 0.109,
+    "lost_dh_median": -0.69,
+    "lost_dH_median": -7.18,
+    "gain_found": 0.404,
+    "gain_dh_median": 0.5,
+    "gain_dH_median": 3.77,
+    "steady_lit": 0.359,
+    "steady_lit_gated": 0.002,
+    "corr_dh_dH": 0.217,
+    "corr_da_dH": 0.164
+   },
+   "olmo": {
+    "height_r2_e0": 0.485,
+    "height_mae_e0": 2.39,
+    "height_r2_e1": 0.256,
+    "height_mae_e1": 2.8,
+    "biomass_vs_height_spearman": 0.479,
+    "n_lost": 9237,
+    "n_gain": 1321,
+    "n_steady": 229818,
+    "lost_found": 0.387,
+    "lost_found_gated": 0.198,
+    "lost_dh_median": -1.13,
+    "lost_dH_median": -7.18,
+    "gain_found": 0.36,
+    "gain_dh_median": 0.21,
+    "gain_dH_median": 3.77,
+    "steady_lit": 0.34,
+    "steady_lit_gated": 0.007,
+    "corr_dh_dH": 0.289,
+    "corr_da_dH": 0.027,
+    "traj_corr_da_dH": 0.075,
+    "traj_lost_found": 0.34,
+    "traj_gain_found": 0.001,
+    "traj_steady_lit": 0.249
+   },
+   "all": {
+    "height_r2_e0": 0.5,
+    "height_mae_e0": 2.35,
+    "height_r2_e1": 0.362,
+    "height_mae_e1": 2.57,
+    "biomass_vs_height_spearman": 0.466,
+    "n_lost": 9237,
+    "n_gain": 1321,
+    "n_steady": 229818,
+    "lost_found": 0.385,
+    "lost_found_gated": 0.123,
+    "lost_dh_median": -1.37,
+    "lost_dH_median": -7.18,
+    "gain_found": 0.467,
+    "gain_dh_median": 0.22,
+    "gain_dH_median": 3.77,
+    "steady_lit": 0.322,
+    "steady_lit_gated": 0.003,
+    "corr_dh_dH": 0.356,
+    "corr_da_dH": -0.027,
+    "traj_corr_da_dH": 0.009,
+    "traj_lost_found": 0.096,
+    "traj_gain_found": 0.07,
+    "traj_steady_lit": 0.042,
+    "cell_corr_head_dH": -0.063,
+    "cell_corr_ctrees_dH": 0.064,
+    "cells": 3590
+   }
+  }
+ },
+ "pooled": {
+  "aef/state": {
+   "height_r2": 0.548,
+   "height_mae": 2.5,
+   "height_bias": 0.2,
+   "px": 2395526,
+   "by_class": {
+    "trees": {
+     "px": 1520172,
+     "lidar_mean": 8.04,
+     "pred_mean": 8.67,
+     "mae": 3.5
+    },
+    "grass": {
+     "px": 295849,
+     "lidar_mean": 1.03,
+     "pred_mean": 0.5,
+     "mae": 0.78
+    },
+    "crop": {
+     "px": 149414,
+     "lidar_mean": 0.37,
+     "pred_mean": 0.05,
+     "mae": 0.36
+    },
+    "built": {
+     "px": 193289,
+     "lidar_mean": 2.22,
+     "pred_mean": 0.91,
+     "mae": 1.84
+    },
+    "bare": {
+     "px": 76852,
+     "lidar_mean": 0.24,
+     "pred_mean": 0.06,
+     "mae": 0.19
+    },
+    "water": {
+     "px": 154565,
+     "lidar_mean": 0.12,
+     "pred_mean": 0.06,
+     "mae": 0.11
+    },
+    "wetland": {
+     "px": 2272,
+     "lidar_mean": 0.46,
+     "pred_mean": 0.23,
+     "mae": 0.41
+    }
+   },
+   "by_height": {
+    "0-2": 0.1,
+    "2-5": 3.2,
+    "5-10": 7.0,
+    "10-20": 12.7,
+    "20-30": 21.7,
+    "30-45": 25.8
+   },
+   "biomass_vs_height_spearman": 0.745
+  },
+  "meta/state": {
+   "height_r2": 0.608,
+   "height_mae": 2.61,
+   "height_bias": -0.25,
+   "px": 1543492,
+   "by_class": {
+    "trees": {
+     "px": 1018022,
+     "lidar_mean": 8.7,
+     "pred_mean": 8.64,
+     "mae": 3.43
+    },
+    "grass": {
+     "px": 207896,
+     "lidar_mean": 1.16,
+     "pred_mean": 0.43,
+     "mae": 1.09
+    },
+    "crop": {
+     "px": 82948,
+     "lidar_mean": 0.31,
+     "pred_mean": 0.16,
+     "mae": 0.39
+    },
+    "built": {
+     "px": 114861,
+     "lidar_mean": 2.1,
+     "pred_mean": 0.86,
+     "mae": 2.16
+    },
+    "bare": {
+     "px": 38875,
+     "lidar_mean": 0.35,
+     "pred_mean": 0.16,
+     "mae": 0.25
+    },
+    "water": {
+     "px": 78027,
+     "lidar_mean": 0.14,
+     "pred_mean": 0.05,
+     "mae": 0.12
+    },
+    "wetland": {
+     "px": 1145,
+     "lidar_mean": 0.41,
+     "pred_mean": 0.13,
+     "mae": 0.44
+    }
+   },
+   "by_height": {
+    "0-2": 0.0,
+    "2-5": 1.0,
+    "5-10": 5.0,
+    "10-20": 15.0,
+    "20-30": 21.0,
+    "30-45": 25.0
+   }
+  },
+  "tes/state": {
+   "height_r2": 0.627,
+   "height_mae": 2.36,
+   "height_bias": -0.58,
+   "px": 2392380,
+   "by_class": {
+    "trees": {
+     "px": 1520114,
+     "lidar_mean": 8.04,
+     "pred_mean": 7.32,
+     "mae": 3.19
+    },
+    "grass": {
+     "px": 295451,
+     "lidar_mean": 1.03,
+     "pred_mean": 0.99,
+     "mae": 0.89
+    },
+    "crop": {
+     "px": 149414,
+     "lidar_mean": 0.37,
+     "pred_mean": 0.28,
+     "mae": 0.45
+    },
+    "built": {
+     "px": 193179,
+     "lidar_mean": 2.22,
+     "pred_mean": 0.62,
+     "mae": 1.93
+    },
+    "bare": {
+     "px": 76826,
+     "lidar_mean": 0.24,
+     "pred_mean": 0.3,
+     "mae": 0.26
+    },
+    "water": {
+     "px": 152021,
+     "lidar_mean": 0.12,
+     "pred_mean": 0.4,
+     "mae": 0.39
+    },
+    "wetland": {
+     "px": 2262,
+     "lidar_mean": 0.46,
+     "pred_mean": 0.88,
+     "mae": 0.79
+    }
+   },
+   "by_height": {
+    "0-2": 0.3,
+    "2-5": 3.5,
+    "5-10": 6.7,
+    "10-20": 10.8,
+    "20-30": 16.0,
+    "30-45": 18.5
+   },
+   "biomass_vs_height_spearman": 0.775
+  },
+  "olmo/state": {
+   "height_r2": 0.695,
+   "height_mae": 2.16,
+   "height_bias": -0.27,
+   "px": 2395526,
+   "by_class": {
+    "trees": {
+     "px": 1520172,
+     "lidar_mean": 8.04,
+     "pred_mean": 8.02,
+     "mae": 2.92
+    },
+    "grass": {
+     "px": 295849,
+     "lidar_mean": 1.03,
+     "pred_mean": 0.29,
+     "mae": 0.91
+    },
+    "crop": {
+     "px": 149414,
+     "lidar_mean": 0.37,
+     "pred_mean": 0.11,
+     "mae": 0.35
+    },
+    "built": {
+     "px": 193289,
+     "lidar_mean": 2.22,
+     "pred_mean": 0.47,
+     "mae": 1.93
+    },
+    "bare": {
+     "px": 76852,
+     "lidar_mean": 0.24,
+     "pred_mean": 0.08,
+     "mae": 0.18
+    },
+    "water": {
+     "px": 154565,
+     "lidar_mean": 0.12,
+     "pred_mean": 0.07,
+     "mae": 0.1
+    },
+    "wetland": {
+     "px": 2272,
+     "lidar_mean": 0.46,
+     "pred_mean": 0.15,
+     "mae": 0.36
+    }
+   },
+   "by_height": {
+    "0-2": 0.1,
+    "2-5": 1.5,
+    "5-10": 6.9,
+    "10-20": 14.2,
+    "20-30": 19.0,
+    "30-45": 21.1
+   },
+   "biomass_vs_height_spearman": 0.742
+  },
+  "all/state": {
+   "height_r2": 0.72,
+   "height_mae": 2.05,
+   "height_bias": -0.34,
+   "px": 2392380,
+   "by_class": {
+    "trees": {
+     "px": 1520114,
+     "lidar_mean": 8.04,
+     "pred_mean": 7.89,
+     "mae": 2.76
+    },
+    "grass": {
+     "px": 295451,
+     "lidar_mean": 1.03,
+     "pred_mean": 0.31,
+     "mae": 0.86
+    },
+    "crop": {
+     "px": 149414,
+     "lidar_mean": 0.37,
+     "pred_mean": 0.1,
+     "mae": 0.34
+    },
+    "built": {
+     "px": 193179,
+     "lidar_mean": 2.22,
+     "pred_mean": 0.43,
+     "mae": 1.95
+    },
+    "bare": {
+     "px": 76826,
+     "lidar_mean": 0.24,
+     "pred_mean": 0.22,
+     "mae": 0.2
+    },
+    "water": {
+     "px": 152021,
+     "lidar_mean": 0.12,
+     "pred_mean": 0.13,
+     "mae": 0.13
+    },
+    "wetland": {
+     "px": 2262,
+     "lidar_mean": 0.46,
+     "pred_mean": 0.13,
+     "mae": 0.37
+    }
+   },
+   "by_height": {
+    "0-2": 0.1,
+    "2-5": 1.7,
+    "5-10": 6.7,
+    "10-20": 13.7,
+    "20-30": 19.2,
+    "30-45": 22.5
+   },
+   "biomass_vs_height_spearman": 0.758
+  },
+  "aef/change": {
+   "n_lost": 13363,
+   "n_gain": 2077,
+   "n_steady": 609254,
+   "lost_found": 0.383,
+   "lost_found_gated": 0.211,
+   "lost_dh_vs_dH": [
+    -1.32,
+    -7.29
+   ],
+   "gain_found": 0.487,
+   "gain_dh_vs_dH": [
+    0.84,
+    3.46
+   ],
+   "steady_lit": 0.227,
+   "steady_lit_gated": 0.013,
+   "corr_dh_dH": 0.261,
+   "corr_da_dH": 0.261,
+   "slope_dh_on_dH": 0.223
+  },
+  "aef/cells": {
+   "cells": 8807,
+   "corr_head_dH": 0.479,
+   "corr_ctrees_dH": 0.091
+  },
+  "tes/change": {
+   "n_lost": 13342,
+   "n_gain": 2077,
+   "n_steady": 607767,
+   "lost_found": 0.507,
+   "lost_found_gated": 0.248,
+   "lost_dh_vs_dH": [
+    -1.44,
+    -7.29
+   ],
+   "gain_found": 0.47,
+   "gain_dh_vs_dH": [
+    0.42,
+    3.46
+   ],
+   "steady_lit": 0.423,
+   "steady_lit_gated": 0.046,
+   "corr_dh_dH": 0.032,
+   "corr_da_dH": 0.025,
+   "slope_dh_on_dH": 0.046
+  },
+  "olmo/change": {
+   "n_lost": 13363,
+   "n_gain": 2077,
+   "n_steady": 609254,
+   "lost_found": 0.432,
+   "lost_found_gated": 0.292,
+   "lost_dh_vs_dH": [
+    -1.49,
+    -7.29
+   ],
+   "gain_found": 0.344,
+   "gain_dh_vs_dH": [
+    0.33,
+    3.46
+   ],
+   "steady_lit": 0.288,
+   "steady_lit_gated": 0.04,
+   "corr_dh_dH": 0.107,
+   "corr_da_dH": -0.013,
+   "slope_dh_on_dH": 0.162
+  },
+  "olmo/traj": {
+   "lost_found": 0.344,
+   "gain_found": 0.008,
+   "steady_lit": 0.163,
+   "corr_da_dH": -0.022
+  },
+  "all/change": {
+   "n_lost": 13342,
+   "n_gain": 2077,
+   "n_steady": 607767,
+   "lost_found": 0.448,
+   "lost_found_gated": 0.243,
+   "lost_dh_vs_dH": [
+    -1.89,
+    -7.29
+   ],
+   "gain_found": 0.399,
+   "gain_dh_vs_dH": [
+    0.28,
+    3.46
+   ],
+   "steady_lit": 0.27,
+   "steady_lit_gated": 0.009,
+   "corr_dh_dH": 0.16,
+   "corr_da_dH": -0.046,
+   "slope_dh_on_dH": 0.198
+  },
+  "all/traj": {
+   "lost_found": 0.172,
+   "gain_found": 0.078,
+   "steady_lit": 0.104,
+   "corr_da_dH": 0.073
+  },
+  "all/cells": {
+   "cells": 8800,
+   "corr_head_dH": -0.097,
+   "corr_ctrees_dH": 0.091
+  }
+ }
+}

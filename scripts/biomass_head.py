@@ -19,6 +19,7 @@ Writes data/heads/<input>_<scheme>.npz (held-out predictions and every fold's we
 RAM: rows ~1.2 GB int8, one input's float16 features up to ~1.9 GB, peak ~6 GB.
 
     uv run scripts/biomass_head.py [--inputs aef tes olmo all] [--schemes square continent] [--epochs 8]
+        [--weight-top 1 --tag _top]   more weight on high biomass, written beside the plain heads
 """
 import argparse
 import json
@@ -105,7 +106,7 @@ def targets(R):
     return H
 
 
-def fit(X, ok, R, H, train, epochs, seed):
+def fit(X, ok, R, H, train, epochs, seed, weight_top=0.0):
     torch.manual_seed(seed)
     rng = np.random.default_rng(seed)
     G, Y, P, D = X.shape
@@ -135,7 +136,9 @@ def fit(X, ok, R, H, train, epochs, seed):
             cm = pa.sum(-1) / n.clamp(min=1)
             t = agb[g]
             mb = (t >= 0) & (n >= P // 2)
-            lb = ((torch.log1p(cm) - torch.log1p(t.clamp(min=0))) ** 2)[mb].mean() if mb.any() else 0
+            # --weight-top w: cells above 100 Mg/ha count up to (1 + w * 4) times (weight 1 + w * clip(agb/100 - 1, 0, 4))
+            wb = 1 + weight_top * ((t / 100 - 1).clamp(min=0, max=4))
+            lb = (wb * (torch.log1p(cm) - torch.log1p(t.clamp(min=0))) ** 2)[mb].sum() / wb[mb].sum() if mb.any() else 0
             mh = Ht[g] & v
             lh = torch.nn.functional.huber_loss(o[..., 1][mh], torch.log1p(hgt[g][:, None, :].expand_as(mh)[mh]), delta=0.5) if mh.any() else 0
             c = cls[g]
@@ -257,6 +260,8 @@ def main():
     ap.add_argument("--epochs", type=int, default=8)
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--max-gb", type=float, default=14)
+    ap.add_argument("--weight-top", type=float, default=0.0, help="extra weight on cells above 100 Mg/ha (0 = none)")
+    ap.add_argument("--tag", default="", help="suffix for the output names, e.g. _top")
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -279,7 +284,7 @@ def main():
             weights = {}
             for name, test in folds(R, scheme):
                 train = np.setdiff1d(np.arange(G), test)
-                net = fit(X, ok, R, H, train, args.epochs, seed=0)
+                net = fit(X, ok, R, H, train, args.epochs, seed=0, weight_top=args.weight_top)
                 a, h, c = predict(net, X, ok, test)
                 pa[test], ph[test], pc[test] = a, h, c
                 for k, v in net.state_dict().items():
@@ -289,12 +294,12 @@ def main():
                 if gb > args.max_gb:
                     raise SystemExit(f"STOP: RSS {gb:.1f} GB")
             s = score(R, H, common, pa, ph, pc)
-            res.setdefault(inp, {})[scheme] = s
+            res.setdefault(inp, {})[scheme + args.tag] = s
             a = s["all"]
             print(f"{inp:5s} {scheme:9s} agb R2 log {a.get('agb_r2_log')} lin {a.get('agb_r2')} mae {a.get('agb_mae')} | "
                   f"height R2 {a.get('height_r2')} mae {a.get('height_mae')} | class acc {a.get('cls_acc')} f1 {a.get('cls_macro_f1')}"
                   f"  [{time.time() - t0:.0f} s]", flush=True)
-            np.savez(OUT / f"{inp}_{scheme}.npz", pa=pa.astype(np.float32), ph=ph, pc=pc, **weights)
+            np.savez(OUT / f"{inp}_{scheme}{args.tag}.npz", pa=pa.astype(np.float32), ph=ph, pc=pc, **weights)
             json.dump(res, open(RES, "w"), indent=1)
         del X, ok
 

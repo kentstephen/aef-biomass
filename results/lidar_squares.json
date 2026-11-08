@@ -1,0 +1,272 @@
+{
+ "lidar-nz-glenbervie": {
+  "rc": [
+   1328033,
+   1328633,
+   3944435,
+   3945035
+  ],
+  "center": [
+   174.36,
+   -35.64
+  ],
+  "kind": "lidar",
+  "source": "nz",
+  "note": "Glenbervie plantation pine and native forest, Northland"
+ },
+ "lidar-nz-esk-valley": {
+  "rc": [
+   1369945,
+   1370545,
+   3971875,
+   3972475
+  ],
+  "center": [
+   176.825,
+   -39.405
+  ],
+  "kind": "lidar",
+  "source": "nz",
+  "note": "Esk Valley, Cyclone Gabrielle slips and silt (Feb 2023)"
+ },
+ "lidar-nz-roxburgh": {
+  "rc": [
+   1437238,
+   1437838,
+   3888998,
+   3889598
+  ],
+  "center": [
+   169.38,
+   -45.45
+  ],
+  "kind": "lidar",
+  "source": "nz",
+  "note": "Central Otago, semi-arid tussock, shrub and orchards"
+ },
+ "lidar-nz-banks": {
+  "rc": [
+   1418314,
+   1418914,
+   3927626,
+   3928226
+  ],
+  "center": [
+   172.85,
+   -43.75
+  ],
+  "kind": "lidar",
+  "source": "nz",
+  "note": "Banks Peninsula pasture, shrub and forest remnants"
+ },
+ "lidar-ca-fort-mcmurray": {
+  "rc": [
+   299169,
+   299769,
+   766227,
+   766827
+  ],
+  "center": [
+   -111.142,
+   56.784
+  ],
+  "kind": "lidar",
+  "source": "ca",
+  "note": "boreal forest and muskeg east of Fort McMurray (partial cover)"
+ },
+ "lidar-ca-timmins": {
+  "rc": [
+   391387,
+   391987,
+   1098094,
+   1098694
+  ],
+  "center": [
+   -81.33,
+   48.5
+  ],
+  "kind": "lidar",
+  "source": "ca",
+  "note": "boreal forest near Timmins"
+ },
+ "lidar-nl-heuvelrug": {
+  "rc": [
+   351757,
+   352357,
+   2062793,
+   2063393
+  ],
+  "center": [
+   5.33,
+   52.06
+  ],
+  "kind": "lidar",
+  "source": "nl",
+  "note": "Utrechtse Heuvelrug forest and heath"
+ },
+ "lidar-ee-lahemaa": {
+  "rc": [
+   268378,
+   268978,
+   2291222,
+   2291822
+  ],
+  "center": [
+   25.85,
+   59.55
+  ],
+  "kind": "lidar",
+  "source": "ee",
+  "note": "Lahemaa boreal forest and bog (3 x 3 km of lidar)"
+ },
+ "lidar-ee-kivioli": {
+  "rc": [
+   270271,
+   270871,
+   2304079,
+   2304679
+  ],
+  "center": [
+   27.005,
+   59.38
+  ],
+  "kind": "lidar",
+  "source": "ee",
+  "note": "Kivioli forest, clearcuts and fields (3 x 3 km)"
+ },
+ "lidar-ee-tartu": {
+  "rc": [
+   281403,
+   282003,
+   2300907,
+   2301507
+  ],
+  "center": [
+   26.72,
+   58.38
+  ],
+  "kind": "lidar",
+  "source": "ee",
+  "note": "Tartu farmland and forest edge (3 x 3 km)"
+ },
+ "lidar-us-eaton": {
+  "rc": [
+   550574,
+   551174,
+   688770,
+   689370
+  ],
+  "center": [
+   -118.1,
+   34.2
+  ],
+  "kind": "lidar",
+  "source": "werk",
+  "note": "Eaton fire (Jan 2025): Altadena and San Gabriel foothill chaparral"
+ },
+ "lidar-us-palisades": {
+  "rc": [
+   552022,
+   552622,
+   683650,
+   684250
+  ],
+  "center": [
+   -118.56,
+   34.07
+  ],
+  "kind": "lidar",
+  "source": "werk",
+  "note": "Palisades fire (Jan 2025): Santa Monica Mountains chaparral"
+ },
+ "lidar-us-sierra-teak": {
+  "rc": [
+   519338,
+   519938,
+   678685,
+   679285
+  ],
+  "center": [
+   -119.006,
+   37.006
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "Sierra Nevada mixed conifer (NEON TEAK)"
+ },
+ "lidar-us-sjer": {
+  "rc": [
+   518191,
+   518791,
+   670603,
+   671203
+  ],
+  "center": [
+   -119.732,
+   37.109
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "oak savanna, Sierra foothills (NEON SJER)"
+ },
+ "lidar-us-redwood": {
+  "rc": [
+   482335,
+   482935,
+   623314,
+   623914
+  ],
+  "center": [
+   -123.98,
+   40.33
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "Humboldt Redwoods, very tall forest"
+ },
+ "lidar-us-los-padres": {
+  "rc": [
+   546122,
+   546722,
+   670403,
+   671003
+  ],
+  "center": [
+   -119.75,
+   34.6
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "Los Padres chaparral, Santa Ynez Mountains"
+ },
+ "lidar-us-mojave": {
+  "rc": [
+   540556,
+   541156,
+   706582,
+   707182
+  ],
+  "center": [
+   -116.5,
+   35.1
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "Mojave desert shrub"
+ },
+ "lidar-us-central-valley": {
+  "rc": [
+   523858,
+   524458,
+   664280,
+   664880
+  ],
+  "center": [
+   -120.3,
+   36.6
+  ],
+  "kind": "lidar",
+  "source": "werk10",
+  "note": "Central Valley crops and orchards"
+ }
+}
