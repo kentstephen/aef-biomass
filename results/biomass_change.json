@@ -1,0 +1,3452 @@
+{
+ "cells": 341571,
+ "windows": [
+  "2018-2019",
+  "2019-2020",
+  "2020-2021",
+  "2021-2022",
+  "2022-2023",
+  "2023-2024",
+  "2024-2025",
+  "2018-2025"
+ ],
+ "ctrees": {
+  "median_abs_yearly_change": 1.1
+ },
+ "aef": {
+  "plain": {
+   "yearly/all": {
+    "slope": 0.34,
+    "corr": 0.193,
+    "loss_n": 5831,
+    "loss_ratio": 0.441,
+    "loss_found": 0.548,
+    "gain_n": 4370,
+    "gain_ratio": 0.134,
+    "gain_found": 0.271,
+    "steady_n": 1640597,
+    "steady_lit": 0.081
+   },
+   "yearly/other": {
+    "slope": 0.079,
+    "corr": 0.029,
+    "loss_n": 108,
+    "loss_ratio": 0.015,
+    "loss_found": 0.111,
+    "gain_n": 326,
+    "gain_ratio": 0.119,
+    "gain_found": 0.181,
+    "steady_n": 935183,
+    "steady_lit": 0.039
+   },
+   "yearly/city-edge": {
+    "slope": 0.062,
+    "corr": 0.04,
+    "steady_n": 143954,
+    "steady_lit": 0.042
+   },
+   "yearly/closed-forest": {
+    "slope": 0.11,
+    "corr": 0.023,
+    "loss_n": 33,
+    "loss_ratio": 0.065,
+    "loss_found": 0.061,
+    "gain_n": 127,
+    "gain_ratio": 0.122,
+    "gain_found": 0.22,
+    "steady_n": 139910,
+    "steady_lit": 0.059
+   },
+   "yearly/crop": {
+    "slope": 0.168,
+    "corr": 0.075,
+    "loss_n": 22,
+    "loss_ratio": 0.364,
+    "loss_found": 0.364,
+    "steady_n": 128905,
+    "steady_lit": 0.038
+   },
+   "yearly/desert-edge": {
+    "slope": -0.011,
+    "corr": -0.004,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.365,
+    "corr": 0.228,
+    "loss_n": 5723,
+    "loss_ratio": 0.451,
+    "loss_found": 0.556,
+    "gain_n": 4044,
+    "gain_ratio": 0.133,
+    "gain_found": 0.278,
+    "steady_n": 705414,
+    "steady_lit": 0.137
+   },
+   "yearly/grass": {
+    "slope": 0.001,
+    "corr": 0.001,
+    "loss_n": 25,
+    "loss_ratio": -0.046,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.006
+   },
+   "yearly/savanna": {
+    "slope": 0.22,
+    "corr": 0.164,
+    "gain_n": 135,
+    "gain_ratio": 0.242,
+    "gain_found": 0.193,
+    "steady_n": 156562,
+    "steady_lit": 0.042
+   },
+   "yearly/shrub": {
+    "slope": 0.012,
+    "corr": 0.004,
+    "steady_n": 101419,
+    "steady_lit": 0.024
+   },
+   "yearly/tundra": {
+    "slope": -0.028,
+    "corr": -0.014,
+    "steady_n": 55456,
+    "steady_lit": 0.01
+   },
+   "yearly/wetland": {
+    "slope": -0.105,
+    "corr": -0.048,
+    "gain_n": 20,
+    "gain_ratio": -0.004,
+    "gain_found": 0.2,
+    "steady_n": 110060,
+    "steady_lit": 0.069
+   },
+   "2018-2025/all": {
+    "slope": 0.74,
+    "corr": 0.486,
+    "loss_n": 5826,
+    "loss_ratio": 0.841,
+    "loss_found": 0.803,
+    "gain_n": 2519,
+    "gain_ratio": 0.222,
+    "gain_found": 0.41,
+    "steady_n": 194517,
+    "steady_lit": 0.148
+   },
+   "2018-2025/other": {
+    "slope": 0.246,
+    "corr": 0.094,
+    "loss_n": 217,
+    "loss_ratio": 0.16,
+    "loss_found": 0.101,
+    "gain_n": 387,
+    "gain_ratio": 0.229,
+    "gain_found": 0.243,
+    "steady_n": 117796,
+    "steady_lit": 0.072
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.154,
+    "corr": 0.143,
+    "steady_n": 18414,
+    "steady_lit": 0.066
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.029,
+    "corr": 0.006,
+    "gain_n": 142,
+    "gain_ratio": 0.049,
+    "gain_found": 0.261,
+    "steady_n": 18674,
+    "steady_lit": 0.115
+   },
+   "2018-2025/crop": {
+    "slope": 0.369,
+    "corr": 0.2,
+    "steady_n": 16151,
+    "steady_lit": 0.056
+   },
+   "2018-2025/desert-edge": {
+    "slope": 0.818,
+    "corr": 0.306,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.722,
+    "corr": 0.518,
+    "loss_n": 5609,
+    "loss_ratio": 0.856,
+    "loss_found": 0.83,
+    "gain_n": 2132,
+    "gain_ratio": 0.219,
+    "gain_found": 0.44,
+    "steady_n": 76721,
+    "steady_lit": 0.263
+   },
+   "2018-2025/grass": {
+    "slope": 0.171,
+    "corr": 0.393,
+    "loss_n": 151,
+    "loss_ratio": 0.148,
+    "loss_found": 0.02,
+    "steady_n": 8331,
+    "steady_lit": 0.006
+   },
+   "2018-2025/savanna": {
+    "slope": 0.362,
+    "corr": 0.358,
+    "gain_n": 166,
+    "gain_ratio": 0.286,
+    "gain_found": 0.223,
+    "steady_n": 19344,
+    "steady_lit": 0.091
+   },
+   "2018-2025/shrub": {
+    "slope": 0.346,
+    "corr": 0.127,
+    "steady_n": 13155,
+    "steady_lit": 0.035
+   },
+   "2018-2025/tundra": {
+    "slope": -0.161,
+    "corr": -0.111,
+    "steady_n": 7263,
+    "steady_lit": 0.008
+   },
+   "2018-2025/wetland": {
+    "slope": -0.108,
+    "corr": -0.057,
+    "gain_n": 49,
+    "gain_ratio": 0.151,
+    "gain_found": 0.265,
+    "steady_n": 13681,
+    "steady_lit": 0.138
+   }
+  },
+  "gated": {
+   "yearly/all": {
+    "slope": 0.27,
+    "corr": 0.294,
+    "loss_n": 5831,
+    "loss_ratio": 0.339,
+    "loss_found": 0.474,
+    "gain_n": 4370,
+    "gain_ratio": 0.0,
+    "gain_found": 0.081,
+    "steady_n": 1640597,
+    "steady_lit": 0.012
+   },
+   "yearly/other": {
+    "slope": 0.016,
+    "corr": 0.034,
+    "loss_n": 108,
+    "loss_ratio": -0.0,
+    "loss_found": 0.074,
+    "gain_n": 326,
+    "gain_ratio": 0.0,
+    "gain_found": 0.003,
+    "steady_n": 935183,
+    "steady_lit": 0.003
+   },
+   "yearly/city-edge": {
+    "slope": 0.002,
+    "corr": 0.004,
+    "steady_n": 143954,
+    "steady_lit": 0.002
+   },
+   "yearly/closed-forest": {
+    "slope": 0.009,
+    "corr": 0.032,
+    "loss_n": 33,
+    "loss_ratio": -0.0,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 139910,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.075,
+    "corr": 0.064,
+    "loss_n": 22,
+    "loss_ratio": 0.147,
+    "loss_found": 0.273,
+    "steady_n": 128905,
+    "steady_lit": 0.011
+   },
+   "yearly/desert-edge": {
+    "slope": 0.006,
+    "corr": 0.02,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.295,
+    "corr": 0.31,
+    "loss_n": 5723,
+    "loss_ratio": 0.348,
+    "loss_found": 0.481,
+    "gain_n": 4044,
+    "gain_ratio": 0.0,
+    "gain_found": 0.088,
+    "steady_n": 705414,
+    "steady_lit": 0.023
+   },
+   "yearly/grass": {
+    "slope": 0.051,
+    "corr": 0.068,
+    "loss_n": 25,
+    "loss_ratio": -0.007,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.002
+   },
+   "yearly/savanna": {
+    "slope": 0.013,
+    "corr": 0.045,
+    "gain_n": 135,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 156562,
+    "steady_lit": 0.001
+   },
+   "yearly/shrub": {
+    "slope": 0.02,
+    "corr": 0.012,
+    "steady_n": 101419,
+    "steady_lit": 0.008
+   },
+   "yearly/tundra": {
+    "slope": 0.0,
+    "corr": 0.001,
+    "steady_n": 55456,
+    "steady_lit": 0.0
+   },
+   "yearly/wetland": {
+    "slope": 0.011,
+    "corr": 0.037,
+    "gain_n": 20,
+    "gain_ratio": 0.0,
+    "gain_found": 0.05,
+    "steady_n": 110060,
+    "steady_lit": 0.001
+   },
+   "2018-2025/all": {
+    "slope": 0.65,
+    "corr": 0.534,
+    "loss_n": 5826,
+    "loss_ratio": 0.81,
+    "loss_found": 0.757,
+    "gain_n": 2519,
+    "gain_ratio": 0.0,
+    "gain_found": 0.15,
+    "steady_n": 194517,
+    "steady_lit": 0.042
+   },
+   "2018-2025/other": {
+    "slope": 0.128,
+    "corr": 0.13,
+    "loss_n": 217,
+    "loss_ratio": 0.149,
+    "loss_found": 0.088,
+    "gain_n": 387,
+    "gain_ratio": 0.0,
+    "gain_found": 0.054,
+    "steady_n": 117796,
+    "steady_lit": 0.013
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.08,
+    "corr": 0.147,
+    "steady_n": 18414,
+    "steady_lit": 0.011
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.255,
+    "corr": 0.135,
+    "gain_n": 142,
+    "gain_ratio": 0.0,
+    "gain_found": 0.099,
+    "steady_n": 18674,
+    "steady_lit": 0.02
+   },
+   "2018-2025/crop": {
+    "slope": 0.051,
+    "corr": 0.051,
+    "steady_n": 16151,
+    "steady_lit": 0.018
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.0,
+    "corr": -0.009,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.645,
+    "corr": 0.536,
+    "loss_n": 5609,
+    "loss_ratio": 0.82,
+    "loss_found": 0.783,
+    "gain_n": 2132,
+    "gain_ratio": 0.0,
+    "gain_found": 0.167,
+    "steady_n": 76721,
+    "steady_lit": 0.086
+   },
+   "2018-2025/grass": {
+    "slope": 0.171,
+    "corr": 0.491,
+    "loss_n": 151,
+    "loss_ratio": 0.148,
+    "loss_found": 0.02,
+    "steady_n": 8331,
+    "steady_lit": 0.004
+   },
+   "2018-2025/savanna": {
+    "slope": 0.049,
+    "corr": 0.134,
+    "gain_n": 166,
+    "gain_ratio": 0.0,
+    "gain_found": 0.012,
+    "steady_n": 19344,
+    "steady_lit": 0.005
+   },
+   "2018-2025/shrub": {
+    "slope": 0.125,
+    "corr": 0.073,
+    "steady_n": 13155,
+    "steady_lit": 0.011
+   },
+   "2018-2025/tundra": {
+    "slope": 0.0,
+    "corr": NaN,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": 0.065,
+    "corr": 0.095,
+    "gain_n": 49,
+    "gain_ratio": 0.071,
+    "gain_found": 0.102,
+    "steady_n": 13681,
+    "steady_lit": 0.025
+   }
+  },
+  "pair": {
+   "yearly/all": {
+    "slope": 0.229,
+    "corr": 0.243,
+    "loss_n": 5831,
+    "loss_ratio": 0.27,
+    "loss_found": 0.429,
+    "gain_n": 4370,
+    "gain_ratio": 0.034,
+    "gain_found": 0.081,
+    "steady_n": 1640597,
+    "steady_lit": 0.006
+   },
+   "yearly/other": {
+    "slope": 0.076,
+    "corr": 0.047,
+    "loss_n": 108,
+    "loss_ratio": 0.07,
+    "loss_found": 0.185,
+    "gain_n": 326,
+    "gain_ratio": 0.031,
+    "gain_found": 0.021,
+    "steady_n": 935183,
+    "steady_lit": 0.002
+   },
+   "yearly/city-edge": {
+    "slope": 0.117,
+    "corr": 0.128,
+    "steady_n": 143954,
+    "steady_lit": 0.0
+   },
+   "yearly/closed-forest": {
+    "slope": 0.104,
+    "corr": 0.044,
+    "loss_n": 33,
+    "loss_ratio": 0.007,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.009,
+    "gain_found": 0.0,
+    "steady_n": 139910,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.167,
+    "corr": 0.112,
+    "loss_n": 22,
+    "loss_ratio": 0.132,
+    "loss_found": 0.273,
+    "steady_n": 128905,
+    "steady_lit": 0.005
+   },
+   "yearly/desert-edge": {
+    "slope": -0.06,
+    "corr": -0.049,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.249,
+    "corr": 0.302,
+    "loss_n": 5723,
+    "loss_ratio": 0.274,
+    "loss_found": 0.434,
+    "gain_n": 4044,
+    "gain_ratio": 0.034,
+    "gain_found": 0.086,
+    "steady_n": 705414,
+    "steady_lit": 0.011
+   },
+   "yearly/grass": {
+    "slope": 0.27,
+    "corr": 0.203,
+    "loss_n": 25,
+    "loss_ratio": 0.252,
+    "loss_found": 0.24,
+    "steady_n": 74378,
+    "steady_lit": 0.006
+   },
+   "yearly/savanna": {
+    "slope": 0.099,
+    "corr": 0.099,
+    "gain_n": 135,
+    "gain_ratio": 0.225,
+    "gain_found": 0.03,
+    "steady_n": 156562,
+    "steady_lit": 0.002
+   },
+   "yearly/shrub": {
+    "slope": -0.029,
+    "corr": -0.021,
+    "steady_n": 101419,
+    "steady_lit": 0.0
+   },
+   "yearly/tundra": {
+    "slope": 0.05,
+    "corr": 0.044,
+    "steady_n": 55456,
+    "steady_lit": 0.0
+   },
+   "yearly/wetland": {
+    "slope": -0.058,
+    "corr": -0.036,
+    "gain_n": 20,
+    "gain_ratio": -0.015,
+    "gain_found": 0.0,
+    "steady_n": 110060,
+    "steady_lit": 0.001
+   },
+   "2018-2025/all": {
+    "slope": 0.482,
+    "corr": 0.601,
+    "loss_n": 5826,
+    "loss_ratio": 0.428,
+    "loss_found": 0.655,
+    "gain_n": 2519,
+    "gain_ratio": 0.037,
+    "gain_found": 0.023,
+    "steady_n": 194517,
+    "steady_lit": 0.019
+   },
+   "2018-2025/other": {
+    "slope": 0.127,
+    "corr": 0.133,
+    "loss_n": 217,
+    "loss_ratio": -0.048,
+    "loss_found": 0.06,
+    "gain_n": 387,
+    "gain_ratio": 0.055,
+    "gain_found": 0.013,
+    "steady_n": 117796,
+    "steady_lit": 0.003
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.34,
+    "corr": 0.506,
+    "steady_n": 18414,
+    "steady_lit": 0.001
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.246,
+    "corr": 0.185,
+    "gain_n": 142,
+    "gain_ratio": 0.059,
+    "gain_found": 0.0,
+    "steady_n": 18674,
+    "steady_lit": 0.001
+   },
+   "2018-2025/crop": {
+    "slope": 0.108,
+    "corr": 0.107,
+    "steady_n": 16151,
+    "steady_lit": 0.003
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.183,
+    "corr": -0.178,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.491,
+    "corr": 0.623,
+    "loss_n": 5609,
+    "loss_ratio": 0.447,
+    "loss_found": 0.678,
+    "gain_n": 2132,
+    "gain_ratio": 0.034,
+    "gain_found": 0.024,
+    "steady_n": 76721,
+    "steady_lit": 0.045
+   },
+   "2018-2025/grass": {
+    "slope": -0.109,
+    "corr": -0.351,
+    "loss_n": 151,
+    "loss_ratio": -0.097,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.001
+   },
+   "2018-2025/savanna": {
+    "slope": 0.38,
+    "corr": 0.458,
+    "gain_n": 166,
+    "gain_ratio": 0.116,
+    "gain_found": 0.0,
+    "steady_n": 19344,
+    "steady_lit": 0.007
+   },
+   "2018-2025/shrub": {
+    "slope": -0.021,
+    "corr": -0.025,
+    "steady_n": 13155,
+    "steady_lit": 0.0
+   },
+   "2018-2025/tundra": {
+    "slope": 0.097,
+    "corr": 0.135,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": -0.183,
+    "corr": -0.15,
+    "gain_n": 49,
+    "gain_ratio": 0.01,
+    "gain_found": 0.102,
+    "steady_n": 13681,
+    "steady_lit": 0.007
+   }
+  },
+  "calibrated": {
+   "yearly/all": {
+    "slope": 0.656,
+    "corr": 0.192,
+    "loss_n": 5831,
+    "loss_ratio": 0.822,
+    "loss_found": 0.704,
+    "gain_n": 4370,
+    "gain_ratio": 0.275,
+    "gain_found": 0.457,
+    "steady_n": 1640597,
+    "steady_lit": 0.239
+   },
+   "yearly/other": {
+    "slope": 0.154,
+    "corr": 0.028,
+    "loss_n": 108,
+    "loss_ratio": 0.004,
+    "loss_found": 0.278,
+    "gain_n": 326,
+    "gain_ratio": 0.253,
+    "gain_found": 0.433,
+    "steady_n": 935183,
+    "steady_lit": 0.155
+   },
+   "yearly/city-edge": {
+    "slope": 0.12,
+    "corr": 0.041,
+    "steady_n": 143954,
+    "steady_lit": 0.173
+   },
+   "yearly/closed-forest": {
+    "slope": 0.211,
+    "corr": 0.023,
+    "loss_n": 33,
+    "loss_ratio": 0.085,
+    "loss_found": 0.303,
+    "gain_n": 127,
+    "gain_ratio": 0.256,
+    "gain_found": 0.433,
+    "steady_n": 139910,
+    "steady_lit": 0.215
+   },
+   "yearly/crop": {
+    "slope": 0.325,
+    "corr": 0.076,
+    "loss_n": 22,
+    "loss_ratio": 0.693,
+    "loss_found": 0.545,
+    "steady_n": 128905,
+    "steady_lit": 0.149
+   },
+   "yearly/desert-edge": {
+    "slope": 0.002,
+    "corr": 0.0,
+    "steady_n": 24539,
+    "steady_lit": 0.002
+   },
+   "yearly/forest-loss": {
+    "slope": 0.703,
+    "corr": 0.227,
+    "loss_n": 5723,
+    "loss_ratio": 0.842,
+    "loss_found": 0.712,
+    "gain_n": 4044,
+    "gain_ratio": 0.274,
+    "gain_found": 0.459,
+    "steady_n": 705414,
+    "steady_lit": 0.349
+   },
+   "yearly/grass": {
+    "slope": 0.01,
+    "corr": 0.005,
+    "loss_n": 25,
+    "loss_ratio": -0.11,
+    "loss_found": 0.16,
+    "steady_n": 74378,
+    "steady_lit": 0.059
+   },
+   "yearly/savanna": {
+    "slope": 0.426,
+    "corr": 0.163,
+    "gain_n": 135,
+    "gain_ratio": 0.484,
+    "gain_found": 0.556,
+    "steady_n": 156562,
+    "steady_lit": 0.155
+   },
+   "yearly/shrub": {
+    "slope": 0.026,
+    "corr": 0.004,
+    "steady_n": 101419,
+    "steady_lit": 0.093
+   },
+   "yearly/tundra": {
+    "slope": -0.054,
+    "corr": -0.014,
+    "steady_n": 55456,
+    "steady_lit": 0.108
+   },
+   "yearly/wetland": {
+    "slope": -0.201,
+    "corr": -0.048,
+    "gain_n": 20,
+    "gain_ratio": 0.012,
+    "gain_found": 0.35,
+    "steady_n": 110060,
+    "steady_lit": 0.241
+   },
+   "2018-2025/all": {
+    "slope": 1.434,
+    "corr": 0.482,
+    "loss_n": 5826,
+    "loss_ratio": 1.625,
+    "loss_found": 0.898,
+    "gain_n": 2519,
+    "gain_ratio": 0.442,
+    "gain_found": 0.581,
+    "steady_n": 194517,
+    "steady_lit": 0.337
+   },
+   "2018-2025/other": {
+    "slope": 0.485,
+    "corr": 0.093,
+    "loss_n": 217,
+    "loss_ratio": 0.304,
+    "loss_found": 0.346,
+    "gain_n": 387,
+    "gain_ratio": 0.458,
+    "gain_found": 0.537,
+    "steady_n": 117796,
+    "steady_lit": 0.233
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.297,
+    "corr": 0.145,
+    "steady_n": 18414,
+    "steady_lit": 0.206
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.051,
+    "corr": 0.005,
+    "gain_n": 142,
+    "gain_ratio": 0.115,
+    "gain_found": 0.359,
+    "steady_n": 18674,
+    "steady_lit": 0.309
+   },
+   "2018-2025/crop": {
+    "slope": 0.732,
+    "corr": 0.202,
+    "steady_n": 16151,
+    "steady_lit": 0.195
+   },
+   "2018-2025/desert-edge": {
+    "slope": 1.692,
+    "corr": 0.309,
+    "steady_n": 2783,
+    "steady_lit": 0.002
+   },
+   "2018-2025/forest-loss": {
+    "slope": 1.397,
+    "corr": 0.516,
+    "loss_n": 5609,
+    "loss_ratio": 1.654,
+    "loss_found": 0.919,
+    "gain_n": 2132,
+    "gain_ratio": 0.432,
+    "gain_found": 0.589,
+    "steady_n": 76721,
+    "steady_lit": 0.496
+   },
+   "2018-2025/grass": {
+    "slope": 0.342,
+    "corr": 0.396,
+    "loss_n": 151,
+    "loss_ratio": 0.282,
+    "loss_found": 0.305,
+    "steady_n": 8331,
+    "steady_lit": 0.069
+   },
+   "2018-2025/savanna": {
+    "slope": 0.705,
+    "corr": 0.358,
+    "gain_n": 166,
+    "gain_ratio": 0.57,
+    "gain_found": 0.747,
+    "steady_n": 19344,
+    "steady_lit": 0.316
+   },
+   "2018-2025/shrub": {
+    "slope": 0.653,
+    "corr": 0.125,
+    "steady_n": 13155,
+    "steady_lit": 0.127
+   },
+   "2018-2025/tundra": {
+    "slope": -0.313,
+    "corr": -0.112,
+    "steady_n": 7263,
+    "steady_lit": 0.145
+   },
+   "2018-2025/wetland": {
+    "slope": -0.211,
+    "corr": -0.058,
+    "gain_n": 49,
+    "gain_ratio": 0.312,
+    "gain_found": 0.449,
+    "steady_n": 13681,
+    "steady_lit": 0.392
+   }
+  },
+  "pixels_10m": {
+   "loss_before": 85.4,
+   "loss_after": 42.3,
+   "forest_before": 88.3,
+   "forest_after": 86.5,
+   "ct_loss_before": 82.8,
+   "ct_loss_after": 62.7,
+   "events": 204
+  }
+ },
+ "tes": {
+  "plain": {
+   "yearly/all": {
+    "slope": 0.377,
+    "corr": 0.137,
+    "loss_n": 5809,
+    "loss_ratio": 0.497,
+    "loss_found": 0.569,
+    "gain_n": 4358,
+    "gain_ratio": 0.224,
+    "gain_found": 0.408,
+    "steady_n": 1634446,
+    "steady_lit": 0.161
+   },
+   "yearly/other": {
+    "slope": 0.01,
+    "corr": 0.002,
+    "loss_n": 108,
+    "loss_ratio": 0.124,
+    "loss_found": 0.204,
+    "gain_n": 326,
+    "gain_ratio": 0.243,
+    "gain_found": 0.307,
+    "steady_n": 933707,
+    "steady_lit": 0.091
+   },
+   "yearly/city-edge": {
+    "slope": 0.009,
+    "corr": 0.004,
+    "steady_n": 143503,
+    "steady_lit": 0.062
+   },
+   "yearly/closed-forest": {
+    "slope": -0.12,
+    "corr": -0.015,
+    "loss_n": 33,
+    "loss_ratio": 0.187,
+    "loss_found": 0.212,
+    "gain_n": 127,
+    "gain_ratio": 0.084,
+    "gain_found": 0.283,
+    "steady_n": 139507,
+    "steady_lit": 0.186
+   },
+   "yearly/crop": {
+    "slope": 0.098,
+    "corr": 0.03,
+    "loss_n": 22,
+    "loss_ratio": 0.136,
+    "loss_found": 0.182,
+    "steady_n": 128905,
+    "steady_lit": 0.067
+   },
+   "yearly/desert-edge": {
+    "slope": 1.003,
+    "corr": 0.121,
+    "steady_n": 24539,
+    "steady_lit": 0.029
+   },
+   "yearly/forest-loss": {
+    "slope": 0.418,
+    "corr": 0.171,
+    "loss_n": 5701,
+    "loss_ratio": 0.503,
+    "loss_found": 0.576,
+    "gain_n": 4032,
+    "gain_ratio": 0.222,
+    "gain_found": 0.416,
+    "steady_n": 700739,
+    "steady_lit": 0.255
+   },
+   "yearly/grass": {
+    "slope": -0.126,
+    "corr": -0.054,
+    "loss_n": 25,
+    "loss_ratio": -0.075,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.031
+   },
+   "yearly/savanna": {
+    "slope": 0.23,
+    "corr": 0.098,
+    "gain_n": 135,
+    "gain_ratio": 0.363,
+    "gain_found": 0.356,
+    "steady_n": 156562,
+    "steady_lit": 0.067
+   },
+   "yearly/shrub": {
+    "slope": 0.184,
+    "corr": 0.033,
+    "steady_n": 101373,
+    "steady_lit": 0.062
+   },
+   "yearly/tundra": {
+    "slope": 0.059,
+    "corr": 0.021,
+    "steady_n": 55456,
+    "steady_lit": 0.049
+   },
+   "yearly/wetland": {
+    "slope": -0.094,
+    "corr": -0.033,
+    "gain_n": 20,
+    "gain_ratio": 0.294,
+    "gain_found": 0.4,
+    "steady_n": 109484,
+    "steady_lit": 0.171
+   },
+   "2018-2025/all": {
+    "slope": 0.614,
+    "corr": 0.334,
+    "loss_n": 6397,
+    "loss_ratio": 0.728,
+    "loss_found": 0.777,
+    "gain_n": 2778,
+    "gain_ratio": 0.334,
+    "gain_found": 0.528,
+    "steady_n": 195557,
+    "steady_lit": 0.236
+   },
+   "2018-2025/other": {
+    "slope": 0.183,
+    "corr": 0.072,
+    "loss_n": 215,
+    "loss_ratio": -0.058,
+    "loss_found": 0.079,
+    "gain_n": 386,
+    "gain_ratio": 0.343,
+    "gain_found": 0.438,
+    "steady_n": 117624,
+    "steady_lit": 0.129
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.369,
+    "corr": 0.193,
+    "steady_n": 18389,
+    "steady_lit": 0.13
+   },
+   "2018-2025/closed-forest": {
+    "slope": -0.01,
+    "corr": -0.002,
+    "gain_n": 142,
+    "gain_ratio": 0.103,
+    "gain_found": 0.303,
+    "steady_n": 18671,
+    "steady_lit": 0.166
+   },
+   "2018-2025/crop": {
+    "slope": 0.081,
+    "corr": 0.033,
+    "steady_n": 16151,
+    "steady_lit": 0.085
+   },
+   "2018-2025/desert-edge": {
+    "slope": 1.869,
+    "corr": 0.17,
+    "steady_n": 2783,
+    "steady_lit": 0.133
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.617,
+    "corr": 0.342,
+    "loss_n": 6182,
+    "loss_ratio": 0.73,
+    "loss_found": 0.801,
+    "gain_n": 2392,
+    "gain_ratio": 0.334,
+    "gain_found": 0.542,
+    "steady_n": 77933,
+    "steady_lit": 0.397
+   },
+   "2018-2025/grass": {
+    "slope": -0.06,
+    "corr": -0.089,
+    "loss_n": 151,
+    "loss_ratio": -0.067,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.04
+   },
+   "2018-2025/savanna": {
+    "slope": 0.573,
+    "corr": 0.368,
+    "gain_n": 166,
+    "gain_ratio": 0.383,
+    "gain_found": 0.494,
+    "steady_n": 19344,
+    "steady_lit": 0.164
+   },
+   "2018-2025/shrub": {
+    "slope": 0.59,
+    "corr": 0.129,
+    "steady_n": 13155,
+    "steady_lit": 0.079
+   },
+   "2018-2025/tundra": {
+    "slope": 0.097,
+    "corr": 0.046,
+    "steady_n": 7263,
+    "steady_lit": 0.068
+   },
+   "2018-2025/wetland": {
+    "slope": -0.005,
+    "corr": -0.002,
+    "gain_n": 48,
+    "gain_ratio": 0.513,
+    "gain_found": 0.688,
+    "steady_n": 13537,
+    "steady_lit": 0.212
+   }
+  },
+  "gated": {
+   "yearly/all": {
+    "slope": 0.275,
+    "corr": 0.268,
+    "loss_n": 5809,
+    "loss_ratio": 0.29,
+    "loss_found": 0.443,
+    "gain_n": 4358,
+    "gain_ratio": 0.0,
+    "gain_found": 0.107,
+    "steady_n": 1634280,
+    "steady_lit": 0.015
+   },
+   "yearly/other": {
+    "slope": 0.011,
+    "corr": 0.012,
+    "loss_n": 108,
+    "loss_ratio": -0.0,
+    "loss_found": 0.12,
+    "gain_n": 326,
+    "gain_ratio": 0.0,
+    "gain_found": 0.046,
+    "steady_n": 933672,
+    "steady_lit": 0.006
+   },
+   "yearly/city-edge": {
+    "slope": 0.016,
+    "corr": 0.028,
+    "steady_n": 143483,
+    "steady_lit": 0.003
+   },
+   "yearly/closed-forest": {
+    "slope": 0.003,
+    "corr": 0.013,
+    "loss_n": 33,
+    "loss_ratio": -0.0,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 139507,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.059,
+    "corr": 0.041,
+    "loss_n": 22,
+    "loss_ratio": 0.067,
+    "loss_found": 0.136,
+    "steady_n": 128905,
+    "steady_lit": 0.012
+   },
+   "yearly/desert-edge": {
+    "slope": 0.461,
+    "corr": 0.075,
+    "steady_n": 24539,
+    "steady_lit": 0.022
+   },
+   "yearly/forest-loss": {
+    "slope": 0.302,
+    "corr": 0.29,
+    "loss_n": 5701,
+    "loss_ratio": 0.3,
+    "loss_found": 0.449,
+    "gain_n": 4032,
+    "gain_ratio": 0.0,
+    "gain_found": 0.112,
+    "steady_n": 700608,
+    "steady_lit": 0.028
+   },
+   "yearly/grass": {
+    "slope": -0.007,
+    "corr": -0.008,
+    "loss_n": 25,
+    "loss_ratio": -0.034,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.004
+   },
+   "yearly/savanna": {
+    "slope": 0.013,
+    "corr": 0.011,
+    "gain_n": 135,
+    "gain_ratio": 0.0,
+    "gain_found": 0.089,
+    "steady_n": 156562,
+    "steady_lit": 0.012
+   },
+   "yearly/shrub": {
+    "slope": -0.004,
+    "corr": -0.003,
+    "steady_n": 101373,
+    "steady_lit": 0.003
+   },
+   "yearly/tundra": {
+    "slope": -0.018,
+    "corr": -0.045,
+    "steady_n": 55456,
+    "steady_lit": 0.001
+   },
+   "yearly/wetland": {
+    "slope": 0.005,
+    "corr": 0.01,
+    "gain_n": 20,
+    "gain_ratio": 0.0,
+    "gain_found": 0.1,
+    "steady_n": 109469,
+    "steady_lit": 0.003
+   },
+   "2018-2025/all": {
+    "slope": 0.51,
+    "corr": 0.411,
+    "loss_n": 6397,
+    "loss_ratio": 0.617,
+    "loss_found": 0.666,
+    "gain_n": 2778,
+    "gain_ratio": 0.0,
+    "gain_found": 0.212,
+    "steady_n": 195546,
+    "steady_lit": 0.051
+   },
+   "2018-2025/other": {
+    "slope": 0.035,
+    "corr": 0.051,
+    "loss_n": 215,
+    "loss_ratio": -0.048,
+    "loss_found": 0.037,
+    "gain_n": 386,
+    "gain_ratio": 0.0,
+    "gain_found": 0.101,
+    "steady_n": 117618,
+    "steady_lit": 0.012
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.135,
+    "corr": 0.154,
+    "steady_n": 18385,
+    "steady_lit": 0.028
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.041,
+    "corr": 0.072,
+    "gain_n": 142,
+    "gain_ratio": 0.0,
+    "gain_found": 0.042,
+    "steady_n": 18671,
+    "steady_lit": 0.003
+   },
+   "2018-2025/crop": {
+    "slope": 0.113,
+    "corr": 0.115,
+    "steady_n": 16151,
+    "steady_lit": 0.011
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.199,
+    "corr": -0.039,
+    "steady_n": 2783,
+    "steady_lit": 0.01
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.501,
+    "corr": 0.401,
+    "loss_n": 6182,
+    "loss_ratio": 0.623,
+    "loss_found": 0.688,
+    "gain_n": 2392,
+    "gain_ratio": 0.0,
+    "gain_found": 0.23,
+    "steady_n": 77928,
+    "steady_lit": 0.109
+   },
+   "2018-2025/grass": {
+    "slope": -0.065,
+    "corr": -0.156,
+    "loss_n": 151,
+    "loss_ratio": -0.064,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.012
+   },
+   "2018-2025/savanna": {
+    "slope": 0.027,
+    "corr": 0.058,
+    "gain_n": 166,
+    "gain_ratio": 0.0,
+    "gain_found": 0.018,
+    "steady_n": 19344,
+    "steady_lit": 0.005
+   },
+   "2018-2025/shrub": {
+    "slope": 0.23,
+    "corr": 0.114,
+    "steady_n": 13155,
+    "steady_lit": 0.012
+   },
+   "2018-2025/tundra": {
+    "slope": 0.007,
+    "corr": 0.063,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": 0.09,
+    "corr": 0.1,
+    "gain_n": 48,
+    "gain_ratio": 0.498,
+    "gain_found": 0.604,
+    "steady_n": 13535,
+    "steady_lit": 0.022
+   }
+  },
+  "pair": {
+   "yearly/all": {
+    "slope": 0.249,
+    "corr": 0.266,
+    "loss_n": 5809,
+    "loss_ratio": 0.271,
+    "loss_found": 0.428,
+    "gain_n": 4358,
+    "gain_ratio": 0.053,
+    "gain_found": 0.106,
+    "steady_n": 1634280,
+    "steady_lit": 0.005
+   },
+   "yearly/other": {
+    "slope": 0.031,
+    "corr": 0.018,
+    "loss_n": 108,
+    "loss_ratio": -0.01,
+    "loss_found": 0.037,
+    "gain_n": 326,
+    "gain_ratio": 0.054,
+    "gain_found": 0.006,
+    "steady_n": 933672,
+    "steady_lit": 0.003
+   },
+   "yearly/city-edge": {
+    "slope": 0.019,
+    "corr": 0.029,
+    "steady_n": 143483,
+    "steady_lit": 0.0
+   },
+   "yearly/closed-forest": {
+    "slope": 0.054,
+    "corr": 0.019,
+    "loss_n": 33,
+    "loss_ratio": -0.035,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.012,
+    "gain_found": 0.0,
+    "steady_n": 139507,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.146,
+    "corr": 0.114,
+    "loss_n": 22,
+    "loss_ratio": 0.22,
+    "loss_found": 0.136,
+    "steady_n": 128905,
+    "steady_lit": 0.004
+   },
+   "yearly/desert-edge": {
+    "slope": 0.005,
+    "corr": 0.008,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.276,
+    "corr": 0.347,
+    "loss_n": 5701,
+    "loss_ratio": 0.278,
+    "loss_found": 0.436,
+    "gain_n": 4032,
+    "gain_ratio": 0.053,
+    "gain_found": 0.114,
+    "steady_n": 700608,
+    "steady_lit": 0.008
+   },
+   "yearly/grass": {
+    "slope": -0.293,
+    "corr": -0.167,
+    "loss_n": 25,
+    "loss_ratio": -0.154,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.008
+   },
+   "yearly/savanna": {
+    "slope": 0.195,
+    "corr": 0.232,
+    "gain_n": 135,
+    "gain_ratio": 0.18,
+    "gain_found": 0.015,
+    "steady_n": 156562,
+    "steady_lit": 0.001
+   },
+   "yearly/shrub": {
+    "slope": 0.038,
+    "corr": 0.034,
+    "steady_n": 101373,
+    "steady_lit": 0.0
+   },
+   "yearly/tundra": {
+    "slope": -0.073,
+    "corr": -0.039,
+    "steady_n": 55456,
+    "steady_lit": 0.017
+   },
+   "yearly/wetland": {
+    "slope": -0.042,
+    "corr": -0.042,
+    "gain_n": 20,
+    "gain_ratio": 0.001,
+    "gain_found": 0.0,
+    "steady_n": 109469,
+    "steady_lit": 0.0
+   },
+   "2018-2025/all": {
+    "slope": 0.433,
+    "corr": 0.602,
+    "loss_n": 6397,
+    "loss_ratio": 0.456,
+    "loss_found": 0.663,
+    "gain_n": 2778,
+    "gain_ratio": 0.044,
+    "gain_found": 0.089,
+    "steady_n": 195546,
+    "steady_lit": 0.016
+   },
+   "2018-2025/other": {
+    "slope": -0.067,
+    "corr": -0.057,
+    "loss_n": 215,
+    "loss_ratio": -0.334,
+    "loss_found": 0.033,
+    "gain_n": 386,
+    "gain_ratio": 0.041,
+    "gain_found": 0.003,
+    "steady_n": 117618,
+    "steady_lit": 0.002
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.034,
+    "corr": 0.072,
+    "steady_n": 18385,
+    "steady_lit": 0.003
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.248,
+    "corr": 0.125,
+    "gain_n": 142,
+    "gain_ratio": 0.017,
+    "gain_found": 0.007,
+    "steady_n": 18671,
+    "steady_lit": 0.001
+   },
+   "2018-2025/crop": {
+    "slope": 0.201,
+    "corr": 0.218,
+    "steady_n": 16151,
+    "steady_lit": 0.002
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.112,
+    "corr": -0.213,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.451,
+    "corr": 0.659,
+    "loss_n": 6182,
+    "loss_ratio": 0.466,
+    "loss_found": 0.685,
+    "gain_n": 2392,
+    "gain_ratio": 0.047,
+    "gain_found": 0.103,
+    "steady_n": 77928,
+    "steady_lit": 0.038
+   },
+   "2018-2025/grass": {
+    "slope": -0.469,
+    "corr": -0.701,
+    "loss_n": 151,
+    "loss_ratio": -0.413,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.006
+   },
+   "2018-2025/savanna": {
+    "slope": 0.174,
+    "corr": 0.366,
+    "gain_n": 166,
+    "gain_ratio": 0.077,
+    "gain_found": 0.0,
+    "steady_n": 19344,
+    "steady_lit": 0.002
+   },
+   "2018-2025/shrub": {
+    "slope": 0.043,
+    "corr": 0.047,
+    "steady_n": 13155,
+    "steady_lit": 0.0
+   },
+   "2018-2025/tundra": {
+    "slope": 0.02,
+    "corr": 0.02,
+    "steady_n": 7263,
+    "steady_lit": 0.006
+   },
+   "2018-2025/wetland": {
+    "slope": -0.198,
+    "corr": -0.191,
+    "gain_n": 48,
+    "gain_ratio": 0.009,
+    "gain_found": 0.0,
+    "steady_n": 13535,
+    "steady_lit": 0.004
+   }
+  },
+  "calibrated": {
+   "yearly/all": {
+    "slope": 0.781,
+    "corr": 0.138,
+    "loss_n": 5809,
+    "loss_ratio": 1.019,
+    "loss_found": 0.716,
+    "gain_n": 4358,
+    "gain_ratio": 0.465,
+    "gain_found": 0.537,
+    "steady_n": 1634446,
+    "steady_lit": 0.386
+   },
+   "yearly/other": {
+    "slope": 0.023,
+    "corr": 0.002,
+    "loss_n": 108,
+    "loss_ratio": 0.266,
+    "loss_found": 0.389,
+    "gain_n": 326,
+    "gain_ratio": 0.491,
+    "gain_found": 0.561,
+    "steady_n": 933707,
+    "steady_lit": 0.283
+   },
+   "yearly/city-edge": {
+    "slope": 0.022,
+    "corr": 0.005,
+    "steady_n": 143503,
+    "steady_lit": 0.234
+   },
+   "yearly/closed-forest": {
+    "slope": -0.254,
+    "corr": -0.015,
+    "loss_n": 33,
+    "loss_ratio": 0.355,
+    "loss_found": 0.455,
+    "gain_n": 127,
+    "gain_ratio": 0.194,
+    "gain_found": 0.425,
+    "steady_n": 139507,
+    "steady_lit": 0.455
+   },
+   "yearly/crop": {
+    "slope": 0.199,
+    "corr": 0.029,
+    "loss_n": 22,
+    "loss_ratio": 0.277,
+    "loss_found": 0.318,
+    "steady_n": 128905,
+    "steady_lit": 0.257
+   },
+   "yearly/desert-edge": {
+    "slope": 2.055,
+    "corr": 0.122,
+    "steady_n": 24539,
+    "steady_lit": 0.11
+   },
+   "yearly/forest-loss": {
+    "slope": 0.866,
+    "corr": 0.172,
+    "loss_n": 5701,
+    "loss_ratio": 1.034,
+    "loss_found": 0.722,
+    "gain_n": 4032,
+    "gain_ratio": 0.458,
+    "gain_found": 0.535,
+    "steady_n": 700739,
+    "steady_lit": 0.522
+   },
+   "yearly/grass": {
+    "slope": -0.232,
+    "corr": -0.05,
+    "loss_n": 25,
+    "loss_ratio": -0.134,
+    "loss_found": 0.12,
+    "steady_n": 74378,
+    "steady_lit": 0.151
+   },
+   "yearly/savanna": {
+    "slope": 0.48,
+    "corr": 0.097,
+    "gain_n": 135,
+    "gain_ratio": 0.761,
+    "gain_found": 0.756,
+    "steady_n": 156562,
+    "steady_lit": 0.258
+   },
+   "yearly/shrub": {
+    "slope": 0.403,
+    "corr": 0.035,
+    "steady_n": 101373,
+    "steady_lit": 0.218
+   },
+   "yearly/tundra": {
+    "slope": 0.118,
+    "corr": 0.02,
+    "steady_n": 55456,
+    "steady_lit": 0.19
+   },
+   "yearly/wetland": {
+    "slope": -0.192,
+    "corr": -0.032,
+    "gain_n": 20,
+    "gain_ratio": 0.587,
+    "gain_found": 0.65,
+    "steady_n": 109484,
+    "steady_lit": 0.431
+   },
+   "2018-2025/all": {
+    "slope": 1.272,
+    "corr": 0.338,
+    "loss_n": 6397,
+    "loss_ratio": 1.485,
+    "loss_found": 0.869,
+    "gain_n": 2778,
+    "gain_ratio": 0.69,
+    "gain_found": 0.634,
+    "steady_n": 195557,
+    "steady_lit": 0.476
+   },
+   "2018-2025/other": {
+    "slope": 0.385,
+    "corr": 0.073,
+    "loss_n": 215,
+    "loss_ratio": -0.106,
+    "loss_found": 0.14,
+    "gain_n": 386,
+    "gain_ratio": 0.705,
+    "gain_found": 0.622,
+    "steady_n": 117624,
+    "steady_lit": 0.371
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.791,
+    "corr": 0.197,
+    "steady_n": 18389,
+    "steady_lit": 0.343
+   },
+   "2018-2025/closed-forest": {
+    "slope": -0.022,
+    "corr": -0.002,
+    "gain_n": 142,
+    "gain_ratio": 0.231,
+    "gain_found": 0.415,
+    "steady_n": 18671,
+    "steady_lit": 0.389
+   },
+   "2018-2025/crop": {
+    "slope": 0.134,
+    "corr": 0.026,
+    "steady_n": 16151,
+    "steady_lit": 0.279
+   },
+   "2018-2025/desert-edge": {
+    "slope": 3.907,
+    "corr": 0.172,
+    "steady_n": 2783,
+    "steady_lit": 0.264
+   },
+   "2018-2025/forest-loss": {
+    "slope": 1.276,
+    "corr": 0.346,
+    "loss_n": 6182,
+    "loss_ratio": 1.495,
+    "loss_found": 0.895,
+    "gain_n": 2392,
+    "gain_ratio": 0.694,
+    "gain_found": 0.636,
+    "steady_n": 77933,
+    "steady_lit": 0.634
+   },
+   "2018-2025/grass": {
+    "slope": -0.101,
+    "corr": -0.074,
+    "loss_n": 151,
+    "loss_ratio": -0.126,
+    "loss_found": 0.007,
+    "steady_n": 8331,
+    "steady_lit": 0.213
+   },
+   "2018-2025/savanna": {
+    "slope": 1.185,
+    "corr": 0.365,
+    "gain_n": 166,
+    "gain_ratio": 0.802,
+    "gain_found": 0.801,
+    "steady_n": 19344,
+    "steady_lit": 0.521
+   },
+   "2018-2025/shrub": {
+    "slope": 1.334,
+    "corr": 0.141,
+    "steady_n": 13155,
+    "steady_lit": 0.245
+   },
+   "2018-2025/tundra": {
+    "slope": 0.213,
+    "corr": 0.049,
+    "steady_n": 7263,
+    "steady_lit": 0.405
+   },
+   "2018-2025/wetland": {
+    "slope": -0.003,
+    "corr": -0.001,
+    "gain_n": 48,
+    "gain_ratio": 1.005,
+    "gain_found": 0.729,
+    "steady_n": 13537,
+    "steady_lit": 0.504
+   }
+  },
+  "pixels_10m": {
+   "loss_before": 79.7,
+   "loss_after": 37.0,
+   "forest_before": 75.4,
+   "forest_after": 75.3,
+   "ct_loss_before": 83.1,
+   "ct_loss_after": 64.4,
+   "events": 205
+  }
+ },
+ "olmo": {
+  "plain": {
+   "yearly/all": {
+    "slope": 0.316,
+    "corr": 0.164,
+    "loss_n": 5840,
+    "loss_ratio": 0.468,
+    "loss_found": 0.562,
+    "gain_n": 4388,
+    "gain_ratio": 0.133,
+    "gain_found": 0.297,
+    "steady_n": 1642774,
+    "steady_lit": 0.087
+   },
+   "yearly/other": {
+    "slope": 0.034,
+    "corr": 0.01,
+    "loss_n": 108,
+    "loss_ratio": 0.125,
+    "loss_found": 0.167,
+    "gain_n": 326,
+    "gain_ratio": 0.107,
+    "gain_found": 0.129,
+    "steady_n": 935183,
+    "steady_lit": 0.041
+   },
+   "yearly/city-edge": {
+    "slope": 0.017,
+    "corr": 0.01,
+    "steady_n": 143954,
+    "steady_lit": 0.032
+   },
+   "yearly/closed-forest": {
+    "slope": -0.079,
+    "corr": -0.013,
+    "loss_n": 33,
+    "loss_ratio": 0.179,
+    "loss_found": 0.152,
+    "gain_n": 127,
+    "gain_ratio": -0.016,
+    "gain_found": 0.165,
+    "steady_n": 139910,
+    "steady_lit": 0.091
+   },
+   "yearly/crop": {
+    "slope": 0.165,
+    "corr": 0.065,
+    "loss_n": 22,
+    "loss_ratio": 0.331,
+    "loss_found": 0.409,
+    "steady_n": 128905,
+    "steady_lit": 0.028
+   },
+   "yearly/desert-edge": {
+    "slope": -0.247,
+    "corr": -0.115,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.344,
+    "corr": 0.204,
+    "loss_n": 5732,
+    "loss_ratio": 0.474,
+    "loss_found": 0.569,
+    "gain_n": 4062,
+    "gain_ratio": 0.137,
+    "gain_found": 0.311,
+    "steady_n": 707591,
+    "steady_lit": 0.149
+   },
+   "yearly/grass": {
+    "slope": 0.082,
+    "corr": 0.057,
+    "loss_n": 25,
+    "loss_ratio": -0.244,
+    "loss_found": 0.0,
+    "steady_n": 74378,
+    "steady_lit": 0.035
+   },
+   "yearly/savanna": {
+    "slope": 0.14,
+    "corr": 0.117,
+    "gain_n": 135,
+    "gain_ratio": 0.142,
+    "gain_found": 0.119,
+    "steady_n": 156562,
+    "steady_lit": 0.029
+   },
+   "yearly/shrub": {
+    "slope": 0.016,
+    "corr": 0.004,
+    "steady_n": 101419,
+    "steady_lit": 0.021
+   },
+   "yearly/tundra": {
+    "slope": -0.17,
+    "corr": -0.105,
+    "steady_n": 55456,
+    "steady_lit": 0.001
+   },
+   "yearly/wetland": {
+    "slope": 0.003,
+    "corr": 0.001,
+    "gain_n": 20,
+    "gain_ratio": 0.121,
+    "gain_found": 0.15,
+    "steady_n": 110060,
+    "steady_lit": 0.073
+   },
+   "2018-2025/all": {
+    "slope": 0.713,
+    "corr": 0.493,
+    "loss_n": 6403,
+    "loss_ratio": 0.854,
+    "loss_found": 0.831,
+    "gain_n": 2784,
+    "gain_ratio": 0.148,
+    "gain_found": 0.365,
+    "steady_n": 196069,
+    "steady_lit": 0.159
+   },
+   "2018-2025/other": {
+    "slope": 0.178,
+    "corr": 0.071,
+    "loss_n": 217,
+    "loss_ratio": -0.112,
+    "loss_found": 0.12,
+    "gain_n": 387,
+    "gain_ratio": 0.222,
+    "gain_found": 0.271,
+    "steady_n": 117796,
+    "steady_lit": 0.087
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.351,
+    "corr": 0.219,
+    "steady_n": 18414,
+    "steady_lit": 0.085
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.176,
+    "corr": 0.04,
+    "gain_n": 142,
+    "gain_ratio": 0.133,
+    "gain_found": 0.232,
+    "steady_n": 18674,
+    "steady_lit": 0.128
+   },
+   "2018-2025/crop": {
+    "slope": 0.402,
+    "corr": 0.211,
+    "steady_n": 16151,
+    "steady_lit": 0.046
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.105,
+    "corr": -0.052,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.704,
+    "corr": 0.527,
+    "loss_n": 6186,
+    "loss_ratio": 0.859,
+    "loss_found": 0.856,
+    "gain_n": 2397,
+    "gain_ratio": 0.132,
+    "gain_found": 0.38,
+    "steady_n": 78273,
+    "steady_lit": 0.266
+   },
+   "2018-2025/grass": {
+    "slope": -0.174,
+    "corr": -0.247,
+    "loss_n": 151,
+    "loss_ratio": -0.16,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.067
+   },
+   "2018-2025/savanna": {
+    "slope": 0.423,
+    "corr": 0.418,
+    "gain_n": 166,
+    "gain_ratio": 0.312,
+    "gain_found": 0.325,
+    "steady_n": 19344,
+    "steady_lit": 0.043
+   },
+   "2018-2025/shrub": {
+    "slope": 0.856,
+    "corr": 0.231,
+    "steady_n": 13155,
+    "steady_lit": 0.057
+   },
+   "2018-2025/tundra": {
+    "slope": 0.159,
+    "corr": 0.122,
+    "steady_n": 7263,
+    "steady_lit": 0.002
+   },
+   "2018-2025/wetland": {
+    "slope": -0.071,
+    "corr": -0.025,
+    "gain_n": 49,
+    "gain_ratio": 0.121,
+    "gain_found": 0.184,
+    "steady_n": 13681,
+    "steady_lit": 0.252
+   }
+  },
+  "gated": {
+   "yearly/all": {
+    "slope": 0.235,
+    "corr": 0.31,
+    "loss_n": 5840,
+    "loss_ratio": 0.32,
+    "loss_found": 0.459,
+    "gain_n": 4388,
+    "gain_ratio": 0.0,
+    "gain_found": 0.118,
+    "steady_n": 1642774,
+    "steady_lit": 0.008
+   },
+   "yearly/other": {
+    "slope": 0.006,
+    "corr": 0.014,
+    "loss_n": 108,
+    "loss_ratio": -0.0,
+    "loss_found": 0.093,
+    "gain_n": 326,
+    "gain_ratio": 0.0,
+    "gain_found": 0.003,
+    "steady_n": 935183,
+    "steady_lit": 0.002
+   },
+   "yearly/city-edge": {
+    "slope": 0.009,
+    "corr": 0.022,
+    "steady_n": 143954,
+    "steady_lit": 0.002
+   },
+   "yearly/closed-forest": {
+    "slope": 0.002,
+    "corr": 0.015,
+    "loss_n": 33,
+    "loss_ratio": -0.0,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 139910,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.057,
+    "corr": 0.058,
+    "loss_n": 22,
+    "loss_ratio": 0.276,
+    "loss_found": 0.409,
+    "steady_n": 128905,
+    "steady_lit": 0.004
+   },
+   "yearly/desert-edge": {
+    "slope": 0.004,
+    "corr": 0.019,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.259,
+    "corr": 0.329,
+    "loss_n": 5732,
+    "loss_ratio": 0.329,
+    "loss_found": 0.466,
+    "gain_n": 4062,
+    "gain_ratio": 0.0,
+    "gain_found": 0.127,
+    "steady_n": 707591,
+    "steady_lit": 0.016
+   },
+   "yearly/grass": {
+    "slope": 0.029,
+    "corr": 0.038,
+    "loss_n": 25,
+    "loss_ratio": -0.244,
+    "loss_found": 0.0,
+    "steady_n": 74378,
+    "steady_lit": 0.005
+   },
+   "yearly/savanna": {
+    "slope": 0.0,
+    "corr": 0.0,
+    "gain_n": 135,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 156562,
+    "steady_lit": 0.001
+   },
+   "yearly/shrub": {
+    "slope": -0.012,
+    "corr": -0.008,
+    "steady_n": 101419,
+    "steady_lit": 0.005
+   },
+   "yearly/tundra": {
+    "slope": -0.0,
+    "corr": -0.006,
+    "steady_n": 55456,
+    "steady_lit": 0.0
+   },
+   "yearly/wetland": {
+    "slope": -0.003,
+    "corr": -0.011,
+    "gain_n": 20,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 110060,
+    "steady_lit": 0.002
+   },
+   "2018-2025/all": {
+    "slope": 0.652,
+    "corr": 0.576,
+    "loss_n": 6403,
+    "loss_ratio": 0.828,
+    "loss_found": 0.8,
+    "gain_n": 2784,
+    "gain_ratio": 0.0,
+    "gain_found": 0.157,
+    "steady_n": 196069,
+    "steady_lit": 0.051
+   },
+   "2018-2025/other": {
+    "slope": 0.038,
+    "corr": 0.059,
+    "loss_n": 217,
+    "loss_ratio": -0.112,
+    "loss_found": 0.046,
+    "gain_n": 387,
+    "gain_ratio": 0.0,
+    "gain_found": 0.054,
+    "steady_n": 117796,
+    "steady_lit": 0.015
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.158,
+    "corr": 0.176,
+    "steady_n": 18414,
+    "steady_lit": 0.028
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.105,
+    "corr": 0.199,
+    "gain_n": 142,
+    "gain_ratio": 0.0,
+    "gain_found": 0.077,
+    "steady_n": 18674,
+    "steady_lit": 0.004
+   },
+   "2018-2025/crop": {
+    "slope": 0.237,
+    "corr": 0.187,
+    "steady_n": 16151,
+    "steady_lit": 0.019
+   },
+   "2018-2025/desert-edge": {
+    "slope": 0.084,
+    "corr": 0.108,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.65,
+    "corr": 0.578,
+    "loss_n": 6186,
+    "loss_ratio": 0.838,
+    "loss_found": 0.826,
+    "gain_n": 2397,
+    "gain_ratio": 0.0,
+    "gain_found": 0.174,
+    "steady_n": 78273,
+    "steady_lit": 0.104
+   },
+   "2018-2025/grass": {
+    "slope": -0.18,
+    "corr": -0.314,
+    "loss_n": 151,
+    "loss_ratio": -0.16,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.035
+   },
+   "2018-2025/savanna": {
+    "slope": 0.066,
+    "corr": 0.153,
+    "gain_n": 166,
+    "gain_ratio": 0.0,
+    "gain_found": 0.024,
+    "steady_n": 19344,
+    "steady_lit": 0.008
+   },
+   "2018-2025/shrub": {
+    "slope": 0.221,
+    "corr": 0.14,
+    "steady_n": 13155,
+    "steady_lit": 0.007
+   },
+   "2018-2025/tundra": {
+    "slope": 0.0,
+    "corr": 0.005,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": 0.025,
+    "corr": 0.044,
+    "gain_n": 49,
+    "gain_ratio": 0.086,
+    "gain_found": 0.122,
+    "steady_n": 13681,
+    "steady_lit": 0.026
+   }
+  },
+  "pair": {
+   "yearly/all": {
+    "slope": 0.291,
+    "corr": 0.289,
+    "loss_n": 5840,
+    "loss_ratio": 0.324,
+    "loss_found": 0.478,
+    "gain_n": 4388,
+    "gain_ratio": 0.042,
+    "gain_found": 0.138,
+    "steady_n": 1642774,
+    "steady_lit": 0.005
+   },
+   "yearly/other": {
+    "slope": 0.041,
+    "corr": 0.023,
+    "loss_n": 108,
+    "loss_ratio": 0.105,
+    "loss_found": 0.12,
+    "gain_n": 326,
+    "gain_ratio": 0.051,
+    "gain_found": 0.009,
+    "steady_n": 935183,
+    "steady_lit": 0.002
+   },
+   "yearly/city-edge": {
+    "slope": 0.033,
+    "corr": 0.038,
+    "steady_n": 143954,
+    "steady_lit": 0.001
+   },
+   "yearly/closed-forest": {
+    "slope": 0.019,
+    "corr": 0.006,
+    "loss_n": 33,
+    "loss_ratio": -0.044,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.026,
+    "gain_found": 0.008,
+    "steady_n": 139910,
+    "steady_lit": 0.001
+   },
+   "yearly/crop": {
+    "slope": 0.088,
+    "corr": 0.057,
+    "loss_n": 22,
+    "loss_ratio": 0.185,
+    "loss_found": 0.318,
+    "steady_n": 128905,
+    "steady_lit": 0.005
+   },
+   "yearly/desert-edge": {
+    "slope": 0.035,
+    "corr": 0.043,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.318,
+    "corr": 0.369,
+    "loss_n": 5732,
+    "loss_ratio": 0.328,
+    "loss_found": 0.485,
+    "gain_n": 4062,
+    "gain_ratio": 0.041,
+    "gain_found": 0.149,
+    "steady_n": 707591,
+    "steady_lit": 0.009
+   },
+   "yearly/grass": {
+    "slope": 0.266,
+    "corr": 0.208,
+    "loss_n": 25,
+    "loss_ratio": -0.151,
+    "loss_found": 0.2,
+    "steady_n": 74378,
+    "steady_lit": 0.008
+   },
+   "yearly/savanna": {
+    "slope": 0.122,
+    "corr": 0.14,
+    "gain_n": 135,
+    "gain_ratio": 0.167,
+    "gain_found": 0.0,
+    "steady_n": 156562,
+    "steady_lit": 0.001
+   },
+   "yearly/shrub": {
+    "slope": 0.06,
+    "corr": 0.052,
+    "steady_n": 101419,
+    "steady_lit": 0.0
+   },
+   "yearly/tundra": {
+    "slope": -0.204,
+    "corr": -0.136,
+    "steady_n": 55456,
+    "steady_lit": 0.001
+   },
+   "yearly/wetland": {
+    "slope": -0.048,
+    "corr": -0.039,
+    "gain_n": 20,
+    "gain_ratio": 0.003,
+    "gain_found": 0.0,
+    "steady_n": 110060,
+    "steady_lit": 0.002
+   },
+   "2018-2025/all": {
+    "slope": 0.568,
+    "corr": 0.696,
+    "loss_n": 6403,
+    "loss_ratio": 0.576,
+    "loss_found": 0.776,
+    "gain_n": 2784,
+    "gain_ratio": 0.04,
+    "gain_found": 0.109,
+    "steady_n": 196069,
+    "steady_lit": 0.02
+   },
+   "2018-2025/other": {
+    "slope": 0.127,
+    "corr": 0.122,
+    "loss_n": 217,
+    "loss_ratio": 0.088,
+    "loss_found": 0.092,
+    "gain_n": 387,
+    "gain_ratio": 0.065,
+    "gain_found": 0.016,
+    "steady_n": 117796,
+    "steady_lit": 0.005
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.262,
+    "corr": 0.42,
+    "steady_n": 18414,
+    "steady_lit": 0.002
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.202,
+    "corr": 0.11,
+    "gain_n": 142,
+    "gain_ratio": 0.127,
+    "gain_found": 0.021,
+    "steady_n": 18674,
+    "steady_lit": 0.004
+   },
+   "2018-2025/crop": {
+    "slope": 0.076,
+    "corr": 0.056,
+    "steady_n": 16151,
+    "steady_lit": 0.007
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.08,
+    "corr": -0.072,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.576,
+    "corr": 0.73,
+    "loss_n": 6186,
+    "loss_ratio": 0.584,
+    "loss_found": 0.8,
+    "gain_n": 2397,
+    "gain_ratio": 0.035,
+    "gain_found": 0.124,
+    "steady_n": 78273,
+    "steady_lit": 0.043
+   },
+   "2018-2025/grass": {
+    "slope": 0.019,
+    "corr": 0.048,
+    "loss_n": 151,
+    "loss_ratio": 0.059,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.006
+   },
+   "2018-2025/savanna": {
+    "slope": 0.129,
+    "corr": 0.228,
+    "gain_n": 166,
+    "gain_ratio": 0.062,
+    "gain_found": 0.0,
+    "steady_n": 19344,
+    "steady_lit": 0.01
+   },
+   "2018-2025/shrub": {
+    "slope": -0.017,
+    "corr": -0.024,
+    "steady_n": 13155,
+    "steady_lit": 0.0
+   },
+   "2018-2025/tundra": {
+    "slope": 0.023,
+    "corr": 0.04,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": 0.168,
+    "corr": 0.181,
+    "gain_n": 49,
+    "gain_ratio": 0.004,
+    "gain_found": 0.061,
+    "steady_n": 13681,
+    "steady_lit": 0.005
+   }
+  },
+  "calibrated": {
+   "yearly/all": {
+    "slope": 0.623,
+    "corr": 0.162,
+    "loss_n": 5840,
+    "loss_ratio": 0.898,
+    "loss_found": 0.717,
+    "gain_n": 4388,
+    "gain_ratio": 0.294,
+    "gain_found": 0.465,
+    "steady_n": 1642774,
+    "steady_lit": 0.258
+   },
+   "yearly/other": {
+    "slope": 0.071,
+    "corr": 0.011,
+    "loss_n": 108,
+    "loss_ratio": 0.189,
+    "loss_found": 0.269,
+    "gain_n": 326,
+    "gain_ratio": 0.248,
+    "gain_found": 0.337,
+    "steady_n": 935183,
+    "steady_lit": 0.164
+   },
+   "yearly/city-edge": {
+    "slope": 0.035,
+    "corr": 0.011,
+    "steady_n": 143954,
+    "steady_lit": 0.134
+   },
+   "yearly/closed-forest": {
+    "slope": -0.15,
+    "corr": -0.013,
+    "loss_n": 33,
+    "loss_ratio": 0.289,
+    "loss_found": 0.242,
+    "gain_n": 127,
+    "gain_ratio": 0.018,
+    "gain_found": 0.315,
+    "steady_n": 139910,
+    "steady_lit": 0.309
+   },
+   "yearly/crop": {
+    "slope": 0.332,
+    "corr": 0.066,
+    "loss_n": 22,
+    "loss_ratio": 0.638,
+    "loss_found": 0.5,
+    "steady_n": 128905,
+    "steady_lit": 0.125
+   },
+   "yearly/desert-edge": {
+    "slope": -0.475,
+    "corr": -0.112,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.678,
+    "corr": 0.201,
+    "loss_n": 5732,
+    "loss_ratio": 0.905,
+    "loss_found": 0.726,
+    "gain_n": 4062,
+    "gain_ratio": 0.302,
+    "gain_found": 0.475,
+    "steady_n": 707591,
+    "steady_lit": 0.383
+   },
+   "yearly/grass": {
+    "slope": 0.178,
+    "corr": 0.062,
+    "loss_n": 25,
+    "loss_ratio": -0.517,
+    "loss_found": 0.08,
+    "steady_n": 74378,
+    "steady_lit": 0.12
+   },
+   "yearly/savanna": {
+    "slope": 0.279,
+    "corr": 0.117,
+    "gain_n": 135,
+    "gain_ratio": 0.306,
+    "gain_found": 0.385,
+    "steady_n": 156562,
+    "steady_lit": 0.148
+   },
+   "yearly/shrub": {
+    "slope": 0.028,
+    "corr": 0.004,
+    "steady_n": 101419,
+    "steady_lit": 0.102
+   },
+   "yearly/tundra": {
+    "slope": -0.324,
+    "corr": -0.102,
+    "steady_n": 55456,
+    "steady_lit": 0.077
+   },
+   "yearly/wetland": {
+    "slope": 0.003,
+    "corr": 0.001,
+    "gain_n": 20,
+    "gain_ratio": 0.278,
+    "gain_found": 0.3,
+    "steady_n": 110060,
+    "steady_lit": 0.25
+   },
+   "2018-2025/all": {
+    "slope": 1.416,
+    "corr": 0.489,
+    "loss_n": 6403,
+    "loss_ratio": 1.667,
+    "loss_found": 0.903,
+    "gain_n": 2784,
+    "gain_ratio": 0.325,
+    "gain_found": 0.524,
+    "steady_n": 196069,
+    "steady_lit": 0.371
+   },
+   "2018-2025/other": {
+    "slope": 0.354,
+    "corr": 0.07,
+    "loss_n": 217,
+    "loss_ratio": -0.239,
+    "loss_found": 0.147,
+    "gain_n": 387,
+    "gain_ratio": 0.467,
+    "gain_found": 0.599,
+    "steady_n": 117796,
+    "steady_lit": 0.264
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.686,
+    "corr": 0.218,
+    "steady_n": 18414,
+    "steady_lit": 0.242
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.357,
+    "corr": 0.04,
+    "gain_n": 142,
+    "gain_ratio": 0.297,
+    "gain_found": 0.444,
+    "steady_n": 18674,
+    "steady_lit": 0.412
+   },
+   "2018-2025/crop": {
+    "slope": 0.81,
+    "corr": 0.212,
+    "steady_n": 16151,
+    "steady_lit": 0.174
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.128,
+    "corr": -0.033,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 1.398,
+    "corr": 0.523,
+    "loss_n": 6186,
+    "loss_ratio": 1.689,
+    "loss_found": 0.93,
+    "gain_n": 2397,
+    "gain_ratio": 0.292,
+    "gain_found": 0.512,
+    "steady_n": 78273,
+    "steady_lit": 0.532
+   },
+   "2018-2025/grass": {
+    "slope": -0.338,
+    "corr": -0.238,
+    "loss_n": 151,
+    "loss_ratio": -0.335,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.219
+   },
+   "2018-2025/savanna": {
+    "slope": 0.846,
+    "corr": 0.419,
+    "gain_n": 166,
+    "gain_ratio": 0.647,
+    "gain_found": 0.831,
+    "steady_n": 19344,
+    "steady_lit": 0.248
+   },
+   "2018-2025/shrub": {
+    "slope": 1.698,
+    "corr": 0.228,
+    "steady_n": 13155,
+    "steady_lit": 0.202
+   },
+   "2018-2025/tundra": {
+    "slope": 0.309,
+    "corr": 0.121,
+    "steady_n": 7263,
+    "steady_lit": 0.158
+   },
+   "2018-2025/wetland": {
+    "slope": -0.155,
+    "corr": -0.028,
+    "gain_n": 49,
+    "gain_ratio": 0.271,
+    "gain_found": 0.408,
+    "steady_n": 13681,
+    "steady_lit": 0.422
+   }
+  },
+  "pixels_10m": {
+   "loss_before": 81.4,
+   "loss_after": 43.7,
+   "forest_before": 73.2,
+   "forest_after": 73.5,
+   "ct_loss_before": 83.1,
+   "ct_loss_after": 62.9,
+   "events": 205
+  }
+ },
+ "all": {
+  "plain": {
+   "yearly/all": {
+    "slope": 0.292,
+    "corr": 0.158,
+    "loss_n": 5800,
+    "loss_ratio": 0.433,
+    "loss_found": 0.537,
+    "gain_n": 4340,
+    "gain_ratio": 0.117,
+    "gain_found": 0.311,
+    "steady_n": 1632269,
+    "steady_lit": 0.082
+   },
+   "yearly/other": {
+    "slope": 0.067,
+    "corr": 0.021,
+    "loss_n": 108,
+    "loss_ratio": 0.039,
+    "loss_found": 0.083,
+    "gain_n": 326,
+    "gain_ratio": 0.114,
+    "gain_found": 0.169,
+    "steady_n": 933707,
+    "steady_lit": 0.037
+   },
+   "yearly/city-edge": {
+    "slope": -0.03,
+    "corr": -0.018,
+    "steady_n": 143503,
+    "steady_lit": 0.023
+   },
+   "yearly/closed-forest": {
+    "slope": -0.008,
+    "corr": -0.001,
+    "loss_n": 33,
+    "loss_ratio": -0.012,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.022,
+    "gain_found": 0.189,
+    "steady_n": 139507,
+    "steady_lit": 0.081
+   },
+   "yearly/crop": {
+    "slope": 0.112,
+    "corr": 0.053,
+    "loss_n": 22,
+    "loss_ratio": 0.227,
+    "loss_found": 0.182,
+    "steady_n": 128905,
+    "steady_lit": 0.026
+   },
+   "yearly/desert-edge": {
+    "slope": 0.024,
+    "corr": 0.016,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.313,
+    "corr": 0.198,
+    "loss_n": 5692,
+    "loss_ratio": 0.44,
+    "loss_found": 0.546,
+    "gain_n": 4014,
+    "gain_ratio": 0.118,
+    "gain_found": 0.322,
+    "steady_n": 698562,
+    "steady_lit": 0.141
+   },
+   "yearly/grass": {
+    "slope": 0.066,
+    "corr": 0.06,
+    "loss_n": 25,
+    "loss_ratio": -0.07,
+    "loss_found": 0.0,
+    "steady_n": 74378,
+    "steady_lit": 0.016
+   },
+   "yearly/savanna": {
+    "slope": 0.212,
+    "corr": 0.163,
+    "gain_n": 135,
+    "gain_ratio": 0.23,
+    "gain_found": 0.215,
+    "steady_n": 156562,
+    "steady_lit": 0.028
+   },
+   "yearly/shrub": {
+    "slope": 0.098,
+    "corr": 0.029,
+    "steady_n": 101373,
+    "steady_lit": 0.016
+   },
+   "yearly/tundra": {
+    "slope": -0.151,
+    "corr": -0.091,
+    "steady_n": 55456,
+    "steady_lit": 0.003
+   },
+   "yearly/wetland": {
+    "slope": 0.028,
+    "corr": 0.011,
+    "gain_n": 20,
+    "gain_ratio": 0.09,
+    "gain_found": 0.1,
+    "steady_n": 109484,
+    "steady_lit": 0.085
+   },
+   "2018-2025/all": {
+    "slope": 0.649,
+    "corr": 0.446,
+    "loss_n": 5820,
+    "loss_ratio": 0.797,
+    "loss_found": 0.794,
+    "gain_n": 2513,
+    "gain_ratio": 0.107,
+    "gain_found": 0.35,
+    "steady_n": 194005,
+    "steady_lit": 0.163
+   },
+   "2018-2025/other": {
+    "slope": 0.281,
+    "corr": 0.098,
+    "loss_n": 215,
+    "loss_ratio": -0.027,
+    "loss_found": 0.088,
+    "gain_n": 386,
+    "gain_ratio": 0.244,
+    "gain_found": 0.44,
+    "steady_n": 117624,
+    "steady_lit": 0.089
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.543,
+    "corr": 0.286,
+    "steady_n": 18389,
+    "steady_lit": 0.078
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.054,
+    "corr": 0.011,
+    "gain_n": 142,
+    "gain_ratio": 0.124,
+    "gain_found": 0.268,
+    "steady_n": 18671,
+    "steady_lit": 0.133
+   },
+   "2018-2025/crop": {
+    "slope": 0.285,
+    "corr": 0.178,
+    "steady_n": 16151,
+    "steady_lit": 0.033
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.163,
+    "corr": -0.092,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.634,
+    "corr": 0.487,
+    "loss_n": 5605,
+    "loss_ratio": 0.81,
+    "loss_found": 0.821,
+    "gain_n": 2127,
+    "gain_ratio": 0.084,
+    "gain_found": 0.333,
+    "steady_n": 76381,
+    "steady_lit": 0.278
+   },
+   "2018-2025/grass": {
+    "slope": -0.015,
+    "corr": -0.024,
+    "loss_n": 151,
+    "loss_ratio": -0.044,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.086
+   },
+   "2018-2025/savanna": {
+    "slope": 0.719,
+    "corr": 0.556,
+    "gain_n": 166,
+    "gain_ratio": 0.528,
+    "gain_found": 0.735,
+    "steady_n": 19344,
+    "steady_lit": 0.057
+   },
+   "2018-2025/shrub": {
+    "slope": 1.085,
+    "corr": 0.248,
+    "steady_n": 13155,
+    "steady_lit": 0.118
+   },
+   "2018-2025/tundra": {
+    "slope": 0.122,
+    "corr": 0.111,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": -0.138,
+    "corr": -0.04,
+    "gain_n": 48,
+    "gain_ratio": 0.097,
+    "gain_found": 0.146,
+    "steady_n": 13537,
+    "steady_lit": 0.198
+   }
+  },
+  "gated": {
+   "yearly/all": {
+    "slope": 0.222,
+    "corr": 0.324,
+    "loss_n": 5800,
+    "loss_ratio": 0.299,
+    "loss_found": 0.438,
+    "gain_n": 4340,
+    "gain_ratio": 0.0,
+    "gain_found": 0.111,
+    "steady_n": 1632103,
+    "steady_lit": 0.007
+   },
+   "yearly/other": {
+    "slope": 0.012,
+    "corr": 0.029,
+    "loss_n": 108,
+    "loss_ratio": -0.0,
+    "loss_found": 0.056,
+    "gain_n": 326,
+    "gain_ratio": 0.0,
+    "gain_found": 0.003,
+    "steady_n": 933672,
+    "steady_lit": 0.002
+   },
+   "yearly/city-edge": {
+    "slope": 0.013,
+    "corr": 0.036,
+    "steady_n": 143483,
+    "steady_lit": 0.002
+   },
+   "yearly/closed-forest": {
+    "slope": 0.003,
+    "corr": 0.018,
+    "loss_n": 33,
+    "loss_ratio": -0.0,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 139507,
+    "steady_lit": 0.0
+   },
+   "yearly/crop": {
+    "slope": 0.052,
+    "corr": 0.05,
+    "loss_n": 22,
+    "loss_ratio": 0.058,
+    "loss_found": 0.182,
+    "steady_n": 128905,
+    "steady_lit": 0.007
+   },
+   "yearly/desert-edge": {
+    "slope": 0.009,
+    "corr": 0.057,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.245,
+    "corr": 0.345,
+    "loss_n": 5692,
+    "loss_ratio": 0.307,
+    "loss_found": 0.445,
+    "gain_n": 4014,
+    "gain_ratio": 0.0,
+    "gain_found": 0.12,
+    "steady_n": 698431,
+    "steady_lit": 0.014
+   },
+   "yearly/grass": {
+    "slope": 0.046,
+    "corr": 0.083,
+    "loss_n": 25,
+    "loss_ratio": -0.044,
+    "loss_found": 0.0,
+    "steady_n": 74378,
+    "steady_lit": 0.001
+   },
+   "yearly/savanna": {
+    "slope": 0.011,
+    "corr": 0.025,
+    "gain_n": 135,
+    "gain_ratio": 0.0,
+    "gain_found": 0.007,
+    "steady_n": 156562,
+    "steady_lit": 0.003
+   },
+   "yearly/shrub": {
+    "slope": 0.002,
+    "corr": 0.002,
+    "steady_n": 101373,
+    "steady_lit": 0.003
+   },
+   "yearly/tundra": {
+    "slope": -0.0,
+    "corr": -0.001,
+    "steady_n": 55456,
+    "steady_lit": 0.0
+   },
+   "yearly/wetland": {
+    "slope": 0.003,
+    "corr": 0.015,
+    "gain_n": 20,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 109469,
+    "steady_lit": 0.001
+   },
+   "2018-2025/all": {
+    "slope": 0.577,
+    "corr": 0.561,
+    "loss_n": 5820,
+    "loss_ratio": 0.75,
+    "loss_found": 0.74,
+    "gain_n": 2513,
+    "gain_ratio": 0.0,
+    "gain_found": 0.121,
+    "steady_n": 193994,
+    "steady_lit": 0.034
+   },
+   "2018-2025/other": {
+    "slope": 0.06,
+    "corr": 0.102,
+    "loss_n": 215,
+    "loss_ratio": -0.025,
+    "loss_found": 0.047,
+    "gain_n": 386,
+    "gain_ratio": 0.0,
+    "gain_found": 0.047,
+    "steady_n": 117618,
+    "steady_lit": 0.01
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.207,
+    "corr": 0.236,
+    "steady_n": 18385,
+    "steady_lit": 0.018
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.087,
+    "corr": 0.183,
+    "gain_n": 142,
+    "gain_ratio": 0.0,
+    "gain_found": 0.056,
+    "steady_n": 18671,
+    "steady_lit": 0.002
+   },
+   "2018-2025/crop": {
+    "slope": 0.115,
+    "corr": 0.121,
+    "steady_n": 16151,
+    "steady_lit": 0.013
+   },
+   "2018-2025/desert-edge": {
+    "slope": 0.005,
+    "corr": 0.051,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.578,
+    "corr": 0.562,
+    "loss_n": 5605,
+    "loss_ratio": 0.772,
+    "loss_found": 0.767,
+    "gain_n": 2127,
+    "gain_ratio": 0.0,
+    "gain_found": 0.134,
+    "steady_n": 76376,
+    "steady_lit": 0.072
+   },
+   "2018-2025/grass": {
+    "slope": -0.045,
+    "corr": -0.101,
+    "loss_n": 151,
+    "loss_ratio": -0.044,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.029
+   },
+   "2018-2025/savanna": {
+    "slope": 0.038,
+    "corr": 0.089,
+    "gain_n": 166,
+    "gain_ratio": 0.0,
+    "gain_found": 0.024,
+    "steady_n": 19344,
+    "steady_lit": 0.006
+   },
+   "2018-2025/shrub": {
+    "slope": 0.204,
+    "corr": 0.132,
+    "steady_n": 13155,
+    "steady_lit": 0.009
+   },
+   "2018-2025/tundra": {
+    "slope": 0.0,
+    "corr": NaN,
+    "steady_n": 7263,
+    "steady_lit": 0.0
+   },
+   "2018-2025/wetland": {
+    "slope": 0.027,
+    "corr": 0.046,
+    "gain_n": 48,
+    "gain_ratio": 0.077,
+    "gain_found": 0.125,
+    "steady_n": 13535,
+    "steady_lit": 0.011
+   }
+  },
+  "pair": {
+   "yearly/all": {
+    "slope": 0.289,
+    "corr": 0.281,
+    "loss_n": 5800,
+    "loss_ratio": 0.329,
+    "loss_found": 0.474,
+    "gain_n": 4340,
+    "gain_ratio": 0.049,
+    "gain_found": 0.143,
+    "steady_n": 1632103,
+    "steady_lit": 0.005
+   },
+   "yearly/other": {
+    "slope": 0.015,
+    "corr": 0.008,
+    "loss_n": 108,
+    "loss_ratio": 0.066,
+    "loss_found": 0.139,
+    "gain_n": 326,
+    "gain_ratio": 0.056,
+    "gain_found": 0.015,
+    "steady_n": 933672,
+    "steady_lit": 0.002
+   },
+   "yearly/city-edge": {
+    "slope": 0.029,
+    "corr": 0.038,
+    "steady_n": 143483,
+    "steady_lit": 0.001
+   },
+   "yearly/closed-forest": {
+    "slope": 0.004,
+    "corr": 0.001,
+    "loss_n": 33,
+    "loss_ratio": 0.04,
+    "loss_found": 0.0,
+    "gain_n": 127,
+    "gain_ratio": 0.04,
+    "gain_found": 0.0,
+    "steady_n": 139507,
+    "steady_lit": 0.001
+   },
+   "yearly/crop": {
+    "slope": 0.122,
+    "corr": 0.086,
+    "loss_n": 22,
+    "loss_ratio": 0.078,
+    "loss_found": 0.318,
+    "steady_n": 128905,
+    "steady_lit": 0.003
+   },
+   "yearly/desert-edge": {
+    "slope": -0.032,
+    "corr": -0.024,
+    "steady_n": 24539,
+    "steady_lit": 0.0
+   },
+   "yearly/forest-loss": {
+    "slope": 0.321,
+    "corr": 0.36,
+    "loss_n": 5692,
+    "loss_ratio": 0.335,
+    "loss_found": 0.481,
+    "gain_n": 4014,
+    "gain_ratio": 0.049,
+    "gain_found": 0.153,
+    "steady_n": 698431,
+    "steady_lit": 0.008
+   },
+   "yearly/grass": {
+    "slope": -0.181,
+    "corr": -0.107,
+    "loss_n": 25,
+    "loss_ratio": -0.257,
+    "loss_found": 0.08,
+    "steady_n": 74378,
+    "steady_lit": 0.015
+   },
+   "yearly/savanna": {
+    "slope": 0.115,
+    "corr": 0.153,
+    "gain_n": 135,
+    "gain_ratio": 0.069,
+    "gain_found": 0.0,
+    "steady_n": 156562,
+    "steady_lit": 0.001
+   },
+   "yearly/shrub": {
+    "slope": 0.028,
+    "corr": 0.025,
+    "steady_n": 101373,
+    "steady_lit": 0.0
+   },
+   "yearly/tundra": {
+    "slope": -0.161,
+    "corr": -0.104,
+    "steady_n": 55456,
+    "steady_lit": 0.002
+   },
+   "yearly/wetland": {
+    "slope": -0.056,
+    "corr": -0.045,
+    "gain_n": 20,
+    "gain_ratio": 0.0,
+    "gain_found": 0.0,
+    "steady_n": 109469,
+    "steady_lit": 0.0
+   },
+   "2018-2025/all": {
+    "slope": 0.545,
+    "corr": 0.642,
+    "loss_n": 5820,
+    "loss_ratio": 0.551,
+    "loss_found": 0.747,
+    "gain_n": 2513,
+    "gain_ratio": 0.044,
+    "gain_found": 0.084,
+    "steady_n": 193994,
+    "steady_lit": 0.018
+   },
+   "2018-2025/other": {
+    "slope": -0.074,
+    "corr": -0.064,
+    "loss_n": 215,
+    "loss_ratio": -0.662,
+    "loss_found": 0.088,
+    "gain_n": 386,
+    "gain_ratio": 0.024,
+    "gain_found": 0.021,
+    "steady_n": 117618,
+    "steady_lit": 0.004
+   },
+   "2018-2025/city-edge": {
+    "slope": 0.183,
+    "corr": 0.353,
+    "steady_n": 18385,
+    "steady_lit": 0.002
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.326,
+    "corr": 0.178,
+    "gain_n": 142,
+    "gain_ratio": 0.116,
+    "gain_found": 0.028,
+    "steady_n": 18671,
+    "steady_lit": 0.005
+   },
+   "2018-2025/crop": {
+    "slope": 0.182,
+    "corr": 0.209,
+    "steady_n": 16151,
+    "steady_lit": 0.001
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.273,
+    "corr": -0.2,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 0.567,
+    "corr": 0.694,
+    "loss_n": 5605,
+    "loss_ratio": 0.565,
+    "loss_found": 0.772,
+    "gain_n": 2127,
+    "gain_ratio": 0.045,
+    "gain_found": 0.096,
+    "steady_n": 76376,
+    "steady_lit": 0.04
+   },
+   "2018-2025/grass": {
+    "slope": -0.962,
+    "corr": -0.662,
+    "loss_n": 151,
+    "loss_ratio": -0.761,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.021
+   },
+   "2018-2025/savanna": {
+    "slope": -0.049,
+    "corr": -0.097,
+    "gain_n": 166,
+    "gain_ratio": -0.027,
+    "gain_found": 0.006,
+    "steady_n": 19344,
+    "steady_lit": 0.003
+   },
+   "2018-2025/shrub": {
+    "slope": -0.091,
+    "corr": -0.125,
+    "steady_n": 13155,
+    "steady_lit": 0.0
+   },
+   "2018-2025/tundra": {
+    "slope": 0.105,
+    "corr": 0.089,
+    "steady_n": 7263,
+    "steady_lit": 0.003
+   },
+   "2018-2025/wetland": {
+    "slope": 0.059,
+    "corr": 0.088,
+    "gain_n": 48,
+    "gain_ratio": 0.004,
+    "gain_found": 0.062,
+    "steady_n": 13535,
+    "steady_lit": 0.004
+   }
+  },
+  "calibrated": {
+   "yearly/all": {
+    "slope": 0.639,
+    "corr": 0.157,
+    "loss_n": 5800,
+    "loss_ratio": 0.92,
+    "loss_found": 0.722,
+    "gain_n": 4340,
+    "gain_ratio": 0.289,
+    "gain_found": 0.475,
+    "steady_n": 1632269,
+    "steady_lit": 0.29
+   },
+   "yearly/other": {
+    "slope": 0.15,
+    "corr": 0.021,
+    "loss_n": 108,
+    "loss_ratio": 0.033,
+    "loss_found": 0.259,
+    "gain_n": 326,
+    "gain_ratio": 0.294,
+    "gain_found": 0.423,
+    "steady_n": 933707,
+    "steady_lit": 0.191
+   },
+   "yearly/city-edge": {
+    "slope": -0.06,
+    "corr": -0.017,
+    "steady_n": 143503,
+    "steady_lit": 0.146
+   },
+   "yearly/closed-forest": {
+    "slope": -0.012,
+    "corr": -0.001,
+    "loss_n": 33,
+    "loss_ratio": -0.08,
+    "loss_found": 0.091,
+    "gain_n": 127,
+    "gain_ratio": 0.097,
+    "gain_found": 0.346,
+    "steady_n": 139507,
+    "steady_lit": 0.35
+   },
+   "yearly/crop": {
+    "slope": 0.254,
+    "corr": 0.054,
+    "loss_n": 22,
+    "loss_ratio": 0.46,
+    "loss_found": 0.455,
+    "steady_n": 128905,
+    "steady_lit": 0.182
+   },
+   "yearly/desert-edge": {
+    "slope": 0.062,
+    "corr": 0.018,
+    "steady_n": 24539,
+    "steady_lit": 0.002
+   },
+   "yearly/forest-loss": {
+    "slope": 0.686,
+    "corr": 0.195,
+    "loss_n": 5692,
+    "loss_ratio": 0.936,
+    "loss_found": 0.731,
+    "gain_n": 4014,
+    "gain_ratio": 0.29,
+    "gain_found": 0.479,
+    "steady_n": 698562,
+    "steady_lit": 0.422
+   },
+   "yearly/grass": {
+    "slope": 0.151,
+    "corr": 0.061,
+    "loss_n": 25,
+    "loss_ratio": -0.197,
+    "loss_found": 0.04,
+    "steady_n": 74378,
+    "steady_lit": 0.102
+   },
+   "yearly/savanna": {
+    "slope": 0.469,
+    "corr": 0.163,
+    "gain_n": 135,
+    "gain_ratio": 0.537,
+    "gain_found": 0.6,
+    "steady_n": 156562,
+    "steady_lit": 0.187
+   },
+   "yearly/shrub": {
+    "slope": 0.218,
+    "corr": 0.03,
+    "steady_n": 101373,
+    "steady_lit": 0.121
+   },
+   "yearly/tundra": {
+    "slope": -0.317,
+    "corr": -0.088,
+    "steady_n": 55456,
+    "steady_lit": 0.112
+   },
+   "yearly/wetland": {
+    "slope": 0.06,
+    "corr": 0.011,
+    "gain_n": 20,
+    "gain_ratio": 0.256,
+    "gain_found": 0.35,
+    "steady_n": 109484,
+    "steady_lit": 0.271
+   },
+   "2018-2025/all": {
+    "slope": 1.435,
+    "corr": 0.443,
+    "loss_n": 5820,
+    "loss_ratio": 1.744,
+    "loss_found": 0.897,
+    "gain_n": 2513,
+    "gain_ratio": 0.261,
+    "gain_found": 0.499,
+    "steady_n": 194005,
+    "steady_lit": 0.419
+   },
+   "2018-2025/other": {
+    "slope": 0.625,
+    "corr": 0.098,
+    "loss_n": 215,
+    "loss_ratio": -0.085,
+    "loss_found": 0.158,
+    "gain_n": 386,
+    "gain_ratio": 0.565,
+    "gain_found": 0.645,
+    "steady_n": 117624,
+    "steady_lit": 0.323
+   },
+   "2018-2025/city-edge": {
+    "slope": 1.199,
+    "corr": 0.287,
+    "steady_n": 18389,
+    "steady_lit": 0.271
+   },
+   "2018-2025/closed-forest": {
+    "slope": 0.109,
+    "corr": 0.01,
+    "gain_n": 142,
+    "gain_ratio": 0.301,
+    "gain_found": 0.451,
+    "steady_n": 18671,
+    "steady_lit": 0.47
+   },
+   "2018-2025/crop": {
+    "slope": 0.641,
+    "corr": 0.18,
+    "steady_n": 16151,
+    "steady_lit": 0.261
+   },
+   "2018-2025/desert-edge": {
+    "slope": -0.314,
+    "corr": -0.082,
+    "steady_n": 2783,
+    "steady_lit": 0.0
+   },
+   "2018-2025/forest-loss": {
+    "slope": 1.399,
+    "corr": 0.484,
+    "loss_n": 5605,
+    "loss_ratio": 1.769,
+    "loss_found": 0.926,
+    "gain_n": 2127,
+    "gain_ratio": 0.21,
+    "gain_found": 0.473,
+    "steady_n": 76381,
+    "steady_lit": 0.568
+   },
+   "2018-2025/grass": {
+    "slope": -0.033,
+    "corr": -0.022,
+    "loss_n": 151,
+    "loss_ratio": -0.121,
+    "loss_found": 0.0,
+    "steady_n": 8331,
+    "steady_lit": 0.254
+   },
+   "2018-2025/savanna": {
+    "slope": 1.595,
+    "corr": 0.559,
+    "gain_n": 166,
+    "gain_ratio": 1.205,
+    "gain_found": 0.898,
+    "steady_n": 19344,
+    "steady_lit": 0.327
+   },
+   "2018-2025/shrub": {
+    "slope": 2.422,
+    "corr": 0.252,
+    "steady_n": 13155,
+    "steady_lit": 0.353
+   },
+   "2018-2025/tundra": {
+    "slope": 0.272,
+    "corr": 0.112,
+    "steady_n": 7263,
+    "steady_lit": 0.129
+   },
+   "2018-2025/wetland": {
+    "slope": -0.31,
+    "corr": -0.04,
+    "gain_n": 48,
+    "gain_ratio": 0.263,
+    "gain_found": 0.396,
+    "steady_n": 13537,
+    "steady_lit": 0.44
+   }
+  },
+  "pixels_10m": {
+   "loss_before": 81.2,
+   "loss_after": 44.2,
+   "forest_before": 78.4,
+   "forest_after": 76.3,
+   "ct_loss_before": 82.8,
+   "ct_loss_after": 63.7,
+   "events": 204
+  }
+ }
+}

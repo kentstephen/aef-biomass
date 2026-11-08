@@ -93,3 +93,68 @@ tests run.
 - Drop 2017 (TESSERA gaps, AEF rebuilt it). Check per embedding for missing years (AEF 2025 in central Chile).
 - Detectors and heads are frozen before new places are scored.
 - Source Coop and the other public stores: four squares at a time has been fine.
+
+## 2026-11-07, later: the starting point, and the squares
+
+The starting point is fire-knn's fuel map ([aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr),
+`main`; README "Where this starts" has the links): fuel or not fuel, and per year a lifeform, canopy cover, height,
+fuel kind and vegetation volume at 10 m, which tracked fires year by year. This plan widens that to biomass over all
+kinds of ground, worldwide. The tree-loss work in `FINDINGS.md` came first; at the end of that session the target moved to biomass, and its
+results (canopy cover ranks trees abroad, AUC .964; loss sizes right where forest reads as forest) are what say a
+biomass map could work.
+
+The 37 squares on disk were picked for tree loss (Hansen ~20 % loss, at least 30 % forest), and section 1's are
+cut-forest samples. A training set from them alone would be a forest set. Squares across the whole range (bare,
+built, water, crop, grass, shrub, savanna, open woodland, closed forest, wetland, mangrove), worldwide, come before
+the label read, not after. The forest squares stay as some of the forest rows.
+
+Labels checked under one square (2026-11-07, `scripts/probe_labels.py`): CTrees AGB and its error, Meta CHM v2
+10 m mean height with acquisition dates, Impact Observatory annual classes 2017 to 2023, BII v1.1 2017 to 2025;
+all public, no sign-in. CTrees and Meta are strongest on trees; no worldwide label for grass or shrub amount is
+in hand yet.
+
+## 2026-11-08: notes for the map phase (not built yet)
+
+### Shade the embeddings on the GPU, in the browser
+The map runs the heads on the embeddings in the browser, on the GPU, through deck.gl-raster (Development Seed), as
+Earthwork and fire-knn already do. Start from that code rather than anew:
+- [aef-tessera-earthwork](https://github.com/kentstephen/aef-tessera-earthwork) `web/` (deck.gl-raster, deck.gl-zarr,
+  deck.gl-geotiff 0.8.1): `src/earthwork-score.ts` (a luma.gl shader module: each year's 64 AlphaEarth bands as an r8sint
+  Texture2DArray, the weights as a texture, the score per pixel in the fragment shader), `src/aef.ts`, `src/tessera.ts`
+  (both read straight from Source Cooperative), `src/disk-cache.ts` (kept on disk between visits), `src/chunk.worker.ts`.
+- [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) `web/` (`main`): `src/fuel/head-gpu.ts`,
+  `src/fuel/volume-gpu.ts` (the fuel and volume heads as WebGPU compute, int8 packed in u32, one thread per pixel, CPU
+  fallback in `volume.ts`), `src/aef/aef.worker.ts` and `pool.ts` (IndexedDB chunk cache, per-worker memory, a chunk
+  always on the same worker so the next year needs one read), `src/aef/render.ts`, `src/gpu/sample-texture-2d-array.ts`.
+- [aef-landcover-fosberg-cog](https://github.com/kentstephen/aef-landcover-fosberg-cog) `web/` (newest, 2026-11-07): the
+  same `gpu/` and `aef/render.ts` lineage.
+The biomass head is the same shape as fire-knn's (one layer of 64), so it drops into that shader path: a year's
+embedding in, biomass, height and class out per pixel; the change map is two years through it, or the pair head.
+
+### Color
+- Long ramps the way [five-min-away-redux](https://github.com/kentstephen/five-min-away-redux) and usgs-mrms-flood made
+  them: a CARTO ramp remade as 50 stops along its own hue path, extended at both ends (Emrld 50 in
+  `five_min_away.py`; the GLSL lookup `emrld(t)` in usgs-mrms-flood `web/src/elev.ts`, with its rank stretch, color by
+  percentile of the pixels in view). Seven stops washed out; fifty did not.
+- Directions, none picked: biomass amount on one lightness ramp (Emrld 50 as is); change on a cool to warm diverging
+  ramp, blue for gain and orange for loss (or the other way), each side remade to many stops, with the middle (no
+  change, status quo) light or dark. Blue against orange holds up without red; CARTO ArmyRose's rose end leans red.
+- No red-against-green anywhere; strokes in their own color, no dark casing.
+
+### Land cover with its error
+Classes come out of the same head, with an error a map can show: per class from the held-out tests
+(`results/class_report.json`, precision and recall with intervals), and per pixel from the head's own confidence once
+it is calibrated (raw, it runs overconfident; see FINDINGS section 8).
+
+## 2026-11-08: steps 1 to 4 run once (FINDINGS sections 6 to 10)
+
+- Step 1 done with 55 new squares over every kind of ground (`pick_veg_squares.py`) and the labels under all 92
+  (`read_labels.py`). BII read, not used yet.
+- Step 2 done (`biomass_head.py`, `class_report.py`): biomass R2 of log .70 to .74 held out by square, .65 to .67 by
+  continent; height R2 up to .78; classes 91 to 92 % right with OlmoEarth or all three, intervals per class.
+- Step 3 (held out by place) is inside step 2. Repeat lidar not done: Earthwork's lidar is bare ground only.
+- Step 4 run (`biomass_change.py`, `biomass_lookalikes.py`): loss over 2018 to 2025 at about four-fifths of CTrees'
+  size, a single year under half; the gate and the pair head keep steady ground quiet; regrowth barely shows;
+  Earthwork's trouble spots mostly stay quiet in the biomass head, wetland the exception, handled by the gate.
+- Open, in FINDINGS "Next": class confidence calibration, change calibration per window length, the squeezed top end,
+  a canopy lidar check, tundra, hard-ground class labels, open woodland as its own class.

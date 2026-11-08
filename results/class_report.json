@@ -1,0 +1,1142 @@
+{
+ "classes": [
+  "trees",
+  "shrub",
+  "grass",
+  "crop",
+  "built",
+  "bare",
+  "water",
+  "wetland",
+  "moss"
+ ],
+ "note": "labels: WorldCover 2020 / 2021 where Impact Observatory agrees",
+ "aef": {
+  "pixels": 549006,
+  "accuracy": 0.858,
+  "accuracy_ci": [
+   0.816,
+   0.895
+  ],
+  "per_class": {
+   "trees": {
+    "n": 253338,
+    "recall": 0.978,
+    "recall_ci": [
+     0.965,
+     0.987
+    ],
+    "precision": 0.944,
+    "precision_ci": [
+     0.911,
+     0.969
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "shrub": {
+    "n": 42132,
+    "recall": 0.488,
+    "recall_ci": [
+     0.272,
+     0.687
+    ],
+    "precision": 0.682,
+    "precision_ci": [
+     0.528,
+     0.819
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "grass": {
+    "n": 133762,
+    "recall": 0.811,
+    "recall_ci": [
+     0.707,
+     0.902
+    ],
+    "precision": 0.771,
+    "precision_ci": [
+     0.692,
+     0.843
+    ],
+    "mostly_confused_with": "bare"
+   },
+   "crop": {
+    "n": 68014,
+    "recall": 0.793,
+    "recall_ci": [
+     0.621,
+     0.915
+    ],
+    "precision": 0.934,
+    "precision_ci": [
+     0.869,
+     0.968
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "built": {
+    "n": 21678,
+    "recall": 0.96,
+    "recall_ci": [
+     0.925,
+     0.98
+    ],
+    "precision": 0.921,
+    "precision_ci": [
+     0.828,
+     0.977
+    ],
+    "mostly_confused_with": "crop"
+   },
+   "bare": {
+    "n": 3448,
+    "recall": 0.404,
+    "recall_ci": [
+     0.164,
+     0.776
+    ],
+    "precision": 0.141,
+    "precision_ci": [
+     0.07,
+     0.779
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "water": {
+    "n": 13724,
+    "recall": 0.954,
+    "recall_ci": [
+     0.861,
+     0.989
+    ],
+    "precision": 0.949,
+    "precision_ci": [
+     0.871,
+     0.976
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "wetland": {
+    "n": 7620,
+    "recall": 0.472,
+    "recall_ci": [
+     0.073,
+     0.805
+    ],
+    "precision": 0.364,
+    "precision_ci": [
+     0.043,
+     0.906
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "moss": {
+    "n": 5290,
+    "recall": 0.271,
+    "recall_ci": [
+     0.006,
+     0.314
+    ],
+    "precision": 0.769,
+    "precision_ci": [
+     0.034,
+     0.856
+    ],
+    "mostly_confused_with": "grass"
+   }
+  },
+  "confusion": [
+   [
+    247745,
+    1422,
+    3257,
+    534,
+    174,
+    1,
+    24,
+    180,
+    1
+   ],
+   [
+    6623,
+    20548,
+    14557,
+    60,
+    167,
+    27,
+    7,
+    143,
+    0
+   ],
+   [
+    6557,
+    7085,
+    108538,
+    2841,
+    369,
+    7795,
+    62,
+    410,
+    105
+   ],
+   [
+    238,
+    52,
+    7310,
+    53913,
+    928,
+    10,
+    166,
+    5397,
+    0
+   ],
+   [
+    62,
+    208,
+    141,
+    313,
+    20809,
+    107,
+    29,
+    1,
+    8
+   ],
+   [
+    1,
+    152,
+    1508,
+    4,
+    116,
+    1394,
+    80,
+    0,
+    193
+   ],
+   [
+    105,
+    3,
+    223,
+    37,
+    18,
+    11,
+    13086,
+    119,
+    122
+   ],
+   [
+    821,
+    669,
+    2237,
+    12,
+    0,
+    0,
+    288,
+    3593,
+    0
+   ],
+   [
+    166,
+    0,
+    3058,
+    0,
+    8,
+    558,
+    54,
+    15,
+    1431
+   ]
+  ],
+  "calibration": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.016,
+    "mean_confidence": 0.441,
+    "right": 0.322
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.037,
+    "mean_confidence": 0.55,
+    "right": 0.454
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.038,
+    "mean_confidence": 0.651,
+    "right": 0.509
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.753,
+    "right": 0.571
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.069,
+    "mean_confidence": 0.855,
+    "right": 0.645
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.059,
+    "mean_confidence": 0.927,
+    "right": 0.723
+   },
+   {
+    "confidence": "0.95-1.00",
+    "share_of_pixels": 0.735,
+    "mean_confidence": 0.995,
+    "right": 0.957
+   }
+  ],
+  "ece": 0.074
+ },
+ "tes": {
+  "pixels": 545979,
+  "accuracy": 0.849,
+  "accuracy_ci": [
+   0.81,
+   0.882
+  ],
+  "per_class": {
+   "trees": {
+    "n": 250848,
+    "recall": 0.955,
+    "recall_ci": [
+     0.925,
+     0.975
+    ],
+    "precision": 0.946,
+    "precision_ci": [
+     0.917,
+     0.967
+    ],
+    "mostly_confused_with": "shrub"
+   },
+   "shrub": {
+    "n": 42055,
+    "recall": 0.447,
+    "recall_ci": [
+     0.264,
+     0.625
+    ],
+    "precision": 0.507,
+    "precision_ci": [
+     0.31,
+     0.674
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "grass": {
+    "n": 133646,
+    "recall": 0.81,
+    "recall_ci": [
+     0.736,
+     0.875
+    ],
+    "precision": 0.776,
+    "precision_ci": [
+     0.69,
+     0.841
+    ],
+    "mostly_confused_with": "shrub"
+   },
+   "crop": {
+    "n": 68005,
+    "recall": 0.843,
+    "recall_ci": [
+     0.743,
+     0.913
+    ],
+    "precision": 0.863,
+    "precision_ci": [
+     0.745,
+     0.929
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "built": {
+    "n": 21593,
+    "recall": 0.935,
+    "recall_ci": [
+     0.883,
+     0.969
+    ],
+    "precision": 0.882,
+    "precision_ci": [
+     0.803,
+     0.931
+    ],
+    "mostly_confused_with": "trees"
+   },
+   "bare": {
+    "n": 3446,
+    "recall": 0.664,
+    "recall_ci": [
+     0.248,
+     0.819
+    ],
+    "precision": 0.528,
+    "precision_ci": [
+     0.219,
+     0.846
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "water": {
+    "n": 13479,
+    "recall": 0.94,
+    "recall_ci": [
+     0.829,
+     0.978
+    ],
+    "precision": 0.891,
+    "precision_ci": [
+     0.691,
+     0.966
+    ],
+    "mostly_confused_with": "wetland"
+   },
+   "wetland": {
+    "n": 7617,
+    "recall": 0.201,
+    "recall_ci": [
+     0.076,
+     0.483
+    ],
+    "precision": 0.386,
+    "precision_ci": [
+     0.168,
+     0.595
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "moss": {
+    "n": 5290,
+    "recall": 0.5,
+    "recall_ci": [
+     0.026,
+     0.818
+    ],
+    "precision": 0.644,
+    "precision_ci": [
+     0.005,
+     0.841
+    ],
+    "mostly_confused_with": "grass"
+   }
+  },
+  "confusion": [
+   [
+    239626,
+    6570,
+    3637,
+    608,
+    234,
+    10,
+    40,
+    120,
+    3
+   ],
+   [
+    4436,
+    18807,
+    15048,
+    979,
+    794,
+    1019,
+    2,
+    970,
+    0
+   ],
+   [
+    5881,
+    10293,
+    108221,
+    6697,
+    308,
+    493,
+    148,
+    482,
+    1123
+   ],
+   [
+    1108,
+    605,
+    7121,
+    57337,
+    826,
+    63,
+    353,
+    273,
+    319
+   ],
+   [
+    356,
+    330,
+    177,
+    350,
+    20187,
+    161,
+    16,
+    14,
+    2
+   ],
+   [
+    41,
+    97,
+    630,
+    36,
+    294,
+    2288,
+    31,
+    19,
+    10
+   ],
+   [
+    163,
+    1,
+    92,
+    167,
+    40,
+    172,
+    12667,
+    177,
+    0
+   ],
+   [
+    1580,
+    382,
+    2710,
+    259,
+    178,
+    24,
+    950,
+    1529,
+    5
+   ],
+   [
+    172,
+    43,
+    1897,
+    28,
+    19,
+    105,
+    3,
+    380,
+    2643
+   ]
+  ],
+  "calibration": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.028,
+    "mean_confidence": 0.435,
+    "right": 0.374
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.55,
+    "right": 0.482
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.047,
+    "mean_confidence": 0.651,
+    "right": 0.553
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.055,
+    "mean_confidence": 0.752,
+    "right": 0.627
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.079,
+    "mean_confidence": 0.855,
+    "right": 0.707
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.071,
+    "mean_confidence": 0.928,
+    "right": 0.775
+   },
+   {
+    "confidence": "0.95-1.00",
+    "share_of_pixels": 0.674,
+    "mean_confidence": 0.993,
+    "right": 0.956
+   }
+  ],
+  "ece": 0.064
+ },
+ "olmo": {
+  "pixels": 549006,
+  "accuracy": 0.916,
+  "accuracy_ci": [
+   0.891,
+   0.937
+  ],
+  "per_class": {
+   "trees": {
+    "n": 253338,
+    "recall": 0.978,
+    "recall_ci": [
+     0.968,
+     0.986
+    ],
+    "precision": 0.974,
+    "precision_ci": [
+     0.962,
+     0.984
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "shrub": {
+    "n": 42132,
+    "recall": 0.647,
+    "recall_ci": [
+     0.494,
+     0.783
+    ],
+    "precision": 0.749,
+    "precision_ci": [
+     0.601,
+     0.859
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "grass": {
+    "n": 133762,
+    "recall": 0.889,
+    "recall_ci": [
+     0.834,
+     0.931
+    ],
+    "precision": 0.842,
+    "precision_ci": [
+     0.773,
+     0.896
+    ],
+    "mostly_confused_with": "shrub"
+   },
+   "crop": {
+    "n": 68014,
+    "recall": 0.959,
+    "recall_ci": [
+     0.927,
+     0.976
+    ],
+    "precision": 0.957,
+    "precision_ci": [
+     0.914,
+     0.979
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "built": {
+    "n": 21678,
+    "recall": 0.983,
+    "recall_ci": [
+     0.974,
+     0.988
+    ],
+    "precision": 0.98,
+    "precision_ci": [
+     0.963,
+     0.99
+    ],
+    "mostly_confused_with": "crop"
+   },
+   "bare": {
+    "n": 3448,
+    "recall": 0.77,
+    "recall_ci": [
+     0.391,
+     0.888
+    ],
+    "precision": 0.762,
+    "precision_ci": [
+     0.459,
+     0.953
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "water": {
+    "n": 13724,
+    "recall": 0.959,
+    "recall_ci": [
+     0.87,
+     0.989
+    ],
+    "precision": 0.94,
+    "precision_ci": [
+     0.83,
+     0.979
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "wetland": {
+    "n": 7620,
+    "recall": 0.369,
+    "recall_ci": [
+     0.22,
+     0.661
+    ],
+    "precision": 0.655,
+    "precision_ci": [
+     0.385,
+     0.896
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "moss": {
+    "n": 5290,
+    "recall": 0.74,
+    "recall_ci": [
+     0.0,
+     0.936
+    ],
+    "precision": 0.705,
+    "precision_ci": [
+     0.0,
+     0.867
+    ],
+    "mostly_confused_with": "grass"
+   }
+  },
+  "confusion": [
+   [
+    247685,
+    1636,
+    3390,
+    317,
+    33,
+    0,
+    36,
+    241,
+    0
+   ],
+   [
+    1932,
+    27264,
+    12090,
+    114,
+    32,
+    25,
+    1,
+    674,
+    0
+   ],
+   [
+    3107,
+    7257,
+    118896,
+    2113,
+    89,
+    677,
+    51,
+    306,
+    1266
+   ],
+   [
+    382,
+    170,
+    1804,
+    65250,
+    242,
+    12,
+    124,
+    30,
+    0
+   ],
+   [
+    77,
+    27,
+    81,
+    149,
+    21313,
+    16,
+    15,
+    0,
+    0
+   ],
+   [
+    0,
+    15,
+    519,
+    28,
+    26,
+    2654,
+    103,
+    0,
+    103
+   ],
+   [
+    63,
+    0,
+    305,
+    91,
+    6,
+    7,
+    13155,
+    97,
+    0
+   ],
+   [
+    943,
+    28,
+    2965,
+    89,
+    0,
+    0,
+    514,
+    2809,
+    272
+   ],
+   [
+    12,
+    2,
+    1136,
+    0,
+    0,
+    91,
+    0,
+    132,
+    3917
+   ]
+  ],
+  "calibration": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.008,
+    "mean_confidence": 0.443,
+    "right": 0.414
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.029,
+    "mean_confidence": 0.55,
+    "right": 0.512
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.032,
+    "mean_confidence": 0.651,
+    "right": 0.58
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.038,
+    "mean_confidence": 0.752,
+    "right": 0.66
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.056,
+    "mean_confidence": 0.854,
+    "right": 0.736
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.049,
+    "mean_confidence": 0.928,
+    "right": 0.808
+   },
+   {
+    "confidence": "0.95-1.00",
+    "share_of_pixels": 0.788,
+    "mean_confidence": 0.996,
+    "right": 0.982
+   }
+  ],
+  "ece": 0.031
+ },
+ "all": {
+  "pixels": 545979,
+  "accuracy": 0.91,
+  "accuracy_ci": [
+   0.884,
+   0.934
+  ],
+  "per_class": {
+   "trees": {
+    "n": 250848,
+    "recall": 0.981,
+    "recall_ci": [
+     0.972,
+     0.988
+    ],
+    "precision": 0.973,
+    "precision_ci": [
+     0.958,
+     0.984
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "shrub": {
+    "n": 42055,
+    "recall": 0.655,
+    "recall_ci": [
+     0.467,
+     0.815
+    ],
+    "precision": 0.738,
+    "precision_ci": [
+     0.603,
+     0.838
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "grass": {
+    "n": 133646,
+    "recall": 0.879,
+    "recall_ci": [
+     0.824,
+     0.925
+    ],
+    "precision": 0.845,
+    "precision_ci": [
+     0.77,
+     0.908
+    ],
+    "mostly_confused_with": "shrub"
+   },
+   "crop": {
+    "n": 68005,
+    "recall": 0.931,
+    "recall_ci": [
+     0.88,
+     0.966
+    ],
+    "precision": 0.943,
+    "precision_ci": [
+     0.891,
+     0.973
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "built": {
+    "n": 21593,
+    "recall": 0.989,
+    "recall_ci": [
+     0.979,
+     0.994
+    ],
+    "precision": 0.954,
+    "precision_ci": [
+     0.91,
+     0.981
+    ],
+    "mostly_confused_with": "crop"
+   },
+   "bare": {
+    "n": 3446,
+    "recall": 0.589,
+    "recall_ci": [
+     0.416,
+     0.877
+    ],
+    "precision": 0.676,
+    "precision_ci": [
+     0.413,
+     0.884
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "water": {
+    "n": 13479,
+    "recall": 0.958,
+    "recall_ci": [
+     0.869,
+     0.99
+    ],
+    "precision": 0.885,
+    "precision_ci": [
+     0.651,
+     0.973
+    ],
+    "mostly_confused_with": "wetland"
+   },
+   "wetland": {
+    "n": 7617,
+    "recall": 0.277,
+    "recall_ci": [
+     0.111,
+     0.65
+    ],
+    "precision": 0.546,
+    "precision_ci": [
+     0.219,
+     0.899
+    ],
+    "mostly_confused_with": "grass"
+   },
+   "moss": {
+    "n": 5290,
+    "recall": 0.783,
+    "recall_ci": [
+     0.064,
+     0.953
+    ],
+    "precision": 0.738,
+    "precision_ci": [
+     0.074,
+     0.85
+    ],
+    "mostly_confused_with": "grass"
+   }
+  },
+  "confusion": [
+   [
+    246129,
+    1490,
+    2669,
+    348,
+    156,
+    1,
+    17,
+    37,
+    1
+   ],
+   [
+    2213,
+    27556,
+    11618,
+    92,
+    108,
+    98,
+    0,
+    370,
+    0
+   ],
+   [
+    3301,
+    7776,
+    117541,
+    3087,
+    61,
+    677,
+    71,
+    83,
+    1049
+   ],
+   [
+    350,
+    289,
+    2057,
+    63311,
+    680,
+    12,
+    103,
+    1038,
+    165
+   ],
+   [
+    38,
+    5,
+    43,
+    127,
+    21349,
+    29,
+    2,
+    0,
+    0
+   ],
+   [
+    0,
+    4,
+    1293,
+    25,
+    23,
+    2029,
+    54,
+    0,
+    18
+   ],
+   [
+    64,
+    0,
+    111,
+    106,
+    7,
+    59,
+    12917,
+    208,
+    7
+   ],
+   [
+    894,
+    202,
+    2772,
+    64,
+    0,
+    0,
+    1340,
+    2113,
+    232
+   ],
+   [
+    0,
+    0,
+    936,
+    0,
+    0,
+    95,
+    96,
+    21,
+    4142
+   ]
+  ],
+  "calibration": [
+   {
+    "confidence": "0.00-0.50",
+    "share_of_pixels": 0.008,
+    "mean_confidence": 0.44,
+    "right": 0.325
+   },
+   {
+    "confidence": "0.50-0.60",
+    "share_of_pixels": 0.025,
+    "mean_confidence": 0.55,
+    "right": 0.472
+   },
+   {
+    "confidence": "0.60-0.70",
+    "share_of_pixels": 0.027,
+    "mean_confidence": 0.651,
+    "right": 0.528
+   },
+   {
+    "confidence": "0.70-0.80",
+    "share_of_pixels": 0.032,
+    "mean_confidence": 0.753,
+    "right": 0.586
+   },
+   {
+    "confidence": "0.80-0.90",
+    "share_of_pixels": 0.049,
+    "mean_confidence": 0.855,
+    "right": 0.685
+   },
+   {
+    "confidence": "0.90-0.95",
+    "share_of_pixels": 0.046,
+    "mean_confidence": 0.928,
+    "right": 0.785
+   },
+   {
+    "confidence": "0.95-1.00",
+    "share_of_pixels": 0.813,
+    "mean_confidence": 0.996,
+    "right": 0.976
+   }
+  ],
+  "ece": 0.043
+ }
+}

@@ -1,0 +1,3551 @@
+{
+ "sites": {
+  "crop/cdl-antelope-ne-pivots-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 4.1,
+    "after": 3.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 3.5,
+    "after": 4.6,
+    "lit": 0.002,
+    "fell": 0.001,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 4.8,
+    "after": 4.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 4.4,
+    "after": 3.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-antelope-ne-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 4.7,
+    "after": 3.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 6.0,
+    "after": 1.7,
+    "lit": 0.028,
+    "fell": 0.028,
+    "lit_gated": 0.02
+   },
+   "olmo": {
+    "before": 5.7,
+    "after": 4.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 5.2,
+    "after": 3.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-bolivar-ms-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 8.9,
+    "after": 8.1,
+    "lit": 0.008,
+    "fell": 0.0,
+    "lit_gated": 0.008
+   },
+   "tes": {
+    "before": 10.3,
+    "after": 7.3,
+    "lit": 0.058,
+    "fell": 0.055,
+    "lit_gated": 0.001
+   },
+   "olmo": {
+    "before": 9.8,
+    "after": 5.7,
+    "lit": 0.012,
+    "fell": 0.012,
+    "lit_gated": 0.012
+   },
+   "all": {
+    "before": 6.0,
+    "after": 5.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-bolivar-ms-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 8.9,
+    "after": 7.8,
+    "lit": 0.003,
+    "fell": 0.0,
+    "lit_gated": 0.003
+   },
+   "tes": {
+    "before": 8.2,
+    "after": 10.3,
+    "lit": 0.052,
+    "fell": 0.009,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 6.9,
+    "after": 6.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 5.3,
+    "after": 7.2,
+    "lit": 0.01,
+    "fell": 0.0,
+    "lit_gated": 0.01
+   }
+  },
+  "crop/cdl-box-butte-ne-pivots-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 2.6,
+    "after": 3.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 3.5,
+    "after": 6.3,
+    "lit": 0.036,
+    "fell": 0.0,
+    "lit_gated": 0.03
+   },
+   "olmo": {
+    "before": 1.7,
+    "after": 2.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.4,
+    "after": 2.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-box-butte-ne-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 3.0,
+    "after": 3.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 4.4,
+    "after": 5.0,
+    "lit": 0.041,
+    "fell": 0.002,
+    "lit_gated": 0.037
+   },
+   "olmo": {
+    "before": 2.7,
+    "after": 2.4,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 3.4,
+    "after": 2.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-dallam-tx-pivots-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 2.6,
+    "after": 5.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 2.2,
+    "after": 5.1,
+    "lit": 0.037,
+    "fell": 0.004,
+    "lit_gated": 0.019
+   },
+   "olmo": {
+    "before": 0.6,
+    "after": 1.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 0.8,
+    "after": 1.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-dallam-tx-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 3.8,
+    "after": 4.8,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "tes": {
+    "before": 4.1,
+    "after": 2.9,
+    "lit": 0.045,
+    "fell": 0.039,
+    "lit_gated": 0.033
+   },
+   "olmo": {
+    "before": 0.6,
+    "after": 1.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.1,
+    "after": 1.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-darke-oh-2023-2025": {
+   "group": "crop",
+   "n": 13404,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 10.1,
+    "after": 8.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 11.5,
+    "after": 5.4,
+    "lit": 0.162,
+    "fell": 0.162,
+    "lit_gated": 0.008
+   },
+   "olmo": {
+    "before": 5.5,
+    "after": 4.6,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "all": {
+    "before": 4.7,
+    "after": 3.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-haskell-ks-pivots-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 3.0,
+    "after": 2.3,
+    "lit": 0.003,
+    "fell": 0.0,
+    "lit_gated": 0.003
+   },
+   "tes": {
+    "before": 3.0,
+    "after": 2.9,
+    "lit": 0.025,
+    "fell": 0.0,
+    "lit_gated": 0.025
+   },
+   "olmo": {
+    "before": 3.0,
+    "after": 3.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.5,
+    "after": 1.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-haskell-ks-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 1.7,
+    "after": 2.8,
+    "lit": 0.006,
+    "fell": 0.0,
+    "lit_gated": 0.006
+   },
+   "tes": {
+    "before": 1.4,
+    "after": 3.8,
+    "lit": 0.064,
+    "fell": 0.001,
+    "lit_gated": 0.063
+   },
+   "olmo": {
+    "before": 2.3,
+    "after": 3.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.8,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-imperial-ca-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 9.7,
+    "after": 11.7,
+    "lit": 0.007,
+    "fell": 0.007,
+    "lit_gated": 0.007
+   },
+   "tes": {
+    "before": 5.8,
+    "after": 5.7,
+    "lit": 0.083,
+    "fell": 0.067,
+    "lit_gated": 0.056
+   },
+   "olmo": {
+    "before": 14.8,
+    "after": 14.1,
+    "lit": 0.282,
+    "fell": 0.176,
+    "lit_gated": 0.277
+   },
+   "all": {
+    "before": 7.7,
+    "after": 7.5,
+    "lit": 0.039,
+    "fell": 0.039,
+    "lit_gated": 0.039
+   }
+  },
+  "crop/cdl-lubbock-tx-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 4.8,
+    "after": 4.6,
+    "lit": 0.001,
+    "fell": 0.001,
+    "lit_gated": 0.001
+   },
+   "tes": {
+    "before": 2.8,
+    "after": 2.3,
+    "lit": 0.012,
+    "fell": 0.007,
+    "lit_gated": 0.012
+   },
+   "olmo": {
+    "before": 1.6,
+    "after": 1.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.1,
+    "after": 2.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-lubbock-tx-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 4.2,
+    "after": 3.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 2.8,
+    "after": 3.3,
+    "lit": 0.002,
+    "fell": 0.0,
+    "lit_gated": 0.002
+   },
+   "olmo": {
+    "before": 0.9,
+    "after": 1.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.1,
+    "after": 1.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-minidoka-id-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 3.0,
+    "after": 3.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 2.7,
+    "after": 4.1,
+    "lit": 0.035,
+    "fell": 0.0,
+    "lit_gated": 0.033
+   },
+   "olmo": {
+    "before": 2.8,
+    "after": 4.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.7,
+    "after": 3.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-minidoka-id-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 3.2,
+    "after": 4.2,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "tes": {
+    "before": 2.5,
+    "after": 4.4,
+    "lit": 0.024,
+    "fell": 0.0,
+    "lit_gated": 0.016
+   },
+   "olmo": {
+    "before": 1.9,
+    "after": 1.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.4,
+    "after": 2.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-platte-ne-pivots-2023-2025": {
+   "group": "crop",
+   "n": 7622,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 2.8,
+    "after": 3.4,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 7.5,
+    "after": 4.1,
+    "lit": 0.003,
+    "fell": 0.003,
+    "lit_gated": 0.002
+   },
+   "olmo": {
+    "before": 5.4,
+    "after": 5.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 4.6,
+    "after": 3.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-quincy-wa-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 8.3,
+    "after": 7.5,
+    "lit": 0.035,
+    "fell": 0.0,
+    "lit_gated": 0.035
+   },
+   "tes": {
+    "before": 5.9,
+    "after": 10.0,
+    "lit": 0.282,
+    "fell": 0.025,
+    "lit_gated": 0.206
+   },
+   "olmo": {
+    "before": 7.7,
+    "after": 7.6,
+    "lit": 0.015,
+    "fell": 0.0,
+    "lit_gated": 0.015
+   },
+   "all": {
+    "before": 6.8,
+    "after": 6.8,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   }
+  },
+  "crop/cdl-red-river-mn-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 7.3,
+    "after": 5.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 6.3,
+    "after": 4.6,
+    "lit": 0.008,
+    "fell": 0.008,
+    "lit_gated": 0.001
+   },
+   "olmo": {
+    "before": 4.0,
+    "after": 5.5,
+    "lit": 0.006,
+    "fell": 0.0,
+    "lit_gated": 0.006
+   },
+   "all": {
+    "before": 7.2,
+    "after": 3.6,
+    "lit": 0.004,
+    "fell": 0.004,
+    "lit_gated": 0.004
+   }
+  },
+  "crop/cdl-red-river-mn-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 5.7,
+    "after": 8.4,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 7.0,
+    "after": 5.6,
+    "lit": 0.029,
+    "fell": 0.021,
+    "lit_gated": 0.022
+   },
+   "olmo": {
+    "before": 4.0,
+    "after": 4.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 5.6,
+    "after": 6.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-san-luis-co-pivots-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 1.0,
+    "after": 0.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 3.1,
+    "after": 1.9,
+    "lit": 0.035,
+    "fell": 0.009,
+    "lit_gated": 0.035
+   },
+   "olmo": {
+    "before": 1.7,
+    "after": 1.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.3,
+    "after": 1.4,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-san-luis-co-pivots-2023-2025": {
+   "group": "crop",
+   "n": 17134,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 2.1,
+    "after": 2.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 2.4,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 1.0,
+    "after": 0.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.6,
+    "after": 1.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-story-ia-2019-2021": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 6.6,
+    "after": 5.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 7.8,
+    "after": 7.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 7.8,
+    "after": 6.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 7.0,
+    "after": 6.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-story-ia-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 6.3,
+    "after": 6.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 5.8,
+    "after": 5.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 6.4,
+    "after": 6.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 6.5,
+    "after": 5.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "crop/cdl-tift-ga-pivots-2023-2025": {
+   "group": "crop",
+   "n": 20000,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 11.8,
+    "after": 9.6,
+    "lit": 0.059,
+    "fell": 0.051,
+    "lit_gated": 0.057
+   },
+   "tes": {
+    "before": 11.1,
+    "after": 10.5,
+    "lit": 0.132,
+    "fell": 0.089,
+    "lit_gated": 0.01
+   },
+   "olmo": {
+    "before": 3.5,
+    "after": 3.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 6.9,
+    "after": 5.8,
+    "lit": 0.005,
+    "fell": 0.002,
+    "lit_gated": 0.005
+   }
+  },
+  "crop/cdl-tulare-ca-2019-2021": {
+   "group": "crop",
+   "n": 19926,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 9.8,
+    "after": 13.1,
+    "lit": 0.185,
+    "fell": 0.008,
+    "lit_gated": 0.185
+   },
+   "tes": {
+    "before": 8.3,
+    "after": 4.2,
+    "lit": 0.098,
+    "fell": 0.093,
+    "lit_gated": 0.089
+   },
+   "olmo": {
+    "before": 12.2,
+    "after": 8.7,
+    "lit": 0.312,
+    "fell": 0.219,
+    "lit_gated": 0.312
+   },
+   "all": {
+    "before": 14.6,
+    "after": 8.9,
+    "lit": 0.241,
+    "fell": 0.239,
+    "lit_gated": 0.241
+   }
+  },
+  "crop/cdl-tulare-ca-2023-2025": {
+   "group": "crop",
+   "n": 13990,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 13.1,
+    "after": 9.8,
+    "lit": 0.165,
+    "fell": 0.134,
+    "lit_gated": 0.165
+   },
+   "tes": {
+    "before": 6.9,
+    "after": 4.3,
+    "lit": 0.288,
+    "fell": 0.115,
+    "lit_gated": 0.038
+   },
+   "olmo": {
+    "before": 8.4,
+    "after": 7.9,
+    "lit": 0.003,
+    "fell": 0.003,
+    "lit_gated": 0.003
+   },
+   "all": {
+    "before": 8.7,
+    "after": 7.8,
+    "lit": 0.043,
+    "fell": 0.043,
+    "lit_gated": 0.043
+   }
+  },
+  "farm/antelope-farm-ne": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2017,
+    2020
+   ],
+   "aef": {
+    "before": 4.2,
+    "after": 4.1,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 7.3,
+    "after": 5.4,
+    "lit": 0.045,
+    "fell": 0.03,
+    "lit_gated": 0.01
+   },
+   "olmo": {
+    "before": 4.4,
+    "after": 4.8,
+    "lit": 0.003,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "all": {
+    "before": 4.6,
+    "after": 3.9,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "farm/box-butte-farm-ne": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2017,
+    2023
+   ],
+   "aef": {
+    "before": 2.4,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 3.8,
+    "after": 3.2,
+    "lit": 0.003,
+    "fell": 0.002,
+    "lit_gated": 0.002
+   },
+   "olmo": {
+    "before": 2.2,
+    "after": 2.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.3,
+    "after": 2.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "farm/fresno-farm-ca": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2019,
+    2023
+   ],
+   "aef": {
+    "before": 13.7,
+    "after": 15.9,
+    "lit": 0.03,
+    "fell": 0.014,
+    "lit_gated": 0.029
+   },
+   "tes": {
+    "before": 9.5,
+    "after": 10.5,
+    "lit": 0.059,
+    "fell": 0.023,
+    "lit_gated": 0.019
+   },
+   "olmo": {
+    "before": 9.6,
+    "after": 10.3,
+    "lit": 0.026,
+    "fell": 0.016,
+    "lit_gated": 0.018
+   },
+   "all": {
+    "before": 14.6,
+    "after": 12.8,
+    "lit": 0.1,
+    "fell": 0.069,
+    "lit_gated": 0.065
+   }
+  },
+  "farm/hamilton-farm-in": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2017,
+    2023
+   ],
+   "aef": {
+    "before": 9.6,
+    "after": 10.2,
+    "lit": 0.025,
+    "fell": 0.003,
+    "lit_gated": 0.009
+   },
+   "tes": {
+    "before": 8.9,
+    "after": 12.3,
+    "lit": 0.17,
+    "fell": 0.014,
+    "lit_gated": 0.014
+   },
+   "olmo": {
+    "before": 7.6,
+    "after": 7.2,
+    "lit": 0.032,
+    "fell": 0.018,
+    "lit_gated": 0.014
+   },
+   "all": {
+    "before": 6.0,
+    "after": 5.6,
+    "lit": 0.029,
+    "fell": 0.016,
+    "lit_gated": 0.004
+   }
+  },
+  "farm/arkansas-delta-ar": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2017,
+    2024
+   ],
+   "aef": {
+    "before": 19.9,
+    "after": 28.0,
+    "lit": 0.366,
+    "fell": 0.143,
+    "lit_gated": 0.314
+   },
+   "tes": {
+    "before": 17.5,
+    "after": 20.1,
+    "lit": 0.272,
+    "fell": 0.084,
+    "lit_gated": 0.024
+   },
+   "olmo": {
+    "before": 17.1,
+    "after": 22.5,
+    "lit": 0.396,
+    "fell": 0.112,
+    "lit_gated": 0.365
+   },
+   "all": {
+    "before": 17.4,
+    "after": 15.0,
+    "lit": 0.169,
+    "fell": 0.116,
+    "lit_gated": 0.101
+   }
+  },
+  "farm/othello-pivots-wa": {
+   "group": "farm",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 5.0,
+    "after": 4.9,
+    "lit": 0.017,
+    "fell": 0.0,
+    "lit_gated": 0.017
+   },
+   "tes": {
+    "before": 3.1,
+    "after": 2.9,
+    "lit": 0.004,
+    "fell": 0.002,
+    "lit_gated": 0.002
+   },
+   "olmo": {
+    "before": 8.5,
+    "after": 4.1,
+    "lit": 0.088,
+    "fell": 0.088,
+    "lit_gated": 0.071
+   },
+   "all": {
+    "before": 3.5,
+    "after": 2.1,
+    "lit": 0.001,
+    "fell": 0.001,
+    "lit_gated": 0.001
+   }
+  },
+  "marsh/anahuac-tx": {
+   "group": "marsh",
+   "n": 20000,
+   "years": [
+    2017,
+    2024
+   ],
+   "aef": {
+    "before": 25.0,
+    "after": 22.0,
+    "lit": 0.197,
+    "fell": 0.145,
+    "lit_gated": 0.172
+   },
+   "tes": {
+    "before": 17.8,
+    "after": 23.8,
+    "lit": 0.426,
+    "fell": 0.07,
+    "lit_gated": 0.273
+   },
+   "olmo": {
+    "before": 14.5,
+    "after": 18.1,
+    "lit": 0.116,
+    "fell": 0.007,
+    "lit_gated": 0.085
+   },
+   "all": {
+    "before": 12.0,
+    "after": 11.1,
+    "lit": 0.023,
+    "fell": 0.015,
+    "lit_gated": 0.02
+   }
+  },
+  "marsh/myakka-fl": {
+   "group": "marsh",
+   "n": 20000,
+   "years": [
+    2018,
+    2024
+   ],
+   "aef": {
+    "before": 14.4,
+    "after": 16.1,
+    "lit": 0.064,
+    "fell": 0.033,
+    "lit_gated": 0.024
+   },
+   "tes": {
+    "before": 21.7,
+    "after": 23.6,
+    "lit": 0.266,
+    "fell": 0.134,
+    "lit_gated": 0.038
+   },
+   "olmo": {
+    "before": 11.8,
+    "after": 12.9,
+    "lit": 0.15,
+    "fell": 0.028,
+    "lit_gated": 0.034
+   },
+   "all": {
+    "before": 14.3,
+    "after": 14.3,
+    "lit": 0.085,
+    "fell": 0.043,
+    "lit_gated": 0.031
+   }
+  },
+  "marsh/brazoria-tx": {
+   "group": "marsh",
+   "n": 20000,
+   "years": [
+    2017,
+    2024
+   ],
+   "aef": {
+    "before": 6.9,
+    "after": 6.3,
+    "lit": 0.012,
+    "fell": 0.008,
+    "lit_gated": 0.002
+   },
+   "tes": {
+    "before": 21.6,
+    "after": 18.7,
+    "lit": 0.271,
+    "fell": 0.164,
+    "lit_gated": 0.04
+   },
+   "olmo": {
+    "before": 14.9,
+    "after": 9.8,
+    "lit": 0.021,
+    "fell": 0.017,
+    "lit_gated": 0.002
+   },
+   "all": {
+    "before": 9.9,
+    "after": 8.6,
+    "lit": 0.003,
+    "fell": 0.002,
+    "lit_gated": 0.001
+   }
+  },
+  "marsh/mexico-beach-fl": {
+   "group": "marsh",
+   "n": 20000,
+   "years": [
+    2017,
+    2020
+   ],
+   "aef": {
+    "before": 57.7,
+    "after": 33.9,
+    "lit": 0.587,
+    "fell": 0.567,
+    "lit_gated": 0.465
+   },
+   "tes": {
+    "before": 44.3,
+    "after": 39.2,
+    "lit": 0.425,
+    "fell": 0.286,
+    "lit_gated": 0.276
+   },
+   "olmo": {
+    "before": 36.6,
+    "after": 24.6,
+    "lit": 0.428,
+    "fell": 0.35,
+    "lit_gated": 0.319
+   },
+   "all": {
+    "before": 35.6,
+    "after": 18.6,
+    "lit": 0.483,
+    "fell": 0.468,
+    "lit_gated": 0.34
+   }
+  },
+  "burn/ground-beachie-creek-or": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 162.9,
+    "after": 40.4,
+    "lit": 0.996,
+    "fell": 0.996,
+    "lit_gated": 0.996
+   },
+   "tes": {
+    "before": 152.7,
+    "after": 19.2,
+    "lit": 0.978,
+    "fell": 0.977,
+    "lit_gated": 0.973
+   },
+   "olmo": {
+    "before": 158.3,
+    "after": 35.1,
+    "lit": 1.0,
+    "fell": 1.0,
+    "lit_gated": 0.999
+   },
+   "all": {
+    "before": 140.5,
+    "after": 22.2,
+    "lit": 1.0,
+    "fell": 1.0,
+    "lit_gated": 0.999
+   }
+  },
+  "burn-beside/ground-beachie-creek-or": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 219.3,
+    "after": 118.6,
+    "lit": 0.904,
+    "fell": 0.904,
+    "lit_gated": 0.559
+   },
+   "tes": {
+    "before": 146.5,
+    "after": 115.8,
+    "lit": 0.55,
+    "fell": 0.42,
+    "lit_gated": 0.13
+   },
+   "olmo": {
+    "before": 167.8,
+    "after": 99.3,
+    "lit": 0.778,
+    "fell": 0.776,
+    "lit_gated": 0.357
+   },
+   "all": {
+    "before": 166.9,
+    "after": 91.3,
+    "lit": 0.854,
+    "fell": 0.854,
+    "lit_gated": 0.36
+   }
+  },
+  "burn/ground-blue-mountains-au": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2018,
+    2020
+   ],
+   "aef": {
+    "before": 125.2,
+    "after": 90.9,
+    "lit": 0.554,
+    "fell": 0.545,
+    "lit_gated": 0.538
+   },
+   "tes": {
+    "before": 96.0,
+    "after": 58.4,
+    "lit": 0.729,
+    "fell": 0.706,
+    "lit_gated": 0.668
+   },
+   "olmo": {
+    "before": 107.5,
+    "after": 72.7,
+    "lit": 0.655,
+    "fell": 0.643,
+    "lit_gated": 0.585
+   },
+   "all": {
+    "before": 122.7,
+    "after": 103.8,
+    "lit": 0.358,
+    "fell": 0.344,
+    "lit_gated": 0.34
+   }
+  },
+  "burn-beside/ground-blue-mountains-au": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2018,
+    2020
+   ],
+   "aef": {
+    "before": 148.4,
+    "after": 148.1,
+    "lit": 0.072,
+    "fell": 0.049,
+    "lit_gated": 0.046
+   },
+   "tes": {
+    "before": 117.9,
+    "after": 104.4,
+    "lit": 0.373,
+    "fell": 0.247,
+    "lit_gated": 0.089
+   },
+   "olmo": {
+    "before": 129.1,
+    "after": 109.9,
+    "lit": 0.227,
+    "fell": 0.221,
+    "lit_gated": 0.032
+   },
+   "all": {
+    "before": 151.7,
+    "after": 134.7,
+    "lit": 0.141,
+    "fell": 0.128,
+    "lit_gated": 0.032
+   }
+  },
+  "burn/ground-bootleg-or": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 35.7,
+    "after": 16.7,
+    "lit": 0.814,
+    "fell": 0.812,
+    "lit_gated": 0.814
+   },
+   "tes": {
+    "before": 22.4,
+    "after": 6.0,
+    "lit": 0.868,
+    "fell": 0.868,
+    "lit_gated": 0.851
+   },
+   "olmo": {
+    "before": 29.3,
+    "after": 13.1,
+    "lit": 0.787,
+    "fell": 0.787,
+    "lit_gated": 0.784
+   },
+   "all": {
+    "before": 28.0,
+    "after": 12.5,
+    "lit": 0.73,
+    "fell": 0.73,
+    "lit_gated": 0.728
+   }
+  },
+  "burn-beside/ground-bootleg-or": {
+   "group": "burn-beside",
+   "n": 17690,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 35.2,
+    "after": 41.1,
+    "lit": 0.222,
+    "fell": 0.049,
+    "lit_gated": 0.157
+   },
+   "tes": {
+    "before": 25.8,
+    "after": 20.9,
+    "lit": 0.237,
+    "fell": 0.234,
+    "lit_gated": 0.046
+   },
+   "olmo": {
+    "before": 35.7,
+    "after": 25.5,
+    "lit": 0.432,
+    "fell": 0.432,
+    "lit_gated": 0.128
+   },
+   "all": {
+    "before": 35.0,
+    "after": 27.5,
+    "lit": 0.344,
+    "fell": 0.344,
+    "lit_gated": 0.111
+   }
+  },
+  "burn/ground-castle-ca": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 74.2,
+    "after": 31.5,
+    "lit": 0.874,
+    "fell": 0.833,
+    "lit_gated": 0.874
+   },
+   "tes": {
+    "before": 45.0,
+    "after": 11.9,
+    "lit": 0.885,
+    "fell": 0.883,
+    "lit_gated": 0.863
+   },
+   "olmo": {
+    "before": 39.6,
+    "after": 16.1,
+    "lit": 0.881,
+    "fell": 0.881,
+    "lit_gated": 0.873
+   },
+   "all": {
+    "before": 50.2,
+    "after": 25.4,
+    "lit": 0.831,
+    "fell": 0.83,
+    "lit_gated": 0.824
+   }
+  },
+  "burn-beside/ground-castle-ca": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 67.3,
+    "after": 47.3,
+    "lit": 0.547,
+    "fell": 0.519,
+    "lit_gated": 0.432
+   },
+   "tes": {
+    "before": 37.1,
+    "after": 33.6,
+    "lit": 0.365,
+    "fell": 0.23,
+    "lit_gated": 0.151
+   },
+   "olmo": {
+    "before": 32.3,
+    "after": 25.6,
+    "lit": 0.355,
+    "fell": 0.342,
+    "lit_gated": 0.193
+   },
+   "all": {
+    "before": 35.5,
+    "after": 26.7,
+    "lit": 0.46,
+    "fell": 0.45,
+    "lit_gated": 0.201
+   }
+  },
+  "burn/ground-cedar-creek-or": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 105.7,
+    "after": 34.9,
+    "lit": 0.836,
+    "fell": 0.818,
+    "lit_gated": 0.836
+   },
+   "tes": {
+    "before": 93.1,
+    "after": 15.8,
+    "lit": 0.952,
+    "fell": 0.952,
+    "lit_gated": 0.928
+   },
+   "olmo": {
+    "before": 120.5,
+    "after": 33.5,
+    "lit": 0.954,
+    "fell": 0.954,
+    "lit_gated": 0.95
+   },
+   "all": {
+    "before": 129.9,
+    "after": 32.2,
+    "lit": 0.981,
+    "fell": 0.981,
+    "lit_gated": 0.974
+   }
+  },
+  "burn-beside/ground-cedar-creek-or": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 153.4,
+    "after": 88.8,
+    "lit": 0.602,
+    "fell": 0.588,
+    "lit_gated": 0.301
+   },
+   "tes": {
+    "before": 161.3,
+    "after": 105.4,
+    "lit": 0.583,
+    "fell": 0.562,
+    "lit_gated": 0.068
+   },
+   "olmo": {
+    "before": 156.4,
+    "after": 143.1,
+    "lit": 0.269,
+    "fell": 0.229,
+    "lit_gated": 0.044
+   },
+   "all": {
+    "before": 163.5,
+    "after": 113.1,
+    "lit": 0.534,
+    "fell": 0.533,
+    "lit_gated": 0.092
+   }
+  },
+  "burn/ground-creek-ca": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 75.3,
+    "after": 22.8,
+    "lit": 0.979,
+    "fell": 0.978,
+    "lit_gated": 0.979
+   },
+   "tes": {
+    "before": 49.5,
+    "after": 6.4,
+    "lit": 0.995,
+    "fell": 0.995,
+    "lit_gated": 0.99
+   },
+   "olmo": {
+    "before": 25.5,
+    "after": 8.8,
+    "lit": 0.826,
+    "fell": 0.826,
+    "lit_gated": 0.826
+   },
+   "all": {
+    "before": 39.6,
+    "after": 13.3,
+    "lit": 0.934,
+    "fell": 0.934,
+    "lit_gated": 0.934
+   }
+  },
+  "burn-beside/ground-creek-ca": {
+   "group": "burn-beside",
+   "n": 9700,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 33.8,
+    "after": 19.1,
+    "lit": 0.572,
+    "fell": 0.571,
+    "lit_gated": 0.567
+   },
+   "tes": {
+    "before": 25.2,
+    "after": 7.9,
+    "lit": 0.709,
+    "fell": 0.708,
+    "lit_gated": 0.54
+   },
+   "olmo": {
+    "before": 16.6,
+    "after": 11.3,
+    "lit": 0.157,
+    "fell": 0.157,
+    "lit_gated": 0.145
+   },
+   "all": {
+    "before": 21.1,
+    "after": 11.8,
+    "lit": 0.428,
+    "fell": 0.428,
+    "lit_gated": 0.298
+   }
+  },
+  "burn/ground-dixie-ca": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 79.9,
+    "after": 24.0,
+    "lit": 0.979,
+    "fell": 0.979,
+    "lit_gated": 0.979
+   },
+   "tes": {
+    "before": 35.7,
+    "after": 8.6,
+    "lit": 0.967,
+    "fell": 0.967,
+    "lit_gated": 0.94
+   },
+   "olmo": {
+    "before": 31.9,
+    "after": 18.2,
+    "lit": 0.718,
+    "fell": 0.717,
+    "lit_gated": 0.718
+   },
+   "all": {
+    "before": 41.9,
+    "after": 23.7,
+    "lit": 0.805,
+    "fell": 0.804,
+    "lit_gated": 0.805
+   }
+  },
+  "burn-beside/ground-dixie-ca": {
+   "group": "burn-beside",
+   "n": 8727,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 65.3,
+    "after": 72.3,
+    "lit": 0.367,
+    "fell": 0.155,
+    "lit_gated": 0.261
+   },
+   "tes": {
+    "before": 29.2,
+    "after": 24.3,
+    "lit": 0.272,
+    "fell": 0.263,
+    "lit_gated": 0.096
+   },
+   "olmo": {
+    "before": 28.1,
+    "after": 28.3,
+    "lit": 0.076,
+    "fell": 0.045,
+    "lit_gated": 0.037
+   },
+   "all": {
+    "before": 37.8,
+    "after": 34.1,
+    "lit": 0.11,
+    "fell": 0.103,
+    "lit_gated": 0.065
+   }
+  },
+  "burn/ground-donnie-creek-bc": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 130.0,
+    "after": 66.1,
+    "lit": 0.925,
+    "fell": 0.925,
+    "lit_gated": 0.814
+   },
+   "tes": {
+    "before": 97.7,
+    "after": 42.1,
+    "lit": 0.918,
+    "fell": 0.91,
+    "lit_gated": 0.694
+   },
+   "olmo": {
+    "before": 89.3,
+    "after": 51.8,
+    "lit": 0.702,
+    "fell": 0.679,
+    "lit_gated": 0.66
+   },
+   "all": {
+    "before": 106.6,
+    "after": 45.6,
+    "lit": 0.907,
+    "fell": 0.906,
+    "lit_gated": 0.801
+   }
+  },
+  "burn-beside/ground-donnie-creek-bc": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 124.5,
+    "after": 91.8,
+    "lit": 0.387,
+    "fell": 0.386,
+    "lit_gated": 0.007
+   },
+   "tes": {
+    "before": 86.9,
+    "after": 81.7,
+    "lit": 0.525,
+    "fell": 0.229,
+    "lit_gated": 0.007
+   },
+   "olmo": {
+    "before": 76.5,
+    "after": 87.8,
+    "lit": 0.286,
+    "fell": 0.021,
+    "lit_gated": 0.01
+   },
+   "all": {
+    "before": 84.6,
+    "after": 74.3,
+    "lit": 0.211,
+    "fell": 0.202,
+    "lit_gated": 0.004
+   }
+  },
+  "burn/ground-east-troublesome-co": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 56.0,
+    "after": 13.6,
+    "lit": 0.869,
+    "fell": 0.868,
+    "lit_gated": 0.869
+   },
+   "tes": {
+    "before": 30.1,
+    "after": 4.6,
+    "lit": 0.869,
+    "fell": 0.869,
+    "lit_gated": 0.848
+   },
+   "olmo": {
+    "before": 55.9,
+    "after": 8.5,
+    "lit": 0.944,
+    "fell": 0.944,
+    "lit_gated": 0.939
+   },
+   "all": {
+    "before": 58.5,
+    "after": 15.2,
+    "lit": 0.915,
+    "fell": 0.915,
+    "lit_gated": 0.909
+   }
+  },
+  "burn-beside/ground-east-troublesome-co": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 46.6,
+    "after": 58.5,
+    "lit": 0.333,
+    "fell": 0.006,
+    "lit_gated": 0.007
+   },
+   "tes": {
+    "before": 27.0,
+    "after": 25.4,
+    "lit": 0.169,
+    "fell": 0.147,
+    "lit_gated": 0.003
+   },
+   "olmo": {
+    "before": 44.4,
+    "after": 53.4,
+    "lit": 0.356,
+    "fell": 0.033,
+    "lit_gated": 0.008
+   },
+   "all": {
+    "before": 47.7,
+    "after": 55.4,
+    "lit": 0.204,
+    "fell": 0.039,
+    "lit_gated": 0.005
+   }
+  },
+  "burn/ground-evia-gr": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 58.0,
+    "after": 20.9,
+    "lit": 0.95,
+    "fell": 0.95,
+    "lit_gated": 0.934
+   },
+   "tes": {
+    "before": 87.8,
+    "after": 23.9,
+    "lit": 0.974,
+    "fell": 0.974,
+    "lit_gated": 0.774
+   },
+   "olmo": {
+    "before": 77.4,
+    "after": 29.3,
+    "lit": 0.932,
+    "fell": 0.932,
+    "lit_gated": 0.925
+   },
+   "all": {
+    "before": 52.8,
+    "after": 29.4,
+    "lit": 0.745,
+    "fell": 0.736,
+    "lit_gated": 0.741
+   }
+  },
+  "burn-beside/ground-evia-gr": {
+   "group": "burn-beside",
+   "n": 16935,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 36.0,
+    "after": 25.1,
+    "lit": 0.459,
+    "fell": 0.459,
+    "lit_gated": 0.341
+   },
+   "tes": {
+    "before": 43.4,
+    "after": 24.3,
+    "lit": 0.657,
+    "fell": 0.651,
+    "lit_gated": 0.244
+   },
+   "olmo": {
+    "before": 44.4,
+    "after": 31.3,
+    "lit": 0.475,
+    "fell": 0.46,
+    "lit_gated": 0.367
+   },
+   "all": {
+    "before": 33.0,
+    "after": 28.1,
+    "lit": 0.246,
+    "fell": 0.209,
+    "lit_gated": 0.188
+   }
+  },
+  "lake/ground-folsom-ca": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 1.3,
+    "after": 1.9,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 6.9,
+    "after": 5.1,
+    "lit": 0.009,
+    "fell": 0.009,
+    "lit_gated": 0.007
+   },
+   "olmo": {
+    "before": 3.4,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 2.9,
+    "after": 1.9,
+    "lit": 0.003,
+    "fell": 0.003,
+    "lit_gated": 0.003
+   }
+  },
+  "lake/ground-great-salt-lake-ut": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 1.9,
+    "after": 1.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 14.5,
+    "after": 23.9,
+    "lit": 0.503,
+    "fell": 0.033,
+    "lit_gated": 0.03
+   },
+   "olmo": {
+    "before": 6.1,
+    "after": 7.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 5.8,
+    "after": 9.9,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "burn/ground-hermits-peak-nm": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 61.2,
+    "after": 16.6,
+    "lit": 0.972,
+    "fell": 0.972,
+    "lit_gated": 0.971
+   },
+   "tes": {
+    "before": 27.3,
+    "after": 8.8,
+    "lit": 0.851,
+    "fell": 0.851,
+    "lit_gated": 0.709
+   },
+   "olmo": {
+    "before": 56.3,
+    "after": 16.7,
+    "lit": 0.94,
+    "fell": 0.94,
+    "lit_gated": 0.915
+   },
+   "all": {
+    "before": 48.2,
+    "after": 12.4,
+    "lit": 0.959,
+    "fell": 0.959,
+    "lit_gated": 0.925
+   }
+  },
+  "burn-beside/ground-hermits-peak-nm": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 55.3,
+    "after": 33.8,
+    "lit": 0.668,
+    "fell": 0.667,
+    "lit_gated": 0.516
+   },
+   "tes": {
+    "before": 29.0,
+    "after": 18.7,
+    "lit": 0.406,
+    "fell": 0.398,
+    "lit_gated": 0.037
+   },
+   "olmo": {
+    "before": 43.5,
+    "after": 35.8,
+    "lit": 0.378,
+    "fell": 0.362,
+    "lit_gated": 0.169
+   },
+   "all": {
+    "before": 40.9,
+    "after": 23.0,
+    "lit": 0.728,
+    "fell": 0.728,
+    "lit_gated": 0.2
+   }
+  },
+  "burn/ground-holiday-farm-or": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 222.0,
+    "after": 40.4,
+    "lit": 0.998,
+    "fell": 0.998,
+    "lit_gated": 0.998
+   },
+   "tes": {
+    "before": 216.8,
+    "after": 15.6,
+    "lit": 0.992,
+    "fell": 0.992,
+    "lit_gated": 0.99
+   },
+   "olmo": {
+    "before": 172.0,
+    "after": 27.2,
+    "lit": 1.0,
+    "fell": 1.0,
+    "lit_gated": 0.999
+   },
+   "all": {
+    "before": 175.3,
+    "after": 22.0,
+    "lit": 1.0,
+    "fell": 1.0,
+    "lit_gated": 0.999
+   }
+  },
+  "burn-beside/ground-holiday-farm-or": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 254.3,
+    "after": 123.2,
+    "lit": 0.794,
+    "fell": 0.794,
+    "lit_gated": 0.495
+   },
+   "tes": {
+    "before": 199.8,
+    "after": 133.4,
+    "lit": 0.583,
+    "fell": 0.479,
+    "lit_gated": 0.099
+   },
+   "olmo": {
+    "before": 184.6,
+    "after": 98.8,
+    "lit": 0.73,
+    "fell": 0.729,
+    "lit_gated": 0.202
+   },
+   "all": {
+    "before": 186.9,
+    "after": 89.1,
+    "lit": 0.776,
+    "fell": 0.775,
+    "lit_gated": 0.217
+   }
+  },
+  "burn/ground-kangaroo-island-au": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 54.6,
+    "after": 31.1,
+    "lit": 0.801,
+    "fell": 0.801,
+    "lit_gated": 0.49
+   },
+   "tes": {
+    "before": 53.6,
+    "after": 27.8,
+    "lit": 0.855,
+    "fell": 0.851,
+    "lit_gated": 0.793
+   },
+   "olmo": {
+    "before": 72.6,
+    "after": 27.6,
+    "lit": 0.977,
+    "fell": 0.977,
+    "lit_gated": 0.863
+   },
+   "all": {
+    "before": 49.1,
+    "after": 25.6,
+    "lit": 0.892,
+    "fell": 0.892,
+    "lit_gated": 0.772
+   }
+  },
+  "burn-beside/ground-kangaroo-island-au": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2019,
+    2021
+   ],
+   "aef": {
+    "before": 82.0,
+    "after": 56.4,
+    "lit": 0.625,
+    "fell": 0.625,
+    "lit_gated": 0.266
+   },
+   "tes": {
+    "before": 64.0,
+    "after": 44.9,
+    "lit": 0.628,
+    "fell": 0.615,
+    "lit_gated": 0.372
+   },
+   "olmo": {
+    "before": 87.2,
+    "after": 46.2,
+    "lit": 0.916,
+    "fell": 0.915,
+    "lit_gated": 0.637
+   },
+   "all": {
+    "before": 66.9,
+    "after": 47.5,
+    "lit": 0.629,
+    "fell": 0.628,
+    "lit_gated": 0.361
+   }
+  },
+  "lake/ground-lake-mead-nv": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2019,
+    2022
+   ],
+   "aef": {
+    "before": 1.1,
+    "after": 1.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 5.6,
+    "after": 8.7,
+    "lit": 0.087,
+    "fell": 0.04,
+    "lit_gated": 0.064
+   },
+   "olmo": {
+    "before": 4.2,
+    "after": 3.8,
+    "lit": 0.001,
+    "fell": 0.001,
+    "lit_gated": 0.001
+   },
+   "all": {
+    "before": 3.6,
+    "after": 3.9,
+    "lit": 0.003,
+    "fell": 0.003,
+    "lit_gated": 0.003
+   }
+  },
+  "lake/ground-lake-oroville-ca": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 2.1,
+    "after": 1.9,
+    "lit": 0.001,
+    "fell": 0.001,
+    "lit_gated": 0.001
+   },
+   "tes": {
+    "before": 7.2,
+    "after": 4.8,
+    "lit": 0.088,
+    "fell": 0.088,
+    "lit_gated": 0.061
+   },
+   "olmo": {
+    "before": 3.5,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 4.5,
+    "after": 2.3,
+    "lit": 0.071,
+    "fell": 0.071,
+    "lit_gated": 0.071
+   }
+  },
+  "lake/ground-lake-powell-ut": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2019,
+    2022
+   ],
+   "aef": {
+    "before": 0.5,
+    "after": 0.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 2.9,
+    "after": 4.1,
+    "lit": 0.033,
+    "fell": 0.001,
+    "lit_gated": 0.033
+   },
+   "olmo": {
+    "before": 2.0,
+    "after": 3.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.1,
+    "after": 2.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "look/ground-look-aktina-tx": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2021,
+    2024
+   ],
+   "aef": {
+    "before": 12.0,
+    "after": 14.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 20.3,
+    "after": 15.7,
+    "lit": 0.31,
+    "fell": 0.277,
+    "lit_gated": 0.101
+   },
+   "olmo": {
+    "before": 9.1,
+    "after": 5.7,
+    "lit": 0.123,
+    "fell": 0.123,
+    "lit_gated": 0.123
+   },
+   "all": {
+    "before": 10.8,
+    "after": 14.6,
+    "lit": 0.026,
+    "fell": 0.001,
+    "lit_gated": 0.023
+   }
+  },
+  "look/ground-look-arrow-canyon-nv": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2021,
+    2024
+   ],
+   "aef": {
+    "before": 0.7,
+    "after": 0.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 6.5,
+    "after": 0.9,
+    "lit": 0.096,
+    "fell": 0.096,
+    "lit_gated": 0.093
+   },
+   "olmo": {
+    "before": 1.5,
+    "after": 0.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 1.6,
+    "after": 0.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "look/ground-look-brahmaputra-in": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 14.0,
+    "after": 13.5,
+    "lit": 0.019,
+    "fell": 0.019,
+    "lit_gated": 0.019
+   },
+   "tes": {
+    "before": 16.7,
+    "after": 10.7,
+    "lit": 0.463,
+    "fell": 0.405,
+    "lit_gated": 0.177
+   },
+   "olmo": {
+    "before": 20.4,
+    "after": 18.5,
+    "lit": 0.126,
+    "fell": 0.098,
+    "lit_gated": 0.101
+   },
+   "all": {
+    "before": 12.7,
+    "after": 12.6,
+    "lit": 0.007,
+    "fell": 0.005,
+    "lit_gated": 0.006
+   }
+  },
+  "look/ground-look-cottbuser-ostsee-de": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2024
+   ],
+   "aef": {
+    "before": 4.6,
+    "after": 2.8,
+    "lit": 0.033,
+    "fell": 0.032,
+    "lit_gated": 0.033
+   },
+   "tes": {
+    "before": 5.1,
+    "after": 3.8,
+    "lit": 0.044,
+    "fell": 0.042,
+    "lit_gated": 0.044
+   },
+   "olmo": {
+    "before": 11.2,
+    "after": 6.7,
+    "lit": 0.087,
+    "fell": 0.087,
+    "lit_gated": 0.087
+   },
+   "all": {
+    "before": 4.5,
+    "after": 3.2,
+    "lit": 0.02,
+    "fell": 0.019,
+    "lit_gated": 0.02
+   }
+  },
+  "look/ground-look-fox-squirrel-oh": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2021,
+    2024
+   ],
+   "aef": {
+    "before": 6.8,
+    "after": 7.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 13.1,
+    "after": 10.3,
+    "lit": 0.105,
+    "fell": 0.086,
+    "lit_gated": 0.105
+   },
+   "olmo": {
+    "before": 5.1,
+    "after": 12.5,
+    "lit": 0.182,
+    "fell": 0.0,
+    "lit_gated": 0.182
+   },
+   "all": {
+    "before": 7.2,
+    "after": 10.2,
+    "lit": 0.011,
+    "fell": 0.0,
+    "lit_gated": 0.011
+   }
+  },
+  "look/ground-look-gerd-et": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2019,
+    2023
+   ],
+   "aef": {
+    "before": 5.9,
+    "after": 1.6,
+    "lit": 0.026,
+    "fell": 0.026,
+    "lit_gated": 0.026
+   },
+   "tes": {
+    "before": 4.1,
+    "after": 2.1,
+    "lit": 0.069,
+    "fell": 0.069,
+    "lit_gated": 0.069
+   },
+   "olmo": {
+    "before": 8.1,
+    "after": 1.7,
+    "lit": 0.242,
+    "fell": 0.242,
+    "lit_gated": 0.242
+   },
+   "all": {
+    "before": 4.2,
+    "after": 1.0,
+    "lit": 0.029,
+    "fell": 0.029,
+    "lit_gated": 0.029
+   }
+  },
+  "look/ground-look-haiti-nippes": {
+   "group": "look",
+   "n": 11131,
+   "years": [
+    2020,
+    2022
+   ],
+   "aef": {
+    "before": 46.9,
+    "after": 20.7,
+    "lit": 0.871,
+    "fell": 0.871,
+    "lit_gated": 0.387
+   },
+   "tes": {
+    "before": 54.9,
+    "after": 30.6,
+    "lit": 0.758,
+    "fell": 0.597,
+    "lit_gated": 0.338
+   },
+   "olmo": {
+    "before": 31.7,
+    "after": 18.9,
+    "lit": 0.534,
+    "fell": 0.534,
+    "lit_gated": 0.374
+   },
+   "all": {
+    "before": 48.0,
+    "after": 19.1,
+    "lit": 0.872,
+    "fell": 0.868,
+    "lit_gated": 0.454
+   }
+  },
+  "look/ground-look-iburi-jp": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2020
+   ],
+   "aef": {
+    "before": 69.9,
+    "after": 51.9,
+    "lit": 0.535,
+    "fell": 0.499,
+    "lit_gated": 0.508
+   },
+   "tes": {
+    "before": 26.3,
+    "after": 23.6,
+    "lit": 0.411,
+    "fell": 0.263,
+    "lit_gated": 0.228
+   },
+   "olmo": {
+    "before": 44.8,
+    "after": 40.6,
+    "lit": 0.423,
+    "fell": 0.242,
+    "lit_gated": 0.351
+   },
+   "all": {
+    "before": 56.1,
+    "after": 54.7,
+    "lit": 0.357,
+    "fell": 0.171,
+    "lit_gated": 0.293
+   }
+  },
+  "look/ground-look-impact-tx": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 9.5,
+    "after": 6.5,
+    "lit": 0.021,
+    "fell": 0.021,
+    "lit_gated": 0.021
+   },
+   "tes": {
+    "before": 17.2,
+    "after": 15.3,
+    "lit": 0.174,
+    "fell": 0.13,
+    "lit_gated": 0.04
+   },
+   "olmo": {
+    "before": 6.3,
+    "after": 6.8,
+    "lit": 0.051,
+    "fell": 0.004,
+    "lit_gated": 0.051
+   },
+   "all": {
+    "before": 8.6,
+    "after": 6.2,
+    "lit": 0.012,
+    "fell": 0.011,
+    "lit_gated": 0.012
+   }
+  },
+  "look/ground-look-jamuna-bd": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 16.6,
+    "after": 15.7,
+    "lit": 0.195,
+    "fell": 0.084,
+    "lit_gated": 0.194
+   },
+   "tes": {
+    "before": 16.2,
+    "after": 12.2,
+    "lit": 0.54,
+    "fell": 0.379,
+    "lit_gated": 0.519
+   },
+   "olmo": {
+    "before": 17.9,
+    "after": 16.6,
+    "lit": 0.17,
+    "fell": 0.127,
+    "lit_gated": 0.167
+   },
+   "all": {
+    "before": 15.1,
+    "after": 14.8,
+    "lit": 0.025,
+    "fell": 0.007,
+    "lit_gated": 0.023
+   }
+  },
+  "look/ground-look-kosi-in": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 20.1,
+    "after": 20.3,
+    "lit": 0.01,
+    "fell": 0.007,
+    "lit_gated": 0.01
+   },
+   "tes": {
+    "before": 14.8,
+    "after": 10.4,
+    "lit": 0.297,
+    "fell": 0.256,
+    "lit_gated": 0.278
+   },
+   "olmo": {
+    "before": 21.4,
+    "after": 21.8,
+    "lit": 0.178,
+    "fell": 0.09,
+    "lit_gated": 0.153
+   },
+   "all": {
+    "before": 13.5,
+    "after": 12.8,
+    "lit": 0.04,
+    "fell": 0.032,
+    "lit_gated": 0.038
+   }
+  },
+  "look/ground-look-prospero-tx": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 1.0,
+    "after": 2.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 1.7,
+    "after": 3.6,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "olmo": {
+    "before": 1.5,
+    "after": 1.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 0.3,
+    "after": 1.7,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "look/ground-look-rhine-gravel-de": {
+   "group": "look",
+   "n": 2935,
+   "years": [
+    2018,
+    2023
+   ],
+   "aef": {
+    "before": 19.9,
+    "after": 23.7,
+    "lit": 0.297,
+    "fell": 0.049,
+    "lit_gated": 0.118
+   },
+   "tes": {
+    "before": 18.0,
+    "after": 17.4,
+    "lit": 0.307,
+    "fell": 0.157,
+    "lit_gated": 0.19
+   },
+   "olmo": {
+    "before": 23.8,
+    "after": 21.7,
+    "lit": 0.097,
+    "fell": 0.085,
+    "lit_gated": 0.09
+   },
+   "all": {
+    "before": 22.3,
+    "after": 22.5,
+    "lit": 0.175,
+    "fell": 0.092,
+    "lit_gated": 0.122
+   }
+  },
+  "look/ground-look-romagna-apennines-it": {
+   "group": "look",
+   "n": 11074,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 83.4,
+    "after": 64.6,
+    "lit": 0.414,
+    "fell": 0.4,
+    "lit_gated": 0.18
+   },
+   "tes": {
+    "before": 87.3,
+    "after": 38.9,
+    "lit": 0.866,
+    "fell": 0.859,
+    "lit_gated": 0.31
+   },
+   "olmo": {
+    "before": 72.7,
+    "after": 41.4,
+    "lit": 0.764,
+    "fell": 0.764,
+    "lit_gated": 0.491
+   },
+   "all": {
+    "before": 63.5,
+    "after": 43.1,
+    "lit": 0.634,
+    "fell": 0.631,
+    "lit_gated": 0.289
+   }
+  },
+  "look/ground-look-romagna-flood-it": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 14.2,
+    "after": 18.8,
+    "lit": 0.122,
+    "fell": 0.0,
+    "lit_gated": 0.057
+   },
+   "tes": {
+    "before": 9.8,
+    "after": 11.8,
+    "lit": 0.105,
+    "fell": 0.028,
+    "lit_gated": 0.039
+   },
+   "olmo": {
+    "before": 17.1,
+    "after": 22.6,
+    "lit": 0.202,
+    "fell": 0.01,
+    "lit_gated": 0.191
+   },
+   "all": {
+    "before": 16.0,
+    "after": 19.4,
+    "lit": 0.073,
+    "fell": 0.001,
+    "lit_gated": 0.066
+   }
+  },
+  "look/ground-look-sindh-flood-pk": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 11.6,
+    "after": 12.7,
+    "lit": 0.001,
+    "fell": 0.0,
+    "lit_gated": 0.001
+   },
+   "tes": {
+    "before": 6.5,
+    "after": 8.0,
+    "lit": 0.034,
+    "fell": 0.012,
+    "lit_gated": 0.015
+   },
+   "olmo": {
+    "before": 25.6,
+    "after": 27.0,
+    "lit": 0.055,
+    "fell": 0.014,
+    "lit_gated": 0.019
+   },
+   "all": {
+    "before": 12.7,
+    "after": 15.0,
+    "lit": 0.042,
+    "fell": 0.004,
+    "lit_gated": 0.023
+   }
+  },
+  "look/ground-look-slate-ca": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2019,
+    2022
+   ],
+   "aef": {
+    "before": 6.1,
+    "after": 8.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 5.8,
+    "after": 3.0,
+    "lit": 0.024,
+    "fell": 0.024,
+    "lit_gated": 0.023
+   },
+   "olmo": {
+    "before": 7.3,
+    "after": 3.8,
+    "lit": 0.08,
+    "fell": 0.08,
+    "lit_gated": 0.08
+   },
+   "all": {
+    "before": 3.5,
+    "after": 2.6,
+    "lit": 0.013,
+    "fell": 0.013,
+    "lit_gated": 0.013
+   }
+  },
+  "look/ground-look-sonoran-az": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2021,
+    2024
+   ],
+   "aef": {
+    "before": 0.3,
+    "after": 1.8,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 0.9,
+    "after": 3.0,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 2.1,
+    "after": 1.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 0.3,
+    "after": 0.6,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "look/ground-look-sun-mountain-co": {
+   "group": "look",
+   "n": 20000,
+   "years": [
+    2019,
+    2022
+   ],
+   "aef": {
+    "before": 0.0,
+    "after": 0.2,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "before": 0.4,
+    "after": 0.3,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "olmo": {
+    "before": 0.4,
+    "after": 1.1,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "before": 0.1,
+    "after": 0.5,
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "look/ground-look-ucayali-pe": {
+   "group": "look",
+   "n": 259,
+   "years": [
+    2018,
+    2021
+   ],
+   "aef": {
+    "before": 29.0,
+    "after": 26.3,
+    "lit": 0.151,
+    "fell": 0.12,
+    "lit_gated": 0.089
+   },
+   "tes": {
+    "before": 22.8,
+    "after": 18.0,
+    "lit": 0.394,
+    "fell": 0.301,
+    "lit_gated": 0.216
+   },
+   "olmo": {
+    "before": 17.8,
+    "after": 16.0,
+    "lit": 0.081,
+    "fell": 0.069,
+    "lit_gated": 0.069
+   },
+   "all": {
+    "before": 19.8,
+    "after": 23.7,
+    "lit": 0.143,
+    "fell": 0.019,
+    "lit_gated": 0.089
+   }
+  },
+  "look/ground-look-wayanad-in": {
+   "group": "look",
+   "n": 5677,
+   "years": [
+    2023,
+    2025
+   ],
+   "aef": {
+    "before": 44.3,
+    "after": 21.5,
+    "lit": 0.808,
+    "fell": 0.803,
+    "lit_gated": 0.735
+   },
+   "tes": {
+    "before": 57.9,
+    "after": 15.6,
+    "lit": 0.89,
+    "fell": 0.886,
+    "lit_gated": 0.821
+   },
+   "olmo": {
+    "before": 41.6,
+    "after": 18.7,
+    "lit": 0.803,
+    "fell": 0.803,
+    "lit_gated": 0.779
+   },
+   "all": {
+    "before": 48.1,
+    "after": 19.1,
+    "lit": 0.827,
+    "fell": 0.824,
+    "lit_gated": 0.784
+   }
+  },
+  "burn/ground-mosquito-ca": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 142.7,
+    "after": 30.3,
+    "lit": 0.999,
+    "fell": 0.999,
+    "lit_gated": 0.999
+   },
+   "tes": {
+    "before": 82.8,
+    "after": 14.2,
+    "lit": 0.973,
+    "fell": 0.973,
+    "lit_gated": 0.971
+   },
+   "olmo": {
+    "before": 70.6,
+    "after": 25.9,
+    "lit": 0.921,
+    "fell": 0.921,
+    "lit_gated": 0.918
+   },
+   "all": {
+    "before": 99.2,
+    "after": 24.8,
+    "lit": 0.996,
+    "fell": 0.996,
+    "lit_gated": 0.996
+   }
+  },
+  "burn-beside/ground-mosquito-ca": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 159.2,
+    "after": 112.8,
+    "lit": 0.591,
+    "fell": 0.59,
+    "lit_gated": 0.26
+   },
+   "tes": {
+    "before": 102.1,
+    "after": 68.4,
+    "lit": 0.597,
+    "fell": 0.589,
+    "lit_gated": 0.018
+   },
+   "olmo": {
+    "before": 72.8,
+    "after": 77.5,
+    "lit": 0.288,
+    "fell": 0.096,
+    "lit_gated": 0.014
+   },
+   "all": {
+    "before": 109.6,
+    "after": 84.3,
+    "lit": 0.465,
+    "fell": 0.456,
+    "lit_gated": 0.037
+   }
+  },
+  "burn/ground-quebec-2023": {
+   "group": "burn",
+   "n": 20000,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 24.4,
+    "after": 21.4,
+    "lit": 0.382,
+    "fell": 0.312,
+    "lit_gated": 0.358
+   },
+   "tes": {
+    "before": 29.1,
+    "after": 16.2,
+    "lit": 0.518,
+    "fell": 0.504,
+    "lit_gated": 0.448
+   },
+   "olmo": {
+    "before": 35.0,
+    "after": 27.0,
+    "lit": 0.418,
+    "fell": 0.396,
+    "lit_gated": 0.392
+   },
+   "all": {
+    "before": 27.3,
+    "after": 23.9,
+    "lit": 0.394,
+    "fell": 0.351,
+    "lit_gated": 0.365
+   }
+  },
+  "burn-beside/ground-quebec-2023": {
+   "group": "burn-beside",
+   "n": 20000,
+   "years": [
+    2022,
+    2024
+   ],
+   "aef": {
+    "before": 21.0,
+    "after": 28.2,
+    "lit": 0.273,
+    "fell": 0.009,
+    "lit_gated": 0.003
+   },
+   "tes": {
+    "before": 26.7,
+    "after": 27.3,
+    "lit": 0.191,
+    "fell": 0.106,
+    "lit_gated": 0.005
+   },
+   "olmo": {
+    "before": 30.6,
+    "after": 25.5,
+    "lit": 0.174,
+    "fell": 0.138,
+    "lit_gated": 0.003
+   },
+   "all": {
+    "before": 23.3,
+    "after": 25.6,
+    "lit": 0.066,
+    "fell": 0.018,
+    "lit_gated": 0.002
+   }
+  },
+  "lake/ground-sau-es": {
+   "group": "lake",
+   "n": 20000,
+   "years": [
+    2021,
+    2023
+   ],
+   "aef": {
+    "before": 3.2,
+    "after": 5.6,
+    "lit": 0.058,
+    "fell": 0.001,
+    "lit_gated": 0.057
+   },
+   "tes": {
+    "before": 4.3,
+    "after": 17.5,
+    "lit": 0.805,
+    "fell": 0.001,
+    "lit_gated": 0.177
+   },
+   "olmo": {
+    "before": 3.9,
+    "after": 10.4,
+    "lit": 0.177,
+    "fell": 0.001,
+    "lit_gated": 0.177
+   },
+   "all": {
+    "before": 4.3,
+    "after": 13.8,
+    "lit": 0.384,
+    "fell": 0.0,
+    "lit_gated": 0.128
+   }
+  }
+ },
+ "sets": {
+  "burn": {
+   "sites": 15,
+   "aef": {
+    "lit": 0.925,
+    "fell": 0.925,
+    "lit_gated": 0.874
+   },
+   "tes": {
+    "lit": 0.918,
+    "fell": 0.91,
+    "lit_gated": 0.851
+   },
+   "olmo": {
+    "lit": 0.921,
+    "fell": 0.921,
+    "lit_gated": 0.873
+   },
+   "all": {
+    "lit": 0.907,
+    "fell": 0.906,
+    "lit_gated": 0.824
+   }
+  },
+  "burn-beside": {
+   "sites": 15,
+   "aef": {
+    "lit": 0.547,
+    "fell": 0.519,
+    "lit_gated": 0.266
+   },
+   "tes": {
+    "lit": 0.525,
+    "fell": 0.398,
+    "lit_gated": 0.089
+   },
+   "olmo": {
+    "lit": 0.355,
+    "fell": 0.229,
+    "lit_gated": 0.128
+   },
+   "all": {
+    "lit": 0.428,
+    "fell": 0.428,
+    "lit_gated": 0.111
+   }
+  },
+  "crop": {
+   "sites": 27,
+   "aef": {
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "lit": 0.035,
+    "fell": 0.007,
+    "lit_gated": 0.019
+   },
+   "olmo": {
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   }
+  },
+  "farm": {
+   "sites": 6,
+   "aef": {
+    "lit": 0.021,
+    "fell": 0.002,
+    "lit_gated": 0.013
+   },
+   "tes": {
+    "lit": 0.052,
+    "fell": 0.018,
+    "lit_gated": 0.012
+   },
+   "olmo": {
+    "lit": 0.029,
+    "fell": 0.017,
+    "lit_gated": 0.016
+   },
+   "all": {
+    "lit": 0.015,
+    "fell": 0.009,
+    "lit_gated": 0.003
+   }
+  },
+  "lake": {
+   "sites": 6,
+   "aef": {
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "tes": {
+    "lit": 0.087,
+    "fell": 0.021,
+    "lit_gated": 0.047
+   },
+   "olmo": {
+    "lit": 0.0,
+    "fell": 0.0,
+    "lit_gated": 0.0
+   },
+   "all": {
+    "lit": 0.003,
+    "fell": 0.002,
+    "lit_gated": 0.003
+   }
+  },
+  "look": {
+   "sites": 21,
+   "aef": {
+    "lit": 0.021,
+    "fell": 0.019,
+    "lit_gated": 0.021
+   },
+   "tes": {
+    "lit": 0.174,
+    "fell": 0.13,
+    "lit_gated": 0.101
+   },
+   "olmo": {
+    "lit": 0.123,
+    "fell": 0.085,
+    "lit_gated": 0.101
+   },
+   "all": {
+    "lit": 0.026,
+    "fell": 0.011,
+    "lit_gated": 0.023
+   }
+  },
+  "marsh": {
+   "sites": 4,
+   "aef": {
+    "lit": 0.131,
+    "fell": 0.089,
+    "lit_gated": 0.098
+   },
+   "tes": {
+    "lit": 0.348,
+    "fell": 0.149,
+    "lit_gated": 0.157
+   },
+   "olmo": {
+    "lit": 0.133,
+    "fell": 0.022,
+    "lit_gated": 0.06
+   },
+   "all": {
+    "lit": 0.054,
+    "fell": 0.029,
+    "lit_gated": 0.026
+   }
+  }
+ }
+}

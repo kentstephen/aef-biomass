@@ -11,6 +11,7 @@ Per square, data/squares/<name>.npz:
 n = 600 x 600 pixels. Resumable. Four squares at a time; peak RAM about 6 GB; stops past --max-gb.
 
     uv run --project ~/dev/projects/aef-tessera-earthwork --with psutil python scripts/read_squares.py [--workers 4]
+        [--picks veg_squares.json]
 """
 import argparse
 import json
@@ -110,6 +111,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--max-gb", type=float, default=16)
+    ap.add_argument("--picks", default="squares.json", help="picks file in data/ (squares.json, veg_squares.json)")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     zarr.config.set({"async.concurrency": 128})
@@ -124,7 +126,7 @@ def main():
                 os._exit(3)
             time.sleep(0.5)
     threading.Thread(target=guard, daemon=True).start()
-    sq = json.load(open(HERE / "data" / "squares.json"))
+    sq = json.load(open(HERE / "data" / args.picks))
     todo = [n for n in sq if not (OUT / f"{n}.npz").exists()]
     print(f"{len(todo)} squares to read", flush=True)
     g = ObjectStore(HTTPStore.from_url(ts.TESSERA), read_only=True)
