@@ -27,7 +27,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 
 /* top left: search, then the card under it, one width */
 .at-top { position: fixed; right: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; gap: 8px;
-  width: 360px; max-width: calc(100vw - 24px); }
+  width: 286px; max-width: calc(100vw - 24px); }
 /* top right: the search and the card line up on their right edges */
 .at-top { align-items: flex-end; }
 .at-search { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px;
@@ -56,8 +56,10 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .at-cb:hover { background: var(--sel); color: var(--text); }
 .at-cb svg { transition: transform 0.15s; }
 .card .at-ramp, .card .hy { display: none; }
-.card.collapsed { padding: 4px 5px 4px 12px; width: max-content; border-radius: 10px; }
-.card.collapsed .at-hd .t { font-size: 12.5px; }
+.card.collapsed { padding: 7px 7px 7px 14px; width: max-content; border-radius: 11px; }
+.card.collapsed .at-hd .t { font-size: 14px; }
+/* folded, the year is what you read: large and in full color */
+.card.collapsed .at-hd .hy { font-size: 20px; font-weight: 600; color: var(--text); }
 .card.collapsed .at-ramp, .card.collapsed .hy { display: block; }
 .card.collapsed .at-cb { width: 22px; height: 22px; }
 .card.collapsed .at-cb svg { transform: rotate(-90deg); }
@@ -88,8 +90,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .ew-load { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 9; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
 .ew-load.on { opacity: 1; }
 .ew-load i { display: block; height: 100%; width: 0; background: var(--cool); transition: width 0.3s ease-out; }
-/* the loading readout in the middle of the screen, clear of the card on the right */
-.ew-load-tag { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 8; display: none;
+/* the loading readout at the top, centered, clear of the card on the right */
+.ew-load-tag { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 8; display: none;
   padding: 5px 10px; font-size: 12px; white-space: nowrap; pointer-events: none; }
 .ew-load-tag.on { display: block; }
 .ew-load-tag.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
@@ -144,3 +146,23 @@ body.pair #map { left: 50%; }
 .s2card .lab { font-size: 12px; color: var(--muted); }
 .s2card .yr { font-size: 34px; font-weight: 600; line-height: 1.1; }
 .s2card .keys { font-size: 11px; color: var(--muted); margin-top: 3px; }
+/* folded: a shorter title and ramp, so the card stays short */
+.at-hd .ts { display: none; }
+.card.collapsed .at-hd .tl { display: none; }
+.card.collapsed .at-hd .ts { display: inline; }
+.card.collapsed .at-ramp { width: 84px; }
+/* open, narrow and tall: the year chips and the window's years on lines of their own */
+.yearrow { flex-wrap: wrap; }
+.yearrow .years { flex-basis: 100%; margin: 6px 0 0; justify-content: space-between; }
+.winrow .at-wtxt { flex-basis: 100%; text-align: right; margin-top: -2px; }
+.winrow .at-lab { min-width: 0; }
+/* the pixel's tooltip, by the pointer (Q hides it) */
+/* narrow and tall: one item a line */
+.tip { position: fixed; left: 0; top: 0; z-index: 9; display: none; padding: 7px 11px 8px; pointer-events: none; font-size: 12.5px;
+  max-width: 150px; line-height: 1.35; }
+.tip.on { display: block; }
+.tip.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+.tip .v { font-size: 13px; }
+.tip .v b { font-size: 17px; font-weight: 600; }
+.tip .v .m { color: var(--text); font-size: 12.5px; }
+.tip .s { color: var(--muted); font-size: 11px; margin-top: 3px; }

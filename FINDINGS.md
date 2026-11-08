@@ -2,7 +2,9 @@
 
 What the tests in this repo found, November 2026. Sections 1 to 5 are tree loss (the first session); sections 6 to
 10 are biomass and land cover over every kind of ground (the second); sections 11 to 16 work through the open items
-of the second (margins of error, calibrated change, the top end, regrowth, hard ground, airborne lidar). Three 10 m yearly embeddings, compared on the same pixels:
+of the second (margins of error, calibrated change, the top end, regrowth, hard ground, airborne lidar); sections 17
+to 26 test the open directions; sections 27 to 30 check the map's head on burn scars and land cover, and how to
+draw change with its confidence. Three 10 m yearly embeddings, compared on the same pixels:
 AlphaEarth Foundations (AEF, 64 numbers), TESSERA v1.1 (128) and OlmoEarth v1.3 (128). Years 2018 to 2025 (2017
 is left out: TESSERA lacks much of it and AEF rebuilt it differently). Reference: Hansen Global Forest Change v1.12
 (30 m, loss year to 2024), which has its own errors. The pixels in sections 1 to 3 come from Earthwork
@@ -1135,6 +1137,145 @@ offset removed, per-year median; the drop from the year before the flag to the y
 RAM peaks: gates 4.4 GB, fire 3.6 GB, Sentinel-2 0.5 GB.
 
 
+## 27. The map's head inside burn scars (`scripts/burn_check.py`, `results/burn_check.json`)
+
+The map's head (the one the web map runs, `web/public/models/biomass_aef.json`) on AlphaEarth inside six California
+fires, every year 2018 to 2025, against unburned ground 2 to 8 km outside each (no fire of 2015 to 2024 there),
+beside CTrees and fire-knn's LANDFIRE-taught volume head on the same pixels. Perimeters from MTBS, and NIFC WFIGS
+for the Park Fire (MTBS has no 2024 fires yet). Twelve 256 px chunks inside and twelve outside per fire, every 4th
+pixel. 12 minutes, 1.6 GB.
+
+| Fire | Map head, median inside (Mg/ha) | CTrees | fire-knn volume |
+|---|---|---|---|
+| Caldor 2021 | 70 to 12 (-83 %) | 151 to 89 (-41 %) | -96 % |
+| Dixie 2021 | 35 to 10 (-72 %) | 79 to 49 (-38 %) | -96 % |
+| Creek 2020 | 24 to 9 | 64 to 48 | -90 % |
+| Camp 2018 (Paradise) | 48 to 20, back to 25 by 2025 | 43 to 35, flat after | -70 % |
+| Park 2024 | 24 to 17 in 2024 (-29 %), 12 in 2025 | 34 to 32 | -73 % in 2024 |
+| Bobcat 2020 (chaparral) | 13 to 10 | 18 to 13 | -65 % |
+
+- The head does not read high regardless of the burn: at scar scale it falls more than CTrees in every fire.
+- The Park Fire started in late July 2024, so the 2024 embedding is mostly the months before it; the head's drop
+  finishes in 2025. fire-knn's volume head drops harder in 2024 (-73 %). CTrees barely sees the Park Fire.
+- Camp's scar regrows in the head (20 to 25 Mg/ha over four years, +25 %); CTrees stays flat after the drop.
+- Chaparral (Bobcat) is the weak case, as in section 19.
+
+## 28. Biomass by land cover: Annual NLCD and Esri's annual land cover (`scripts/nlcd_check.py`, `results/nlcd_check.json`, `results/io_check.json`)
+
+The map's head by land cover class and by class change from one year to the next, 2018 to 2024. Annual NLCD
+(USGS Collection 1, 30 m COGs on Source Cooperative, `kylebarron/usgs-landcover`) under the 33 test squares in
+CONUS; Esri / Impact Observatory annual land cover (10 m, `s3://io-10m-annual-lulc`, one COG per UTM zone, 2017 to
+2024) under all 127. Classes read at each 10 m pixel center, kept in `data/nlcd/`, `data/io/`.
+
+| Class change, one year to the next | Map head | CTrees | Chaparral map |
+|---|---|---|---|
+| NLCD forest to shrub, grass or barren | 14 to 15 Mg/ha (+7 %) | -16 % | -40 % |
+| Esri trees to rangeland or bare (127 squares) | 41 to 32 Mg/ha (-13 %) | -3 % | -26 % |
+| Esri rangeland or bare to trees | +7 % | 0 % | +18 % |
+| Esri trees, rangeland, bare held | about 0 % | about 0 % | |
+
+- Against Esri, worldwide, the head follows the class changes in the right direction and further than CTrees.
+  Against NLCD it does not; NLCD's forest flips are mostly thin forest (14 Mg/ha before), so edge flips and label
+  noise are a large share of them. Section 27's scars agree with Esri.
+- By class (NLCD): shrub reads a little high (head 6.0 Mg/ha, CTrees 4.1, the chaparral map 5.1), grassland low
+  against CTrees (5.7 against 7.4), evergreen forest high (241 against 214; Redwood 489 against 308).
+- Grass and shrub abroad: the head's levels sit near CTrees on every square (Serengeti 5.9 against 6.9, Karoo 10.9
+  against 12.4, Mongolia 0.2 against 0.1); CTrees is a woody label, so this is not a grass check.
+- Tundra: Esri files tundra as rangeland, so it says nothing about tundra biomass. The head reads Noatak 18,
+  Nunavik 4, Yamal 22 Mg/ha. The Berner / Orndahl Arctic maps are the next check.
+- Peaks: NLCD 2.4 GB, 2 minutes; Esri 3.2 GB once the transitions were sampled (the first run stopped itself at
+  6 GB pooling every pixel).
+
+## 29. The noise on steady ground, per land cover class (`scripts/change_confidence.py`, `results/change_confidence.json`)
+
+Steady ground for a window a to b: Esri's class held every year from a to b, and CTrees' 100 m cell moved under
+10 Mg/ha and 10 %. The head's change there is noise. 127 squares, every window 2018 to 2024, every 31st steady
+pixel. 90th percentile of the change's size:
+
+| Ground | 1 year | 6 years | Steady past the loss gate (1 year) |
+|---|---|---|---|
+| Trees | 33 Mg/ha (28 %) | 47 Mg/ha (42 %) | 3 % |
+| Rangeland | 6 Mg/ha (38 %) | 8 Mg/ha (48 %) | 8 % |
+| Bare | 2 Mg/ha (32 %) | 3 Mg/ha (52 %) | 6 % |
+| Crops | 6 Mg/ha (43 %) | 8 Mg/ha (61 %) | 28 % (37 % over 3 years) |
+
+- In Mg/ha the noise differs by class (trees five times rangeland); in percent it is similar for most classes.
+- **Averaging over 100 m hardly lowers it** (trees 33 to 29.5 Mg/ha): the noise is not pixel by pixel but whole
+  patches moving together from year to year. The fixed gain blocks of section 22 are not quiet because averaging
+  cancels noise; the 20 to 40 Mg/ha floor is what keeps them quiet.
+- Real loss stands clear of it: where Esri says trees went to rangeland or bare, the 90th percentile is 54 Mg/ha
+  (59 %) in a year and 121 (83 %) over six, and 32 to 66 % pass the gate.
+- Real gain mostly sits inside it in Mg/ha: where Esri says ground became trees, 18 Mg/ha in a year and 31 over six,
+  against 33 to 47 on steady trees. In percent there is some room (48 to 93 % against 28 to 42 %).
+- NLCD's steady classes give the same picture in CONUS (forest 59 Mg/ha at the 90th percentile in a year, at
+  175 Mg/ha median biomass; grassland 3.3).
+
+## 30. Drawing change with its confidence: which way works (`scripts/change_confidence_test.py`, `results/change_confidence_test.json`)
+
+A pixel's confidence = the share of steady pixels (section 29's rule) whose change is smaller, from the steady
+pixels of other squares (5 folds by square), per window length, and per Esri class where the variant says so.
+Every variant scored on the same pixels against Esri's changes (all 127 squares, every window 2018 to 2024: 3.9
+million lost, 2.6 million grew, 8.9 million steady) and against airborne lidar (the nine two-flight squares of
+sections 16 and 22: per 10 m pixel, lost = canopy fell 3 m from 5 m or more, gained = rose 2 m, steady = moved under
+0.5 m; and per CTrees 100 m cell). "Found at 2 % lit": each variant's cutoff set so 2 % of steady ground lights.
+7 minutes, 6.8 GB.
+
+**Loss.**
+
+| Loss variant | Esri AUC | Esri found / steady lit at .95 | Lidar AUC | Lidar found / steady lit at .95 |
+|---|---|---|---|---|
+| The rule now (embedding gate, the head fell) | .717 | .49 / .054 (at its cut) | .836 | .75 / .080 (at its cut) |
+| Percent, one table | .788 | .51 / .050 | .856 | .68 / .042 |
+| Per class, Mg/ha | .723 | .27 / .051 | .842 | .62 / .042 |
+| Per class, percent | .793 | .53 / .051 | .858 | .69 / .045 |
+| **Per class, percent, with the embedding's move** | **.808** | .43 / **.011** | **.869** | .67 / **.029** |
+
+- Per class in percent, combined with the embedding move's own confidence (the lower of the two), is the best loss:
+  the highest AUC against both references, and at .95 it lights a fifth (Esri) to a third (lidar) of the steady
+  ground the rule lights, for a little less found.
+- It fixes the rule's worst ground: steady crops lit 13.8 % by the rule, 0.7 % by it; rangeland 6.4 % against 0.9 %.
+- Per 100 m cell against lidar, loss AUC .937 against the rule's .941: as good at the cell, finer at the pixel.
+
+**Gain.**
+
+| Gain variant | Esri AUC | Lidar AUC | Lidar found at 2 % lit |
+|---|---|---|---|
+| The rule now (fixed 100 m block, 20 to 40 Mg/ha and 25 %) | .525 (found .07, lit .019) | .675 (found .36, lit .014) | |
+| Percent, pixel / sliding 100 m / fixed block | .635 / .641 / .636 | .665 / .667 / .663 | .18 / .18 / .17 |
+| Per class Mg/ha, pixel / sliding / block | .689 / .693 / .688 | .706 / .711 / .707 | .19 / .19 / .18 |
+| Per class percent, pixel / sliding / block | .624 / .627 / .622 | .682 / .687 / .682 | .21 / .21 / .20 |
+
+- **The size makes no difference**: pixel, sliding 100 m and fixed blocks score within .01 of each other in every
+  variant. Gain at pixel size costs nothing in accuracy.
+- Per class in Mg/ha is the best confidence for gain (lidar AUC .71), but no confidence version beats the rule's
+  two-part floor at a low false alarm rate against lidar: the rule finds .36 of lidar's gained pixels with 1.4 % of
+  steady lit, the best confidence version .19 to .21 at 2 %. Against Esri the order flips (the rule finds .07).
+- Combining gain with the embedding move hurts it (lidar AUC .61 to .67): regrowth does not move the embedding much.
+- Per 100 m cell against lidar, the rule's pairing still correlates best with canopy change (.54 against .36 to .44
+  for the confidence pairings), since a cell mean of confidences is not a size.
+
+**The rule's floor at finer sizes.** The same two-part floor (at least 20 to 40 Mg/ha by window length, and at least
+25 % of the year-a biomass) applied to the pixel's own change and to the sliding 100 m mean, not to fixed blocks:
+
+| Gain, two-part floor | Lidar found / steady lit (pixel) | Lidar per 100 m cell: AUC gained / corr (with the rule's loss) | Esri found / lit |
+|---|---|---|---|
+| Fixed 100 m block (the map now) | .363 / .014 | .774 / .537 | .070 / .019 |
+| Sliding 100 m | .369 / .014 | .790 / .539 | .071 / .019 |
+| **Per pixel** | **.387 / .015** | **.858 / .544** | .080 / .025 |
+
+- **Per pixel is the finest and the best**: it finds more of lidar's regrowth for the same steady ground lit, and
+  per 100 m cell it separates gained cells far better (.86 against .77). The blocks were costing gain, not
+  quieting it (section 29: averaging does not lower the noise).
+- With the per class, percent, with the embedding's move loss, the per-pixel gain keeps the same picture (cell AUC
+  lost .941, gained .821, corr .531).
+- Esri's "grew" (rangeland or bare to trees) finds little under any variant (AUC .52 to .69): Esri's class changes
+  into trees are mostly not regrowth a lidar would see in the window, or not visible to the head.
+
+**For the map.** Loss: per pixel, opacity from the per class, percent, with the embedding's move confidence (loss
+AUC .87 against lidar; a fifth to a third of the rule's steady ground lit; crops and rangeland quiet). Gain: per
+pixel with the two-part floor, opacity from the per class Mg/ha confidence above it. Both at 10 m: no blocks.
+Peak RAM 6.9 GB (above the 4 GB estimated: the variant arrays for 15 million rows), 7 minutes.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1184,7 +1325,12 @@ Tested in sections 17 to 26; what is still open (directions, not ranked):
   The head leans grass on shrub against grass (section 21).
 - **Classes**: the offset fit (section 21) is the hard-ground calibration to use; shrub squares stay short under
   every fit; open woodland needs a better rule than a 2 to 5 m mean height (canopy cover at 100 m, or lidar).
-- **Change**: loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
+- **Change for the map** (section 30): loss per pixel with its confidence per class, in percent, with the
+  embedding's move; gain per pixel with the two-part floor and its per class Mg/ha confidence. Not built yet: the
+  browser needs a class per pixel (the head's class output, dropped at export) and the confidence tables. Gain's
+  signal is the limit, not its size: the trajectory head (section 14) and TESSERA (section 25) show regrowth best.
+- **Tundra**: Esri files it as rangeland (section 28); the Berner / Orndahl Arctic biomass maps are the check.
+- **Change** (earlier): loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
   own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
   most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not
   quiet it. Per-pixel loss overshoots the pixel's own biomass and needs a cap.

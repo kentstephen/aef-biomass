@@ -46,14 +46,21 @@ forest.
   Then grass against RAP (a yearly rangeland biomass map that is not CTrees), the classes calibrated on the pixels
   where the land cover maps disagree, shrub against the SoCal chaparral map, the open directions tested (grass,
   hard-ground classes, combined change, the top end and shrub level against lidar, more lidar read at 2 m, tree
-  loss), and which embeddings the map should read, accuracy against bandwidth.
+  loss), and which embeddings the map should read, accuracy against bandwidth. Then the map's head inside burn
+  scars, biomass by land cover against Annual NLCD and Esri's annual land cover, the noise on steady ground per
+  class, and which way of drawing change with its confidence works (loss, and gain at pixel or 100 m size).
 - `PLAN.md`: the plan for the biomass classes and their change.
-- `web/`: the map, first build. Biomass for each year from AlphaEarth alone, the head run on the GPU in the browser
-  (WebGPU in workers, the CPU without it), on a 50-stop viridis ramp, log scale from 0 to 350+ Mg/ha. `[` and `]` step
-  the year (the next one is read ahead), R spreads the ramp over the view, F full screen, / search. AlphaEarth is read
-  from zoom 11 in, straight from S3 behind Source Cooperative, its chunks kept on disk between visits. Reading, the
-  head on the GPU, search and the card come from fire-knn and Earthwork's web apps. Run: `cd web && npm install &&
-  npm run dev` (port 3010). The head: `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`.
+- `web/`: the map. Biomass from AlphaEarth alone, the head run on the GPU in the browser (WebGPU in workers, the CPU
+  without it). Two settings (C): each year, on a 50-stop viridis ramp, log scale from 0 to 350+ Mg/ha; and change
+  over a window of years (Earthwork's two-handle range, the span between the ends drags the window), loss per 10 m
+  pixel where the embedding itself moved, gain per 100 m cell above a floor (FINDINGS 22), on a 50-stop orange to
+  white to blue ramp, no change left clear. Sentinel-2 cloudless by EOX, 2019 onward: hold Space for it over the
+  whole map, P pairs it on the left with one camera. Keys: `-` `=` the embeddings' year (the next one is read
+  ahead), `[` `]` the imagery's year, `;` `'` its gamma, R spreads the ramp over the view, Esc folds the card,
+  F full screen, / search. AlphaEarth is read from zoom 11 in, straight from S3 behind Source Cooperative, its chunks
+  kept on disk between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn
+  and Earthwork's web apps. Run: `cd web && npm install && npm run dev` (port 3010). The head:
+  `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`.
 
 ## Scripts
 
@@ -91,6 +98,10 @@ forest.
 | `embedding_bandwidth.py` | What each embedding costs to read on the fly: bytes and requests per square-year from each public store |
 | `pair_heads.py`, `pair_scores.py` | Heads on two embeddings at once, scored beside one and all three on the map's tests, with read cost |
 | `tree_loss_tests.py` | Tree loss: a height gate for dry and open forest, cutoffs by cover, loss from fire (GLAD), Sentinel-2 under the flags Hansen lacks |
+| `burn_check.py` | The map's head inside six California burn scars (MTBS, NIFC WFIGS) against unburned ground around each, beside CTrees and fire-knn's volume head |
+| `nlcd_check.py` | Biomass by land cover and by class change from year to year, against Annual NLCD (`--source nlcd`, CONUS) or Esri's annual land cover (`--source io`, worldwide) |
+| `change_confidence.py` | The head's change on steady ground (Esri class held, CTrees steady) per class and window length: how big a change must be to be believed |
+| `change_confidence_test.py` | Every way of drawing change with its confidence (one percent table, per class, with the embedding's move; gain per pixel, sliding 100 m or fixed blocks) against lidar and Esri's changes, held out by square |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold

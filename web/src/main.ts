@@ -1,15 +1,16 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./page.css";
 
+import { PathLayer } from "@deck.gl/layers";
 import { MapLibreOverlay as MapboxOverlay } from "@deck.gl/maplibre";
 import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
-import { MIN_ZOOM } from "./aef";
+import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
 import { createBiomass, GAIN_END, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { BiomassHead } from "./head";
 import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
-import { createS2, S2Y, s2YearFor } from "./s2";
+import { S2_CREDIT, S2Y, s2Layers, s2YearFor } from "./s2";
 import { makeSearch } from "./search";
 
 maplibregl.setWorkerUrl(maplibreWorkerUrl);
@@ -69,6 +70,13 @@ const st = {
   holding: false,
   pair: false,
   imgYear: 2024,
+  // picking (Q, Earthwork's): the tooltip by the pointer and the gold outlines; remembered. Where the pointer is
+  // on screen; the pixel clicked
+  tips: stored("aef-biomass-tips") !== "0",
+  hoverPt: null as [number, number] | null,
+  picked: null as [number, number] | null,
+  // the imagery's gamma (; and '), remembered
+  gamma: Number(stored("aef-biomass-s2-gamma")) || 1,
 };
 /** The layer shown: the year, or the window. */
 const curKey = () => (st.mode === "year" ? yearKey(st.year) : windowKey(st.y0, st.y1));
@@ -102,9 +110,9 @@ card.innerHTML = `
   <div class="sub"></div>
   <div class="seg-f mode"><button data-m="year">Each year</button><button data-m="change">Change</button><kbd>C</kbd></div>
   <div class="yearrow">
-    <button class="step" data-d="-1" title="Earlier year ([)">&lsaquo;</button>
+    <button class="step" data-d="-1" title="Earlier year (-)">&lsaquo;</button>
     <div class="year"></div>
-    <button class="step" data-d="1" title="Later year (])">&rsaquo;</button>
+    <button class="step" data-d="1" title="Later year (=)">&rsaquo;</button>
     <div class="years"></div>
   </div>
   <div class="at-row winrow">
@@ -117,9 +125,12 @@ card.innerHTML = `
   <div class="zoom"></div>
   <div class="status"></div>
   <div class="keys"></div>
-  <div class="credits">AlphaEarth &copy; Google, Google DeepMind, via Source Cooperative &middot; head taught on CTrees AGB and Meta canopy height (CC BY 4.0) &middot; search by Photon and Nominatim over OpenStreetMap &middot; &copy; CARTO &copy; OpenStreetMap</div>
+  <div class="credits">AlphaEarth &copy; Google, Google DeepMind, via Source Cooperative &middot; head taught on CTrees AGB and Meta canopy height (CC BY 4.0) &middot; ${S2_CREDIT} &middot; search by Photon and Nominatim over OpenStreetMap &middot; &copy; CARTO &copy; OpenStreetMap</div>
   </div>`;
-document.body.append(bar, tag, top, s2card);
+// the pixel's tooltip, by the pointer
+const tip = document.createElement("div");
+tip.className = "tip at-glass";
+document.body.append(bar, tag, top, s2card, tip);
 const $ = <T extends HTMLElement>(s: string) => card.querySelector(s) as T;
 // the search, while not in use, as wide as the card under it (Earthwork's fitSearch); in use, full width
 const fitSearch = () => {
@@ -260,6 +271,10 @@ function boot2() {
   follow(map, m2);
   follow(m2, map);
   m2.on("moveend", () => paint());
+  // the left side hovers as the right does: one camera, so a point is the same place on both
+  m2.on("mousemove", hoverAt);
+  m2.on("mouseout", hoverOff);
+  m2.on("click", pickAt);
   new ResizeObserver(() => m2.resize()).observe(mapEl2);
 }
 function setPair(on: boolean) {
@@ -289,6 +304,11 @@ function endHold() {
   if (!st.holding) return;
   st.holding = false;
   mapEl.classList.remove("holding");
+  paint();
+}
+function setGamma(g: number) {
+  st.gamma = Math.round(Math.max(0.4, Math.min(2.5, g)) * 10) / 10;
+  store("aef-biomass-s2-gamma", String(st.gamma));
   paint();
 }
 function stepImg(d: number) {
@@ -341,7 +361,6 @@ function say(s: string) {
 // the biomass draws under the basemap's labels
 let firstLabel: string | undefined;
 const bio = await createBiomass(head, () => firstLabel);
-const s2 = createS2(() => [st.holding ? map : null, st.pair ? map2 : null].filter((m): m is maplibregl.Map => !!m), () => paint());
 let modeNote = "";
 bio.pool.onMode = () => {
   const ms = bio.pool.modes;
@@ -371,7 +390,8 @@ function status() {
   }
   const k = curKey();
   const { loaded, wanted } = bio.loadedIn(bbox(), k);
-  const loading = !st.viewLoaded && wanted > 0;
+  // done when the view's chunks are all in, even if deck.gl's view-loaded call has not come
+  const loading = !st.viewLoaded && wanted > 0 && loaded < wanted;
   bar.classList.toggle("on", loading);
   (bar.firstElementChild as HTMLElement).style.width = wanted ? `${(100 * loaded) / wanted}%` : "0";
   tag.classList.toggle("on", loading);
@@ -410,24 +430,47 @@ function keyTicks() {
   $(".rk").textContent = s.rank ? "rank stretch on (view)" : "rank stretch";
 }
 
+/** The pixel under the pointer: the card's readout line, and the tooltip by the pointer (Q hides it). */
 function readout() {
   const el = $(".readout");
-  if (!st.hover) return void (el.innerHTML = "&nbsp;");
-  const at = `${st.hover[1].toFixed(4)}, ${st.hover[0].toFixed(4)}`;
+  const off = () => {
+    el.innerHTML = "&nbsp;";
+    tip.classList.remove("on");
+  };
+  // the pixel under the pointer, else the one picked
+  const pt = st.hover ?? st.picked;
+  if (!pt) return off();
+  const at = `${pt[1].toFixed(4)}, ${pt[0].toFixed(4)}`;
+  let line = "", big = "", sub = "";
   if (st.mode === "change") {
-    const c = bio.changeAtPoint(st.hover[0], st.hover[1], curKey());
+    const c = bio.changeAtPoint(pt[0], pt[1], curKey());
+    if (!c) return off();
     const sg = (v: number, d: number) => `${v > 0 ? "+" : ""}${v.toFixed(d)}`;
-    el.innerHTML = !c
-      ? "&nbsp;"
-      : c.mg === 0
-        ? `no change counted &middot; ${at}`
-        : `<b>${sg(c.mg, Math.abs(c.mg) >= 10 ? 0 : 1)}</b> Mg/ha (${sg(c.pct, 0)}%) &middot; ${at}`;
-    return;
+    if (c.mg === 0) {
+      big = "No change counted";
+      line = `no change counted &middot; ${at}`;
+    } else {
+      big = `<b>${sg(c.mg, Math.abs(c.mg) >= 10 ? 0 : 1)}</b> Mg/ha<div class="m">${sg(c.pct, 0)}%</div>`;
+      line = `<b>${sg(c.mg, Math.abs(c.mg) >= 10 ? 0 : 1)}</b> Mg/ha (${sg(c.pct, 0)}%) &middot; ${at}`;
+    }
+    sub = `${c.mg < 0 ? "<div>loss, this pixel</div>" : c.mg > 0 ? "<div>gain, its 100 m cell</div>" : ""}<div>${keyName(curKey())}</div>`;
+  } else {
+    const v = bio.valueAtPoint(pt[0], pt[1], st.year);
+    if (!v) return off();
+    const a = v.agb >= 10 ? v.agb.toFixed(0) : v.agb.toFixed(1);
+    big = `<b>${a}</b> Mg/ha<div class="m">canopy ${v.height.toFixed(1)} m</div>`;
+    line = `<b>${a}</b> Mg/ha &middot; canopy ${v.height.toFixed(1)} m &middot; ${at}`;
+    sub = `<div>${st.year}</div>`;
   }
-  const v = bio.valueAtPoint(st.hover[0], st.hover[1], st.year);
-  el.innerHTML = v
-    ? `<b>${v.agb >= 10 ? v.agb.toFixed(0) : v.agb.toFixed(1)}</b> Mg/ha &middot; canopy ${v.height.toFixed(1)} m &middot; ${st.hover[1].toFixed(4)}, ${st.hover[0].toFixed(4)}`
-    : "&nbsp;";
+  el.innerHTML = line;
+  if (!st.tips || !st.hoverPt || !st.hover) return void tip.classList.remove("on");
+  tip.innerHTML = `<div class="v">${big}</div><div class="s">${sub}<div>${pt[1].toFixed(4)},</div><div>${pt[0].toFixed(4)}</div></div>`;
+  tip.classList.add("on");
+  // by the pointer, kept inside the window
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  const x = st.hoverPt[0] + 16 + w > innerWidth ? st.hoverPt[0] - 16 - w : st.hoverPt[0] + 16;
+  const y = st.hoverPt[1] + 16 + h > innerHeight ? st.hoverPt[1] - 16 - h : st.hoverPt[1] + 16;
+  tip.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 /** Stop reading ahead (a move, a step, zoomed out). */
@@ -465,7 +508,8 @@ function styleMode() {
   const ch = st.mode === "change";
   card.classList.toggle("ch", ch);
   for (const b of card.querySelectorAll<HTMLButtonElement>(".mode button")) b.classList.toggle("on", b.dataset.m === st.mode);
-  $(".at-hd .t").textContent = ch ? "Biomass change" : "Biomass";
+  // folded, the short title (the card's width goes to the ramp and the years)
+  $(".at-hd .t").innerHTML = ch ? '<span class="tl">Biomass change</span><span class="ts">Change</span>' : "Biomass";
   const ramp = cssGradient(ch ? CHANGE_50 : VIRIDIS_50);
   $(".bar").style.background = ramp;
   // folded, the card is its header: the short title, the ramp on the map and the year (Earthwork's card fold)
@@ -477,8 +521,8 @@ function styleMode() {
     ? "loss: percent of the pixel's own biomass the first year; gain: of its 100 m cell's. Clear: no change counted"
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
-    ? "<kbd>C</kbd> each year &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search"
-    : '<kbd>[</kbd><kbd>]</kbd> year &nbsp; <kbd>R</kbd> <span class="rk">rank stretch</span> &nbsp; <kbd>C</kbd> change &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search';
+    ? "<kbd>[</kbd><kbd>]</kbd> imagery year &nbsp; <kbd>C</kbd> each year &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>Q</kbd> picking &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search"
+    : '<kbd>-</kbd><kbd>=</kbd> year &nbsp; <kbd>[</kbd><kbd>]</kbd> imagery year &nbsp; <kbd>R</kbd> <span class="rk">rank stretch</span> &nbsp; <kbd>C</kbd> change &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>Q</kbd> picking &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -486,11 +530,36 @@ function styleMode() {
 
 let bioLayers: unknown[] = [];
 /** The map's layers: the biomass, and Sentinel-2 over it while Space is held; the pair's left: Sentinel-2. */
+let s2Main: unknown[] = [], s2Left: unknown[] = [];
 function paint() {
-  overlay.setProps({ layers: [...bioLayers, ...(st.holding ? s2.layers(st.imgYear, "", firstLabel) : [])] as never });
-  if (map2 && overlay2) overlay2.setProps({ layers: (st.pair ? s2.layers(st.imgYear, "l", firstLabel2) : []) as never });
+  s2Main = st.holding ? s2Layers(st.imgYear, "", st.gamma, firstLabel) : [];
+  s2Left = st.pair ? s2Layers(st.imgYear, "l", st.gamma, firstLabel2) : [];
+  drawLayers();
+  styleS2card();
+}
+/** The 10 m pixel's square on the mosaic's grid, as a closed path. */
+function pixelRing(lon: number, lat: number): [number, number][] {
+  const x0 = X0 + Math.floor((lon - X0) / RES) * RES, y0 = Y0 - Math.floor((Y0 - lat) / RES) * RES;
+  return [[x0, y0], [x0 + RES, y0], [x0 + RES, y0 - RES], [x0, y0 - RES], [x0, y0]];
+}
+/** Earthwork's outlines, in gold: the pixel under the pointer (thin) and the one picked (thick), on both maps. */
+function outlines(side: string) {
+  if (!st.tips || !readable()) return [];
+  const out = [];
+  for (const [id, pt, w] of [["hover", st.hover, 1.5], ["picked", st.picked, 3]] as const) {
+    if (!pt) continue;
+    out.push(new PathLayer({ id: `${id}${side}`, data: [pixelRing(pt[0], pt[1])], getPath: (d: [number, number][]) => d,
+      getColor: [255, 200, 40, 255], widthUnits: "pixels", getWidth: w, pickable: false }));
+  }
+  return out;
+}
+function drawLayers() {
+  overlay.setProps({ layers: [...bioLayers, ...s2Main, ...outlines("")] as never });
+  if (map2 && overlay2) overlay2.setProps({ layers: [...s2Left, ...(st.pair ? outlines("l") : [])] as never });
+}
+function styleS2card() {
   s2card.classList.toggle("on", st.holding || st.pair);
-  s2card.innerHTML = `<div class="lab">Sentinel-2</div><div class="yr">${st.imgYear}</div><div class="keys"><kbd>[</kbd><kbd>]</kbd> year</div>`;
+  s2card.innerHTML = `<div class="lab">Sentinel-2</div><div class="yr">${st.imgYear}</div><div class="keys"><kbd>[</kbd><kbd>]</kbd> year &nbsp; <kbd>;</kbd><kbd>'</kbd> gamma ${st.gamma.toFixed(1)}</div>`;
 }
 
 
@@ -535,7 +604,7 @@ function render() {
     );
   } else stopAhead();
   bioLayers = layers;
-  paint();
+  drawLayers();
   for (const o of st.on) if (!want.includes(o)) bio.release(o);
   st.on = want;
   keyTicks();
@@ -578,7 +647,7 @@ function setMode(m: Mode) {
   styleMode();
   render();
 }
-/** [ and ]: the year (each year). */
+/** - and =: the embeddings' year (each year). */
 function step(d: number) {
   if (st.mode !== "year") return;
   const y = YEARS[YEARS.indexOf(st.year) + d];
@@ -598,8 +667,22 @@ window.addEventListener("keydown", (e) => {
   // matched by the key's code, so Shift or a keyboard layout does not change what [ and ] do
   if (e.code === "Space") {
     if (!e.repeat) beginHold();
-  } else if (e.code === "BracketLeft" || e.key === "[" || e.key === "{") (st.holding || st.pair ? stepImg(-1) : step(-1));
-  else if (e.code === "BracketRight" || e.key === "]" || e.key === "}") (st.holding || st.pair ? stepImg(1) : step(1));
+  } else if (e.code === "BracketLeft" || e.key === "[" || e.key === "{") stepImg(-1);
+  else if (e.code === "BracketRight" || e.key === "]" || e.key === "}") stepImg(1);
+  // ; and ': the imagery's gamma (Earthwork's brightness keys)
+  else if (e.code === "Semicolon" || e.code === "Quote") setGamma(st.gamma + (e.code === "Quote" ? 0.1 : -0.1));
+  // Q: picking off and on (the tooltip and the gold outlines, Earthwork's)
+  else if (e.code === "KeyQ") {
+    st.tips = !st.tips;
+    store("aef-biomass-tips", st.tips ? "1" : "0");
+    readout();
+    drawLayers();
+  }
+  // Esc folds the card
+  else if (e.code === "Escape") fold(true);
+  // - and =: the embeddings' year
+  else if (e.code === "Minus" || e.key === "-" || e.key === "_") step(-1);
+  else if (e.code === "Equal" || e.key === "=" || e.key === "+") step(1);
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyR" && !e.shiftKey && st.mode === "year") {
     bio.setRank(!bio.stretch.rank);
@@ -617,14 +700,32 @@ yearsEl.onclick = (e) => {
   if (y) setYear(y);
 };
 
-map.on("mousemove", (e) => {
+const samePixel = (a: [number, number] | null, b: [number, number] | null) =>
+  !!a && !!b && Math.floor((a[0] - X0) / RES) === Math.floor((b[0] - X0) / RES) && Math.floor((Y0 - a[1]) / RES) === Math.floor((Y0 - b[1]) / RES);
+const hoverAt = (e: maplibregl.MapMouseEvent) => {
+  const was = st.hover;
   st.hover = [e.lngLat.lng, e.lngLat.lat];
+  st.hoverPt = [e.originalEvent.clientX, e.originalEvent.clientY];
   readout();
-});
-map.on("mouseout", () => {
+  if (st.tips && !samePixel(was, st.hover)) drawLayers();
+};
+const hoverOff = () => {
   st.hover = null;
+  st.hoverPt = null;
   readout();
-});
+  if (st.tips) drawLayers();
+};
+// a click picks the pixel (gold, thick); the same pixel again lets it go
+const pickAt = (e: maplibregl.MapMouseEvent) => {
+  if (!st.tips) return;
+  const p: [number, number] = [e.lngLat.lng, e.lngLat.lat];
+  st.picked = samePixel(st.picked, p) ? null : p;
+  readout();
+  drawLayers();
+};
+map.on("click", pickAt);
+map.on("mousemove", hoverAt);
+map.on("mouseout", hoverOff);
 map.on("movestart", () => {
   stopAhead();
   st.viewLoaded = false;
