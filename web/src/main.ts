@@ -8,9 +8,10 @@ import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&ur
 
 import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
 import { createBiomass, GAIN_END, LOSS_END, windowKey, yearKey } from "./biomass";
+import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
 import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
-import { S2_CREDIT, S2Y, s2Layers, s2YearFor } from "./s2";
+import { S2_CREDIT, s2Layers, s2YearFor } from "./s2";
 import { makeSearch } from "./search";
 
 maplibregl.setWorkerUrl(maplibreWorkerUrl);
@@ -24,7 +25,7 @@ const TICKS = [0, 2, 10, 30, 100, 300];
 // the map never tilts (Earthwork's FLAT); turning is Shift + left, right only
 const FLAT = { maxPitch: 0, pitchWithRotate: false, touchPitch: false, dragRotate: false };
 
-// the change key's ticks, percent (loss of the pixel's own biomass, gain of its 100 m cell's)
+// the change key's ticks, percent of the pixel's own biomass
 const CH_TICKS = [-100, -50, 0, 50, 150];
 const MODE_KEY = "aef-biomass-mode";
 const WIN_KEY = "aef-biomass-window";
@@ -45,7 +46,9 @@ const store = (k: string, v: string) => {
   }
 };
 
-const head: BiomassHead = await (await fetch(`${import.meta.env.BASE_URL}models/biomass_aef.json`)).json();
+const [head, confTables]: [BiomassHead, ConfTables] = await Promise.all(
+  ["biomass_aef.json", "change_conf.json"].map(async (f) => (await fetch(`${import.meta.env.BASE_URL}models/${f}`)).json()),
+) as [BiomassHead, ConfTables];
 const YEARS = head.years;
 const savedWin = (stored(WIN_KEY) ?? "").split("-").map(Number);
 const winOk = savedWin.length === 2 && YEARS.includes(savedWin[0]!) && YEARS.includes(savedWin[1]!) && savedWin[0]! < savedWin[1]!;
@@ -69,10 +72,11 @@ const st = {
   // Sentinel-2: held over the whole map (Space, one map only), or the pair's left side (P)
   holding: false,
   pair: false,
-  imgYear: 2024,
   // picking (Q, Earthwork's): the tooltip by the pointer and the gold outlines; remembered. Where the pointer is
   // on screen; the pixel clicked
   tips: stored("aef-biomass-tips") !== "0",
+  // the basemap's place names (L), on both maps; remembered
+  labels: stored("aef-biomass-labels") !== "0",
   hoverPt: null as [number, number] | null,
   picked: null as [number, number] | null,
   // the imagery's gamma (; and '), remembered
@@ -110,9 +114,9 @@ card.innerHTML = `
   <div class="sub"></div>
   <div class="seg-f mode"><button data-m="year">Each year</button><button data-m="change">Change</button><kbd>C</kbd></div>
   <div class="yearrow">
-    <button class="step" data-d="-1" title="Earlier year (-)">&lsaquo;</button>
+    <button class="step" data-d="-1" title="Earlier year ([)">&lsaquo;</button>
     <div class="year"></div>
-    <button class="step" data-d="1" title="Later year (=)">&rsaquo;</button>
+    <button class="step" data-d="1" title="Later year (])">&rsaquo;</button>
     <div class="years"></div>
   </div>
   <div class="at-row winrow">
@@ -132,15 +136,8 @@ const tip = document.createElement("div");
 tip.className = "tip at-glass";
 document.body.append(bar, tag, top, s2card, tip);
 const $ = <T extends HTMLElement>(s: string) => card.querySelector(s) as T;
-// the search, while not in use, as wide as the card under it (Earthwork's fitSearch); in use, full width
-const fitSearch = () => {
-  const folded = card.classList.contains("collapsed");
-  if (folded && card.offsetWidth) search.el.style.setProperty("--yw", `${card.offsetWidth}px`);
-  else search.el.style.removeProperty("--yw");
-};
 const fold = (on: boolean) => {
   card.classList.toggle("collapsed", on);
-  requestAnimationFrame(fitSearch);
   $(".at-cb").title = on ? "open the card" : "fold the card";
   try {
     localStorage.setItem("aef-biomass-fold", on ? "1" : "0");
@@ -258,6 +255,7 @@ function boot2() {
   m2.addControl(overlay2 as unknown as maplibregl.IControl);
   m2.on("load", () => {
     firstLabel2 = m2.getStyle().layers.find((l) => l.type === "symbol")?.id;
+    styleLabels(m2);
     paint();
   });
   let syncing = false;
@@ -283,20 +281,17 @@ function setPair(on: boolean) {
   st.pair = on;
   document.body.classList.toggle("pair", on);
   if (on) {
-    // the left opens on the map's year (the nearest with a mosaic); [ and ] step it from there
-    st.imgYear = s2YearFor(st.mode === "year" ? st.year : st.y1);
+    // the left shows the map's year (imgYear)
     boot2();
     map2!.jumpTo({ center: map.getCenter(), zoom: map.getZoom(), bearing: map.getBearing() });
   }
   render();
 }
 
-// ---- hold Space: the imagery over the whole map (one map only; paired, it is already on the left). It opens on
-// the map's year (the nearest with a mosaic); while it shows (held, or paired), scroll or [ ] steps its year
+// ---- hold Space: the imagery over the whole map (one map only; paired, it is already on the left), on the map's year
 function beginHold() {
   if (st.holding || st.pair) return;
   st.holding = true;
-  st.imgYear = s2YearFor(st.mode === "year" ? st.year : st.y1);
   mapEl.classList.add("holding");
   paint();
 }
@@ -311,30 +306,6 @@ function setGamma(g: number) {
   store("aef-biomass-s2-gamma", String(st.gamma));
   paint();
 }
-function stepImg(d: number) {
-  const i = S2Y.indexOf(st.imgYear);
-  const y = S2Y[Math.max(0, Math.min(S2Y.length - 1, i + d))]!;
-  if (y === st.imgYear) return;
-  st.imgYear = y;
-  paint();
-}
-let wheelAcc = 0, lastStep = 0;
-document.addEventListener(
-  "wheel",
-  (e) => {
-    if (!st.holding) return;
-    e.preventDefault();
-    e.stopPropagation();
-    wheelAcc += e.deltaY;
-    const now = performance.now();
-    if (Math.abs(wheelAcc) >= 40 && now - lastStep > 140) {
-      stepImg(wheelAcc > 0 ? 1 : -1);
-      wheelAcc = 0;
-      lastStep = now;
-    }
-  },
-  { capture: true, passive: false },
-);
 document.addEventListener("keyup", (e) => {
   if (e.code === "Space") endHold();
 });
@@ -343,8 +314,6 @@ window.addEventListener("blur", () => endHold());
 
 const search = makeSearch(map, MIN_ZOOM);
 top.append(search.el, card);
-// the search follows the card's width as it changes (the year filled in, fonts in)
-new ResizeObserver(fitSearch).observe(card);
 // the card loads as it was left, folded or open (now that it and the search are on the page)
 fold((() => {
   try {
@@ -360,7 +329,7 @@ function say(s: string) {
 
 // the biomass draws under the basemap's labels
 let firstLabel: string | undefined;
-const bio = await createBiomass(head, () => firstLabel);
+const bio = await createBiomass(head, confTables, () => firstLabel);
 let modeNote = "";
 bio.pool.onMode = () => {
   const ms = bio.pool.modes;
@@ -441,30 +410,38 @@ function readout() {
   const pt = st.hover ?? st.picked;
   if (!pt) return off();
   const at = `${pt[1].toFixed(4)}, ${pt[0].toFixed(4)}`;
-  let line = "", big = "", sub = "";
+  // the tooltip, vertical: one item a line; the value, what it means, then when and where (muted)
+  let line = "", big = "", mid = "", sub = "";
   if (st.mode === "change") {
     const c = bio.changeAtPoint(pt[0], pt[1], curKey());
     if (!c) return off();
     const sg = (v: number, d: number) => `${v > 0 ? "+" : ""}${v.toFixed(d)}`;
     if (c.mg === 0) {
-      big = "No change counted";
+      big = '<span class="none">No change counted</span>';
       line = `no change counted &middot; ${at}`;
     } else {
       big = `<b>${sg(c.mg, Math.abs(c.mg) >= 10 ? 0 : 1)}</b> Mg/ha<div class="m">${sg(c.pct, 0)}%</div>`;
       line = `<b>${sg(c.mg, Math.abs(c.mg) >= 10 ? 0 : 1)}</b> Mg/ha (${sg(c.pct, 0)}%) &middot; ${at}`;
     }
-    sub = `${c.mg < 0 ? "<div>loss, this pixel</div>" : c.mg > 0 ? "<div>gain, its 100 m cell</div>" : ""}<div>${keyName(curKey())}</div>`;
+    // the confidence: the share of steady ground of its class with less change
+    const share = `${Math.min(99.9, 100 * c.conf).toFixed(c.conf >= 0.99 ? 1 : 0)}%`;
+    if (c.mg !== 0) {
+      mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}</div><div>more than ${share} of steady ground</div>`;
+      line += ` &middot; more than ${share} of steady ground`;
+    }
+    sub = keyName(curKey());
   } else {
     const v = bio.valueAtPoint(pt[0], pt[1], st.year);
     if (!v) return off();
     const a = v.agb >= 10 ? v.agb.toFixed(0) : v.agb.toFixed(1);
-    big = `<b>${a}</b> Mg/ha<div class="m">canopy ${v.height.toFixed(1)} m</div>`;
-    line = `<b>${a}</b> Mg/ha &middot; canopy ${v.height.toFixed(1)} m &middot; ${at}`;
-    sub = `<div>${st.year}</div>`;
+    big = `<b>${a}</b> Mg/ha`;
+    mid = `<div>canopy ${v.height.toFixed(1)} m</div><div>${v.cls}</div>`;
+    line = `<b>${a}</b> Mg/ha &middot; canopy ${v.height.toFixed(1)} m &middot; ${v.cls} &middot; ${at}`;
+    sub = String(st.year);
   }
   el.innerHTML = line;
   if (!st.tips || !st.hoverPt || !st.hover) return void tip.classList.remove("on");
-  tip.innerHTML = `<div class="v">${big}</div><div class="s">${sub}<div>${pt[1].toFixed(4)},</div><div>${pt[0].toFixed(4)}</div></div>`;
+  tip.innerHTML = `<div class="v">${big}</div>${mid ? `<div class="c">${mid}</div>` : ""}<div class="s">${sub}</div><div class="s">${pt[1].toFixed(4)}</div><div class="s">${pt[0].toFixed(4)}</div>`;
   tip.classList.add("on");
   // by the pointer, kept inside the window
   const w = tip.offsetWidth, h = tip.offsetHeight;
@@ -515,14 +492,14 @@ function styleMode() {
   // folded, the card is its header: the short title, the ramp on the map and the year (Earthwork's card fold)
   $(".at-ramp").style.background = ramp;
   $(".sub").textContent = ch
-    ? "AlphaEarth: loss where the embedding itself moved, gain per 100 m cell above a floor"
+    ? "AlphaEarth, per 10 m pixel: loss where the head fell and the embedding itself moved, gain where it rose past a floor"
     : "AlphaEarth, one year's embedding";
   $(".unit").textContent = ch
-    ? "loss: percent of the pixel's own biomass the first year; gain: of its 100 m cell's. Clear: no change counted"
+    ? "percent of the pixel's own biomass the first year. Faint: steady ground of its class often changes as much. Clear: no change counted"
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
-    ? "<kbd>[</kbd><kbd>]</kbd> imagery year &nbsp; <kbd>C</kbd> each year &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>Q</kbd> picking &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search"
-    : '<kbd>-</kbd><kbd>=</kbd> year &nbsp; <kbd>[</kbd><kbd>]</kbd> imagery year &nbsp; <kbd>R</kbd> <span class="rk">rank stretch</span> &nbsp; <kbd>C</kbd> change &nbsp; <kbd>Space</kbd> imagery &nbsp; <kbd>P</kbd> pair &nbsp; <kbd>Q</kbd> picking &nbsp; <kbd>F</kbd> full screen &nbsp; <kbd>/</kbd> search';
+    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
+    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>R</kbd>&nbsp;<span class="rk">rank stretch</span> &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -531,9 +508,15 @@ function styleMode() {
 let bioLayers: unknown[] = [];
 /** The map's layers: the biomass, and Sentinel-2 over it while Space is held; the pair's left: Sentinel-2. */
 let s2Main: unknown[] = [], s2Left: unknown[] = [];
+/**
+ * The imagery's year is the year ([ ]): the embeddings' in each year; in change the imagery's own, which each year
+ * opens on. The nearest with a mosaic (EOX's start in 2019).
+ */
+const mapYear = () => st.year;
+const imgYear = () => s2YearFor(mapYear());
 function paint() {
-  s2Main = st.holding ? s2Layers(st.imgYear, "", st.gamma, firstLabel) : [];
-  s2Left = st.pair ? s2Layers(st.imgYear, "l", st.gamma, firstLabel2) : [];
+  s2Main = st.holding ? s2Layers(imgYear(), "", st.gamma, firstLabel) : [];
+  s2Left = st.pair ? s2Layers(imgYear(), "l", st.gamma, firstLabel2) : [];
   drawLayers();
   styleS2card();
 }
@@ -559,7 +542,8 @@ function drawLayers() {
 }
 function styleS2card() {
   s2card.classList.toggle("on", st.holding || st.pair);
-  s2card.innerHTML = `<div class="lab">Sentinel-2</div><div class="yr">${st.imgYear}</div><div class="keys"><kbd>[</kbd><kbd>]</kbd> year &nbsp; <kbd>;</kbd><kbd>'</kbd> gamma ${st.gamma.toFixed(1)}</div>`;
+  const y = imgYear(), off = y !== mapYear() ? `<div class="keys">no ${mapYear()} mosaic</div>` : "";
+  s2card.innerHTML = `<div class="lab">Sentinel-2</div><div class="yr">${y}</div>${off}<div class="keys"><kbd>;</kbd><kbd>'</kbd>&nbsp;gamma ${st.gamma.toFixed(1)}</div>`;
 }
 
 
@@ -604,7 +588,8 @@ function render() {
     );
   } else stopAhead();
   bioLayers = layers;
-  drawLayers();
+  // the imagery steps with the map's year
+  paint();
   for (const o of st.on) if (!want.includes(o)) bio.release(o);
   st.on = want;
   keyTicks();
@@ -647,11 +632,28 @@ function setMode(m: Mode) {
   styleMode();
   render();
 }
-/** - and =: the embeddings' year (each year). */
+/** [ and ]: the year: the embeddings' and the imagery's together (each year), the imagery's alone (change). */
 function step(d: number) {
-  if (st.mode !== "year") return;
   const y = YEARS[YEARS.indexOf(st.year) + d];
-  if (y !== undefined) setYear(y);
+  if (y === undefined) return;
+  if (st.mode === "year") return setYear(y);
+  // in change the window stays: the year steps the imagery, and each year opens on it (C)
+  st.year = y;
+  $(".year").textContent = String(y);
+  for (const s of yearsEl.querySelectorAll<HTMLElement>("span")) s.classList.toggle("on", Number(s.dataset.y) === y);
+  paint();
+}
+
+/** The basemap's labels (its symbol layers) shown or hidden, as st.labels says. */
+function styleLabels(m: maplibregl.Map) {
+  if (!m.isStyleLoaded() && !m.getStyle()?.layers) return;
+  for (const l of m.getStyle().layers) if (l.type === "symbol") m.setLayoutProperty(l.id, "visibility", st.labels ? "visible" : "none");
+}
+function toggleLabels() {
+  st.labels = !st.labels;
+  store("aef-biomass-labels", st.labels ? "1" : "0");
+  styleLabels(map);
+  if (map2) styleLabels(map2);
 }
 
 function toggleFull() {
@@ -664,11 +666,9 @@ document.addEventListener("fullscreenchange", () => setTimeout(() => map.resize(
 window.addEventListener("keydown", (e) => {
   // typing in the search keeps its keys; a slider never does
   if ((e.target instanceof HTMLInputElement && e.target.type !== "range") || e.metaKey || e.ctrlKey || e.altKey) return;
-  // matched by the key's code, so Shift or a keyboard layout does not change what [ and ] do
   if (e.code === "Space") {
     if (!e.repeat) beginHold();
-  } else if (e.code === "BracketLeft" || e.key === "[" || e.key === "{") stepImg(-1);
-  else if (e.code === "BracketRight" || e.key === "]" || e.key === "}") stepImg(1);
+  }
   // ; and ': the imagery's gamma (Earthwork's brightness keys)
   else if (e.code === "Semicolon" || e.code === "Quote") setGamma(st.gamma + (e.code === "Quote" ? 0.1 : -0.1));
   // Q: picking off and on (the tooltip and the gold outlines, Earthwork's)
@@ -680,15 +680,17 @@ window.addEventListener("keydown", (e) => {
   }
   // Esc folds the card
   else if (e.code === "Escape") fold(true);
-  // - and =: the embeddings' year
-  else if (e.code === "Minus" || e.key === "-" || e.key === "_") step(-1);
-  else if (e.code === "Equal" || e.key === "=" || e.key === "+") step(1);
+  // [ and ]: the year, the embeddings' and the imagery's together (Earthwork's); by the key's code, so Shift or a
+  // keyboard layout does not change them
+  else if (e.code === "BracketLeft") step(-1);
+  else if (e.code === "BracketRight") step(1);
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyR" && !e.shiftKey && st.mode === "year") {
     bio.setRank(!bio.stretch.rank);
     render();
   } else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
   else if (e.code === "KeyF") toggleFull();
+  else if (e.code === "KeyL" && !e.shiftKey) toggleLabels();
   else if (e.key === "/") search.focus();
   else return;
   e.preventDefault();
@@ -749,4 +751,5 @@ map.on("moveend", () => {
 styleMode();
 await mapLoaded;
 firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
+styleLabels(map);
 render();

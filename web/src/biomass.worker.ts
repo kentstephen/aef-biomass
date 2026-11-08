@@ -1,20 +1,21 @@
 import * as zarr from "zarrita";
 
 import { type AefArray, NUM_BANDS, openMosaic } from "./aef";
-import { changeOf } from "./change";
-import { type BiomassHead, packHead, probeGap, scoreCpu, toCode } from "./head";
+import { changeOf, type ConfTables } from "./change";
+import { argClass, type BiomassHead, packHead, probeGap, scoreCpu, toCode } from "./head";
 import { makeScorer, type Scorer } from "./head-gpu";
 
 /**
  * One chunk-year per ask: AlphaEarth's 64 bands read from the mosaic, then the biomass head on them (WebGPU,
- * else the CPU). Only the two u16 planes go back to the page (256 KB per 256 x 256 chunk), never the embedding.
- * A change ask reads the chunk in two years (the second from the disk cache, mostly) and sends back the change
- * plane of change.ts (Int16, 256 KB).
+ * else the CPU). Only the three u16 planes go back to the page (biomass, height, class: 384 KB per 256 x 256
+ * chunk), never the embedding. A change ask reads the chunk in two years (the second from the disk cache, mostly)
+ * and sends back the change planes of change.ts (Int16, 384 KB).
  */
 type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number };
-type Msg = { type: "init"; head: BiomassHead } | Read | { type: "abort"; id: number };
+type Msg = { type: "init"; head: BiomassHead; conf: ConfTables } | Read | { type: "abort"; id: number };
 
 let head: BiomassHead | null = null;
+let conf: ConfTables | null = null;
 let weights: Float32Array | null = null;
 let ready: Promise<Scorer> | null = null;
 let mosaic: Promise<AefArray> | null = null;
@@ -34,9 +35,13 @@ async function scorer(h: BiomassHead, w: Float32Array): Promise<Scorer> {
       for (let p = 0; p < n; p++) for (let b = 0; b < h.n_in; b++) e[b * n + p] = h.probe_q[p * h.n_in + b]!;
       const out = await g(e, n);
       gpuGap = 0;
-      for (let p = 0; p < n; p++)
+      let clsOff = 0;
+      for (let p = 0; p < n; p++) {
         for (let c = 0; c < 2; c++) gpuGap = Math.max(gpuGap, Math.abs(out[c * n + p]! - toCode(h.probe_out[p * h.n_out + c]!)));
-      if (gpuGap <= 4) {
+        if (out[2 * n + p] !== argClass(h.probe_out.slice(p * h.n_out, (p + 1) * h.n_out), h.n_out)) clsOff++;
+      }
+      // a class can flip on a near tie between float paths; more than one of the probe's 64 is a wrong shader
+      if (gpuGap <= 4 && clsOff <= 1) {
         use = g;
         mode = "gpu";
       }
@@ -69,7 +74,7 @@ async function read(m: Read) {
       const [ea, eb] = await Promise.all([get(m.timeIdx), get(m.timeIdxB)]);
       const ca = await score(ea, n);
       const cb = await score(eb, n);
-      planes = changeOf(ea, eb, ca, cb, m.w, m.h, m.px0, m.py0, m.timeIdxB - m.timeIdx);
+      planes = changeOf(ea, eb, ca, cb, n, m.timeIdxB - m.timeIdx, conf!);
     }
     postMessage({ id: m.id, planes }, { transfer: [planes.buffer as ArrayBuffer] });
   } catch (e) {
@@ -84,6 +89,7 @@ self.onmessage = (ev: MessageEvent<Msg>) => {
   const m = ev.data;
   if (m.type === "init") {
     head = m.head;
+    conf = m.conf;
     weights = packHead(head);
     ready = scorer(head, weights);
   } else if (m.type === "abort") running.get(m.id)?.abort();

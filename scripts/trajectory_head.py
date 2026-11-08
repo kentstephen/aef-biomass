@@ -19,7 +19,7 @@ numbers on the same cells come from data/heads/change_cells_<input>.npz.
 Writes data/heads/traj_<input>.npz (weights), data/heads/change_cells_traj_<input>.npz, results/trajectory_head.json.
 Peak RAM about 9 GB (rows, one input's features, one square's float features).
 
-    uv run scripts/trajectory_head.py [--inputs olmo all aef] [--epochs 8] [--limit N]
+    uv run scripts/trajectory_head.py [--inputs olmo all aef aef+tes] [--epochs 8] [--limit N] [--train-only]
 """
 import argparse
 import json
@@ -36,6 +36,7 @@ sys.path.insert(0, str(HERE / "scripts"))
 import biomass_change as bc  # noqa: E402
 import biomass_head as bh  # noqa: E402
 import change_calibrate as cc  # noqa: E402
+import pair_heads as ph  # noqa: E402
 
 YEARS = bc.YEARS
 EMB = bc.EMB
@@ -110,6 +111,7 @@ def main():
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--max-gb", type=float, default=16)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--train-only", action="store_true", help="save the fold weights, skip the cell scoring")
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
     t0 = time.time()
@@ -121,7 +123,7 @@ def main():
             fold_of[names[s]] = fname
     nets = {}
     for inp in args.inputs:
-        X, ok = bh.build(R, inp)
+        X, ok = ph.build_pair(R, inp) if "+" in inp else bh.build(R, inp)
         weights = {}
         for fname, test in bh.folds(R, "square"):
             train = np.setdiff1d(np.arange(len(R["agb"])), test)
@@ -135,6 +137,9 @@ def main():
         np.savez(HERE / "data" / "heads" / f"traj_{inp}.npz", **weights)
         del X, ok
     del R
+    if args.train_only:
+        print(f"done (train only) {time.time() - t0:.0f} s", flush=True)
+        return
 
     D = np.load(HERE / "models" / "detectors.npz")
     ia = [YEARS.index(a) for a, _ in bc.WINDOWS]

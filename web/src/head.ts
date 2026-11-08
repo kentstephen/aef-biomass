@@ -1,10 +1,11 @@
 /**
  * The biomass head (scripts/export_biomass_head.py): one 64 -> 64 -> 2 network on a single year's AlphaEarth
  * embedding, dequantized sign(q) * (q / 127.5)^2 and standardized, in fire-knn's fuel_volume.json layout.
- * Outputs: log1p(biomass, Mg/ha) and log1p(canopy height, m).
+ * Outputs: log1p(biomass, Mg/ha), log1p(canopy height, m), then the nine class logits (classes, below).
  *
- * Per pixel the scorer writes two u16 codes: 0 = no embedding, else 1 + round(log1p(value) * CODE), so a code
- * is the log value at 1 / 8000 steps (biomass to about 3,600 Mg/ha).
+ * Per pixel the scorer writes three u16 planes: two codes, 0 = no embedding, else 1 + round(log1p(value) * CODE),
+ * so a code is the log value at 1 / 8000 steps (biomass to about 3,600 Mg/ha); then the class, the largest logit's
+ * index (the change map keys its steady-ground tables on it).
  */
 export type BiomassHead = {
   name: string;
@@ -12,6 +13,7 @@ export type BiomassHead = {
   hidden: number;
   n_out: number;
   out: string[];
+  classes: string[];
   years: number[];
   mean: number[];
   scale: number[];
@@ -71,14 +73,25 @@ function forward(h: BiomassHead, w: Float32Array, e: Int8Array, n: number, p: nu
   return true;
 }
 
-/** The head on the CPU, for when WebGPU is missing: e is one year, band-major int8 [64, n]; out [agb codes n, height codes n]. */
+/** The class: the index of the largest of the logits after the two values. */
+export function argClass(z: ArrayLike<number>, nOut: number): number {
+  let best = 0;
+  for (let c = 3; c < nOut; c++) if (z[c]! > z[2 + best]!) best = c - 2;
+  return best;
+}
+
+/**
+ * The head on the CPU, for when WebGPU is missing: e is one year, band-major int8 [64, n];
+ * out [agb codes n, height codes n, class n].
+ */
 export function scoreCpu(h: BiomassHead, w: Float32Array, e: Int8Array, n: number): Uint16Array {
-  const out = new Uint16Array(2 * n);
+  const out = new Uint16Array(3 * n);
   const x = new Float32Array(h.n_in), hid = new Float32Array(h.hidden), z = new Float32Array(h.n_out);
   for (let p = 0; p < n; p++) {
     if (!forward(h, w, e, n, p, x, hid, z)) continue;
     out[p] = toCode(z[0]!);
     out[n + p] = toCode(z[1]!);
+    out[2 * n + p] = argClass(z, h.n_out);
   }
   return out;
 }

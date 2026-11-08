@@ -5,7 +5,9 @@
 """The map's biomass head: AlphaEarth alone, taught on all 92 squares (biomass_head.py's fit, same settings), written
 in fire-knn's fuel_volume.json layout so the browser runs it as fire-knn runs its volume head.
 
-Outputs kept: log1p(biomass, Mg/ha per 10 m pixel) and log1p(canopy height, m); the class logits are dropped.
+Outputs kept: log1p(biomass, Mg/ha per 10 m pixel), log1p(canopy height, m), and the nine class logits (trees,
+shrub, grass, crop, built, bare, water, wetland, moss; taught on WorldCover x IO agreement). The change map keys its
+steady-ground confidence tables on the class (scripts/growth_test.py writes them).
 The held-out scores of this head's recipe are FINDINGS section 7 (AEF, by square: R2 of log .70, median error 10 Mg/ha).
 
 Writes web/public/models/biomass_aef.json. RAM ~2 GB (biomass_head.log), stops itself over --max-gb.
@@ -45,7 +47,8 @@ def main():
         raise SystemExit(f"STOP: RSS {gb:.1f} GB")
 
     sd = {k: v.numpy().astype(np.float64) for k, v in net.state_dict().items()}
-    w2, b2 = sd["l2.weight"][:2], sd["l2.bias"][:2]
+    w2, b2 = sd["l2.weight"], sd["l2.bias"]
+    n_out = w2.shape[0]
 
     # probe: real embeddings from the rows (valid ones), pixel-major int8 [n, 64], and the head's raw outputs
     rng = np.random.default_rng(0)
@@ -53,14 +56,15 @@ def main():
     good = np.flatnonzero(q[:, 0] != -128)
     pq = q[rng.choice(good, 64, replace=False)]
     with torch.no_grad():
-        po = net(torch.as_tensor(bh.deq(pq)))[:, :2].numpy()
+        po = net(torch.as_tensor(bh.deq(pq))).numpy()
 
     head = {
         "name": "biomass_aef",
         "n_in": 64,
         "hidden": bh.HID,
-        "n_out": 2,
-        "out": ["log1p_agb_mg_ha", "log1p_height_m"],
+        "n_out": int(n_out),
+        "out": ["log1p_agb_mg_ha", "log1p_height_m"] + [f"logit_{c}" for c in R["classes"]],
+        "classes": [str(c) for c in R["classes"]],
         "years": [int(y) for y in R["years"]],
         "mean": sd["mu"].tolist(),
         "scale": sd["sd"].tolist(),

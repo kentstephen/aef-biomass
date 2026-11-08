@@ -1,3 +1,4 @@
+import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
 import BiomassWorker from "./biomass.worker.ts?worker";
 
@@ -13,7 +14,7 @@ export class Pool {
   modes: Mode[] = [];
   onMode: (m: Mode) => void = () => {};
 
-  constructor(head: BiomassHead, size = Math.max(2, Math.min(4, (navigator.hardwareConcurrency || 4) - 2))) {
+  constructor(head: BiomassHead, conf: ConfTables, size = Math.max(2, Math.min(4, (navigator.hardwareConcurrency || 4) - 2))) {
     this.ws = Array.from({ length: size }, () => {
       const w = new BiomassWorker();
       const ent: W = { w, busy: 0, waiting: new Map() };
@@ -32,17 +33,17 @@ export class Pool {
         if (d.error) p.no(Object.assign(new Error(d.error.message), { name: d.error.name }));
         else p.ok(d.planes!);
       };
-      w.postMessage({ type: "init", head });
+      w.postMessage({ type: "init", head, conf });
       return ent;
     });
   }
 
-  /** One chunk-year of the mosaic, read and scored: [agb codes n, height codes n]. */
+  /** One chunk-year of the mosaic, read and scored: [agb codes n, height codes n, class n]. */
   read(timeIdx: number, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Uint16Array> {
     return this.ask({ timeIdx }, py0, px0, h, w, signal) as Promise<Uint16Array>;
   }
 
-  /** One chunk's change from one year to a later one (change.ts): [percent x 100 n, Mg/ha x 4 n]. */
+  /** One chunk's change from one year to a later one (change.ts): [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n]. */
   change(timeIdx: number, timeIdxB: number, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Int16Array> {
     return this.ask({ timeIdx, timeIdxB }, py0, px0, h, w, signal) as Promise<Int16Array>;
   }

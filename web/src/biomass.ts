@@ -5,16 +5,16 @@ import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
 import { type AefArray, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
-import { CH_NODATA, MG_SCALE, PCT_SCALE } from "./change";
+import { CH_NODATA, CONF_SCALE, type ConfTables, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
 import { type BiomassHead, CODE, codeValue } from "./head";
 import { Pool } from "./pool";
 import { CHANGE_50, glslRamp, VIRIDIS_50 } from "./ramp";
 
-/** One chunk on the GPU: a year's biomass codes (r16uint) or a window's change in percent x 100 (r16sint). */
+/** One chunk on the GPU: a year's biomass codes (r16uint) or a window's change, percent x 100 and confidence x 10000 (rg16sint). */
 type TileData = MinimalTileData & { key: string; tex: Texture };
 /**
- * One chunk's two planes on the page: a year's [agb codes n, height codes n] (Uint16), or a window's
- * [percent x 100 n, Mg/ha x 4 n] (Int16, change.ts).
+ * One chunk's planes on the page: a year's [agb codes n, height codes n, class n] (Uint16), or a window's
+ * [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n] (Int16, change.ts).
  */
 type Planes = { planes: Uint16Array | Int16Array; w: number; h: number };
 
@@ -25,11 +25,16 @@ export const yearKey = (y: number) => String(y);
 export const windowKey = (a: number, b: number) => `${a}-${b}`;
 const windowOf = (lk: string) => (lk.includes("-") ? (lk.split("-").map(Number) as [number, number]) : null);
 
-/** The change ramp's ends, percent: loss to the pixel's whole biomass, gain to one and a half times the cell's. */
+/** The change ramp's ends, percent of the pixel's own biomass: loss to all of it, gain to one and a half times it. */
 export const LOSS_END = 100;
 export const GAIN_END = 150;
-/** Below this much change (percent) a pixel fades toward transparent; exactly 0 is not drawn at all. */
-export const FADE = 40;
+/**
+ * Opacity from confidence, not from size: a pixel is drawn at ALPHA_MIN at the low end of its confidence and fully
+ * at the top. Loss from LOSS_FROM (below it nothing is drawn), gain from GAIN_FROM (it is drawn wherever it passes
+ * the floor, faint where steady ground of its class often rises as much). Exactly 0 is not drawn at all.
+ */
+export const GAIN_FROM = 0.5;
+export const ALPHA_MIN = 0.2;
 
 export type Stretch = { lo: number; hi: number; rank: boolean; n: number };
 
@@ -75,14 +80,16 @@ float biomass_cdf(float t) {
 
 /**
  * A window's change per pixel on the 50-stop orange (loss) to white to blue (gain) ramp: loss to -LOSS_END %, gain
- * to +GAIN_END %. No change is not drawn; small change fades toward transparent below FADE %.
+ * to +GAIN_END %; its opacity from its confidence. No change is not drawn.
  */
 const ChangeColor = {
   name: "change",
   fs: `uniform changeUniforms {
   float lossEnd;
   float gainEnd;
-  float fade;
+  float lossFrom;
+  float gainFrom;
+  float alphaMin;
 } change;`,
   inject: {
     "fs:#decl": `precision highp isampler2D;
@@ -91,25 +98,28 @@ ${glslRamp("changeRamp", CHANGE_50)}`,
     "fs:DECKGL_FILTER_COLOR": /* glsl */ `
       ivec2 size = textureSize(chTex, 0);
       ivec2 px = clamp(ivec2(geometry.uv * vec2(size)), ivec2(0), size - 1);
-      int c = texelFetch(chTex, px, 0).r;
+      ivec2 cc = texelFetch(chTex, px, 0).rg;
+      int c = cc.r;
       if (c == 0 || c == ${CH_NODATA}) discard;
       float pct = float(c) / ${PCT_SCALE.toFixed(1)};
+      float conf = float(cc.g) / ${CONF_SCALE.toFixed(1)};
       float t = pct < 0.0 ? 0.5 - 0.5 * min(-pct / change.lossEnd, 1.0) : 0.5 + 0.5 * min(pct / change.gainEnd, 1.0);
-      float a = mix(0.1, 1.0, smoothstep(0.0, change.fade, abs(pct)));
+      float from = pct < 0.0 ? change.lossFrom : change.gainFrom;
+      float a = mix(change.alphaMin, 1.0, smoothstep(from, 0.995, conf));
       color = vec4(changeRamp(t), a);
     `,
   },
-  uniformTypes: { lossEnd: "f32", gainEnd: "f32", fade: "f32" },
+  uniformTypes: { lossEnd: "f32", gainEnd: "f32", lossFrom: "f32", gainFrom: "f32", alphaMin: "f32" },
   getUniforms: (p: Record<string, unknown>) => p,
-} as unknown as ShaderModule<{ chTex: Texture; lossEnd: number; gainEnd: number; fade: number }>;
+} as unknown as ShaderModule<{ chTex: Texture; lossEnd: number; gainEnd: number; lossFrom: number; gainFrom: number; alphaMin: number }>;
 
-export async function createBiomass(head: BiomassHead, beforeId: () => string | undefined) {
+export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeId: () => string | undefined) {
   const { arr, attrs } = await openMosaic();
   const [, , H, W] = arr.shape as number[];
-  const pool = new Pool(head);
+  const pool = new Pool(head, conf);
 
-  // the planes by "year:row-col", the last used last; 256 KB each, at most CAP_BYTES (a zoom 11 view in a large
-  // window is about 1,000 chunks, 250 MB)
+  // the planes by "year:row-col", the last used last; 384 KB each, at most CAP_BYTES (a zoom 11 view in a large
+  // window is about 1,000 chunks, 375 MB)
   const planes = new Map<string, Planes>();
   const CAP_BYTES = 384 * 1024 ** 2;
   let planeBytes = 0;
@@ -308,23 +318,36 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
         const p = await planesFor(lk, py0, px0, height, width, o.signal);
         const key = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
         loaded.add(key);
+        const n = width * height;
+        let data: Uint16Array | Int16Array = p.planes.slice(0, n);
+        if (win) {
+          // the change's percent and confidence side by side, one texel each
+          data = new Int16Array(2 * n);
+          for (let i = 0; i < n; i++) {
+            data[2 * i] = p.planes[i]!;
+            data[2 * i + 1] = p.planes[2 * n + i]!;
+          }
+        }
         const tex = o.device.createTexture({
-          format: win ? "r16sint" : "r16uint",
+          format: win ? "rg16sint" : "r16uint",
           width,
           height,
           mipLevels: 1,
-          data: p.planes.slice(0, width * height),
+          data,
           sampler: { minFilter: "nearest", magFilter: "nearest", addressModeU: "clamp-to-edge", addressModeV: "clamp-to-edge" },
         });
         let set = texOf.get(lk);
         if (!set) texOf.set(lk, (set = new Set()));
         set.add(tex);
-        return { key, tex, width, height, byteLength: 2 * width * height };
+        return { key, tex, width, height, byteLength: data.byteLength };
       },
       renderTile: (data: TileData) => ({
         renderPipeline: [
           win
-            ? { module: ChangeColor, props: { chTex: data.tex, lossEnd: LOSS_END, gainEnd: GAIN_END, fade: FADE } }
+            ? {
+                module: ChangeColor,
+                props: { chTex: data.tex, lossEnd: LOSS_END, gainEnd: GAIN_END, lossFrom: LOSS_FROM, gainFrom: GAIN_FROM, alphaMin: ALPHA_MIN },
+              }
             : {
                 module: BiomassColor,
                 props: { agbTex: data.tex, cdfTex: cdfTexture(device!), lo: stretch.lo, hi: stretch.hi, rank: stretch.rank ? 1 : 0 },
@@ -360,8 +383,8 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     if (set) setTimeout(() => set.forEach((t) => t.destroy()), 1500);
   }
 
-  /** A layer's two plane values at a point, from the planes in hand; null where none. */
-  function planeAt(lon: number, lat: number, lk: string): [number, number, Planes] | null {
+  /** A layer's three plane values at a point, from the planes in hand; null where none. */
+  function planeAt(lon: number, lat: number, lk: string): [number, number, number] | null {
     const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
     const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
     const p = planes.get(keyOf(lk, r, c));
@@ -369,21 +392,21 @@ export async function createBiomass(head: BiomassHead, beforeId: () => string | 
     const ix = px - c * CHUNK, iy = py - r * CHUNK;
     if (ix < 0 || iy < 0 || ix >= p.w || iy >= p.h) return null;
     const i = iy * p.w + ix, n = p.w * p.h;
-    return [p.planes[i]!, p.planes[n + i]!, p];
+    return [p.planes[i]!, p.planes[n + i]!, p.planes[2 * n + i]!];
   }
 
-  /** Biomass (Mg/ha) and canopy height (m) at a point for a year, from the planes in hand; null where none. */
-  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number } | null {
+  /** Biomass (Mg/ha), canopy height (m) and the head's class at a point for a year, from the planes in hand; null where none. */
+  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number; cls: string } | null {
     const v = planeAt(lon, lat, yearKey(year));
     if (!v || v[0] === 0) return null;
-    return { agb: codeValue(v[0]), height: codeValue(v[1]) };
+    return { agb: codeValue(v[0]), height: codeValue(v[1]), cls: head.classes[v[2]] ?? "" };
   }
 
-  /** A window's change at a point: percent (of the pixel's biomass, or its cell's for gain) and Mg/ha. */
-  function changeAtPoint(lon: number, lat: number, lk: string): { pct: number; mg: number } | null {
+  /** A window's change at a point: percent of the pixel's biomass, Mg/ha, and its confidence (0 to 1). */
+  function changeAtPoint(lon: number, lat: number, lk: string): { pct: number; mg: number; conf: number } | null {
     const v = planeAt(lon, lat, lk);
     if (!v || v[0] === CH_NODATA) return null;
-    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE };
+    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE, conf: v[2] / CONF_SCALE };
   }
 
   /** How many of the chunks under a box are on the GPU for a layer. */

@@ -52,11 +52,13 @@ forest.
 - `PLAN.md`: the plan for the biomass classes and their change.
 - `web/`: the map. Biomass from AlphaEarth alone, the head run on the GPU in the browser (WebGPU in workers, the CPU
   without it). Two settings (C): each year, on a 50-stop viridis ramp, log scale from 0 to 350+ Mg/ha; and change
-  over a window of years (Earthwork's two-handle range, the span between the ends drags the window), loss per 10 m
-  pixel where the embedding itself moved, gain per 100 m cell above a floor (FINDINGS 22), on a 50-stop orange to
+  over a window of years (Earthwork's two-handle range, the span between the ends drags the window), every 10 m
+  pixel drawn with its confidence (FINDINGS 29 to 31): loss where the head fell and the embedding itself moved,
+  gain where the pixel's own rise passed a two-part floor, each pixel's opacity from how unusual its change is on
+  steady ground of its class (the head's own class; `web/public/models/change_conf.json`), on a 50-stop orange to
   white to blue ramp, no change left clear. Sentinel-2 cloudless by EOX, 2019 onward: hold Space for it over the
-  whole map, P pairs it on the left with one camera. Keys: `-` `=` the embeddings' year (the next one is read
-  ahead), `[` `]` the imagery's year, `;` `'` its gamma, R spreads the ramp over the view, Esc folds the card,
+  whole map, P pairs it on the left with one camera. Keys: `[` `]` the year, the embeddings' and the imagery's
+  together (the next one is read ahead; in change they step the imagery alone, and each year opens on its year), `;` `'` the imagery's gamma, R spreads the ramp over the view, Esc folds the card,
   F full screen, / search. AlphaEarth is read from zoom 11 in, straight from S3 behind Source Cooperative, its chunks
   kept on disk between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn
   and Earthwork's web apps. Run: `cd web && npm install && npm run dev` (port 3010). The head:
@@ -102,6 +104,7 @@ forest.
 | `nlcd_check.py` | Biomass by land cover and by class change from year to year, against Annual NLCD (`--source nlcd`, CONUS) or Esri's annual land cover (`--source io`, worldwide) |
 | `change_confidence.py` | The head's change on steady ground (Esri class held, CTrees steady) per class and window length: how big a change must be to be believed |
 | `change_confidence_test.py` | Every way of drawing change with its confidence (one percent table, per class, with the embedding's move; gain per pixel, sliding 100 m or fixed blocks) against lidar and Esri's changes, held out by square |
+| `growth_test.py` | The ways to a stronger growth signal (the trajectory head, TESSERA, the two together) under `change_confidence_test.py`'s harness, every head held out; for the map's head, the confidence keyed on its own class, and the browser's tables (`--write-tables`) |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold

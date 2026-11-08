@@ -31,9 +31,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 /* top right: the search and the card line up on their right edges */
 .at-top { align-items: flex-end; }
 .at-search { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px;
-  width: var(--yw, 100%); transition: width 0.15s; }
-/* in use (or holding a query), full width again */
-.at-search:focus-within { width: 100%; }
+  width: 100%; }
 .at-search svg { flex: 0 0 auto; opacity: 0.6; }
 .at-search input { flex: 1; min-width: 0; background: none; border: 0; color: var(--text); font: inherit; outline: none; }
 .at-search input::placeholder { color: var(--muted); }
@@ -56,7 +54,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .at-cb:hover { background: var(--sel); color: var(--text); }
 .at-cb svg { transition: transform 0.15s; }
 .card .at-ramp, .card .hy { display: none; }
-.card.collapsed { padding: 7px 7px 7px 14px; width: max-content; border-radius: 11px; }
+.card.collapsed { padding: 7px 7px 7px 14px; width: 100%; border-radius: 11px; }
 .card.collapsed .at-hd .t { font-size: 14px; }
 /* folded, the year is what you read: large and in full color */
 .card.collapsed .at-hd .hy { font-size: 20px; font-weight: 600; color: var(--text); }
@@ -150,19 +148,23 @@ body.pair #map { left: 50%; }
 .at-hd .ts { display: none; }
 .card.collapsed .at-hd .tl { display: none; }
 .card.collapsed .at-hd .ts { display: inline; }
-.card.collapsed .at-ramp { width: 84px; }
+/* folded, the card keeps its open width: the ramp takes what the header leaves */
+.card.collapsed .at-ramp { width: auto; flex: 1 1 auto; min-width: 24px; }
 /* open, narrow and tall: the year chips and the window's years on lines of their own */
 .yearrow { flex-wrap: wrap; }
 .yearrow .years { flex-basis: 100%; margin: 6px 0 0; justify-content: space-between; }
 .winrow .at-wtxt { flex-basis: 100%; text-align: right; margin-top: -2px; }
 .winrow .at-lab { min-width: 0; }
-/* the pixel's tooltip, by the pointer (Q hides it) */
-/* narrow and tall: one item a line */
-.tip { position: fixed; left: 0; top: 0; z-index: 9; display: none; padding: 7px 11px 8px; pointer-events: none; font-size: 12.5px;
-  max-width: 150px; line-height: 1.35; }
+/* the pixel's tooltip, by the pointer (Q hides it): vertical, one item a line, narrow; as tall as its lines need,
+   a long line wraps inside the width */
+.tip { position: fixed; left: 0; top: 0; z-index: 9; display: none; padding: 8px 12px 9px; pointer-events: none; font-size: 12.5px;
+  width: max-content; min-width: 96px; max-width: min(170px, calc(100vw - 24px)); line-height: 1.35; }
 .tip.on { display: block; }
 .tip.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
-.tip .v { font-size: 13px; }
-.tip .v b { font-size: 17px; font-weight: 600; }
-.tip .v .m { color: var(--text); font-size: 12.5px; }
-.tip .s { color: var(--muted); font-size: 11px; margin-top: 3px; }
+.tip .v { font-size: 13px; white-space: nowrap; }
+.tip .v b { font-size: 18px; font-weight: 600; }
+.tip .v .m { font-size: 13px; color: var(--text); }
+.tip .v .none { font-size: 13px; white-space: normal; }
+.tip .c { margin-top: 4px; color: var(--text); }
+.tip .s { color: var(--muted); font-size: 11.5px; white-space: nowrap; }
+.tip .c + .s, .tip .v + .s { margin-top: 5px; }

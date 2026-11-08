@@ -1,104 +1,102 @@
 import { codeValue, deq, NODATA } from "./head";
 
 /**
- * Biomass change between two years, the rule FINDINGS section 22 found best against airborne lidar (.84 per 100 m
- * cell) and the cheapest to read: AlphaEarth for both parts.
- * - Loss, per pixel: the head's fall from year a to year b, kept only where the embedding itself moved past the
- *   frozen clearcut cutoff ((1 - cosine) / AEF_CUT >= 1, models/detectors.npz), divided by the loss factor (the
- *   head's muting on clear loss cells), and capped at the pixel's own biomass in year a.
- * - Gain, per 100 m cell (10 x 10 pixels on the mosaic's grid): the head's mean rise, counted at its own size where
- *   it is at least TAU Mg/ha and a quarter of the cell's biomass in year a. Scaling it up again brings the noise back.
- * Factors and floors from results/change_combined.json (floor, raw, aef+oney_aef), linear between the one-year and
- * seven-year fits. Everything else is exactly 0, which the map leaves fully transparent (96 % of steady pixels).
+ * Biomass change between two years, per 10 m pixel, drawn with its confidence (FINDINGS 29 to 31). A pixel's
+ * confidence is how unusual its change is on steady ground: the share of steady pixels of the same class (the
+ * head's own, at the first year) and window length whose change is smaller (models/change_conf.json, built by
+ * scripts/growth_test.py from the steady pixels of 127 squares).
+ * - Loss: the head's fall, its confidence the lower of two: the fall in percent of the pixel's own biomass, and the
+ *   embedding's own move ((1 - cosine) / AEF_CUT). Drawn from LOSS_FROM up. Its size is divided by the loss factor
+ *   (the head's muting on clear loss cells) and capped at the pixel's own biomass in year a.
+ * - Gain: the pixel's own rise, where it is at least TAU Mg/ha and a quarter of the pixel's biomass in year a (the
+ *   two-part floor); its confidence from the rise in Mg/ha. Per pixel finds more of lidar's regrowth than 100 m
+ *   blocks for the same steady ground lit: averaging over 100 m does not lower the noise, whole patches drift.
+ * Factors and floors from results/change_combined.json, linear between the one-year and seven-year fits.
+ * Everything else is exactly 0, which the map leaves fully transparent.
  */
 export const AEF_CUT = 0.1035354882478714;
 const FIT = { L1: { tau: 20, loss: 0.34219714999198914 }, L7: { tau: 40, loss: 0.8100864887237549 } };
-export const CELL = 10;
-/** The fewest pixels with both years for a cell's gain to count (a cell cut by a chunk edge keeps its part). */
-const CELL_MIN = 30;
+/** Loss is drawn from this confidence up (FINDINGS 30: at .95 it lights 1 to 3 % of steady ground). */
+export const LOSS_FROM = 0.9;
 
 export function ruleFor(years: number) {
   const f = Math.min(1, Math.max(0, (years - 1) / 6));
   return { tau: FIT.L1.tau + (FIT.L7.tau - FIT.L1.tau) * f, loss: FIT.L1.loss + (FIT.L7.loss - FIT.L1.loss) * f };
 }
 
-/** The change plane's codes: percent x 100 (no data at CH_NODATA), and Mg/ha x 4. */
+/** The steady-ground tables: per value, "class:L" -> quantiles at the shares p. */
+export type ConfTables = {
+  classes: string[];
+  p: number[];
+  L: number[];
+  q: Record<"neg_dpct" | "pos_d" | "mv", Record<string, number[]>>;
+};
+
+/** The share of steady pixels below x, from a table's quantiles (linear between them). */
+function shareBelow(p: number[], q: number[], x: number): number {
+  if (!(x > q[0]!)) return 0;
+  const n = q.length;
+  if (x > q[n - 1]!) return 1;
+  let lo = 0, hi = n - 1;
+  while (hi - lo > 1) {
+    const m = (lo + hi) >> 1;
+    if (q[m]! < x) lo = m;
+    else hi = m;
+  }
+  const span = q[hi]! - q[lo]!;
+  return span > 0 ? p[lo]! + ((p[hi]! - p[lo]!) * (x - q[lo]!)) / span : p[lo]!;
+}
+
+/** The change plane's codes: percent x 100 (no data at CH_NODATA), Mg/ha x 4, and the confidence x 10000. */
 export const CH_NODATA = -32768;
 export const PCT_SCALE = 100;
 export const MG_SCALE = 4;
+export const CONF_SCALE = 10000;
 const clamp16 = (v: number) => Math.max(-32767, Math.min(32767, Math.round(v)));
 
 /**
- * One chunk's change from year a to year b. ea, eb: band-major int8 [64, n]; ca, cb: the head's codes for each
- * ([agb n, height n]). px0, py0: the chunk's place on the mosaic's grid, so the 100 m cells line up across chunks.
- * Out: Int16 [percent x 100 n, Mg/ha x 4 n]. Loss is a percent of the pixel's own biomass in year a, gain of its
- * cell's.
+ * One chunk's change from year a to year b. ea, eb: band-major int8 [64, n]; ca, cb: the head's planes for each
+ * ([agb codes n, height codes n, class n]). Out: Int16 [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n].
+ * Both loss and gain are a percent of the pixel's own biomass in year a.
  */
 export function changeOf(
-  ea: Int8Array, eb: Int8Array, ca: Uint16Array, cb: Uint16Array,
-  w: number, h: number, px0: number, py0: number, years: number,
+  ea: Int8Array, eb: Int8Array, ca: Uint16Array, cb: Uint16Array, n: number, years: number, T: ConfTables,
 ): Int16Array {
-  const n = w * h;
   const { tau, loss } = ruleFor(years);
-  const a = new Float32Array(n), d = new Float32Array(n);
-  const ok = new Uint8Array(n);
+  const L = Math.min(Math.max(years, T.L[0]!), T.L[T.L.length - 1]!);
+  const tab = (v: keyof ConfTables["q"], c: number) => T.q[v][`${T.classes[c] ?? "all"}:${L}`] ?? T.q[v][`all:${L}`]!;
+  const out = new Int16Array(3 * n).fill(CH_NODATA, 0, n);
   for (let p = 0; p < n; p++) {
     if (ca[p] === 0 || cb[p] === 0 || ea[p] === NODATA || eb[p] === NODATA) continue;
-    ok[p] = 1;
-    a[p] = codeValue(ca[p]!);
-    d[p] = codeValue(cb[p]!) - a[p]!;
-  }
-  // the cells: the mean rise and the mean year-a biomass of the pixels with both years
-  const cx0 = Math.floor(px0 / CELL), cy0 = Math.floor(py0 / CELL);
-  const ncx = Math.floor((px0 + w - 1) / CELL) - cx0 + 1, ncy = Math.floor((py0 + h - 1) / CELL) - cy0 + 1;
-  const sd = new Float32Array(ncx * ncy), sa = new Float32Array(ncx * ncy), cnt = new Uint16Array(ncx * ncy);
-  const cellOf = (p: number) => {
-    const x = p % w, y = (p / w) | 0;
-    return (Math.floor((py0 + y) / CELL) - cy0) * ncx + (Math.floor((px0 + x) / CELL) - cx0);
-  };
-  for (let p = 0; p < n; p++) {
-    if (!ok[p]) continue;
-    const c = cellOf(p);
-    sd[c] += d[p]!;
-    sa[c] += a[p]!;
-    cnt[c]!++;
-  }
-  const gain = new Float32Array(ncx * ncy), gainBase = new Float32Array(ncx * ncy);
-  for (let c = 0; c < gain.length; c++) {
-    if (cnt[c]! < CELL_MIN) continue;
-    const g = sd[c]! / cnt[c]!, base = Math.max(sa[c]! / cnt[c]!, 1);
-    if (g > 0 && g >= tau && g >= 0.25 * base) {
-      gain[c] = g;
-      gainBase[c] = base;
-    }
-  }
-  const out = new Int16Array(2 * n).fill(CH_NODATA, 0, n);
-  for (let p = 0; p < n; p++) {
-    if (!ok[p]) continue;
-    let mg = 0, pct = 0;
-    if (d[p]! < 0) {
-      // the gate: the embedding's own move between the two years, as a cosine on the dequantized bands
-      let ab = 0, aa = 0, bb = 0;
-      for (let b = 0; b < 64; b++) {
-        const u = deq(ea[b * n + p]!), v = deq(eb[b * n + p]!);
-        ab += u * v;
-        aa += u * u;
-        bb += v * v;
+    const a = codeValue(ca[p]!), d = codeValue(cb[p]!) - a;
+    const cls = ca[2 * n + p]!;
+    let mg = 0, pct = 0, conf = 0;
+    if (d < 0) {
+      const cPct = shareBelow(T.p, tab("neg_dpct", cls), (-100 * d) / Math.max(a, 1));
+      if (cPct >= LOSS_FROM) {
+        // the embedding's own move between the two years, as a cosine on the dequantized bands
+        let ab = 0, aa = 0, bb = 0;
+        for (let b = 0; b < 64; b++) {
+          const u = deq(ea[b * n + p]!), v = deq(eb[b * n + p]!);
+          ab += u * v;
+          aa += u * u;
+          bb += v * v;
+        }
+        const mv = (1 - ab / Math.max(Math.sqrt(aa * bb), 1e-12)) / AEF_CUT;
+        conf = Math.min(cPct, shareBelow(T.p, tab("mv", cls), mv));
+        if (conf >= LOSS_FROM) {
+          mg = Math.max(d / loss, -a);
+          pct = (100 * mg) / Math.max(a, 1);
+        }
       }
-      const cos = ab / Math.max(Math.sqrt(aa * bb), 1e-12);
-      if ((1 - cos) / AEF_CUT >= 1) {
-        const l = Math.max(d[p]! / loss, -a[p]!);
-        mg += l;
-        pct += (100 * l) / Math.max(a[p]!, 1);
-      }
-    }
-    const c = cellOf(p);
-    if (gain[c]! > 0) {
-      mg += gain[c]!;
-      pct += (100 * gain[c]!) / gainBase[c]!;
+    } else if (d >= tau && d >= 0.25 * Math.max(a, 1)) {
+      mg = d;
+      pct = (100 * d) / Math.max(a, 1);
+      conf = shareBelow(T.p, tab("pos_d", cls), d);
     }
     out[p] = mg === 0 ? 0 : clamp16(pct * PCT_SCALE) || (mg < 0 ? -1 : 1);
     out[n + p] = clamp16(mg * MG_SCALE);
+    out[2 * n + p] = mg === 0 ? 0 : clamp16(conf * CONF_SCALE);
   }
   return out;
 }

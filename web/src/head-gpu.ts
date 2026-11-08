@@ -4,7 +4,8 @@ import { type BiomassHead, CODE, LOG_MAX } from "./head";
 /**
  * The biomass head as a WebGPU compute pass (after fire-knn's fuel/volume-gpu.ts), one thread per pixel, run once
  * per chunk-year. The year goes up as raw int8 packed in u32 words; each thread dequantizes, standardizes, runs
- * the network and writes the two codes of head.ts (biomass in the low 16 bits, height in the high 16).
+ * the network and writes the two codes of head.ts (biomass in the low 16 bits, height in the high 16), then the
+ * class (the largest logit's index) in a second word.
  */
 export type Scorer = (e: Int8Array, n: number) => Promise<Uint16Array>;
 
@@ -31,7 +32,7 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
   let p = gid.x;
   let n = prm.n;
   if (p >= n) { return; }
-  if (q8(p) == -128) { outp[p] = 0u; return; }
+  if (q8(p) == -128) { outp[2u * p] = 0u; outp[2u * p + 1u] = 0u; return; }
   var x: array<f32, ${NI}>;
   for (var b = 0u; b < ${NI}u; b++) {
     let f = f32(q8(b * n + p)) / 127.5;
@@ -51,7 +52,10 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
     for (var j = 0u; j < ${NH}u; j++) { s += wts[r + j] * hid[j]; }
     z[c] = s;
   }
-  outp[p] = code(z[0]) | (code(z[1]) << 16u);
+  outp[2u * p] = code(z[0]) | (code(z[1]) << 16u);
+  var best = 0u;
+  for (var c = 3u; c < ${NO}u; c++) { if (z[c] > z[2u + best]) { best = c - 2u; } }
+  outp[2u * p + 1u] = best;
 }
 `;
 }
@@ -71,8 +75,8 @@ export async function makeScorer(h: BiomassHead, w: Float32Array, maxN: number):
   const aefBuf = device.createBuffer({ size: 64 * maxN, usage: S });
   const wBuf = device.createBuffer({ size: w.byteLength, usage: S });
   device.queue.writeBuffer(wBuf, 0, w as Float32Array<ArrayBuffer>);
-  const outBuf = device.createBuffer({ size: 4 * maxN, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
-  const readBuf = device.createBuffer({ size: 4 * maxN, usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST });
+  const outBuf = device.createBuffer({ size: 8 * maxN, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+  const readBuf = device.createBuffer({ size: 8 * maxN, usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST });
   const prmBuf = device.createBuffer({ size: 16, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
   const bind = device.createBindGroup({
     layout: pipeline.getBindGroupLayout(0),
@@ -97,16 +101,17 @@ export async function makeScorer(h: BiomassHead, w: Float32Array, maxN: number):
       pass.setBindGroup(0, bind);
       pass.dispatchWorkgroups(Math.ceil(n / 64));
       pass.end();
-      enc.copyBufferToBuffer(outBuf, 0, readBuf, 0, 4 * n);
+      enc.copyBufferToBuffer(outBuf, 0, readBuf, 0, 8 * n);
       device.queue.submit([enc.finish()]);
-      await readBuf.mapAsync(GPUMapMode.READ, 0, 4 * n);
-      const packed = new Uint32Array(readBuf.getMappedRange(0, 4 * n).slice(0));
+      await readBuf.mapAsync(GPUMapMode.READ, 0, 8 * n);
+      const packed = new Uint32Array(readBuf.getMappedRange(0, 8 * n).slice(0));
       readBuf.unmap();
-      const out = new Uint16Array(2 * n);
+      const out = new Uint16Array(3 * n);
       for (let p = 0; p < n; p++) {
-        const u = packed[p]!;
+        const u = packed[2 * p]!;
         out[p] = u & 0xffff;
         out[n + p] = u >>> 16;
+        out[2 * n + p] = packed[2 * p + 1]!;
       }
       return out;
     };
