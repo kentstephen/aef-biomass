@@ -1,0 +1,94 @@
+/* Colors, glass and the search box from aef-tessera-earthwork's ui.css; the loading bar from its page.css */
+:root {
+  --glass: rgba(26, 29, 33, 0.92);
+  --card: rgba(26, 29, 33, 0.8);
+  --glass-hi: #23272c;
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #e6e9ec;
+  --muted: #9ba5af;
+  --cool: #56b4e9;
+  --sel: rgba(255, 255, 255, 0.08);
+  --on: #15181b;
+}
+html, body { margin: 0; height: 100%; background: #0e0e0e; overflow: hidden; }
+body { color: var(--text); font: 14px/1.45 "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+/* the map fills the whole window */
+#map { position: fixed; inset: 0; }
+
+.at-glass { background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35); }
+.card.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+kbd { font: 10.5px/1 ui-monospace, SFMono-Regular, Menlo, monospace; border: 1px solid var(--line); border-radius: 4px;
+  padding: 1px 4px; color: var(--text); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+
+/* top left: search, then the card under it, one width */
+.at-top { position: fixed; left: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; gap: 8px;
+  width: 360px; max-width: calc(100vw - 24px); }
+.at-top { align-items: flex-start; }
+.at-search { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px;
+  width: var(--yw, 100%); transition: width 0.15s; }
+/* in use (or holding a query), full width again */
+.at-search:focus-within { width: 100%; }
+.at-search svg { flex: 0 0 auto; opacity: 0.6; }
+.at-search input { flex: 1; min-width: 0; background: none; border: 0; color: var(--text); font: inherit; outline: none; }
+.at-search input::placeholder { color: var(--muted); }
+.at-search input::-webkit-search-cancel-button { filter: invert(1); opacity: 0.5; }
+.at-hits { position: absolute; left: -1px; right: -1px; top: 46px; display: none; padding: 4px; background: var(--glass-hi); }
+.at-hit { padding: 7px 10px; border-radius: 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.at-hit small { display: block; color: var(--muted); font-size: 12px; }
+.at-hit.sel { background: var(--sel); }
+.at-hit.wait { cursor: default; color: var(--muted); }
+
+.card { padding: 11px 13px 10px; font-size: 13px; line-height: 1.35; }
+.card .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+/* the header (Earthwork's .at-hd): title, the ramp on the map, the year, the fold */
+.at-hd { display: flex; align-items: center; gap: 10px; cursor: pointer; margin: -2px -4px -2px 0; }
+.at-hd .t { font-size: 14.5px; font-weight: 600; }
+.at-ramp { display: block; height: 10px; border-radius: 3px; width: 150px; }
+.at-hd .hy { color: var(--muted); font-size: 12.5px; margin-left: auto; }
+.at-cb { flex: 0 0 auto; border: 0; background: none; color: var(--muted); cursor: pointer; width: 26px; height: 26px;
+  border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+.at-cb:hover { background: var(--sel); color: var(--text); }
+.at-cb svg { transition: transform 0.15s; }
+.card .at-ramp, .card .hy { display: none; }
+.card.collapsed { padding: 4px 5px 4px 12px; width: max-content; border-radius: 10px; }
+.card.collapsed .at-hd .t { font-size: 12.5px; }
+.card.collapsed .at-ramp, .card.collapsed .hy { display: block; }
+.card.collapsed .at-cb { width: 22px; height: 22px; }
+.card.collapsed .at-cb svg { transform: rotate(-90deg); }
+.card.collapsed .body { display: none; }
+.yearrow { display: flex; align-items: center; gap: 6px; margin: 8px 0 10px; }
+.year { font-size: 30px; font-weight: 600; min-width: 78px; text-align: center; }
+.step { background: none; border: 1px solid var(--line); color: var(--text); border-radius: 6px;
+  width: 26px; height: 30px; font-size: 18px; cursor: pointer; padding: 0; }
+.step:hover { border-color: rgba(255, 255, 255, 0.4); }
+.years { display: flex; gap: 2px; margin-left: 8px; }
+.years span { font-size: 11px; color: var(--muted); padding: 2px 3px; border-radius: 4px; cursor: pointer; }
+.years span:hover { color: var(--text); }
+.years span.on { color: var(--on); background: var(--text); }
+.key .bar { height: 14px; border-radius: 3px; }
+.key .ticks { position: relative; height: 16px; font-size: 11px; color: var(--text); opacity: 0.85; }
+.key .ticks span { position: absolute; top: 2px; transform: translateX(-50%); white-space: nowrap; }
+.key .ticks span:first-child { transform: none; }
+.key .ticks span:last-child { transform: translateX(-100%); }
+.key .unit { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.readout { margin-top: 8px; min-height: 18px; }
+.zoom { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.zoom.out { color: var(--text); }
+.status { font-size: 11px; color: var(--muted); margin-top: 3px; min-height: 14px; }
+.keys { font-size: 11.5px; color: var(--muted); margin-top: 7px; }
+.credits { font-size: 10px; color: #6f7780; margin-top: 8px; line-height: 1.3; }
+
+/* the read for the view: a bar along the top filling as its chunks come in, and its count */
+.ew-load { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 9; pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+.ew-load.on { opacity: 1; }
+.ew-load i { display: block; height: 100%; width: 0; background: var(--cool); transition: width 0.3s ease-out; }
+.ew-load-tag { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); z-index: 8; display: none;
+  padding: 5px 10px; font-size: 12px; white-space: nowrap; pointer-events: none; }
+.ew-load-tag.on { display: block; }
+.ew-load-tag.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+.ew-load-tag span { margin-left: 6px; color: var(--muted); }
+.card:not(.collapsed) .at-cb { margin-left: auto; }

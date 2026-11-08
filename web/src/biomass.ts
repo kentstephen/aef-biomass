@@ -1,0 +1,330 @@
+import type { MinimalTileData, RasterModule } from "@developmentseed/deck.gl-raster";
+import { ZarrLayer } from "@developmentseed/deck.gl-zarr";
+import type { Device, Texture } from "@luma.gl/core";
+import type { ShaderModule } from "@luma.gl/shadertools";
+import * as zarr from "zarrita";
+
+import { type AefArray, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
+import { type BiomassHead, CODE, codeValue } from "./head";
+import { Pool } from "./pool";
+import { glslRamp, VIRIDIS_50 } from "./ramp";
+
+/** One chunk-year on the GPU: the biomass codes as an r16uint texture. */
+type TileData = MinimalTileData & { key: string; tex: Texture };
+/** One chunk-year's two planes on the page: [agb codes n, height codes n]. */
+type Planes = { planes: Uint16Array; w: number; h: number };
+
+export type Stretch = { lo: number; hi: number; rank: boolean; n: number };
+
+const CDF_N = 256;
+
+/**
+ * Biomass per pixel, colored on 50-stop viridis. lo..hi is the stretch in log1p(Mg/ha); with rank on, the
+ * position in it goes through the CDF of the pixels in view (cdfTex), so the colors spread over what is there.
+ */
+const BiomassColor = {
+  name: "biomass",
+  fs: `uniform biomassUniforms {
+  float lo;
+  float hi;
+  float rank;
+} biomass;`,
+  inject: {
+    "fs:#decl": `precision highp usampler2D;
+uniform highp usampler2D agbTex;
+uniform highp sampler2D cdfTex;
+${glslRamp("viridis", VIRIDIS_50)}
+float biomass_cdf(float t) {
+  float x = clamp(t, 0.0, 1.0) * ${CDF_N - 1}.0;
+  int i = min(int(floor(x)), ${CDF_N - 2});
+  float a = texelFetch(cdfTex, ivec2(i, 0), 0).r;
+  float b = texelFetch(cdfTex, ivec2(i + 1, 0), 0).r;
+  return mix(a, b, x - float(i));
+}`,
+    "fs:DECKGL_FILTER_COLOR": /* glsl */ `
+      ivec2 size = textureSize(agbTex, 0);
+      ivec2 px = clamp(ivec2(geometry.uv * vec2(size)), ivec2(0), size - 1);
+      uint c = texelFetch(agbTex, px, 0).r;
+      if (c == 0u) discard;
+      float v = float(c - 1u) / ${CODE.toFixed(1)};
+      float t = (v - biomass.lo) / max(biomass.hi - biomass.lo, 1e-6);
+      if (biomass.rank > 0.5) t = biomass_cdf(t);
+      color = vec4(viridis(t), 1.0);
+    `,
+  },
+  uniformTypes: { lo: "f32", hi: "f32", rank: "f32" },
+  getUniforms: (p: Record<string, unknown>) => p,
+} as unknown as ShaderModule<{ agbTex: Texture; cdfTex: Texture; lo: number; hi: number; rank: number }>;
+
+export async function createBiomass(head: BiomassHead, beforeId: () => string | undefined) {
+  const { arr, attrs } = await openMosaic();
+  const [, , H, W] = arr.shape as number[];
+  const pool = new Pool(head);
+
+  // the planes by "year:row-col", the last used last; 256 KB each, at most CAP_BYTES (a zoom 11 view in a large
+  // window is about 1,000 chunks, 250 MB)
+  const planes = new Map<string, Planes>();
+  const CAP_BYTES = 384 * 1024 ** 2;
+  let planeBytes = 0;
+  const keyOf = (year: number, r: number, c: number) => `${year}:${r}-${c}`;
+  const keep = (k: string, p: Planes) => {
+    const old = planes.get(k);
+    if (old) {
+      planes.delete(k);
+      planeBytes -= old.planes.byteLength;
+    }
+    planes.set(k, p);
+    planeBytes += p.planes.byteLength;
+    for (const [ok, v] of planes) {
+      if (planeBytes <= CAP_BYTES) break;
+      planes.delete(ok);
+      planeBytes -= v.planes.byteLength;
+    }
+  };
+  // reads in flight, shared by everyone who wants the same chunk-year; stopped once nobody does (fire-knn's pattern)
+  const inflight = new Map<string, { p: Promise<Planes>; ac: AbortController; wants: number }>();
+  // the chunks on the GPU now, by key: whether the view's chunks are in
+  const loaded = new Set<string>();
+  // each year layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so release() frees them
+  const texOf = new Map<number, Set<Texture>>();
+
+  async function planesFor(year: number, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Planes> {
+    const k = keyOf(year, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
+    const have = planes.get(k);
+    if (have) {
+      keep(k, have);
+      return have;
+    }
+    let f = inflight.get(k);
+    if (!f || f.ac.signal.aborted) {
+      const ac = new AbortController();
+      const p = pool.read(year - YEAR_ORIGIN, py0, px0, h, w, ac.signal).then((pl) => {
+        const out = { planes: pl, w, h };
+        keep(k, out);
+        return out;
+      });
+      const g = { p, ac, wants: 0 };
+      inflight.set(k, g);
+      const done = () => inflight.get(k) === g && inflight.delete(k);
+      p.then(done, done);
+      f = g;
+    }
+    const g = f;
+    g.wants++;
+    const drop = () => {
+      if (--g.wants === 0) g.ac.abort();
+    };
+    signal?.addEventListener("abort", drop, { once: true });
+    try {
+      return await g.p;
+    } finally {
+      signal?.removeEventListener("abort", drop);
+      if (!signal?.aborted) g.wants--;
+    }
+  }
+
+  /**
+   * Read a year's chunks under a box ahead of a step to it, a few at a time, the nearest the middle first; the
+   * planes land in the cache, so the step draws without a read. Stopped by `signal` (a move, a step).
+   */
+  async function prefetch(year: number, bbox: [number, number, number, number], signal: AbortSignal, onChunk?: () => void) {
+    const { c0, c1, r0, r1 } = chunkRange(bbox);
+    const rm = (r0 + r1) / 2, cm = (c0 + c1) / 2;
+    const todo: [number, number][] = [];
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (!planes.has(keyOf(year, r, c))) todo.push([r, c]);
+    todo.sort((a, b) => Math.hypot(a[0] - rm, a[1] - cm) - Math.hypot(b[0] - rm, b[1] - cm));
+    let i = 0;
+    const lane = async () => {
+      while (i < todo.length && !signal.aborted) {
+        const [r, c] = todo[i++]!;
+        const py0 = r * CHUNK, px0 = c * CHUNK;
+        try {
+          await planesFor(year, py0, px0, Math.min(CHUNK, H - py0), Math.min(CHUNK, W - px0), signal);
+          onChunk?.();
+        } catch {
+          // aborted, or a chunk with no data: the step reads it again if it needs it
+        }
+      }
+    };
+    await Promise.all([lane(), lane(), lane(), lane()]);
+  }
+
+  /** How many of a year's chunks under a box are in hand (read and scored), for the prefetch's count. */
+  function inHand(bbox: [number, number, number, number], year: number) {
+    const { c0, c1, r0, r1 } = chunkRange(bbox);
+    let n = 0;
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (planes.has(keyOf(year, r, c))) n++;
+    return { inHand: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
+  }
+
+  // the rank stretch's CDF, shared by every tile
+  const cdf = new Float32Array(CDF_N);
+  for (let i = 0; i < CDF_N; i++) cdf[i] = i / (CDF_N - 1);
+  let cdfTex: Texture | null = null, cdfTexN = -1, device: Device | null = null;
+  const stretch: Stretch = { lo: 0, hi: Math.log1p(350), rank: false, n: 0 };
+  const linear = { lo: 0, hi: Math.log1p(350) };
+  let cdfRange = { lo: 0, hi: 1 };
+  function cdfTexture(dev: Device): Texture {
+    if (cdfTex && cdfTexN === stretch.n) return cdfTex;
+    cdfTex?.destroy();
+    cdfTex = dev.createTexture({
+      data: cdf,
+      format: "r32float",
+      width: CDF_N,
+      height: 1,
+      mipLevels: 1,
+      sampler: { minFilter: "nearest", magFilter: "nearest", addressModeU: "clamp-to-edge", addressModeV: "clamp-to-edge" },
+    });
+    cdfTexN = stretch.n;
+    return cdfTex;
+  }
+
+  const chunkRange = (bbox: [number, number, number, number]) => {
+    const [w, s, e, n] = bbox;
+    return {
+      c0: Math.max(0, Math.floor((w - X0) / RES / CHUNK)),
+      c1: Math.min(Math.ceil(W / CHUNK) - 1, Math.floor((e - X0) / RES / CHUNK)),
+      r0: Math.max(0, Math.floor((Y0 - n) / RES / CHUNK)),
+      r1: Math.min(Math.ceil(H / CHUNK) - 1, Math.floor((Y0 - s) / RES / CHUNK)),
+    };
+  };
+
+  /**
+   * The CDF of log biomass over the pixels in view for one year (every 5th pixel of the chunks in hand), its
+   * domain p0.5 to p99.5. False when no chunk of the view is in hand.
+   */
+  function rebuildCdf(bbox: [number, number, number, number], year: number): boolean {
+    const { c0, c1, r0, r1 } = chunkRange(bbox);
+    const [bw, bs, be, bn] = bbox;
+    const vals: number[] = [];
+    for (let r = r0; r <= r1; r++)
+      for (let c = c0; c <= c1; c++) {
+        const p = planes.get(keyOf(year, r, c));
+        if (!p) continue;
+        for (let i = 0; i < p.w * p.h; i += 5) {
+          const code = p.planes[i]!;
+          if (code === 0) continue;
+          const lon = X0 + (c * CHUNK + (i % p.w) + 0.5) * RES, lat = Y0 - (r * CHUNK + Math.floor(i / p.w) + 0.5) * RES;
+          if (lon < bw || lon > be || lat < bs || lat > bn) continue;
+          vals.push((code - 1) / CODE);
+        }
+      }
+    if (vals.length < 100) return false;
+    const s = Float64Array.from(vals).sort();
+    const q = (f: number) => s[Math.min(s.length - 1, Math.floor(f * (s.length - 1)))]!;
+    const lo = q(0.005), hi = Math.max(q(0.995), lo + 0.01);
+    let j = 0;
+    for (let i = 0; i < CDF_N; i++) {
+      const v = lo + ((hi - lo) * i) / (CDF_N - 1);
+      while (j < s.length && s[j]! <= v) j++;
+      cdf[i] = j / s.length;
+    }
+    cdfRange = { lo, hi };
+    if (stretch.rank) Object.assign(stretch, cdfRange);
+    stretch.n++;
+    return true;
+  }
+
+  function setRank(on: boolean) {
+    stretch.rank = on;
+    Object.assign(stretch, on ? cdfRange : linear);
+    stretch.n++;
+  }
+
+  /** Mg/ha at the stretch position t (0..1), through the CDF when rank is on: for the key's ticks. */
+  function valueAt(t: number): number {
+    if (!stretch.rank) return Math.expm1(stretch.lo + t * (stretch.hi - stretch.lo));
+    let k = 0;
+    while (k < CDF_N - 1 && cdf[k]! < t) k++;
+    return Math.expm1(stretch.lo + ((stretch.hi - stretch.lo) * k) / (CDF_N - 1));
+  }
+
+  /** The year's layer. */
+  function layer(opts: { year: number; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
+    const { year } = opts;
+    return new ZarrLayer<zarr.Readable, "int8", TileData>({
+      id: `biomass-${year}`,
+      node: arr as AefArray,
+      metadata: attrs,
+      selection: { time: year - YEAR_ORIGIN, band: null },
+      getTileData: async (_a, o) => {
+        const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;
+        const py0 = ys.start ?? 0, px0 = xs.start ?? 0;
+        const { width, height } = o;
+        device = o.device;
+        const p = await planesFor(year, py0, px0, height, width, o.signal);
+        const key = keyOf(year, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
+        loaded.add(key);
+        const tex = o.device.createTexture({
+          format: "r16uint",
+          width,
+          height,
+          mipLevels: 1,
+          data: p.planes.slice(0, width * height),
+          sampler: { minFilter: "nearest", magFilter: "nearest", addressModeU: "clamp-to-edge", addressModeV: "clamp-to-edge" },
+        });
+        let set = texOf.get(year);
+        if (!set) texOf.set(year, (set = new Set()));
+        set.add(tex);
+        return { key, tex, width, height, byteLength: 2 * width * height };
+      },
+      renderTile: (data: TileData) => ({
+        renderPipeline: [
+          {
+            module: BiomassColor,
+            props: { agbTex: data.tex, cdfTex: cdfTexture(device!), lo: stretch.lo, hi: stretch.hi, rank: stretch.rank ? 1 : 0 },
+          },
+        ] as RasterModule[],
+      }),
+      visible: opts.visible,
+      minZoom: MIN_ZOOM,
+      // the S3 host answers over HTTP/1.1: six at a time is the browser's own limit per host (fire-knn)
+      maxRequests: 6,
+      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000
+      maxCacheSize: 1200,
+      onTileLoad: () => opts.onTile && opts.onTile(),
+      onTileUnload: (tile: { content?: TileData | null }) => {
+        const t = tile.content;
+        if (!t) return;
+        loaded.delete(t.key);
+        texOf.get(year)?.delete(t.tex);
+        t.tex?.destroy();
+      },
+      onViewportLoad: () => opts.onViewportLoad && opts.onViewportLoad(),
+      updateTriggers: { renderTile: [stretch.n] },
+      // @ts-expect-error beforeId is read by the MapLibre overlay (the layer draws under the labels), not typed on the layer
+      beforeId: beforeId(),
+    });
+  }
+
+  /** A year's layer was taken off the map: free its textures (after its last frame) and forget its tiles. */
+  function release(year: number) {
+    const set = texOf.get(year);
+    texOf.delete(year);
+    for (const k of [...loaded]) if (k.startsWith(`${year}:`)) loaded.delete(k);
+    if (set) setTimeout(() => set.forEach((t) => t.destroy()), 1500);
+  }
+
+  /** Biomass (Mg/ha) and canopy height (m) at a point for a year, from the planes in hand; null where none. */
+  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number } | null {
+    const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
+    const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
+    const p = planes.get(keyOf(year, r, c));
+    if (!p) return null;
+    const ix = px - c * CHUNK, iy = py - r * CHUNK;
+    if (ix < 0 || iy < 0 || ix >= p.w || iy >= p.h) return null;
+    const i = iy * p.w + ix, n = p.w * p.h;
+    if (p.planes[i] === 0) return null;
+    return { agb: codeValue(p.planes[i]!), height: codeValue(p.planes[n + i]!) };
+  }
+
+  /** How many of the chunks under a box are on the GPU for a year. */
+  function loadedIn(bbox: [number, number, number, number], year: number) {
+    const { c0, c1, r0, r1 } = chunkRange(bbox);
+    let n = 0;
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (loaded.has(keyOf(year, r, c))) n++;
+    return { loaded: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
+  }
+
+  return { layer, release, valueAtPoint, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt, stretch, pool };
+}

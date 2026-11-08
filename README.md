@@ -48,6 +48,12 @@ forest.
   hard-ground classes, combined change, the top end and shrub level against lidar, more lidar read at 2 m, tree
   loss), and which embeddings the map should read, accuracy against bandwidth.
 - `PLAN.md`: the plan for the biomass classes and their change.
+- `web/`: the map, first build. Biomass for each year from AlphaEarth alone, the head run on the GPU in the browser
+  (WebGPU in workers, the CPU without it), on a 50-stop viridis ramp, log scale from 0 to 350+ Mg/ha. `[` and `]` step
+  the year (the next one is read ahead), R spreads the ramp over the view, F full screen, / search. AlphaEarth is read
+  from zoom 11 in, straight from S3 behind Source Cooperative, its chunks kept on disk between visits. Reading, the
+  head on the GPU, search and the card come from fire-knn and Earthwork's web apps. Run: `cd web && npm install &&
+  npm run dev` (port 3010). The head: `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`.
 
 ## Scripts
 
