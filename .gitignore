@@ -1,0 +1,10 @@
+.claude/memory/
+.env
+data/
+logs/
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.DS_Store
+*.tmp.npz
