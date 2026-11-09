@@ -1612,5 +1612,1163 @@
   },
   "seconds": 545,
   "peak_gb": 7.05
+ },
+ "traj_aef": {
+  "rows": {
+   "steady": 8829385,
+   "lost": 3867166,
+   "grew": 2618755
+  },
+  "esri": {
+   "loss rule": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7101,
+    "found": 0.4747,
+    "lit": 0.0545
+   },
+   "loss pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.758,
+    "found_at_2pct_lit": 0.373,
+    "found_95": 0.4564,
+    "lit_95": 0.0502
+   },
+   "loss cls_mg": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.6907,
+    "found_at_2pct_lit": 0.1416,
+    "found_95": 0.2239,
+    "lit_95": 0.0514
+   },
+   "loss cls_pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7636,
+    "found_at_2pct_lit": 0.3857,
+    "found_95": 0.4761,
+    "lit_95": 0.051
+   },
+   "loss pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7699,
+    "found_at_2pct_lit": 0.3993,
+    "found_95": 0.3273,
+    "lit_95": 0.0084
+   },
+   "loss cls_pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7877,
+    "found_at_2pct_lit": 0.4539,
+    "found_95": 0.3922,
+    "lit_95": 0.0096
+   },
+   "loss cls_mg_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7732,
+    "found_at_2pct_lit": 0.3224,
+    "found_95": 0.2154,
+    "lit_95": 0.0059
+   },
+   "gain rule (block)": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5099,
+    "found": 0.0279,
+    "lit": 0.008
+   },
+   "gain rule px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5106,
+    "found": 0.032,
+    "lit": 0.0107
+   },
+   "gain rule slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5103,
+    "found": 0.0285,
+    "lit": 0.008
+   },
+   "gain pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5988,
+    "found_at_2pct_lit": 0.0646,
+    "found_95": 0.1226,
+    "lit_95": 0.0513
+   },
+   "gain cls_mg px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6513,
+    "found_at_2pct_lit": 0.1432,
+    "found_95": 0.2618,
+    "lit_95": 0.0582
+   },
+   "gain cls_pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5874,
+    "found_at_2pct_lit": 0.0545,
+    "found_95": 0.1021,
+    "lit_95": 0.0525
+   },
+   "gain pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6031,
+    "found_at_2pct_lit": 0.0635,
+    "found_95": 0.1227,
+    "lit_95": 0.0517
+   },
+   "gain cls_mg slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6545,
+    "found_at_2pct_lit": 0.1404,
+    "found_95": 0.2629,
+    "lit_95": 0.0596
+   },
+   "gain cls_pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5899,
+    "found_at_2pct_lit": 0.052,
+    "found_95": 0.0992,
+    "lit_95": 0.0533
+   },
+   "gain pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5996,
+    "found_at_2pct_lit": 0.0613,
+    "found_95": 0.1197,
+    "lit_95": 0.0517
+   },
+   "gain cls_mg block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6507,
+    "found_at_2pct_lit": 0.1369,
+    "found_95": 0.2588,
+    "lit_95": 0.0595
+   },
+   "gain cls_pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5866,
+    "found_at_2pct_lit": 0.0502,
+    "found_95": 0.0963,
+    "lit_95": 0.0532
+   },
+   "gain pct px_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6099,
+    "found_at_2pct_lit": 0.0673,
+    "found_95": 0.0355,
+    "lit_95": 0.0074
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5887,
+    "found_at_2pct_lit": 0.06,
+    "found_95": 0.0312,
+    "lit_95": 0.0067
+   }
+  },
+  "lidar_px": {
+   "loss rule": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8201,
+    "found": 0.71,
+    "lit": 0.0698
+   },
+   "loss pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8301,
+    "found_at_2pct_lit": 0.5338,
+    "found_95": 0.5744,
+    "lit_95": 0.0267
+   },
+   "loss cls_mg": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8226,
+    "found_at_2pct_lit": 0.5114,
+    "found_95": 0.5717,
+    "lit_95": 0.0409
+   },
+   "loss cls_pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.831,
+    "found_at_2pct_lit": 0.5384,
+    "found_95": 0.584,
+    "lit_95": 0.0276
+   },
+   "loss pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8372,
+    "found_at_2pct_lit": 0.5612,
+    "found_95": 0.5362,
+    "lit_95": 0.0169
+   },
+   "loss cls_pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8391,
+    "found_at_2pct_lit": 0.5818,
+    "found_95": 0.5649,
+    "lit_95": 0.0175
+   },
+   "loss cls_mg_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8399,
+    "found_at_2pct_lit": 0.5739,
+    "found_95": 0.545,
+    "lit_95": 0.0141
+   },
+   "gain rule (block)": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6703,
+    "found": 0.3526,
+    "lit": 0.0119
+   },
+   "gain rule px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6745,
+    "found": 0.3605,
+    "lit": 0.0116
+   },
+   "gain rule slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6738,
+    "found": 0.359,
+    "lit": 0.0113
+   },
+   "gain pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6084,
+    "found_at_2pct_lit": 0.1834,
+    "found_95": 0.2328,
+    "lit_95": 0.0589
+   },
+   "gain cls_mg px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6437,
+    "found_at_2pct_lit": 0.1967,
+    "found_95": 0.3889,
+    "lit_95": 0.1219
+   },
+   "gain cls_pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.626,
+    "found_at_2pct_lit": 0.1855,
+    "found_95": 0.2535,
+    "lit_95": 0.0566
+   },
+   "gain pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6124,
+    "found_at_2pct_lit": 0.1962,
+    "found_95": 0.242,
+    "lit_95": 0.0587
+   },
+   "gain cls_mg slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6468,
+    "found_at_2pct_lit": 0.2133,
+    "found_95": 0.4141,
+    "lit_95": 0.1335
+   },
+   "gain cls_pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6314,
+    "found_at_2pct_lit": 0.1975,
+    "found_95": 0.2739,
+    "lit_95": 0.0592
+   },
+   "gain pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6087,
+    "found_at_2pct_lit": 0.1923,
+    "found_95": 0.2404,
+    "lit_95": 0.0595
+   },
+   "gain cls_mg block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6431,
+    "found_at_2pct_lit": 0.207,
+    "found_95": 0.408,
+    "lit_95": 0.133
+   },
+   "gain cls_pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6274,
+    "found_at_2pct_lit": 0.1931,
+    "found_95": 0.2691,
+    "lit_95": 0.0586
+   },
+   "gain pct px_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.5189,
+    "found_at_2pct_lit": 0.1622,
+    "found_95": 0.1207,
+    "lit_95": 0.0065
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.5811,
+    "found_at_2pct_lit": 0.2022,
+    "found_95": 0.1451,
+    "lit_95": 0.0058
+   }
+  },
+  "lidar_cell": {
+   "loss rule + gain rule (block)": {
+    "cells": 25378,
+    "corr": 0.5434,
+    "auc_lost": 0.9502,
+    "auc_gained": 0.754
+   },
+   "loss rule + gain rule px": {
+    "cells": 25378,
+    "corr": 0.5526,
+    "auc_lost": 0.9258,
+    "auc_gained": 0.8158
+   },
+   "loss cls_pct_mv + gain rule px": {
+    "cells": 25378,
+    "corr": 0.5242,
+    "auc_lost": 0.9222,
+    "auc_gained": 0.6916
+   },
+   "loss cls_pct_mv + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.4282,
+    "auc_lost": 0.9234,
+    "auc_gained": 0.6436
+   },
+   "loss cls_pct + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.3619,
+    "auc_lost": 0.9074,
+    "auc_gained": 0.6473
+   }
+  },
+  "size_p90_1yr": {
+   "grew (Mg/ha)": 6.3,
+   "steady trees (Mg/ha)": 16.5,
+   "grew (%)": 18.3,
+   "steady trees (%)": 15.1,
+   "lost (%)": 30.9
+  },
+  "lidar_gained_rise": {
+   "median Mg/ha": 20.9,
+   "steady |change| p90 Mg/ha": 10.3,
+   "gained px": 249991,
+   "steady px": 1317701
+  },
+  "seconds": 1300,
+  "peak_gb": 8.04
+ },
+ "traj_tes": {
+  "rows": {
+   "steady": 8829385,
+   "lost": 3867166,
+   "grew": 2618755
+  },
+  "esri": {
+   "loss rule": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.703,
+    "found": 0.4649,
+    "lit": 0.0588
+   },
+   "loss pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.6981,
+    "found_at_2pct_lit": 0.2078,
+    "found_95": 0.3137,
+    "lit_95": 0.05
+   },
+   "loss cls_mg": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.6421,
+    "found_at_2pct_lit": 0.0656,
+    "found_95": 0.1477,
+    "lit_95": 0.0514
+   },
+   "loss cls_pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7085,
+    "found_at_2pct_lit": 0.2605,
+    "found_95": 0.3609,
+    "lit_95": 0.0524
+   },
+   "loss pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7322,
+    "found_at_2pct_lit": 0.3426,
+    "found_95": 0.253,
+    "lit_95": 0.0066
+   },
+   "loss cls_pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7481,
+    "found_at_2pct_lit": 0.3923,
+    "found_95": 0.3118,
+    "lit_95": 0.0068
+   },
+   "loss cls_mg_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7319,
+    "found_at_2pct_lit": 0.2685,
+    "found_95": 0.143,
+    "lit_95": 0.0047
+   },
+   "gain rule (block)": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5115,
+    "found": 0.0363,
+    "lit": 0.0134
+   },
+   "gain rule px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5106,
+    "found": 0.0452,
+    "lit": 0.024
+   },
+   "gain rule slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5121,
+    "found": 0.0376,
+    "lit": 0.0134
+   },
+   "gain pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5886,
+    "found_at_2pct_lit": 0.0597,
+    "found_95": 0.1124,
+    "lit_95": 0.0506
+   },
+   "gain cls_mg px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6397,
+    "found_at_2pct_lit": 0.1489,
+    "found_95": 0.2543,
+    "lit_95": 0.0556
+   },
+   "gain cls_pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.583,
+    "found_at_2pct_lit": 0.0541,
+    "found_95": 0.1044,
+    "lit_95": 0.0516
+   },
+   "gain pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6074,
+    "found_at_2pct_lit": 0.067,
+    "found_95": 0.125,
+    "lit_95": 0.0512
+   },
+   "gain cls_mg slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6557,
+    "found_at_2pct_lit": 0.1514,
+    "found_95": 0.2665,
+    "lit_95": 0.0583
+   },
+   "gain cls_pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5959,
+    "found_at_2pct_lit": 0.0553,
+    "found_95": 0.1094,
+    "lit_95": 0.053
+   },
+   "gain pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6028,
+    "found_at_2pct_lit": 0.0644,
+    "found_95": 0.121,
+    "lit_95": 0.0512
+   },
+   "gain cls_mg block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6503,
+    "found_at_2pct_lit": 0.1472,
+    "found_95": 0.2583,
+    "lit_95": 0.0583
+   },
+   "gain cls_pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5914,
+    "found_at_2pct_lit": 0.0532,
+    "found_95": 0.1063,
+    "lit_95": 0.053
+   },
+   "gain pct px_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6081,
+    "found_at_2pct_lit": 0.0732,
+    "found_95": 0.0348,
+    "lit_95": 0.0048
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5976,
+    "found_at_2pct_lit": 0.0701,
+    "found_95": 0.0358,
+    "lit_95": 0.0041
+   }
+  },
+  "lidar_px": {
+   "loss rule": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8254,
+    "found": 0.7799,
+    "lit": 0.129
+   },
+   "loss pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8327,
+    "found_at_2pct_lit": 0.4735,
+    "found_95": 0.585,
+    "lit_95": 0.0456
+   },
+   "loss cls_mg": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8067,
+    "found_at_2pct_lit": 0.3274,
+    "found_95": 0.5616,
+    "lit_95": 0.0829
+   },
+   "loss cls_pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8395,
+    "found_at_2pct_lit": 0.4893,
+    "found_95": 0.6174,
+    "lit_95": 0.0464
+   },
+   "loss pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8571,
+    "found_at_2pct_lit": 0.5346,
+    "found_95": 0.551,
+    "lit_95": 0.0218
+   },
+   "loss cls_pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.864,
+    "found_at_2pct_lit": 0.5466,
+    "found_95": 0.5985,
+    "lit_95": 0.0256
+   },
+   "loss cls_mg_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.865,
+    "found_at_2pct_lit": 0.5779,
+    "found_95": 0.5318,
+    "lit_95": 0.0134
+   },
+   "gain rule (block)": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6218,
+    "found": 0.2542,
+    "lit": 0.0106
+   },
+   "gain rule px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6433,
+    "found": 0.3002,
+    "lit": 0.0137
+   },
+   "gain rule slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6238,
+    "found": 0.2579,
+    "lit": 0.0103
+   },
+   "gain pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6428,
+    "found_at_2pct_lit": 0.1614,
+    "found_95": 0.1762,
+    "lit_95": 0.0286
+   },
+   "gain cls_mg px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6536,
+    "found_at_2pct_lit": 0.1683,
+    "found_95": 0.2402,
+    "lit_95": 0.0612
+   },
+   "gain cls_pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6478,
+    "found_at_2pct_lit": 0.1759,
+    "found_95": 0.1859,
+    "lit_95": 0.0252
+   },
+   "gain pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6527,
+    "found_at_2pct_lit": 0.181,
+    "found_95": 0.188,
+    "lit_95": 0.0244
+   },
+   "gain cls_mg slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6598,
+    "found_at_2pct_lit": 0.1737,
+    "found_95": 0.2393,
+    "lit_95": 0.0604
+   },
+   "gain cls_pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6597,
+    "found_at_2pct_lit": 0.1961,
+    "found_95": 0.1981,
+    "lit_95": 0.0211
+   },
+   "gain pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6484,
+    "found_at_2pct_lit": 0.1777,
+    "found_95": 0.1831,
+    "lit_95": 0.0239
+   },
+   "gain cls_mg block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6552,
+    "found_at_2pct_lit": 0.1686,
+    "found_95": 0.2393,
+    "lit_95": 0.0611
+   },
+   "gain cls_pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6553,
+    "found_at_2pct_lit": 0.1932,
+    "found_95": 0.1961,
+    "lit_95": 0.021
+   },
+   "gain pct px_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6147,
+    "found_at_2pct_lit": 0.1865,
+    "found_95": 0.114,
+    "lit_95": 0.0019
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.651,
+    "found_at_2pct_lit": 0.2267,
+    "found_95": 0.1382,
+    "lit_95": 0.002
+   }
+  },
+  "lidar_cell": {
+   "loss rule + gain rule (block)": {
+    "cells": 25378,
+    "corr": 0.4738,
+    "auc_lost": 0.9251,
+    "auc_gained": 0.7135
+   },
+   "loss rule + gain rule px": {
+    "cells": 25378,
+    "corr": 0.482,
+    "auc_lost": 0.9121,
+    "auc_gained": 0.878
+   },
+   "loss cls_pct_mv + gain rule px": {
+    "cells": 25378,
+    "corr": 0.4599,
+    "auc_lost": 0.8995,
+    "auc_gained": 0.7162
+   },
+   "loss cls_pct_mv + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.4096,
+    "auc_lost": 0.9036,
+    "auc_gained": 0.6504
+   },
+   "loss cls_pct + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.3516,
+    "auc_lost": 0.8651,
+    "auc_gained": 0.6648
+   }
+  },
+  "size_p90_1yr": {
+   "grew (Mg/ha)": 6.0,
+   "steady trees (Mg/ha)": 20.7,
+   "grew (%)": 20.1,
+   "steady trees (%)": 19.7,
+   "lost (%)": 30.1
+  },
+  "lidar_gained_rise": {
+   "median Mg/ha": 12.7,
+   "steady |change| p90 Mg/ha": 12.8,
+   "gained px": 249991,
+   "steady px": 1317701
+  },
+  "seconds": 1308,
+  "peak_gb": 7.26
+ },
+ "traj_aef+tes": {
+  "rows": {
+   "steady": 8829385,
+   "lost": 3867166,
+   "grew": 2618755
+  },
+  "esri": {
+   "loss rule": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7088,
+    "found": 0.4737,
+    "lit": 0.056
+   },
+   "loss pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7574,
+    "found_at_2pct_lit": 0.3518,
+    "found_95": 0.4386,
+    "lit_95": 0.0504
+   },
+   "loss cls_mg": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.696,
+    "found_at_2pct_lit": 0.1836,
+    "found_95": 0.2566,
+    "lit_95": 0.0516
+   },
+   "loss cls_pct": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7636,
+    "found_at_2pct_lit": 0.3781,
+    "found_95": 0.4644,
+    "lit_95": 0.0515
+   },
+   "loss pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7702,
+    "found_at_2pct_lit": 0.3969,
+    "found_95": 0.3301,
+    "lit_95": 0.0085
+   },
+   "loss cls_pct_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.788,
+    "found_at_2pct_lit": 0.4505,
+    "found_95": 0.3918,
+    "lit_95": 0.0088
+   },
+   "loss cls_mg_mv": {
+    "n_real": 3867166,
+    "n_steady": 8829385,
+    "auc": 0.7732,
+    "found_at_2pct_lit": 0.3395,
+    "found_95": 0.2455,
+    "lit_95": 0.0059
+   },
+   "gain rule (block)": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5135,
+    "found": 0.0338,
+    "lit": 0.0069
+   },
+   "gain rule px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5135,
+    "found": 0.0393,
+    "lit": 0.0123
+   },
+   "gain rule slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5139,
+    "found": 0.0346,
+    "lit": 0.0069
+   },
+   "gain pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5972,
+    "found_at_2pct_lit": 0.0814,
+    "found_95": 0.1441,
+    "lit_95": 0.051
+   },
+   "gain cls_mg px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6416,
+    "found_at_2pct_lit": 0.0974,
+    "found_95": 0.2505,
+    "lit_95": 0.0559
+   },
+   "gain cls_pct px": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5824,
+    "found_at_2pct_lit": 0.0699,
+    "found_95": 0.1208,
+    "lit_95": 0.0512
+   },
+   "gain pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6093,
+    "found_at_2pct_lit": 0.089,
+    "found_95": 0.1536,
+    "lit_95": 0.0516
+   },
+   "gain cls_mg slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6512,
+    "found_at_2pct_lit": 0.0932,
+    "found_95": 0.2595,
+    "lit_95": 0.0575
+   },
+   "gain cls_pct slide": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5902,
+    "found_at_2pct_lit": 0.0734,
+    "found_95": 0.1228,
+    "lit_95": 0.0521
+   },
+   "gain pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.605,
+    "found_at_2pct_lit": 0.0865,
+    "found_95": 0.1497,
+    "lit_95": 0.0516
+   },
+   "gain cls_mg block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6468,
+    "found_at_2pct_lit": 0.091,
+    "found_95": 0.2543,
+    "lit_95": 0.0575
+   },
+   "gain cls_pct block": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5861,
+    "found_at_2pct_lit": 0.0714,
+    "found_95": 0.1202,
+    "lit_95": 0.0521
+   },
+   "gain pct px_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.6067,
+    "found_at_2pct_lit": 0.0737,
+    "found_95": 0.0362,
+    "lit_95": 0.0057
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 2618755,
+    "n_steady": 8829385,
+    "auc": 0.5865,
+    "found_at_2pct_lit": 0.0623,
+    "found_95": 0.0331,
+    "lit_95": 0.0053
+   }
+  },
+  "lidar_px": {
+   "loss rule": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8169,
+    "found": 0.7542,
+    "lit": 0.1205
+   },
+   "loss pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8189,
+    "found_at_2pct_lit": 0.4812,
+    "found_95": 0.6081,
+    "lit_95": 0.0558
+   },
+   "loss cls_mg": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.803,
+    "found_at_2pct_lit": 0.48,
+    "found_95": 0.583,
+    "lit_95": 0.0889
+   },
+   "loss cls_pct": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8254,
+    "found_at_2pct_lit": 0.519,
+    "found_95": 0.6289,
+    "lit_95": 0.0524
+   },
+   "loss pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8373,
+    "found_at_2pct_lit": 0.5432,
+    "found_95": 0.5698,
+    "lit_95": 0.0242
+   },
+   "loss cls_pct_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8444,
+    "found_at_2pct_lit": 0.5613,
+    "found_95": 0.6095,
+    "lit_95": 0.0273
+   },
+   "loss cls_mg_mv": {
+    "n_real": 101955,
+    "n_steady": 1317701,
+    "auc": 0.8423,
+    "found_at_2pct_lit": 0.5736,
+    "found_95": 0.5598,
+    "lit_95": 0.0175
+   },
+   "gain rule (block)": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6272,
+    "found": 0.2586,
+    "lit": 0.0042
+   },
+   "gain rule px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.642,
+    "found": 0.2894,
+    "lit": 0.0054
+   },
+   "gain rule slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6314,
+    "found": 0.2665,
+    "lit": 0.0037
+   },
+   "gain pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6566,
+    "found_at_2pct_lit": 0.2215,
+    "found_95": 0.2496,
+    "lit_95": 0.0454
+   },
+   "gain cls_mg px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6701,
+    "found_at_2pct_lit": 0.2381,
+    "found_95": 0.2853,
+    "lit_95": 0.0492
+   },
+   "gain cls_pct px": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6663,
+    "found_at_2pct_lit": 0.2398,
+    "found_95": 0.264,
+    "lit_95": 0.0374
+   },
+   "gain pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6607,
+    "found_at_2pct_lit": 0.2315,
+    "found_95": 0.2555,
+    "lit_95": 0.0482
+   },
+   "gain cls_mg slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6743,
+    "found_at_2pct_lit": 0.254,
+    "found_95": 0.2908,
+    "lit_95": 0.0478
+   },
+   "gain cls_pct slide": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6708,
+    "found_at_2pct_lit": 0.2498,
+    "found_95": 0.2669,
+    "lit_95": 0.0367
+   },
+   "gain pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6583,
+    "found_at_2pct_lit": 0.2229,
+    "found_95": 0.2503,
+    "lit_95": 0.0482
+   },
+   "gain cls_mg block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.671,
+    "found_at_2pct_lit": 0.2457,
+    "found_95": 0.2862,
+    "lit_95": 0.049
+   },
+   "gain cls_pct block": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6685,
+    "found_at_2pct_lit": 0.2409,
+    "found_95": 0.2611,
+    "lit_95": 0.0369
+   },
+   "gain pct px_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6197,
+    "found_at_2pct_lit": 0.2041,
+    "found_95": 0.1319,
+    "lit_95": 0.0039
+   },
+   "gain cls_pct slide_mv": {
+    "n_real": 249991,
+    "n_steady": 1317701,
+    "auc": 0.6703,
+    "found_at_2pct_lit": 0.2521,
+    "found_95": 0.1607,
+    "lit_95": 0.0028
+   }
+  },
+  "lidar_cell": {
+   "loss rule + gain rule (block)": {
+    "cells": 25378,
+    "corr": 0.5253,
+    "auc_lost": 0.9383,
+    "auc_gained": 0.736
+   },
+   "loss rule + gain rule px": {
+    "cells": 25378,
+    "corr": 0.5331,
+    "auc_lost": 0.9244,
+    "auc_gained": 0.8558
+   },
+   "loss cls_pct_mv + gain rule px": {
+    "cells": 25378,
+    "corr": 0.5006,
+    "auc_lost": 0.9171,
+    "auc_gained": 0.7512
+   },
+   "loss cls_pct_mv + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.4133,
+    "auc_lost": 0.9142,
+    "auc_gained": 0.6924
+   },
+   "loss cls_pct + gain cls_mg px": {
+    "cells": 25378,
+    "corr": 0.3511,
+    "auc_lost": 0.8868,
+    "auc_gained": 0.689
+   }
+  },
+  "size_p90_1yr": {
+   "grew (Mg/ha)": 7.0,
+   "steady trees (Mg/ha)": 18.8,
+   "grew (%)": 21.1,
+   "steady trees (%)": 16.6,
+   "lost (%)": 34.6
+  },
+  "lidar_gained_rise": {
+   "median Mg/ha": 13.5,
+   "steady |change| p90 Mg/ha": 8.8,
+   "gained px": 249991,
+   "steady px": 1317701
+  },
+  "seconds": 1368,
+  "peak_gb": 7.35
  }
 }

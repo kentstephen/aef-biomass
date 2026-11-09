@@ -1276,6 +1276,47 @@ AUC .87 against lidar; a fifth to a third of the rule's steady ground lit; crops
 pixel with the two-part floor, opacity from the per class Mg/ha confidence above it. Both at 10 m: no blocks.
 Peak RAM 6.9 GB (above the 4 GB estimated: the variant arrays for 15 million rows), 7 minutes.
 
+## 31. The two ways to a stronger growth signal, per pixel (`scripts/growth_test.py`, `results/growth_test.json`)
+
+Section 30's harness, run on seven heads: the map's head (one year of AlphaEarth, taught on all squares), the
+one-year heads on AEF, TESSERA and AEF + TESSERA, and the trajectory heads (section 14, all eight years in) on the
+same three inputs. Every head is held out (a square scored by the fold that never saw it) and every head is scored on
+the same pixels, valid in AlphaEarth and TESSERA both. Gain against the nine lidar squares per 10 m pixel (250,000
+gained, 1.3 million steady) and per 100 m cell; loss confidence per class, percent, with AlphaEarth's embedding move,
+as on the map. About 22 minutes and 7.3 to 8.0 GB per trajectory head.
+
+| Head | Gain floor, per pixel: lidar found / steady lit | Gain confidence: lidar AUC, found at 2 % lit | Per 100 m cell: AUC gained / corr | Lidar gained: median rise / steady p90, Mg/ha | Steady trees, 1 yr p90, Mg/ha | Loss AUC, lidar / Esri |
+|---|---|---|---|---|---|---|
+| Map (AEF, all squares) | **.387** / .015 | **.706**, .189 | .822 / .531 | 25.0 / 13.7 | 32.7 | .869 / **.808** |
+| AEF, one year | .373 / .015 | .699, .135 | **.857 / .565** | 24.1 / 14.2 | 32.4 | .846 / .784 |
+| TESSERA, one year | .348 / .017 | .655, .201 | .795 / .480 | 12.9 / 23.0 | 64.0 | **.881** / .750 |
+| AEF + TESSERA, one year | .354 / .009 | .663, .213 | .808 / .538 | 19.0 / 14.3 | 41.2 | .868 / .777 |
+| Trajectory, AEF | .360 / .012 | .644, .197 | .692 / .524 | 20.9 / 10.3 | **16.5** | .839 / .788 |
+| Trajectory, TESSERA | .300 / .014 | .654, .168 | .716 / .460 | 12.7 / 12.8 | 20.7 | .864 / .748 |
+| Trajectory, AEF + TESSERA | .289 / **.005** | .670, **.238** | .751 / .501 | 13.5 / **8.8** | 18.8 | .844 / .788 |
+
+- **No head finds more of lidar's regrowth than the map's at the map's floor.** The map's head finds .387 of the
+  gained pixels with 1.5 % of steady ground lit; the best other is the held-out AEF head (.373 at the same lit).
+- **The trajectory heads are quieter, as section 14 found, but the regrowth shrinks with the noise.** Steady trees
+  move half as much in a year (p90 16 to 21 Mg/ha against 32 to 64), but lidar's gained pixels also rise less (AEF
+  21 against 24 to 25 Mg/ha). Rise over steady noise: trajectory AEF 2.0, the map 1.8, AEF + TESSERA one year 1.3,
+  TESSERA one year 0.6.
+- **What the quiet buys is a stricter cutoff.** The trajectory head on AEF + TESSERA lights a third of the map's
+  steady ground at the floor (.005 against .015) for three quarters of its found (.289), and its gain confidence finds
+  the most at 2 % lit (.238 against the map's .189). The AEF + TESSERA one-year pair is second on both (.009; .213).
+- **Per 100 m cell the trajectory heads are worse** (gained AUC .69 to .75 against .80 to .86). Section 14's
+  four-times regrowth was measured against CTrees' change, which the trajectory head is taught on; against lidar,
+  which neither head saw, it does not carry over. The held-out one-year AEF head is the best per cell (.857 / .565).
+- **TESSERA alone is the noisiest** (steady trees p90 64 Mg/ha one year) and shows the smallest lidar rise; it reads
+  loss best against lidar (.881) and worst against Esri (.750).
+- Loss is a little more muted with the trajectory heads (lidar AUC .839 to .864; per cell .90 to .92 against .91 to
+  .96), as in section 14.
+
+**Cost in the browser.** A one-year change view reads two years: 2 x 21 MB per square for AEF, 2 x 68 MB for AEF +
+TESSERA. A trajectory head reads all eight years for any change view (8 x 21 = 168 MB for AEF, 8 x 68 = 544 MB for
+AEF + TESSERA) and needs a new GPU pass that mixes across years. TESSERA in the browser is a second embedding read
+(46 MB per square-year) the map does not do yet.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1313,7 +1354,7 @@ Chile; TESSERA lacks much of 2017 (dropped everywhere).
 
 ## Next
 
-Tested in sections 17 to 26; what is still open (directions, not ranked):
+Tested in sections 17 to 31; what is still open (directions, not ranked):
 - **The map's embeddings**: section 25 lays out accuracy against read cost for every single, pair and all three;
   no input wins every test, so it is a choice by setting (change, each year), still to make.
 - **Grass**: one head can carry the woody total (CTrees) and the grass part (RAP) at little cost (section 20); a
@@ -1328,7 +1369,10 @@ Tested in sections 17 to 26; what is still open (directions, not ranked):
 - **Change for the map** (section 30): loss per pixel with its confidence per class, in percent, with the
   embedding's move; gain per pixel with the two-part floor and its per class Mg/ha confidence. Not built yet: the
   browser needs a class per pixel (the head's class output, dropped at export) and the confidence tables. Gain's
-  signal is the limit, not its size: the trajectory head (section 14) and TESSERA (section 25) show regrowth best.
+  signal is the limit, not its size. Per pixel against lidar (section 31) neither the trajectory head nor TESSERA
+  finds more regrowth than the map's head at its floor. The trajectory heads and the AEF + TESSERA pair lower the
+  steady ground lit (the trajectory head on AEF + TESSERA to a third), so they serve a stricter cutoff, at three to
+  thirteen times the map's read for a change view.
 - **Tundra**: Esri files it as rangeland (section 28); the Berner / Orndahl Arctic biomass maps are the check.
 - **Change** (earlier): loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
   own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
