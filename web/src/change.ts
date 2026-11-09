@@ -1,3 +1,4 @@
+import { GAIN_LIDAR_FROM, type GainNet, gainP } from "./gain";
 import { codeValue, deq, NODATA } from "./head";
 
 /**
@@ -13,6 +14,8 @@ import { codeValue, deq, NODATA } from "./head";
  * - Gain: the pixel's own rise, where it is at least TAU Mg/ha and a quarter of the pixel's biomass in year a (the
  *   two-part floor); its confidence from the rise in Mg/ha. Per pixel finds more of lidar's regrowth than 100 m
  *   blocks for the same steady ground lit: averaging over 100 m does not lower the noise, whole patches drift.
+ * - Gain, lidar-taught (when asked): the pixel's own rise, where the lidar-taught network (gain.ts) scores it above
+ *   all but 1.5 % of steady ground at the window's length; its confidence that share.
  * Factors and floors from results/change_combined.json, linear between the one-year and seven-year fits.
  * Everything else is exactly 0, which the map leaves fully transparent.
  */
@@ -69,11 +72,16 @@ const clamp16 = (v: number) => Math.max(-32767, Math.min(32767, Math.round(v)));
  */
 export function changeOf(
   ea: Int8Array, eb: Int8Array, ca: Uint16Array, cb: Uint16Array, n: number, years: number, T: ConfTables,
+  g: GainNet | null = null,
 ): Int16Array {
   const { tau, loss } = ruleFor(years);
   const L = Math.min(Math.max(years, T.L[0]!), T.L[T.L.length - 1]!);
   const tab = (v: keyof ConfTables["q"], c: number) => T.q[v][`${T.classes[c] ?? "all"}:${L}`] ?? T.q[v][`all:${L}`]!;
   const out = new Int16Array(4 * n).fill(CH_NODATA, 0, n).fill(-1, 3 * n);
+  // the lidar gain's steady table at this window length (the nearest length it has)
+  const gLs = g ? Object.keys(g.h.steady.L).map(Number).sort((x, y) => x - y) : [];
+  const gL = gLs.length ? gLs.reduce((best, x) => (Math.abs(x - years) < Math.abs(best - years) ? x : best), gLs[0]!) : 0;
+  const gQ = g && gLs.length ? g.h.steady.L[String(gL)]!.q : null;
   for (let p = 0; p < n; p++) {
     if (ca[p] === 0 || cb[p] === 0 || ea[p] === NODATA || eb[p] === NODATA) continue;
     const a = codeValue(ca[p]!), d = codeValue(cb[p]!) - a;
@@ -97,6 +105,16 @@ export function changeOf(
           const f = -d / Math.max(a, 1);
           mg = -a * Math.min(1, (1 - SOFT) * f + SOFT * Math.tanh(f / loss));
           pct = (100 * mg) / Math.max(a, 1);
+        }
+      }
+    } else if (g && gQ) {
+      if (d > 0) {
+        const pr = gainP(g, ea, eb, n, p, years);
+        const c = pr === pr ? shareBelow(g.h.steady.p, gQ, pr) : 0;
+        if (c >= GAIN_LIDAR_FROM) {
+          mg = d;
+          pct = (100 * d) / Math.max(a, 1);
+          conf = c;
         }
       }
     } else if (d >= tau && d >= 0.25 * Math.max(a, 1)) {

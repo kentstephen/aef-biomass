@@ -8,6 +8,7 @@ import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&ur
 
 import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
 import { AGB_HI, type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
+import type { GainHead } from "./gain";
 import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
 import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
@@ -49,6 +50,9 @@ const store = (k: string, v: string) => {
 const [head, confTables]: [BiomassHead, ConfTables] = await Promise.all(
   ["biomass_aef.json", "change_conf.json"].map(async (f) => (await fetch(`${import.meta.env.BASE_URL}models/${f}`)).json()),
 ) as [BiomassHead, ConfTables];
+// the lidar-taught gain (G in change); the map runs without it if the file is missing
+const gainHead: GainHead | null = await fetch(`${import.meta.env.BASE_URL}models/gain_lidar.json`)
+  .then((r) => (r.ok ? r.json() : null)).catch(() => null);
 const YEARS = head.years;
 const savedWin = (stored(WIN_KEY) ?? "").split("-").map(Number);
 const winOk = savedWin.length === 2 && YEARS.includes(savedWin[0]!) && YEARS.includes(savedWin[1]!) && savedWin[0]! < savedWin[1]!;
@@ -79,11 +83,13 @@ const st = {
   picked: null as [number, number] | null,
   // the imagery's gamma (; and '), remembered
   gamma: Number(stored("aef-biomass-s2-gamma")) || 1,
+  // gain by the lidar-taught network instead of the two-part floor (G, change only), remembered
+  lidarGain: !!gainHead && stored("aef-biomass-gain") === "lidar",
 };
 /** The layer shown: the year, or the window. */
-const curKey = () => (st.mode === "year" ? yearKey(st.year) : windowKey(st.y0, st.y1));
-/** A layer key as words: "2025", or "2018 to 2025". */
-const keyName = (k: string) => k.replace("-", " to ");
+const curKey = () => (st.mode === "year" ? yearKey(st.year) : windowKey(st.y0, st.y1, st.lidarGain));
+/** A layer key as words: "2025", or "2018 to 2025" (", lidar-taught gain" for a window ending in L). */
+const keyName = (k: string) => k.replace("-", " to ").replace("L", ", lidar-taught gain");
 
 // ---- the page: the map fills the window; search and the card down the top left, the loading bar along the top
 const mapEl = document.getElementById("map")!;
@@ -329,7 +335,7 @@ function say(s: string) {
 
 // the biomass draws under the basemap's labels
 let firstLabel: string | undefined;
-const bio = await createBiomass(head, confTables, () => firstLabel);
+const bio = await createBiomass(head, confTables, gainHead, () => firstLabel);
 let modeNote = "";
 bio.pool.onMode = () => {
   const ms = bio.pool.modes;
@@ -455,6 +461,32 @@ function keyTicks() {
 }
 
 /** The pixel under the pointer: the card's readout line, and the tooltip by the pointer (Q hides it). */
+/**
+ * When the change under the pointer happened (change view): the one-year step of the head's biomass that moved most
+ * in the change's direction, by pixel and window; read once per pixel, the readout redrawn when it lands.
+ */
+const when = { key: "", years: null as [number, number] | null, busy: false, ac: null as AbortController | null };
+function whenFor(lon: number, lat: number, sign: number): string {
+  const k = `${Math.floor((lon - X0) / RES)}:${Math.floor((Y0 - lat) / RES)}:${st.y0}-${st.y1}:${sign}`;
+  if (when.key !== k) {
+    when.ac?.abort();
+    const ac = (when.ac = new AbortController());
+    Object.assign(when, { key: k, years: null, busy: true });
+    bio.whenAtPoint(lon, lat, st.y0, st.y1, sign, ac.signal).then(
+      (y) => {
+        if (when.key !== k) return;
+        Object.assign(when, { years: y, busy: false });
+        readout();
+      },
+      () => {
+        if (when.key === k) when.busy = false;
+      },
+    );
+  }
+  if (when.years) return `between ${when.years[0]} and ${when.years[1]}`;
+  return when.busy ? "finding the years" : "";
+}
+
 function readout() {
   const el = $(".readout");
   const off = () => {
@@ -483,8 +515,9 @@ function readout() {
     // what the head calls the pixel in each year: one class if it stayed, "a to b" if it changed
     const cls = !c.clsA ? "" : c.clsA === c.clsB ? c.clsA : `${c.clsA} to ${c.clsB}`;
     if (c.mg !== 0) {
-      mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}</div>${cls ? `<div>${cls}</div>` : ""}<div>more than ${share} of steady ground</div>`;
-      line += `${cls ? ` &middot; ${cls}` : ""} &middot; more than ${share} of steady ground`;
+      const yrs = whenFor(pt[0], pt[1], Math.sign(c.mg));
+      mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}${yrs ? ` ${yrs}` : ""}</div>${cls ? `<div>${cls}</div>` : ""}<div>more than ${share} of steady ground</div>`;
+      line += `${yrs ? ` &middot; ${yrs}` : ""}${cls ? ` &middot; ${cls}` : ""} &middot; more than ${share} of steady ground`;
     } else if (cls) {
       mid = `<div>${cls}</div>`;
       line += ` &middot; ${cls}`;
@@ -552,13 +585,17 @@ function styleMode() {
   // folded, the card is its header: the short title, the ramp on the map and the year (Earthwork's card fold)
   $(".at-ramp").style.background = ramp;
   $(".sub").textContent = ch
-    ? "AlphaEarth, per 10 m pixel: loss where the head fell and the embedding itself moved, gain where it rose past a floor"
+    ? st.lidarGain
+      ? "AlphaEarth, per 10 m pixel: loss where the head fell and the embedding itself moved, gain where the lidar-taught network sees canopy rise"
+      : "AlphaEarth, per 10 m pixel: loss where the head fell and the embedding itself moved, gain where it rose past a floor"
     : "AlphaEarth, one year's embedding";
   $(".unit").textContent = ch
     ? "percent of the pixel's own biomass the first year. Faint: steady ground of its class often changes as much. Clear: no change counted"
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
-    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
+    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
+      (gainHead ? `<kbd>G</kbd>&nbsp;gain ${st.lidarGain ? "by floor" : "by lidar"} &nbsp; ` : "") +
+      "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
     : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
@@ -678,6 +715,18 @@ function setWindow(a: number, b: number) {
   stopAhead();
   render();
 }
+/** G: gain by the lidar-taught network or by the two-part floor (change only). */
+function setLidarGain(on: boolean) {
+  if (!gainHead || on === st.lidarGain) return;
+  st.lidarGain = on;
+  store("aef-biomass-gain", on ? "lidar" : "floor");
+  st.prev = null;
+  st.viewLoaded = false;
+  stopAhead();
+  styleMode();
+  render();
+  say(on ? "gain: the lidar-taught network" : "gain: the two-part floor");
+}
 function setMode(m: Mode) {
   if (m === st.mode) return;
   st.mode = m;
@@ -743,6 +792,7 @@ window.addEventListener("keydown", (e) => {
   else if (e.code === "BracketRight") step(1);
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
+  else if (e.code === "KeyG" && !e.shiftKey && st.mode === "change" && gainHead) setLidarGain(!st.lidarGain);
   else if (e.code === "KeyF") toggleFull();
   else if (e.code === "KeyL" && !e.shiftKey) toggleLabels();
   else if (e.key === "/") search.focus();

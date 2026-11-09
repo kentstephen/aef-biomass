@@ -28,8 +28,10 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 /* top left: search, then the card under it, one width */
 .at-top { position: fixed; right: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; gap: 8px;
   width: 286px; max-width: calc(100vw - 24px); }
-/* top right: the search and the card line up on their right edges */
-.at-top { align-items: flex-end; }
+/* top right: the search and the card line up on their right edges; a card taller than the window scrolls */
+.at-top { align-items: flex-end; max-height: calc(100vh - 24px); }
+.at-top > .at-search { flex: 0 0 auto; }
+.at-top > .card { flex: 0 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .at-search { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 0 12px; height: 40px;
   width: 100%; }
 .at-search svg { flex: 0 0 auto; opacity: 0.6; }

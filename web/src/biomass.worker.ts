@@ -2,6 +2,7 @@ import * as zarr from "zarrita";
 
 import { type AefArray, NUM_BANDS, openMosaic } from "./aef";
 import { changeOf, type ConfTables } from "./change";
+import { type GainHead, type GainNet, gainNet, gainProbeGap } from "./gain";
 import { argClass, type BiomassHead, packHead, probeGap, scoreCpu, toCode } from "./head";
 import { makeScorer, type Scorer } from "./head-gpu";
 
@@ -11,11 +12,12 @@ import { makeScorer, type Scorer } from "./head-gpu";
  * chunk), never the embedding. A change ask reads the chunk in two years (the second from the disk cache, mostly)
  * and sends back the change planes of change.ts (Int16, 384 KB).
  */
-type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number };
-type Msg = { type: "init"; head: BiomassHead; conf: ConfTables } | Read | { type: "abort"; id: number };
+type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number; lidarGain?: boolean };
+type Msg = { type: "init"; head: BiomassHead; conf: ConfTables; gain: GainHead | null } | Read | { type: "abort"; id: number };
 
 let head: BiomassHead | null = null;
 let conf: ConfTables | null = null;
+let gain: GainNet | null = null;
 let weights: Float32Array | null = null;
 let ready: Promise<Scorer> | null = null;
 let mosaic: Promise<AefArray> | null = null;
@@ -49,7 +51,7 @@ async function scorer(h: BiomassHead, w: Float32Array): Promise<Scorer> {
   } catch {
     // no WebGPU in this worker: the CPU path
   }
-  postMessage({ type: "mode", mode, probeGap: gap, gpuCodeGap: gpuGap });
+  postMessage({ type: "mode", mode, probeGap: gap, gpuCodeGap: gpuGap, gainGap: gain ? gainProbeGap(gain) : undefined });
   return use;
 }
 
@@ -74,7 +76,7 @@ async function read(m: Read) {
       const [ea, eb] = await Promise.all([get(m.timeIdx), get(m.timeIdxB)]);
       const ca = await score(ea, n);
       const cb = await score(eb, n);
-      planes = changeOf(ea, eb, ca, cb, n, m.timeIdxB - m.timeIdx, conf!);
+      planes = changeOf(ea, eb, ca, cb, n, m.timeIdxB - m.timeIdx, conf!, m.lidarGain ? gain : null);
     }
     postMessage({ id: m.id, planes }, { transfer: [planes.buffer as ArrayBuffer] });
   } catch (e) {
@@ -90,6 +92,7 @@ self.onmessage = (ev: MessageEvent<Msg>) => {
   if (m.type === "init") {
     head = m.head;
     conf = m.conf;
+    gain = m.gain ? gainNet(m.gain) : null;
     weights = packHead(head);
     ready = scorer(head, weights);
   } else if (m.type === "abort") running.get(m.id)?.abort();
