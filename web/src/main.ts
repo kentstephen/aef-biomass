@@ -717,8 +717,8 @@ function setWindow(a: number, b: number) {
   stopAhead();
   render();
 }
-/** The page that explains the map, on GitHub. */
-const HOW_URL = "https://github.com/kentstephen/aef-biomass#how-the-map-works";
+/** The code and the README (how the map works), on GitHub. */
+const REPO_URL = "https://github.com/kentstephen/aef-biomass";
 /** What G does, the first time it is pressed (then remembered); a close button or Esc puts it away. */
 const gainHelp = document.createElement("div");
 gainHelp.className = "help at-glass";
@@ -732,7 +732,7 @@ gainHelp.innerHTML = `<button class="x" aria-label="Close">&times;</button>
   gain.</p>
   <p>Neither is clearly better: on the lidar places the floor finds a little more regrowth; elsewhere the lidar-taught
   one agrees with Esri's "became trees" about three times as often. Press G again to switch back.</p>
-  <p><a href="${HOW_URL}" target="_blank" rel="noopener">How the map works</a></p>`;
+  <p><a href="${REPO_URL}" target="_blank" rel="noopener">github.com/kentstephen/aef-biomass</a></p>`;
 document.body.append(gainHelp);
 const closeHelp = () => gainHelp.classList.remove("on");
 gainHelp.querySelector<HTMLButtonElement>(".x")!.onclick = closeHelp;
@@ -741,7 +741,6 @@ gainHelp.querySelector<HTMLButtonElement>(".x")!.onclick = closeHelp;
  * The first visit's card (Earthwork's welcome): what this is and what to do, in a few lines; ? opens the about card
  * with the rest. Both close on their button, a click outside, or Esc.
  */
-const REPO_URL = "https://github.com/kentstephen/aef-biomass";
 function overlay_(cls: string, html: string) {
   const el = document.createElement("div");
   el.className = `at-about ${cls}`;
@@ -766,8 +765,8 @@ const welcome = overlay_("welcome", `<h2>Biomass</h2>
     <li><b>Hold</b> <kbd>Space</kbd> to see the Sentinel-2 imagery of that year; <kbd>P</kbd> pairs it on the left, moving with the map.</li>
     <li><kbd>G</kbd> in change: gain decided by a model taught on airborne lidar instead of a floor.</li>
   </ul>
-  <p><small><kbd>?</kbd> has everything else. How it works, what it gets wrong, and the code:
-  <a href="${HOW_URL}" target="_blank" rel="noopener">aef-biomass</a> on GitHub.</small></p>
+  <p><small><kbd>?</kbd> has everything else. The code and how it works:
+  <a href="${REPO_URL}" target="_blank" rel="noopener">github.com/kentstephen/aef-biomass</a></small></p>
   <div><button class="at-chip">Start</button></div>`);
 const about = overlay_("about", `<h2>Biomass</h2>
   <p><b>Biomass</b> here is aboveground living plant matter, dry, in megagrams per hectare (Mg/ha; 1 Mg/ha is 100 g
@@ -797,8 +796,8 @@ const about = overlay_("about", `<h2>Biomass</h2>
   CTrees aboveground biomass and Meta and WRI canopy height (CC BY 4.0), with ESA WorldCover and Impact Observatory
   land cover. Imagery: EOxCloudless by EOX IT Services GmbH, 2019 to 2025 (contains modified Copernicus Sentinel data;
   free for non-commercial use); 2018 from the Copernicus Sentinel-2 Global Mosaics (ESA), via TGE Labs on Source
-  Cooperative. Search by Photon and Nominatim over OpenStreetMap. Basemap by CARTO, &copy; OpenStreetMap. Every test
-  behind the map: <a href="${REPO_URL}/blob/main/FINDINGS.md" target="_blank" rel="noopener">FINDINGS.md</a>.</small></p>
+  Cooperative. Search by Photon and Nominatim over OpenStreetMap. Basemap by CARTO, &copy; OpenStreetMap. The code and how
+  it works: <a href="${REPO_URL}" target="_blank" rel="noopener">github.com/kentstephen/aef-biomass</a></small></p>
   <div style="margin-top:12px"><button class="at-chip">Close</button></div>`);
 if (!stored("aef-biomass-welcome")) welcome.classList.add("on");
 store("aef-biomass-welcome", "1");
