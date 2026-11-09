@@ -1,0 +1,1344 @@
+{
+ "note": "Grass years outside the US against Wu et al. 2026 global grassland biomass (Zenodo 18044163).",
+ "years": [
+  2018,
+  2019,
+  2020,
+  2021,
+  2022
+ ],
+ "squares": {
+  "mongolia-steppe": {
+   "kind": "grass",
+   "cells": 144,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.608,
+   "wu yearly medians": [
+    0.587,
+    0.594,
+    0.565,
+    0.633,
+    0.954
+   ],
+   "map": {
+    "rank in square": -0.32,
+    "cell departures": 0.674,
+    "yearly median": 0.76,
+    "steps": 0.422,
+    "median Mg/ha": 0.364
+   },
+   "rap head": {
+    "rank in square": -0.035,
+    "cell departures": 0.38,
+    "yearly median": 0.503,
+    "steps": 0.422,
+    "median Mg/ha": 0.947
+   }
+  },
+  "kazakh-steppe": {
+   "kind": "grass",
+   "cells": 144,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.591,
+   "wu yearly medians": [
+    0.603,
+    0.554,
+    0.564,
+    0.577,
+    0.683
+   ],
+   "map": {
+    "rank in square": -0.061,
+    "cell departures": 0.128,
+    "yearly median": 0.105,
+    "steps": 0.169,
+    "median Mg/ha": 1.978
+   },
+   "rap head": {
+    "rank in square": 0.202,
+    "cell departures": -0.066,
+    "yearly median": -0.939,
+    "steps": 0.018,
+    "median Mg/ha": 1.089
+   }
+  },
+  "serengeti-tz": {
+   "kind": "grass",
+   "cells": 144,
+   "cells in square": 144,
+   "wu median Mg/ha": 2.353,
+   "wu yearly medians": [
+    2.69,
+    2.327,
+    3.556,
+    2.337,
+    2.161
+   ],
+   "map": {
+    "rank in square": 0.724,
+    "cell departures": 0.219,
+    "yearly median": 0.741,
+    "steps": 0.297,
+    "median Mg/ha": 6.725
+   },
+   "rap head": {
+    "rank in square": 0.75,
+    "cell departures": 0.305,
+    "yearly median": 0.229,
+    "steps": -0.171,
+    "median Mg/ha": 0.248
+   }
+  },
+  "pampas-ar": {
+   "kind": "grass",
+   "cells": 61,
+   "cells in square": 144,
+   "wu median Mg/ha": 3.914,
+   "wu yearly medians": [
+    3.941,
+    3.867,
+    3.762,
+    4.683,
+    3.93
+   ],
+   "map": {
+    "rank in square": 0.49,
+    "cell departures": -0.097,
+    "yearly median": 0.26,
+    "steps": 0.138,
+    "median Mg/ha": 16.262
+   },
+   "rap head": {
+    "rank in square": -0.381,
+    "cell departures": -0.127,
+    "yearly median": -0.441,
+    "steps": -0.149,
+    "median Mg/ha": 0.079
+   }
+  },
+  "mitchell-grass-au": {
+   "kind": "grass",
+   "cells": 71,
+   "cells in square": 132,
+   "wu median Mg/ha": 1.571,
+   "wu yearly medians": [
+    1.079,
+    1.752,
+    1.571,
+    0.976,
+    1.835
+   ],
+   "map": {
+    "rank in square": 0.216,
+    "cell departures": 0.187,
+    "yearly median": 0.449,
+    "steps": 0.3,
+    "median Mg/ha": 4.021
+   },
+   "rap head": {
+    "rank in square": 0.086,
+    "cell departures": -0.009,
+    "yearly median": -0.033,
+    "steps": 0.201,
+    "median Mg/ha": 0.01
+   }
+  },
+  "tibet-cn": {
+   "kind": "grass",
+   "cells": 121,
+   "cells in square": 132,
+   "wu median Mg/ha": 0.848,
+   "wu yearly medians": [
+    0.816,
+    0.587,
+    1.194,
+    0.85,
+    0.981
+   ],
+   "map": {
+    "rank in square": -0.087,
+    "cell departures": 0.212,
+    "yearly median": 0.342,
+    "steps": 0.452,
+    "median Mg/ha": 3.831
+   },
+   "rap head": {
+    "rank in square": 0.4,
+    "cell departures": 0.014,
+    "yearly median": 0.031,
+    "steps": -0.294,
+    "median Mg/ha": 0.201
+   }
+  },
+  "karoo-za": {
+   "kind": "shrub",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "patagonia-ar": {
+   "kind": "shrub",
+   "cells": 13,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.596,
+   "wu yearly medians": [
+    0.6,
+    0.596,
+    0.591,
+    0.601,
+    0.624
+   ],
+   "map": {
+    "rank in square": 0.374,
+    "cell departures": -0.018,
+    "yearly median": 0.298,
+    "steps": 0.121,
+    "median Mg/ha": 1.363
+   },
+   "rap head": {
+    "rank in square": 0.198,
+    "cell departures": -0.106,
+    "yearly median": 0.597,
+    "steps": -0.231,
+    "median Mg/ha": 0.11
+   }
+  },
+  "chihuahua-mx": {
+   "kind": "shrub",
+   "cells": 46,
+   "cells in square": 132,
+   "wu median Mg/ha": 2.269,
+   "wu yearly medians": [
+    2.703,
+    2.232,
+    1.979,
+    2.291,
+    2.404
+   ],
+   "map": {
+    "rank in square": -0.069,
+    "cell departures": -0.037,
+    "yearly median": 0.211,
+    "steps": 0.167,
+    "median Mg/ha": 1.517
+   },
+   "rap head": {
+    "rank in square": -0.117,
+    "cell departures": 0.441,
+    "yearly median": 0.637,
+    "steps": 0.748,
+    "median Mg/ha": 0.731
+   }
+  },
+  "sahel-ne": {
+   "kind": "shrub",
+   "cells": 107,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.829,
+   "wu yearly medians": [
+    0.819,
+    0.79,
+    0.874,
+    0.831,
+    0.92
+   ],
+   "map": {
+    "rank in square": 0.333,
+    "cell departures": 0.259,
+    "yearly median": 0.74,
+    "steps": 0.259,
+    "median Mg/ha": 1.281
+   },
+   "rap head": {
+    "rank in square": 0.478,
+    "cell departures": -0.298,
+    "yearly median": -0.331,
+    "steps": -0.088,
+    "median Mg/ha": 0.633
+   }
+  },
+  "mulga-au": {
+   "kind": "shrub",
+   "cells": 1,
+   "cells in square": 144
+  },
+  "caatinga-br": {
+   "kind": "shrub",
+   "cells": 129,
+   "cells in square": 132,
+   "wu median Mg/ha": 3.718,
+   "wu yearly medians": [
+    3.303,
+    3.96,
+    3.417,
+    3.649,
+    4.42
+   ],
+   "map": {
+    "rank in square": -0.027,
+    "cell departures": 0.16,
+    "yearly median": 0.31,
+    "steps": -0.373,
+    "median Mg/ha": 11.841
+   },
+   "rap head": {
+    "rank in square": 0.052,
+    "cell departures": -0.402,
+    "yearly median": -0.456,
+    "steps": -0.137,
+    "median Mg/ha": 0.572
+   }
+  },
+  "cerrado-br": {
+   "kind": "savanna",
+   "cells": 21,
+   "cells in square": 144,
+   "wu median Mg/ha": 5.247,
+   "wu yearly medians": [
+    5.253,
+    5.623,
+    7.908,
+    5.327,
+    3.888
+   ],
+   "map": {
+    "rank in square": 0.021,
+    "cell departures": 0.02,
+    "yearly median": 0.01,
+    "steps": 0.375,
+    "median Mg/ha": 29.066
+   },
+   "rap head": {
+    "rank in square": -0.692,
+    "cell departures": -0.682,
+    "yearly median": -0.926,
+    "steps": -0.723,
+    "median Mg/ha": 1.536
+   }
+  },
+  "miombo-zm": {
+   "kind": "savanna",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "sudan-savanna-bf": {
+   "kind": "savanna",
+   "cells": 139,
+   "cells in square": 144,
+   "wu median Mg/ha": 3.285,
+   "wu yearly medians": [
+    3.651,
+    3.79,
+    3.249,
+    1.909,
+    3.327
+   ],
+   "map": {
+    "rank in square": 0.513,
+    "cell departures": 0.112,
+    "yearly median": 0.168,
+    "steps": 0.263,
+    "median Mg/ha": 9.655
+   },
+   "rap head": {
+    "rank in square": -0.556,
+    "cell departures": 0.7,
+    "yearly median": 0.903,
+    "steps": 0.628,
+    "median Mg/ha": 0.893
+   }
+  },
+  "top-end-au": {
+   "kind": "savanna",
+   "cells": 75,
+   "cells in square": 144,
+   "wu median Mg/ha": 1.715,
+   "wu yearly medians": [
+    1.804,
+    1.232,
+    1.654,
+    2.027,
+    1.703
+   ],
+   "map": {
+    "rank in square": 0.16,
+    "cell departures": 0.694,
+    "yearly median": 0.757,
+    "steps": 0.785,
+    "median Mg/ha": 15.192
+   },
+   "rap head": {
+    "rank in square": -0.035,
+    "cell departures": 0.003,
+    "yearly median": 0.56,
+    "steps": -0.035,
+    "median Mg/ha": 0.758
+   }
+  },
+  "llanos-ve": {
+   "kind": "savanna",
+   "cells": 42,
+   "cells in square": 144,
+   "wu median Mg/ha": 5.39,
+   "wu yearly medians": [
+    5.271,
+    7.103,
+    3.979,
+    6.358,
+    5.274
+   ],
+   "map": {
+    "rank in square": 0.181,
+    "cell departures": 0.01,
+    "yearly median": -0.086,
+    "steps": -0.051,
+    "median Mg/ha": 5.302
+   },
+   "rap head": {
+    "rank in square": 0.682,
+    "cell departures": 0.034,
+    "yearly median": -0.142,
+    "steps": -0.1,
+    "median Mg/ha": 0.875
+   }
+  },
+  "mopane-bw": {
+   "kind": "savanna",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "dehesa-es": {
+   "kind": "savanna",
+   "cells": 130,
+   "cells in square": 144,
+   "wu median Mg/ha": 3.558,
+   "wu yearly medians": [
+    3.475,
+    3.906,
+    3.341,
+    3.898,
+    3.516
+   ],
+   "map": {
+    "rank in square": 0.238,
+    "cell departures": -0.18,
+    "yearly median": -0.516,
+    "steps": -0.26,
+    "median Mg/ha": 8.231
+   },
+   "rap head": {
+    "rank in square": -0.065,
+    "cell departures": 0.039,
+    "yearly median": 0.525,
+    "steps": 0.057,
+    "median Mg/ha": 1.282
+   }
+  },
+  "central-india": {
+   "kind": "savanna",
+   "cells": 25,
+   "cells in square": 132,
+   "wu median Mg/ha": 2.516,
+   "wu yearly medians": [
+    2.611,
+    6.046,
+    2.07,
+    2.49,
+    2.774
+   ],
+   "map": {
+    "rank in square": 0.42,
+    "cell departures": -0.396,
+    "yearly median": -0.413,
+    "steps": -0.523,
+    "median Mg/ha": 48.844
+   },
+   "rap head": {
+    "rank in square": -0.319,
+    "cell departures": 0.001,
+    "yearly median": 0.046,
+    "steps": -0.217,
+    "median Mg/ha": 0.401
+   }
+  },
+  "punjab-in": {
+   "kind": "crop",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "north-china-plain": {
+   "kind": "crop",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "ukraine": {
+   "kind": "crop",
+   "cells": 1,
+   "cells in square": 132
+  },
+  "beauce-fr": {
+   "kind": "crop",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "matopiba-br": {
+   "kind": "crop",
+   "cells": 20,
+   "cells in square": 132,
+   "wu median Mg/ha": 4.722,
+   "wu yearly medians": [
+    5.459,
+    4.436,
+    7.319,
+    4.762,
+    4.296
+   ],
+   "map": {
+    "rank in square": 0.472,
+    "cell departures": -0.454,
+    "yearly median": -0.541,
+    "steps": -0.469,
+    "median Mg/ha": 16.663
+   },
+   "rap head": {
+    "rank in square": 0.432,
+    "cell departures": -0.598,
+    "yearly median": -0.675,
+    "steps": -0.784,
+    "median Mg/ha": 1.084
+   }
+  },
+  "ethiopia-highlands": {
+   "kind": "crop",
+   "cells": 4,
+   "cells in square": 132
+  },
+  "java-rice-id": {
+   "kind": "crop",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "sundarbans-bd": {
+   "kind": "wetland",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "pantanal-br": {
+   "kind": "wetland",
+   "cells": 9,
+   "cells in square": 144
+  },
+  "okavango-bw": {
+   "kind": "wetland",
+   "cells": 13,
+   "cells in square": 144,
+   "wu median Mg/ha": 2.109,
+   "wu yearly medians": [
+    2.377,
+    1.236,
+    1.118,
+    2.032,
+    2.496
+   ],
+   "map": {
+    "rank in square": 0.071,
+    "cell departures": 0.587,
+    "yearly median": 0.787,
+    "steps": 0.604,
+    "median Mg/ha": 4.959
+   },
+   "rap head": {
+    "rank in square": -0.489,
+    "cell departures": 0.562,
+    "yearly median": 0.705,
+    "steps": 0.614,
+    "median Mg/ha": 0.398
+   }
+  },
+  "sudd-ss": {
+   "kind": "wetland",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "hudson-lowlands-ca": {
+   "kind": "wetland",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "niger-delta-ng": {
+   "kind": "wetland",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "lagos-ng": {
+   "kind": "city-edge",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "dhaka-bd": {
+   "kind": "city-edge",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "addis-et": {
+   "kind": "city-edge",
+   "cells": 0,
+   "cells in square": 132
+  },
+  "hanoi-vn": {
+   "kind": "city-edge",
+   "cells": 1,
+   "cells in square": 121
+  },
+  "cairo-east-eg": {
+   "kind": "city-edge",
+   "cells": 1,
+   "cells in square": 144
+  },
+  "delhi-ncr-in": {
+   "kind": "city-edge",
+   "cells": 8,
+   "cells in square": 132
+  },
+  "sahara-dz": {
+   "kind": "desert-edge",
+   "cells": 0,
+   "cells in square": 121
+  },
+  "gobi-mn": {
+   "kind": "desert-edge",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "yamal-ru": {
+   "kind": "tundra",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "nunavik-ca": {
+   "kind": "tundra",
+   "cells": 118,
+   "cells in square": 121,
+   "wu median Mg/ha": 0.696,
+   "wu yearly medians": [
+    0.336,
+    0.672,
+    0.87,
+    0.648,
+    1.09
+   ],
+   "map": {
+    "rank in square": -0.48,
+    "cell departures": -0.019,
+    "yearly median": 0.043,
+    "steps": 0.597,
+    "median Mg/ha": 6.159
+   },
+   "rap head": {
+    "rank in square": -0.03,
+    "cell departures": 0.511,
+    "yearly median": 0.777,
+    "steps": -0.099,
+    "median Mg/ha": 0.331
+   }
+  },
+  "flint-hills-ks": {
+   "kind": "grass",
+   "cells": 132,
+   "cells in square": 132,
+   "wu median Mg/ha": 3.445,
+   "wu yearly medians": [
+    2.939,
+    3.963,
+    3.425,
+    3.128,
+    3.669
+   ],
+   "map": {
+    "rank in square": -0.206,
+    "cell departures": -0.039,
+    "yearly median": 0.044,
+    "steps": -0.147,
+    "median Mg/ha": 3.581
+   },
+   "rap head": {
+    "rank in square": 0.029,
+    "cell departures": 0.007,
+    "yearly median": -0.041,
+    "steps": 0.055,
+    "median Mg/ha": 2.23
+   },
+   "wu against rap": {
+    "rank in square": 0.187,
+    "cell departures": 0.372,
+    "yearly median": 0.584,
+    "steps": 0.448,
+    "median Mg/ha": 3.445
+   },
+   "rap head against rap": {
+    "rank in square": 0.825,
+    "cell departures": 0.235,
+    "yearly median": -0.174,
+    "steps": 0.289,
+    "median Mg/ha": 2.23
+   },
+   "map against rap": {
+    "rank in square": -0.654,
+    "cell departures": 0.062,
+    "yearly median": -0.067,
+    "steps": -0.013,
+    "median Mg/ha": 3.581
+   }
+  },
+  "mixed-grass-nd": {
+   "kind": "grass",
+   "cells": 110,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.607,
+   "wu yearly medians": [
+    0.505,
+    1.361,
+    0.572,
+    0.788,
+    0.415
+   ],
+   "map": {
+    "rank in square": 0.003,
+    "cell departures": 0.052,
+    "yearly median": 0.081,
+    "steps": -0.312,
+    "median Mg/ha": 4.013
+   },
+   "rap head": {
+    "rank in square": 0.099,
+    "cell departures": 0.262,
+    "yearly median": 0.286,
+    "steps": -0.218,
+    "median Mg/ha": 0.952
+   },
+   "wu against rap": {
+    "rank in square": 0.157,
+    "cell departures": 0.028,
+    "yearly median": 0.134,
+    "steps": -0.18,
+    "median Mg/ha": 0.607
+   },
+   "rap head against rap": {
+    "rank in square": 0.707,
+    "cell departures": 0.351,
+    "yearly median": 0.502,
+    "steps": 0.088,
+    "median Mg/ha": 0.952
+   },
+   "map against rap": {
+    "rank in square": 0.102,
+    "cell departures": 0.46,
+    "yearly median": 0.947,
+    "steps": 0.404,
+    "median Mg/ha": 4.013
+   }
+  },
+  "shortgrass-co": {
+   "kind": "grass",
+   "cells": 144,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.777,
+   "wu yearly medians": [
+    0.962,
+    0.89,
+    0.421,
+    0.643,
+    0.846
+   ],
+   "map": {
+    "rank in square": -0.299,
+    "cell departures": 0.209,
+    "yearly median": 0.72,
+    "steps": 0.19,
+    "median Mg/ha": 0.395
+   },
+   "rap head": {
+    "rank in square": 0.364,
+    "cell departures": 0.372,
+    "yearly median": 0.796,
+    "steps": 0.474,
+    "median Mg/ha": 1.108
+   },
+   "wu against rap": {
+    "rank in square": 0.477,
+    "cell departures": 0.348,
+    "yearly median": 0.359,
+    "steps": 0.451,
+    "median Mg/ha": 0.777
+   },
+   "rap head against rap": {
+    "rank in square": 0.877,
+    "cell departures": 0.604,
+    "yearly median": 0.692,
+    "steps": 0.637,
+    "median Mg/ha": 1.108
+   },
+   "map against rap": {
+    "rank in square": -0.783,
+    "cell departures": 0.024,
+    "yearly median": 0.669,
+    "steps": 0.105,
+    "median Mg/ha": 0.395
+   }
+  },
+  "rolling-plains-tx": {
+   "kind": "grass",
+   "cells": 144,
+   "cells in square": 144,
+   "wu median Mg/ha": 1.824,
+   "wu yearly medians": [
+    1.979,
+    2.219,
+    1.75,
+    1.821,
+    0.681
+   ],
+   "map": {
+    "rank in square": -0.124,
+    "cell departures": 0.549,
+    "yearly median": 0.677,
+    "steps": -0.033,
+    "median Mg/ha": 5.694
+   },
+   "rap head": {
+    "rank in square": 0.294,
+    "cell departures": 0.884,
+    "yearly median": 0.973,
+    "steps": 0.821,
+    "median Mg/ha": 1.133
+   },
+   "wu against rap": {
+    "rank in square": 0.174,
+    "cell departures": 0.45,
+    "yearly median": 0.384,
+    "steps": 0.892,
+    "median Mg/ha": 1.824
+   },
+   "rap head against rap": {
+    "rank in square": 0.751,
+    "cell departures": 0.492,
+    "yearly median": 0.489,
+    "steps": 0.848,
+    "median Mg/ha": 1.133
+   },
+   "map against rap": {
+    "rank in square": -0.692,
+    "cell departures": 0.003,
+    "yearly median": -0.168,
+    "steps": -0.153,
+    "median Mg/ha": 5.694
+   }
+  },
+  "san-rafael-az": {
+   "kind": "grass",
+   "cells": 101,
+   "cells in square": 144,
+   "wu median Mg/ha": 1.093,
+   "wu yearly medians": [
+    1.199,
+    1.094,
+    1.255,
+    1.062,
+    1.087
+   ],
+   "map": {
+    "rank in square": -0.407,
+    "cell departures": 0.114,
+    "yearly median": -0.059,
+    "steps": -0.004,
+    "median Mg/ha": 0.97
+   },
+   "rap head": {
+    "rank in square": -0.078,
+    "cell departures": -0.088,
+    "yearly median": -0.175,
+    "steps": 0.134,
+    "median Mg/ha": 0.951
+   },
+   "wu against rap": {
+    "rank in square": 0.203,
+    "cell departures": -0.488,
+    "yearly median": -0.813,
+    "steps": -0.469,
+    "median Mg/ha": 1.093
+   },
+   "rap head against rap": {
+    "rank in square": 0.643,
+    "cell departures": 0.14,
+    "yearly median": 0.19,
+    "steps": -0.429,
+    "median Mg/ha": 0.951
+   },
+   "map against rap": {
+    "rank in square": -0.174,
+    "cell departures": -0.453,
+    "yearly median": -0.493,
+    "steps": -0.303,
+    "median Mg/ha": 0.97
+   }
+  },
+  "foothill-annual-ca": {
+   "kind": "grass",
+   "cells": 44,
+   "cells in square": 144,
+   "wu median Mg/ha": 2.997,
+   "wu yearly medians": [
+    2.554,
+    3.024,
+    2.383,
+    3.48,
+    3.103
+   ],
+   "map": {
+    "rank in square": -0.059,
+    "cell departures": 0.695,
+    "yearly median": 0.787,
+    "steps": 0.771,
+    "median Mg/ha": 4.614
+   },
+   "rap head": {
+    "rank in square": 0.653,
+    "cell departures": -0.175,
+    "yearly median": -0.176,
+    "steps": 0.361,
+    "median Mg/ha": 0.657
+   },
+   "wu against rap": {
+    "rank in square": -0.036,
+    "cell departures": 0.032,
+    "yearly median": 0.201,
+    "steps": -0.437,
+    "median Mg/ha": 2.997
+   },
+   "rap head against rap": {
+    "rank in square": 0.173,
+    "cell departures": -0.098,
+    "yearly median": -0.157,
+    "steps": 0.29,
+    "median Mg/ha": 0.657
+   },
+   "map against rap": {
+    "rank in square": -0.051,
+    "cell departures": 0.105,
+    "yearly median": 0.289,
+    "steps": -0.408,
+    "median Mg/ha": 4.614
+   }
+  },
+  "sagebrush-wy": {
+   "kind": "shrub",
+   "cells": 132,
+   "cells in square": 132,
+   "wu median Mg/ha": 0.619,
+   "wu yearly medians": [
+    0.579,
+    0.627,
+    0.619,
+    0.603,
+    0.824
+   ],
+   "map": {
+    "rank in square": 0.128,
+    "cell departures": 0.434,
+    "yearly median": 0.484,
+    "steps": 0.549,
+    "median Mg/ha": 0.381
+   },
+   "rap head": {
+    "rank in square": 0.344,
+    "cell departures": -0.418,
+    "yearly median": -0.547,
+    "steps": 0.343,
+    "median Mg/ha": 0.481
+   },
+   "wu against rap": {
+    "rank in square": 0.168,
+    "cell departures": -0.364,
+    "yearly median": -0.635,
+    "steps": -0.195,
+    "median Mg/ha": 0.619
+   },
+   "rap head against rap": {
+    "rank in square": 0.582,
+    "cell departures": 0.635,
+    "yearly median": 0.88,
+    "steps": 0.187,
+    "median Mg/ha": 0.481
+   },
+   "map against rap": {
+    "rank in square": 0.292,
+    "cell departures": -0.04,
+    "yearly median": 0.179,
+    "steps": -0.068,
+    "median Mg/ha": 0.381
+   }
+  },
+  "snake-river-id": {
+   "kind": "shrub",
+   "cells": 103,
+   "cells in square": 121,
+   "wu median Mg/ha": 1.106,
+   "wu yearly medians": [
+    1.867,
+    0.745,
+    1.621,
+    1.145,
+    1.018
+   ],
+   "map": {
+    "rank in square": -0.132,
+    "cell departures": -0.22,
+    "yearly median": -0.094,
+    "steps": -0.318,
+    "median Mg/ha": 0.85
+   },
+   "rap head": {
+    "rank in square": 0.265,
+    "cell departures": -0.366,
+    "yearly median": -0.301,
+    "steps": -0.485,
+    "median Mg/ha": 0.485
+   },
+   "wu against rap": {
+    "rank in square": 0.218,
+    "cell departures": -0.108,
+    "yearly median": -0.035,
+    "steps": -0.173,
+    "median Mg/ha": 1.106
+   },
+   "rap head against rap": {
+    "rank in square": 0.905,
+    "cell departures": 0.896,
+    "yearly median": 0.941,
+    "steps": 0.892,
+    "median Mg/ha": 0.485
+   },
+   "map against rap": {
+    "rank in square": -0.705,
+    "cell departures": 0.875,
+    "yearly median": 0.997,
+    "steps": 0.861,
+    "median Mg/ha": 0.85
+   }
+  },
+  "mojave-ca": {
+   "kind": "shrub",
+   "cells": 0,
+   "cells in square": 144
+  },
+  "edwards-plateau-tx": {
+   "kind": "savanna",
+   "cells": 100,
+   "cells in square": 144,
+   "wu median Mg/ha": 2.713,
+   "wu yearly medians": [
+    3.422,
+    2.069,
+    3.318,
+    2.778,
+    0.722
+   ],
+   "map": {
+    "rank in square": 0.385,
+    "cell departures": 0.383,
+    "yearly median": 0.423,
+    "steps": 0.117,
+    "median Mg/ha": 10.744
+   },
+   "rap head": {
+    "rank in square": 0.602,
+    "cell departures": 0.333,
+    "yearly median": 0.351,
+    "steps": -0.04,
+    "median Mg/ha": 0.915
+   },
+   "wu against rap": {
+    "rank in square": -0.448,
+    "cell departures": 0.26,
+    "yearly median": 0.267,
+    "steps": -0.358,
+    "median Mg/ha": 2.713
+   },
+   "rap head against rap": {
+    "rank in square": -0.09,
+    "cell departures": 0.635,
+    "yearly median": 0.711,
+    "steps": 0.68,
+    "median Mg/ha": 0.915
+   },
+   "map against rap": {
+    "rank in square": -0.653,
+    "cell departures": 0.215,
+    "yearly median": 0.231,
+    "steps": -0.304,
+    "median Mg/ha": 10.744
+   }
+  },
+  "sandhills-us": {
+   "kind": "grass",
+   "cells": 140,
+   "cells in square": 144,
+   "wu median Mg/ha": 1.635,
+   "wu yearly medians": [
+    1.817,
+    1.886,
+    1.094,
+    1.731,
+    1.088
+   ],
+   "map": {
+    "rank in square": 0.61,
+    "cell departures": 0.201,
+    "yearly median": 0.131,
+    "steps": -0.274,
+    "median Mg/ha": 1.337
+   },
+   "rap head": {
+    "rank in square": -0.007,
+    "cell departures": -0.049,
+    "yearly median": -0.159,
+    "steps": -0.355,
+    "median Mg/ha": 1.927
+   },
+   "wu against rap": {
+    "rank in square": 0.188,
+    "cell departures": 0.264,
+    "yearly median": 0.576,
+    "steps": 0.239,
+    "median Mg/ha": 1.635
+   },
+   "rap head against rap": {
+    "rank in square": 0.851,
+    "cell departures": 0.716,
+    "yearly median": 0.677,
+    "steps": 0.574,
+    "median Mg/ha": 1.927
+   },
+   "map against rap": {
+    "rank in square": 0.471,
+    "cell departures": 0.442,
+    "yearly median": 0.114,
+    "steps": 0.053,
+    "median Mg/ha": 1.337
+   }
+  },
+  "great-basin-us": {
+   "kind": "shrub",
+   "cells": 123,
+   "cells in square": 144,
+   "wu median Mg/ha": 0.542,
+   "wu yearly medians": [
+    0.482,
+    0.697,
+    0.544,
+    0.493,
+    0.557
+   ],
+   "map": {
+    "rank in square": -0.314,
+    "cell departures": 0.028,
+    "yearly median": 0.368,
+    "steps": 0.116,
+    "median Mg/ha": 0.324
+   },
+   "rap head": {
+    "rank in square": 0.552,
+    "cell departures": 0.287,
+    "yearly median": 0.614,
+    "steps": 0.509,
+    "median Mg/ha": 0.265
+   },
+   "wu against rap": {
+    "rank in square": 0.639,
+    "cell departures": 0.254,
+    "yearly median": 0.655,
+    "steps": 0.434,
+    "median Mg/ha": 0.542
+   },
+   "rap head against rap": {
+    "rank in square": 0.871,
+    "cell departures": 0.948,
+    "yearly median": 0.992,
+    "steps": 0.927,
+    "median Mg/ha": 0.265
+   },
+   "map against rap": {
+    "rank in square": -0.442,
+    "cell departures": -0.11,
+    "yearly median": -0.206,
+    "steps": 0.484,
+    "median Mg/ha": 0.324
+   }
+  }
+ },
+ "summary (median over squares, squares positive, squares)": {
+  "abroad": {
+   "squares": 19,
+   "map": {
+    "rank in square": [
+     0.181,
+     13,
+     19
+    ],
+    "cell departures": [
+     0.112,
+     12,
+     19
+    ],
+    "yearly median": [
+     0.26,
+     15,
+     19
+    ],
+    "steps": [
+     0.259,
+     14,
+     19
+    ],
+    "rank of square medians against wu": 0.732
+   },
+   "rap head": {
+    "rank in square": [
+     -0.03,
+     9,
+     19
+    ],
+    "cell departures": [
+     0.003,
+     11,
+     19
+    ],
+    "yearly median": [
+     0.046,
+     11,
+     19
+    ],
+    "steps": [
+     -0.099,
+     7,
+     19
+    ],
+    "rank of square medians against wu": 0.272
+   }
+  },
+  "us": {
+   "squares": 11,
+   "map": {
+    "rank in square": [
+     -0.124,
+     4,
+     11
+    ],
+    "cell departures": [
+     0.201,
+     9,
+     11
+    ],
+    "yearly median": [
+     0.368,
+     9,
+     11
+    ],
+    "steps": [
+     -0.004,
+     5,
+     11
+    ]
+   },
+   "rap head": {
+    "rank in square": [
+     0.294,
+     9,
+     11
+    ],
+    "cell departures": [
+     0.007,
+     6,
+     11
+    ],
+    "yearly median": [
+     -0.041,
+     5,
+     11
+    ],
+    "steps": [
+     0.134,
+     7,
+     11
+    ]
+   },
+   "wu against rap": {
+    "rank in square": [
+     0.187,
+     9,
+     11
+    ],
+    "cell departures": [
+     0.254,
+     8,
+     11
+    ],
+    "yearly median": [
+     0.267,
+     8,
+     11
+    ],
+    "steps": [
+     -0.173,
+     5,
+     11
+    ]
+   },
+   "rap head against rap": {
+    "rank in square": [
+     0.751,
+     10,
+     11
+    ],
+    "cell departures": [
+     0.604,
+     10,
+     11
+    ],
+    "yearly median": [
+     0.677,
+     9,
+     11
+    ],
+    "steps": [
+     0.574,
+     10,
+     11
+    ]
+   },
+   "map against rap": {
+    "rank in square": [
+     -0.442,
+     3,
+     11
+    ],
+    "cell departures": [
+     0.062,
+     8,
+     11
+    ],
+    "yearly median": [
+     0.179,
+     7,
+     11
+    ],
+    "steps": [
+     -0.013,
+     5,
+     11
+    ]
+   }
+  }
+ },
+ "seconds": 1040,
+ "peak_gb": 1.32
+}

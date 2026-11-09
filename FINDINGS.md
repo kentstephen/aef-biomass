@@ -1450,6 +1450,45 @@ Per square, AUC (found at 2 % lit):
 - So a lidar-taught gain for the map would be taught on the difference (or with the place inputs weakened), not on
   both years as section 32 had it, if it is to work outside the nine squares.
 
+## 34. Grass years outside the US against Wu et al. 2026 global grassland biomass (`scripts/grass_abroad.py`, `results/grass_abroad.json`)
+
+Wu et al. 2026 (Zenodo 18044163, CC BY 4.0): yearly peak aboveground grassland biomass, 2000 to 2022, 0.005 degree
+cells (~500 m), inside a grassland mask (steppe, savanna, tundra, alpine meadow). A random forest on MODIS NDVI,
+climate, CO2 and terrain, taught on 11,265 field samples worldwide: a model, not a measurement, and it leans on
+greenness as the embeddings do, but it is field-taught and not GEDI or CTrees. Read under every square of
+veg_squares.json outside the US (19 with 10 or more cells inside Wu's mask; the crop squares are almost all outside
+it) and the 11 US rangeland squares, 2018 to 2022, the map's 10 m pixels averaged into each Wu cell. Beside the map,
+a head taught on RAP (US herbaceous biomass) from one year's AlphaEarth, every RAP square (held out in turn at home).
+At home Wu is also checked against RAP, to see how well Wu itself follows grass years. 17 minutes, 1.3 GB.
+
+Median over squares (squares positive of all):
+
+| | Rank of cells in a square | Each cell's departure from its mean | Square's yearly median | Year-to-year steps |
+|---|---|---|---|---|
+| **Abroad, 19 squares: the map against Wu** | .18 (13/19) | .11 (12/19) | **.26 (15/19)** | .26 (14/19) |
+| Abroad: the RAP head against Wu | -.03 (9/19) | .00 (11/19) | .05 (11/19) | -.10 (7/19) |
+| **US, 11 squares: Wu against RAP** | .19 (9/11) | .25 (8/11) | .27 (8/11) | -.17 (5/11) |
+| US: the RAP head against RAP (held out, 500 m cells) | .75 (10/11) | .60 (10/11) | .68 (9/11) | .57 (10/11) |
+| US: the map against RAP (500 m cells) | -.44 (3/11) | .06 (8/11) | .18 (7/11) | -.01 (5/11) |
+
+- **Wu is a weak referee for grass years.** At home it follows RAP's years about as well as the map follows Wu's
+  abroad (.27 against .26 for the square's yearly median, .25 against .11 per cell). RAP, field-taught at 30 m,
+  and Wu, field-taught at 500 m on MODIS, disagree on most of the year-to-year swing. A score against Wu abroad
+  near .25 is about as high as Wu itself would reach against RAP.
+- **The map follows Wu's years on most squares** (15 of 19 with a positive yearly correlation), strongly on some:
+  Mongolian steppe .76 (Wu's 2022 rise from .63 to .95 Mg/ha), Top End savanna .76 per year and .69 per cell,
+  Okavango .79 and .59, Sahel and Serengeti .74. Backward on Dehesa (-.52), central India (-.41) and the Matopiba
+  farmland edge (-.54), all three where trees or crops carry most of the map's mass.
+- **The RAP head does not carry abroad.** Taught on US rangeland, it follows Wu at about zero everywhere and orders
+  the squares' levels poorly (.27 against the map's .73). Section 20 found the same head's levels plausible abroad;
+  its years are not.
+- **The map orders the squares' levels with Wu** (rank of square medians .73) but reads two to ten times higher
+  on wooded grassland, because it counts the woody mass Wu leaves out: Cerrado 29 against 5 Mg/ha, central India 49
+  against 2.5, Top End 15 against 1.7. On open grass it is near Wu: Mongolia .36 against .61, Llanos 5.3 against
+  5.4, Sahel 1.3 against .8; above it on Kazakh steppe (2.0 against .6) and Tibet (3.8 against .9).
+- Caveats: five years only (2018 to 2022, the overlap), so a square's yearly correlation is over five points;
+  both Wu and the embeddings read greenness, so agreement is partly shared input, not independent truth.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1494,6 +1533,8 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   wider shared layer or separate last layers; a grass label abroad to check the RAP head's years (the four drought
   checks there did not come out); annual grassland, which a yearly embedding reads as its lasting green, not its
   spring crop; a grass change map of large swings or of trends, since single small steps are noise in the label too.
+  Section 34: abroad the map follows Wu's grass years on 15 of 19 squares (median .26), as well as Wu follows RAP at
+  home; the RAP-taught head does not carry abroad. A field label of grass years abroad is still missing (NutNet).
 - **Shrub**: no map of the three (CTrees, the chaparral map, CCI) is consistent with lidar height across stands
   (section 23), and none is refereed; a chaparral height-to-biomass relation from field plots would set the level.
   The head leans grass on shrub against grass (section 21).
