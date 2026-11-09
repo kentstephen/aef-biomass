@@ -12,6 +12,19 @@ import { CHANGE_50, glslRamp, VIRIDIS_50 } from "./ramp";
 
 /** One chunk on the GPU: a year's biomass codes (r16uint) or a window's change, percent x 100 and confidence x 10000 (rg16sint). */
 type TileData = MinimalTileData & { key: string; tex: Texture };
+
+/**
+ * A ZarrLayer that says when deck has taken it off the map. deck applies a new layer list at its next frame, not at
+ * setProps: a key taken off and put back before that frame keeps its old layer and tiles (deck hands the state to the
+ * new layer of the same id) and is never finalized. So a layer's textures are freed here, never on a timer.
+ */
+class BioLayer extends ZarrLayer<zarr.Readable, "int8", TileData> {
+  static override layerName = "BioLayer";
+  override finalizeState(context: Parameters<ZarrLayer<zarr.Readable, "int8", TileData>["finalizeState"]>[0]) {
+    super.finalizeState(context);
+    (this.props as unknown as { onFinalize?: () => void }).onFinalize?.();
+  }
+}
 /**
  * One chunk's planes on the page: a year's [agb codes n, height codes n, class n] (Uint16), or a window's
  * [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n, classes n] (Int16, change.ts).
@@ -144,8 +157,19 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
   const inflight = new Map<string, { p: Promise<Planes>; ac: AbortController; wants: number }>();
   // the chunks on the GPU now, by key: whether the view's chunks are in
   const loaded = new Set<string>();
-  // each layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so release() frees them
+  // each layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so its finalize frees them
   const texOf = new Map<string, Set<Texture>>();
+  /**
+   * deck took a layer off the map (its state is gone, nothing draws its tiles again): free its textures and forget its
+   * tiles for the loading count. Not on a timer from the step: put back before deck's next frame, the same layer and
+   * tiles carry on drawing.
+   */
+  function freeTextures(lk: string) {
+    const set = texOf.get(lk);
+    texOf.delete(lk);
+    set?.forEach((t) => t.destroy());
+    for (const k of [...loaded]) if (k.startsWith(`${lk}:`)) loaded.delete(k);
+  }
 
   /** A chunk's planes for a layer key: the year read and scored, or the window's change (both years read). */
   async function planesFor(lk: string, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Planes> {
@@ -306,7 +330,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
   function layer(opts: { key: string; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
     const lk = opts.key;
     const win = windowOf(lk);
-    return new ZarrLayer<zarr.Readable, "int8", TileData>({
+    return new BioLayer({
       id: win ? `change-${lk}` : `biomass-${lk}`,
       node: arr as AefArray,
       metadata: attrs,
@@ -369,17 +393,11 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
         t.tex?.destroy();
       },
       onViewportLoad: () => opts.onViewportLoad && opts.onViewportLoad(),
+      // read by BioLayer.finalizeState (not a ZarrLayer prop, so spread past the type check)
+      ...({ onFinalize: () => freeTextures(lk) } as object),
       // @ts-expect-error beforeId is read by the MapLibre overlay (the layer draws under the labels), not typed on the layer
       beforeId: beforeId(),
     });
-  }
-
-  /** A layer was taken off the map: free its textures (after its last frame) and forget its tiles. */
-  function release(lk: string) {
-    const set = texOf.get(lk);
-    texOf.delete(lk);
-    for (const k of [...loaded]) if (k.startsWith(`${lk}:`)) loaded.delete(k);
-    if (set) setTimeout(() => set.forEach((t) => t.destroy()), 1500);
   }
 
   /** A layer's plane values at a point (three for a year, four for a change), from the planes in hand; null where none. */
@@ -424,6 +442,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
   }
 
   return {
-    layer, release, valueAtPoint, changeAtPoint, changeStats, loadedIn, inHand, prefetch, pool,
+    layer, valueAtPoint, changeAtPoint, changeStats, loadedIn, inHand, prefetch, pool,
   };
 }

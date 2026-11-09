@@ -65,7 +65,6 @@ const st = {
   hover: null as [number, number] | null,
   // the year's view all in (deck.gl's onViewportLoad): the bar goes away even where a chunk has no data
   viewLoaded: false,
-  on: [] as string[],
   ahead: null as AbortController | null,
   aheadKey: null as string | null,
   // Sentinel-2: held over the whole map (Space, one map only), or the pair's left side (P)
@@ -651,8 +650,6 @@ function render() {
   bioLayers = layers;
   // the imagery steps with the map's year
   paint();
-  for (const o of st.on) if (!want.includes(o)) bio.release(o);
-  st.on = want;
   keyTicks();
   status();
   readout();
