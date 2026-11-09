@@ -39,10 +39,17 @@ YEARS, NY = cct.YEARS, cct.NY
 PER_SQUARE = 60000  # training pixels drawn per square (gained kept up to half of them)
 
 
-def feats(qa, qb, L, a, d, head):
+VARIANTS = ("embeddings", "embeddings + head", "difference", "first year")
+
+
+def feats(qa, qb, L, a, d, v):
+    """v: 'embeddings' (both years and their difference), '+ head' (and the map's biomass and change),
+    'difference' (the difference alone: sees the rise), 'first year' (the first year alone: where canopy tends to
+    rise, not the rise itself). Every variant also gets the window's length."""
     ea, eb = bh.deq(qa), bh.deq(qb)
-    cols = [ea, eb, eb - ea, np.full((ea.shape[0], 1), L, np.float32)]
-    if head:
+    Lc = np.full((ea.shape[0], 1), L, np.float32) if np.isscalar(L) else np.asarray(L, np.float32)[:, None]
+    cols = {"difference": [eb - ea], "first year": [ea]}.get(v, [ea, eb, eb - ea]) + [Lc]
+    if v == "embeddings + head":
         cols += [np.log1p(np.maximum(a, 0))[:, None], d[:, None], (d / np.maximum(a, 1))[:, None]]
     return np.concatenate(cols, 1).astype(np.float32)
 
@@ -103,6 +110,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-gb", type=float, default=6)
     ap.add_argument("--no-esri", action="store_true")
+    ap.add_argument("--variants", default="embeddings,embeddings + head", help="comma list from " + ", ".join(VARIANTS))
+    ap.add_argument("--out", default=str(OUT))
     args = ap.parse_args()
     cct.guard(args.max_gb)
     t0 = time.time()
@@ -115,16 +124,16 @@ def main():
     picks = {n: sample(S, rng) for n, S in sq.items()}
     res = {"note": "held out by square; gained = canopy rose 2 m, steady = moved under 0.5 m", "variants": {}}
     finals = {}
-    for head in (False, True):
-        vname = "embeddings + head" if head else "embeddings"
-        X = {n: feats(S["qa"][picks[n]], S["qb"][picks[n]], S["L"], S["a"][picks[n]], S["d"][picks[n]], head) for n, S in sq.items()}
+    for vname in args.variants.split(","):
+        assert vname in VARIANTS, vname
+        X = {n: feats(S["qa"][picks[n]], S["qb"][picks[n]], S["L"], S["a"][picks[n]], S["d"][picks[n]], vname) for n, S in sq.items()}
         y = {n: (S["dH"][picks[n]] >= 2).astype(np.int8) for n, S in sq.items()}
         per, pool = {}, {"p": [], "d": [], "a": [], "L": [], "g": [], "s": []}
         for held in sq:
             tr = [n for n in sq if n != held]
             clf = model().fit(np.concatenate([X[n] for n in tr]), np.concatenate([y[n] for n in tr]))
             S = sq[held]
-            Xh = feats(S["qa"], S["qb"], S["L"], S["a"], S["d"], head)
+            Xh = feats(S["qa"], S["qb"], S["L"], S["a"], S["d"], vname)
             p = clf.predict_proba(Xh)[:, 1].astype(np.float32)
             del Xh
             gained, steady = S["dH"] >= 2, np.abs(S["dH"]) < 0.5
@@ -144,9 +153,9 @@ def main():
         res["esri"] = esri_check(finals, rng)
     res["seconds"] = round(time.time() - t0)
     res["peak_gb"] = round(psutil.Process().memory_info().rss / 1e9, 2)
-    json.dump(res, open(OUT, "w"), indent=1)
+    json.dump(res, open(args.out, "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "variants"}, indent=1), flush=True)
-    print(f"wrote {OUT} in {res['seconds']} s, peak {res['peak_gb']} GB", flush=True)
+    print(f"wrote {args.out} in {res['seconds']} s, peak {res['peak_gb']} GB", flush=True)
 
 
 def esri_check(finals, rng):
@@ -187,7 +196,7 @@ def esri_check(finals, rng):
                     continue
                 av, dv = agb[a, idx], agb[b, idx] - agb[a, idx]
                 for v, clf in finals.items():
-                    X = feats(q[a, idx], q[b, idx], b - a, av, dv, v != "embeddings")
+                    X = feats(q[a, idx], q[b, idx], b - a, av, dv, v)
                     acc[v]["p"].append(clf.predict_proba(X)[:, 1].astype(np.float32))
                     acc[v]["d"].append(dv), acc[v]["a"].append(av)
                     acc[v]["L"].append(np.full(idx.size, b - a, np.int8)), acc[v]["set"].append(np.where(gr[idx], 2, 0).astype(np.int8))

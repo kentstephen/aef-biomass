@@ -1403,6 +1403,53 @@ flight years and their difference (and the window's length), target: lidar's can
 - Not tested yet: whether it sees the rise or predicts it. Each year's embedding is an input, so it may learn where
   canopy tends to rise (young plantation) as much as the rise itself; a difference-only input would tell.
 
+## 33. Gain taught on lidar: does it see the rise or know where canopy rises? (`scripts/lidar_gain_head.py --variants`, `results/lidar_gain_diff.json`)
+
+Section 32's lidar-taught gain head gets both years of AlphaEarth and their difference, so it could rank regrowth
+from what the place is (young plantation, a cut two years back) as much as from the change. The same trees, the same
+held-out squares, two more inputs: the difference alone (e_b - e_a: it can only see the change) and the first year
+alone (e_a: it can only know where canopy tends to rise). Every variant also gets the window's length. 5 minutes,
+1.0 GB.
+
+| Input | Pooled AUC | Found at 2 % lit | At the map floor's lit (1.5 %) | Esri "became trees": AUC / found at 2 % lit |
+|---|---|---|---|---|
+| Both years and the difference (section 32) | .964 | **.671** | **.597** | .581 / .020 |
+| The difference alone | .822 | .373 | .346 | .577 / **.042** |
+| The first year alone | .910 | .342 | .297 | .539 / .015 |
+| The map's rise, for reference | .785 | .473 | .387 (the floor) | **.614** / .020 |
+
+Per square, AUC (found at 2 % lit):
+
+| Square | Both | Difference alone | First year alone |
+|---|---|---|---|
+| NZ Glenbervie | .899 (.340) | .788 (**.367**) | .789 (.140) |
+| NZ Esk Valley | .862 (.659) | .707 (.445) | **.866** (.350) |
+| NZ Roxburgh | .968 (.548) | .658 (.040) | .964 (.476) |
+| NZ Banks | .982 (.804) | **.315** (.014) | .900 (.291) |
+| EE Lahemaa | .857 (.164) | .757 (.062) | .834 (.087) |
+| EE Kivioli | .848 (.605) | .666 (.116) | .840 (.585) |
+| EE Tartu | .781 (.172) | .600 (.040) | .773 (.148) |
+| US Eaton | .564 (.044) | .494 (.027) | .552 (.051) |
+| US Palisades | .691 (.176) | .561 (.042) | .643 (.052) |
+
+- **Both, and neither alone is enough.** Each input alone finds about half of what the full head finds at the map's
+  false alarm rate (.35 and .30 against .60), so the full head uses the change and the place together.
+- **The ranking inside a square comes mostly from the place.** The first year alone ranks regrowth above steady
+  ground nearly as well as both years on seven of nine squares (AUC within .05). Where canopy will rise is
+  written in the first year: young stands, recent cuts, scrub on its way up.
+- **Banks is all place.** The difference alone reads it backward (AUC .31), the first year alone at .90. The head
+  knows which Banks pixels are the kind that grow, not that they grew; section 32's .98 there is not a sighting of
+  the rise.
+- **Where the rise is large the difference sees it.** On Glenbervie (pine planted and grown, half the gained pixels)
+  the difference alone finds more of the rise at a strict cutoff than both inputs (.367 against .340 at 2 % lit),
+  and the first year alone finds .140.
+- **What carries to other places is the difference.** On Esri's "became trees" over every other square, the
+  difference alone finds twice what the full head finds at 2 % lit (.042 against .020); the first year alone does
+  worst (.015). What the full head learned about the place is New Zealand and Estonia; what it learned about the
+  change is closer to general. The map's own rise still ranks Esri's label best (AUC .61).
+- So a lidar-taught gain for the map would be taught on the difference (or with the place inputs weakened), not on
+  both years as section 32 had it, if it is to work outside the nine squares.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1464,8 +1511,9 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   short of lidar; the head's fall is nearly flat across partial loss, so a rule cannot fix it alone. Burn severity
   needs a reference that tells dead trees from live ones; lidar height does not.
 - **Gain taught on lidar** (section 32): beats the map on every held-out lidar square, not on Esri's "became trees".
-  Open: a difference-only input (sees the rise or predicts it), lidar squares with regrowth outside New Zealand and
-  Estonia, and in the browser a small network in place of the trees (two years of AlphaEarth, already read).
+  Section 33: inside a square its ranking comes mostly from the first year (where canopy tends to rise); the part
+  that carries to Esri's label is the difference. Open: lidar squares with regrowth outside New Zealand and Estonia,
+  and in the browser a small network in place of the trees (two years of AlphaEarth, already read).
 - **Change** (earlier): loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
   own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
   most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not
