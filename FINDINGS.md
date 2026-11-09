@@ -1606,9 +1606,12 @@ million), steady = no Hansen loss since 2001 (0.3 million). 14 minutes, 2.7 GB.
   standing-dead pattern section 32 hoped cover would catch). Either the stems fell or were consumed, or the 1 m
   surface model passes through bare stems; height and cover cannot tell which, so the dead-or-live question needs
   the point clouds (return counts per stem), not these grids.
-- **The map finds the burn better than either lidar measure** (AUC .957 against .907), with a median fall of 85 %
-  where lidar's height fell 94 %. Its steady ground moves less than lidar's height does (16 % against 19 %: the two
-  flights' surface models differ by season and processing).
+- **The map matches Hansen's burn more closely than either lidar measure does** (AUC .957 against .907), which
+  is not the same as finding the burn better: Hansen is the referee here, and it is a Landsat product, so the map
+  (built on optical imagery too) and Hansen share what they see, while lidar measures structure. Lidar's score is
+  also lowered by noise between its two flights: on steady forest its height fell a median 19 % (season, sensor and
+  processing), against the map's 16 %. What holds without Hansen: the map and lidar agree on the burn, a median
+  fall of 85 % against lidar's 94 % on burned forest, ranked together .60 per pixel and .70 per 100 m cell.
 - **The fire year's embedding sees a fifth of it.** From 2019 to 2024 the map falls 21 %; to 2025, 85 %. A fire in
   July leaves most of the year's picture pre-fire. A burn shows in full the year after; the change tooltip's "between
   2024 and 2025" for Jasper is that, not a late fire. CTrees' 2024 layer shows no fall at all.
@@ -1714,8 +1717,8 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
 - **Loss size** (section 32): the map's soft 2/3 rule keeps partial loss apart but draws clear loss 15 to 20 points
   short of lidar; the head's fall is nearly flat across partial loss, so a rule cannot fix it alone. Burn severity
   needs a reference that tells dead trees from live ones; lidar height does not. Section 37 (Jasper): the 1 m grids'
-  cover falls with height (no standing dead seen), the map finds the burn better than either (.957), and a fire
-  shows in full the year after it; dead-or-live needs point clouds.
+  cover falls with height (no standing dead seen), the map's fall agrees with lidar's (85 % against 94 %, rank .70
+  per cell), and a fire shows in full the year after it; dead-or-live needs point clouds.
 - **Gain taught on lidar** (section 32): beats the map on every held-out lidar square, not on Esri's "became trees".
   Section 33: inside a square its ranking comes mostly from the first year (where canopy tends to rise); the part
   that carries to Esri's label is the difference. Section 38: in the browser as a small network on the difference,
