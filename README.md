@@ -5,6 +5,10 @@ changes between years. Three embeddings on the same pixels: [AlphaEarth Foundati
 (AEF), [TESSERA](https://github.com/ucam-eo/geotessera) v1.1 and [OlmoEarth](https://huggingface.co/allenai/OlmoEarth-v1_3-Base)
 v1.3, 2018 to 2025.
 
+**Live map:** [kentstephen.github.io/aef-biomass](https://kentstephen.github.io/aef-biomass/), biomass every year and its change
+between years, from AlphaEarth, run in the browser (zoom in to 11 to read it). Built from `web/` and deployed on each
+push to `main` (`.github/workflows/pages.yml`).
+
 ## Where this starts
 
 This repo extends the fuel map of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr)
