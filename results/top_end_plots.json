@@ -1,0 +1,604 @@
+{
+ "note": "The top end against plot biomass: GEO-TREES census plots and Rodda et al. 2024 lidar + plot maps.",
+ "rodda": {
+  "pooled": {
+   "n": 100414,
+   "median ref": 198.8,
+   "map": {
+    "rank": 0.891,
+    "r2 log": 0.766,
+    "median": 130.4
+   },
+   "ctrees": {
+    "rank": 0.75,
+    "r2 log": 0.653,
+    "median": 151.9
+   },
+   "cci": {
+    "rank": 0.722,
+    "r2 log": 0.252,
+    "median": 97.6
+   },
+   "by reference biomass": {
+    "0-100": {
+     "n": 22851,
+     "ref median": 41.0,
+     "map": 40.5,
+     "map / ref": 1.121,
+     "ctrees": 34.2,
+     "ctrees / ref": 0.969,
+     "cci": 26.7,
+     "cci / ref": 0.586
+    },
+    "100-200": {
+     "n": 27740,
+     "ref median": 154.7,
+     "map": 113.4,
+     "map / ref": 0.743,
+     "ctrees": 143.5,
+     "ctrees / ref": 0.958,
+     "cci": 80.9,
+     "cci / ref": 0.522
+    },
+    "200-300": {
+     "n": 31415,
+     "ref median": 247.9,
+     "map": 160.3,
+     "map / ref": 0.651,
+     "ctrees": 168.3,
+     "ctrees / ref": 0.689,
+     "cci": 126.9,
+     "cci / ref": 0.521
+    },
+    "300-400": {
+     "n": 15962,
+     "ref median": 335.1,
+     "map": 272.0,
+     "map / ref": 0.78,
+     "ctrees": 261.2,
+     "ctrees / ref": 0.77,
+     "cci": 259.6,
+     "cci / ref": 0.748
+    },
+    "400-500": {
+     "n": 2286,
+     "ref median": 422.3,
+     "map": 238.4,
+     "map / ref": 0.555,
+     "ctrees": 267.6,
+     "ctrees / ref": 0.616,
+     "cci": 233.9,
+     "cci / ref": 0.539
+    },
+    "500-2000": {
+     "n": 160,
+     "ref median": 529.4,
+     "map": 216.4,
+     "map / ref": 0.394,
+     "ctrees": 256.3,
+     "ctrees / ref": 0.47,
+     "cci": 223.4,
+     "cci / ref": 0.404
+    }
+   }
+  },
+  "sites": {
+   "01_Betul": {
+    "n": 10403,
+    "median ref": 91.1,
+    "map": {
+     "rank": 0.796,
+     "r2 log": 0.737,
+     "median": 83.2
+    },
+    "ctrees": {
+     "rank": 0.689,
+     "r2 log": 0.716,
+     "median": 97.0
+    },
+    "cci": {
+     "rank": 0.675,
+     "r2 log": -0.338,
+     "median": 37.3
+    },
+    "lost cells dropped": 32
+   },
+   "02_Achanakmar": {
+    "n": 11705,
+    "median ref": 165.7,
+    "map": {
+     "rank": 0.67,
+     "r2 log": 0.384,
+     "median": 121.0
+    },
+    "ctrees": {
+     "rank": 0.179,
+     "r2 log": 0.216,
+     "median": 177.5
+    },
+    "cci": {
+     "rank": 0.704,
+     "r2 log": -2.481,
+     "median": 76.7
+    },
+    "lost cells dropped": 33
+   },
+   "03_Yellapur": {
+    "n": 40088,
+    "median ref": 219.3,
+    "map": {
+     "rank": 0.771,
+     "r2 log": 0.481,
+     "median": 136.3
+    },
+    "ctrees": {
+     "rank": 0.604,
+     "r2 log": 0.411,
+     "median": 141.4
+    },
+    "cci": {
+     "rank": 0.352,
+     "r2 log": -0.82,
+     "median": 92.3
+    },
+    "lost cells dropped": 544
+   },
+   "04_Uppangala": {
+    "n": 881,
+    "median ref": 371.3,
+    "map": {
+     "rank": 0.413,
+     "r2 log": -1.994,
+     "median": 175.9
+    },
+    "ctrees": {
+     "rank": 0.529,
+     "r2 log": -0.317,
+     "median": 239.0
+    },
+    "cci": {
+     "rank": 0.042,
+     "r2 log": -1.155,
+     "median": 225.3
+    },
+    "lost cells dropped": 5
+   },
+   "05_Khaoyai": {
+    "n": 4635,
+    "median ref": 296.4,
+    "map": {
+     "rank": 0.661,
+     "r2 log": 0.137,
+     "median": 187.1
+    },
+    "ctrees": {
+     "rank": 0.37,
+     "r2 log": 0.337,
+     "median": 209.4
+    },
+    "cci": {
+     "rank": 0.226,
+     "r2 log": 0.265,
+     "median": 202.0
+    },
+    "lost cells dropped": 28
+   },
+   "06_Nachtigal": {
+    "n": 14541,
+    "median ref": 38.8,
+    "map": {
+     "rank": 0.919,
+     "r2 log": 0.746,
+     "median": 37.9
+    },
+    "ctrees": {
+     "rank": 0.844,
+     "r2 log": 0.363,
+     "median": 18.2
+    },
+    "cci": {
+     "rank": 0.87,
+     "r2 log": 0.553,
+     "median": 48.7
+    },
+    "lost cells dropped": 11122
+   },
+   "07_Mbalmayo": {
+    "n": 316,
+    "median ref": 293.5,
+    "map": {
+     "rank": 0.829,
+     "r2 log": 0.303,
+     "median": 198.8
+    },
+    "ctrees": {
+     "rank": 0.222,
+     "r2 log": 0.182,
+     "median": 257.8
+    },
+    "cci": {
+     "rank": 0.119,
+     "r2 log": 0.427,
+     "median": 273.1
+    },
+    "lost cells dropped": 25
+   },
+   "08_Atout": {
+    "n": 106,
+    "median ref": 353.6,
+    "map": {
+     "rank": 0.69,
+     "r2 log": -8.699,
+     "median": 213.0
+    },
+    "ctrees": {
+     "rank": 0.502,
+     "r2 log": 0.125,
+     "median": 359.1
+    },
+    "cci": {
+     "rank": 0.33,
+     "r2 log": -0.529,
+     "median": 315.6
+    },
+    "lost cells dropped": 33
+   },
+   "09_Kompia": {
+    "n": 290,
+    "median ref": 346.4,
+    "map": {
+     "rank": 0.718,
+     "r2 log": -0.393,
+     "median": 269.8
+    },
+    "ctrees": {
+     "rank": 0.501,
+     "r2 log": 0.179,
+     "median": 311.9
+    },
+    "cci": {
+     "rank": -0.24,
+     "r2 log": -1.723,
+     "median": 277.8
+    },
+    "lost cells dropped": 15
+   },
+   "10_Somalomo": {
+    "n": 718,
+    "median ref": 328.7,
+    "map": {
+     "rank": 0.631,
+     "r2 log": -0.222,
+     "median": 262.7
+    },
+    "ctrees": {
+     "rank": 0.315,
+     "r2 log": 0.264,
+     "median": 299.0
+    },
+    "cci": {
+     "rank": -0.13,
+     "r2 log": 0.092,
+     "median": 329.7
+    },
+    "lost cells dropped": 5
+   },
+   "11_Bouamir": {
+    "n": 694,
+    "median ref": 293.9,
+    "map": {
+     "rank": 0.667,
+     "r2 log": 0.708,
+     "median": 263.5
+    },
+    "ctrees": {
+     "rank": 0.179,
+     "r2 log": 0.429,
+     "median": 361.5
+    },
+    "cci": {
+     "rank": 0.063,
+     "r2 log": 0.688,
+     "median": 311.1
+    },
+    "lost cells dropped": 26
+   },
+   "12_Mabounie": {
+    "n": 15146,
+    "median ref": 308.0,
+    "map": {
+     "rank": 0.399,
+     "r2 log": 0.433,
+     "median": 310.5
+    },
+    "ctrees": {
+     "rank": 0.297,
+     "r2 log": -0.645,
+     "median": 343.0
+    },
+    "cci": {
+     "rank": -0.036,
+     "r2 log": -0.461,
+     "median": 317.5
+    },
+    "lost cells dropped": 409
+   },
+   "13_Rabi": {
+    "n": 891,
+    "median ref": 272.9,
+    "map": {
+     "rank": 0.684,
+     "r2 log": 0.444,
+     "median": 295.4
+    },
+    "ctrees": {
+     "rank": 0.501,
+     "r2 log": 0.202,
+     "median": 258.0
+    },
+    "cci": {
+     "rank": 0.122,
+     "r2 log": 0.016,
+     "median": 293.1
+    },
+    "lost cells dropped": 47
+   }
+  },
+  "from": "recovered from logs/top_end_plots.log (per-site bins not printed)"
+ },
+ "geotrees": {
+  "subplots read": 1273,
+  "dropped for Hansen loss since census": 9,
+  "all": {
+   "n": 1264,
+   "median ref": 306.5,
+   "map": {
+    "rank": 0.407,
+    "r2 log": 0.214,
+    "median": 201.4
+   },
+   "ctrees": {
+    "rank": 0.498,
+    "r2 log": 0.595,
+    "median": 349.4
+   },
+   "cci": {
+    "rank": 0.392,
+    "r2 log": 0.491,
+    "median": 289.8
+   },
+   "by reference biomass": {
+    "0-100": {
+     "n": 39,
+     "ref median": 44.0,
+     "map": 43.9,
+     "map / ref": 1.649,
+     "ctrees": 50.7,
+     "ctrees / ref": 1.632,
+     "cci": 34.7,
+     "cci / ref": 1.16
+    },
+    "100-200": {
+     "n": 174,
+     "ref median": 167.6,
+     "map": 147.8,
+     "map / ref": 0.932,
+     "ctrees": 259.3,
+     "ctrees / ref": 1.499,
+     "cci": 176.7,
+     "cci / ref": 1.107
+    },
+    "200-300": {
+     "n": 388,
+     "ref median": 252.8,
+     "map": 191.6,
+     "map / ref": 0.747,
+     "ctrees": 299.4,
+     "ctrees / ref": 1.23,
+     "cci": 275.0,
+     "cci / ref": 1.032
+    },
+    "300-400": {
+     "n": 400,
+     "ref median": 347.6,
+     "map": 211.2,
+     "map / ref": 0.594,
+     "ctrees": 372.8,
+     "ctrees / ref": 1.027,
+     "cci": 307.0,
+     "cci / ref": 0.857
+    },
+    "400-500": {
+     "n": 204,
+     "ref median": 437.7,
+     "map": 211.2,
+     "map / ref": 0.487,
+     "ctrees": 380.0,
+     "ctrees / ref": 0.878,
+     "cci": 308.1,
+     "cci / ref": 0.71
+    },
+    "500-2000": {
+     "n": 59,
+     "ref median": 555.0,
+     "map": 232.4,
+     "map / ref": 0.416,
+     "ctrees": 387.4,
+     "ctrees / ref": 0.708,
+     "cci": 313.6,
+     "cci / ref": 0.586
+    }
+   }
+  },
+  "census 2015 on": {
+   "n": 61,
+   "median ref": 272.4,
+   "map": {
+    "rank": 0.858,
+    "r2 log": 0.792,
+    "median": 227.1
+   },
+   "ctrees": {
+    "rank": 0.766,
+    "r2 log": 0.846,
+    "median": 223.0
+   },
+   "cci": {
+    "rank": 0.746,
+    "r2 log": 0.903,
+    "median": 230.4
+   },
+   "by reference biomass": {
+    "0-100": {
+     "n": 17,
+     "ref median": 3.8,
+     "map": 24.3,
+     "map / ref": 6.184,
+     "ctrees": 7.7,
+     "ctrees / ref": 1.971,
+     "cci": 4.9,
+     "cci / ref": 1.16
+    },
+    "100-200": {
+     "n": 9,
+     "ref median": 171.6,
+     "map": 176.6,
+     "map / ref": 0.933,
+     "ctrees": 214.6,
+     "ctrees / ref": 1.099,
+     "cci": 203.0,
+     "cci / ref": 1.289
+    },
+    "200-300": {
+     "n": 14,
+     "ref median": 285.1,
+     "map": 239.5,
+     "map / ref": 0.862,
+     "ctrees": 393.1,
+     "ctrees / ref": 1.464,
+     "cci": 316.7,
+     "cci / ref": 1.091
+    },
+    "300-400": {
+     "n": 13,
+     "ref median": 330.5,
+     "map": 293.2,
+     "map / ref": 0.843,
+     "ctrees": 393.7,
+     "ctrees / ref": 1.17,
+     "cci": 238.5,
+     "cci / ref": 0.689
+    },
+    "400-500": {
+     "n": 6,
+     "ref median": 451.9,
+     "map": 333.3,
+     "map / ref": 0.729,
+     "ctrees": 462.9,
+     "ctrees / ref": 1.028,
+     "cci": 340.7,
+     "cci / ref": 0.752
+    }
+   }
+  },
+  "by network": {
+   "AfriTRON": {
+    "n": 177,
+    "median ref": 318.0,
+    "map": {
+     "rank": 0.445,
+     "r2 log": 0.697,
+     "median": 236.7
+    },
+    "ctrees": {
+     "rank": 0.373,
+     "r2 log": 0.807,
+     "median": 333.8
+    },
+    "cci": {
+     "rank": 0.314,
+     "r2 log": 0.797,
+     "median": 260.0
+    }
+   },
+   "ForestGEO": {
+    "n": 300,
+    "median ref": 244.1,
+    "map": {
+     "rank": 0.34,
+     "r2 log": -1.118,
+     "median": 161.4
+    },
+    "ctrees": {
+     "rank": 0.044,
+     "r2 log": -0.145,
+     "median": 264.1
+    },
+    "cci": {
+     "rank": 0.254,
+     "r2 log": -1.173,
+     "median": 177.8
+    }
+   },
+   "RAINFOR": {
+    "n": 278,
+    "median ref": 268.8,
+    "map": {
+     "rank": 0.54,
+     "r2 log": 0.433,
+     "median": 221.1
+    },
+    "ctrees": {
+     "rank": 0.797,
+     "r2 log": 0.591,
+     "median": 274.2
+    },
+    "cci": {
+     "rank": 0.659,
+     "r2 log": 0.507,
+     "median": 265.3
+    }
+   },
+   "TForces": {
+    "n": 12,
+    "median ref": 277.0,
+    "map": {
+     "rank": -0.056,
+     "r2 log": -0.351,
+     "median": 279.2
+    },
+    "ctrees": {
+     "rank": -0.105,
+     "r2 log": -0.696,
+     "median": 254.8
+    },
+    "cci": {
+     "rank": 0.175,
+     "r2 log": -1.125,
+     "median": 316.1
+    }
+   },
+   "TmFO": {
+    "n": 497,
+    "median ref": 344.4,
+    "map": {
+     "rank": 0.416,
+     "r2 log": -2.546,
+     "median": 199.7
+    },
+    "ctrees": {
+     "rank": -0.087,
+     "r2 log": -0.247,
+     "median": 392.9
+    },
+    "cci": {
+     "rank": 0.031,
+     "r2 log": -0.282,
+     "median": 309.2
+    }
+   }
+  }
+ },
+ "seconds": 521,
+ "peak_gb": 0.47
+}

@@ -1489,6 +1489,55 @@ Median over squares (squares positive of all):
 - Caveats: five years only (2018 to 2022, the overlap), so a square's yearly correlation is over five points;
   both Wu and the embeddings read greenness, so agreement is partly shared input, not independent truth.
 
+## 35. The top end against plot biomass: Rodda lidar maps and GEO-TREES census plots (`scripts/top_end_plots.py`, `results/top_end_plots.json`)
+
+Section 23 found the heads flatten against lidar height above about 250 Mg/ha and left open which map's level is
+right there. Two plot-based references, neither from GEDI:
+- **Rodda et al. 2024** (IRD Dataverse doi:10.23708/H2MHXF, CC BY 4.0): field plots scaled up with airborne or UAV
+  lidar, 100 m cells, 13 tropical sites in India, Thailand, Cameroon and Gabon (100,414 cells kept). Lidar 2012 to
+  2023; each cell is compared with the median of 2018 to 2022, and dropped where Hansen shows loss on it 2012 to 2022.
+- **GEO-TREES** (the Forest Observation System's successor): 1,264 census subplots (mostly 50 x 50 m) from RAINFOR,
+  ForestGEO, AfriTRON, TmFO, IIASA and others, the 105 GEDI cal/val subplots dropped; censuses mostly 2009 to 2016,
+  read in max(census, 2018) and dropped where Hansen shows loss since the census (9). CTrees and ESA CCI likely
+  calibrated on plot networks of this kind, so GEO-TREES may not be independent of them.
+Beside the map's head (mean of its 10 m pixels): CTrees and ESA CCI v7 the same year. 30 minutes, under 1.5 GB.
+
+| | Rank / R2 of log: map | CTrees | CCI |
+|---|---|---|---|
+| Rodda, 100,414 cells (median 199 Mg/ha) | **.89 / .77** | .75 / .65 | .72 / .25 |
+| GEO-TREES, 1,264 subplots (median 307) | .41 / .21 | **.50 / .60** | .39 / .49 |
+| GEO-TREES, censuses from 2015 on (61) | **.86** / .79 | .77 / .85 | .75 / .90 |
+
+Median of each map against the reference's own biomass (ratio to the reference in brackets):
+
+| Reference biomass, Mg/ha | Rodda: map | CTrees | CCI | GEO-TREES: map | CTrees | CCI |
+|---|---|---|---|---|---|---|
+| 0 to 100 | 41 (1.12) | 34 (.97) | 27 (.59) | 44 (1.65) | 51 (1.63) | 35 (1.16) |
+| 100 to 200 | 113 (.74) | 144 (.96) | 81 (.52) | 148 (.93) | 259 (1.50) | 177 (1.11) |
+| 200 to 300 | 160 (.65) | 168 (.69) | 127 (.52) | 192 (.75) | 299 (1.23) | 275 (1.03) |
+| 300 to 400 | 272 (.78) | 261 (.77) | 260 (.75) | 211 (.59) | 373 (1.03) | 307 (.86) |
+| 400 to 500 | 238 (.56) | 268 (.62) | 234 (.54) | 211 (.49) | 380 (.88) | 308 (.71) |
+| 500 and up | 216 (.39) | 256 (.47) | 223 (.40) | 232 (.42) | 387 (.71) | 314 (.59) |
+
+- **The map ranks tropical forest biomass best of the three against lidar and plots** (Rodda .89 against CTrees
+  .75), ahead of CTrees on 12 of 13 sites, and on the recent censuses (.86). Its order is right.
+- **Its level is short above about 150 Mg/ha.** Against Rodda it reads three quarters of the reference at 100 to
+  300 Mg/ha and about half above 400; against GEO-TREES 59 % at 300 to 400 and 42 % above 500. The map does not
+  rise above about 275 Mg/ha anywhere: its median stays 210 to 275 from 300 Mg/ha up.
+- **CTrees holds the level better at the top, but against different references in different ways.** Against Rodda
+  it flattens almost as the map does (.62 at 400 to 500); against GEO-TREES it is near the plots at 300 to 500 and
+  half again too high at 100 to 200, which is what calibration on plots of this kind would look like, so its
+  GEO-TREES level is not an independent check. CCI is short everywhere against Rodda and between the two on GEO-TREES.
+- **Where both references agree: everything flattens above 400 Mg/ha** (every map at .4 to .7 of the reference),
+  and the map is the flattest. The map inherits CTrees' top-end flattening and adds its own (a head on a single
+  10 m embedding averages toward the middle).
+- Directions: the top-weighted head of section 13 (trained with weight on high biomass), a calibration of the map's
+  top end on Rodda (the one reference here independent of all three), or a cell-level correction above 200 Mg/ha.
+- Caveats: Rodda's 13 sites are South Asia and Central Africa, no Amazon or Southeast Asian lowland; most GEO-TREES
+  censuses predate AlphaEarth by 2 to 9 years (old-growth biomass changes slowly, and loss since was dropped); a 50 m
+  subplot is 25 AlphaEarth pixels, so plot edges and geolocation add noise to GEO-TREES that the 100 m Rodda cells do
+  not have.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1560,7 +1609,9 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not
   quiet it. Per-pixel loss overshoots the pixel's own biomass and needs a cap.
 - **The top end**: the heads, not CTrees or CCI, are what flattens against lidar height (section 23); the
-  top-weighted head helps. Which map's level is right above 250 Mg/ha needs plot biomass.
+  top-weighted head helps. Section 35 (plots and lidar-scaled plots): the map ranks tropical forest best but reads
+  three quarters of the reference at 100 to 300 Mg/ha and about half above 400; Rodda's maps are the independent
+  reference to calibrate the top end on.
 - **Lidar**: Switzerland and England still unread (whole-tile reads); Canada and Norway need same-season flight
   pairs before they test change (section 24).
 - **Tundra**: nothing on disk checks CTrees' values (section 23); NEON's Alaska lidar and plots need a free account

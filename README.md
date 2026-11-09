@@ -112,6 +112,8 @@ forest.
 | `window_test.py` | The map's loss size (its soft rule and the others) against lidar's canopy fall; gain by window length, two years against a trend over every year of the window, on Esri's changes and lidar |
 | `lidar_gain_head.py` | Gain taught on lidar's canopy rise directly (AlphaEarth at both flight years), held out by square, beside the map's gain; then on Esri's "became trees" over every other square; `--variants difference,"first year"` for the difference alone and the first year alone |
 | `grass_abroad.py` | Grass years outside the US against Wu et al. 2026 global grassland biomass (500 m, 2018 to 2022), the map and a RAP-taught head; Wu against RAP at home |
+| `aef_read.py` | AlphaEarth (raw int8) over any lon/lat box from the mosaic, and the map's head on it, for the label checks outside the squares |
+| `top_end_plots.py` | The top end against plot biomass: Rodda et al. 2024 lidar and plot maps (13 tropical sites) and GEO-TREES census subplots, beside CTrees and CCI |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold
