@@ -157,6 +157,11 @@ run with its environment: `uv run --project ../aef-tessera-earthwork --with psut
 others carry their dependencies inline (`uv run scripts/<script>.py`). Those scripts expect aef-tessera-earthwork
 cloned at `~/dev/projects/aef-tessera-earthwork`. Data and logs are not in the repo; results are in `results/`.
 
+## License
+
+The code is MIT (`LICENSE`). The data it reads and the labels it was taught and checked on keep their own licenses,
+listed below; the map's imagery from EOX is free for non-commercial use only.
+
 ## Data
 
 All public, no credentials: AlphaEarth Foundations (tge-labs on Source Cooperative), TESSERA v1.1 (Source
