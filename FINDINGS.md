@@ -1538,6 +1538,50 @@ Median of each map against the reference's own biomass (ratio to the reference i
   subplot is 25 AlphaEarth pixels, so plot edges and geolocation add noise to GEO-TREES that the 100 m Rodda cells do
   not have.
 
+## 36. Tundra against Orndahl's 30 m Arctic biomass and the Berner harvest plots (`scripts/tundra_check.py`, `scripts/orndahl_read.py`, `results/tundra_check.json`)
+
+Nothing on disk checked tundra values before (section 23); Esri files tundra as rangeland (section 28). Two references,
+not independent of each other (Orndahl's model is taught largely on the Berner plots), both independent of GEDI and
+CTrees:
+- **Orndahl et al.** (Arctic Data Center doi:10.18739/A2NS0M06B): 30 m plant (vascular: herbs, shrubs, trees) and
+  woody-plant aboveground biomass for 2020, a Landsat, climate and terrain model, with its 95 % range. Its tiles are
+  striped GeoTIFFs served without a file size, which GDAL cannot open over HTTP; `orndahl_read.py` reads the TIFF tags
+  and only the strips a window needs. Compared on 100 m blocks over 11 tundra squares, the three of veg_squares.json
+  and eight new ones across the Arctic (Taymyr, the Indigirka lowland, Chukotka, west Greenland, Banks Island, Daring
+  Lake, Toolik, Finnmark). Finnmark is outside Orndahl's map, so 10 squares count.
+- **Berner et al. 2024** (doi:10.18739/A2QJ78081): harvest plots from 2017 on with vascular plants measured, the
+  median per site and year (473 site-years: Finland 333, Canada 58, Sweden 33, USA 33, Norway 10, Russia 6), against
+  the 3 x 3 AlphaEarth pixels around each site in the plot's year. 324 of them are from datasets Orndahl did not
+  train on.
+Beside the map: CTrees and ESA CCI v7 (CCI counts living trees only, so it reads 0 on tundra by definition).
+52 minutes (the Berner sites' reads), 0.6 GB.
+
+| | Map | CTrees | Orndahl woody |
+|---|---|---|---|
+| 10 squares, 35,351 blocks of 100 m: median (Orndahl plant 3.3 Mg/ha) | 15.0 (4.7 x) | 15.2 (5.2 x) | 1.6 |
+| Blocks inside Orndahl's 95 % range, by square | 0 to 10 % | 1 to 56 % | |
+| Rank with Orndahl within a square (median of 10) | **.55** | .04 | .97 |
+| Rank of the square medians with Orndahl | .70 | **.81** | |
+| Berner sites, 473: median (plots, vascular, 2.1 Mg/ha; Orndahl there 5.4) | 9.4 (4.1 x) | 15.6 (6.0 x) | |
+| Rank with the Berner sites | -.02 | -.04 | (Orndahl plant .28) |
+
+By Orndahl's plant biomass per block (pooled): the map reads 6.6 Mg/ha where Orndahl reads under 1, 15.6 at 2 to 5,
+19 at 5 to 10 and 24 at 10 to 20; CTrees 7.2, 16.8, 28 and 24.
+
+- **The map reads tundra four to five times too high**, as CTrees does: a median 15 Mg/ha where Orndahl reads 3.3,
+  and outside Orndahl's 95 % range on nine tenths of the blocks or more on every square. It is above Orndahl's total
+  even where Orndahl counts no woody mass at all. The level is CTrees' (the map's teacher), not the embedding's.
+- **Inside a square the map follows Orndahl and CTrees does not** (rank .55 against .04): the map sees where the
+  tundra is richer (shrubby valleys, wet sedge against dry heath) even at the wrong level. Across squares CTrees
+  orders them slightly better.
+- **At the plots nothing ranks** (map -.02, CTrees -.04, Orndahl .28, Orndahl partly taught on them): a site's few
+  harvest quadrats of 0.04 to 0.25 m2 do not stand for a 10 to 30 m pixel. The plots do agree on the level: the
+  map reads four times their median, CTrees six times; even Orndahl reads two and a half times.
+- The head calls tundra grass (63 to 100 % of a square) or moss (Nunavik, Banks Island, Noatak); never trees or shrub.
+- Directions: a tundra correction from Orndahl (the map's within-square order is usable, its level is not), a head
+  taught with Orndahl's level north of the treeline, or a lower cap where the head's class is grass or moss above
+  60 N. Orndahl covers 2020 only, so it sets a level, not years.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1596,7 +1640,9 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   finds more regrowth than the map's head at its floor. The trajectory heads and the AEF + TESSERA pair lower the
   steady ground lit (the trajectory head on AEF + TESSERA to a third), so they serve a stricter cutoff, at three to
   thirteen times the map's read for a change view.
-- **Tundra**: Esri files it as rangeland (section 28); the Berner / Orndahl Arctic biomass maps are the check.
+- **Tundra**: Esri files it as rangeland (section 28). Section 36: against Orndahl's Arctic map the map reads four
+  to five times too high (CTrees' level) while ranking within a square with it (.55); a level correction from
+  Orndahl is the open step.
 - **Loss size** (section 32): the map's soft 2/3 rule keeps partial loss apart but draws clear loss 15 to 20 points
   short of lidar; the head's fall is nearly flat across partial loss, so a rule cannot fix it alone. Burn severity
   needs a reference that tells dead trees from live ones; lidar height does not.
@@ -1614,8 +1660,8 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   reference to calibrate the top end on.
 - **Lidar**: Switzerland and England still unread (whole-tile reads); Canada and Norway need same-season flight
   pairs before they test change (section 24).
-- **Tundra**: nothing on disk checks CTrees' values (section 23); NEON's Alaska lidar and plots need a free account
-  token.
+- **Tundra**: section 36 checks CTrees' and the map's values against Orndahl and the Berner plots; NEON's Alaska
+  lidar and plots still need a free account token.
 - **The Los Angeles fires**: a flight a year after, when one is flown.
 
 Tree loss (section 26):

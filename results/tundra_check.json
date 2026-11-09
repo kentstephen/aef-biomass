@@ -1,0 +1,1193 @@
+{
+ "note": "Tundra biomass against Orndahl et al. 30 m Arctic AGB (2020) and the Berner et al. 2024 harvest plots.",
+ "squares": {
+  "pooled blocks": {
+   "n": 35351,
+   "ref median": 3.315,
+   "map": {
+    "rank": 0.528,
+    "r2 log": -4.577,
+    "median": 14.981,
+    "median ratio": 4.692
+   },
+   "ctrees": {
+    "rank": 0.368,
+    "r2 log": -5.702,
+    "median": 15.21,
+    "median ratio": 5.152
+   },
+   "cci": {
+    "rank": 0.161,
+    "r2 log": -3.888,
+    "median": 0.0,
+    "median ratio": 0.031
+   },
+   "orndahl woody": {
+    "rank": 0.965,
+    "r2 log": 0.449,
+    "median": 1.608,
+    "median ratio": 0.535
+   },
+   "by reference": {
+    "0-1": {
+     "n": 6287,
+     "ref median": 0.0,
+     "map": 6.56,
+     "ctrees": 7.198,
+     "cci": 0.0,
+     "orndahl woody": 0.0
+    },
+    "1-2": {
+     "n": 3062,
+     "ref median": 1.535,
+     "map": 13.494,
+     "ctrees": 1.52,
+     "cci": 0.0,
+     "orndahl woody": 0.396
+    },
+    "2-5": {
+     "n": 20811,
+     "ref median": 3.486,
+     "map": 15.598,
+     "ctrees": 16.806,
+     "cci": 0.0,
+     "orndahl woody": 1.746
+    },
+    "5-10": {
+     "n": 4514,
+     "ref median": 6.185,
+     "map": 19.323,
+     "ctrees": 28.182,
+     "cci": 0.0,
+     "orndahl woody": 3.617
+    },
+    "10-20": {
+     "n": 676,
+     "ref median": 12.084,
+     "map": 24.225,
+     "ctrees": 24.337,
+     "cci": 0.0,
+     "orndahl woody": 9.707
+    }
+   }
+  },
+  "rank of square medians against Orndahl": {
+   "map": 0.697,
+   "ctrees": 0.806,
+   "cci": -0.515
+  },
+  "rank within a square, median over squares": {
+   "map": 0.5465,
+   "ctrees": 0.0425,
+   "cci": 0.08
+  },
+  "per square": {
+   "yamal-ru": {
+    "n": 3600,
+    "ref median": 4.883,
+    "map": {
+     "rank": 0.745,
+     "r2 log": -19.033,
+     "median": 24.033,
+     "median ratio": 4.844
+    },
+    "ctrees": {
+     "rank": -0.015,
+     "r2 log": -28.464,
+     "median": 32.34,
+     "median ratio": 6.278
+    },
+    "cci": {
+     "rank": -0.002,
+     "r2 log": -34.437,
+     "median": 0.0,
+     "median ratio": 0.02
+    },
+    "orndahl woody": {
+     "rank": 0.982,
+     "r2 log": -1.256,
+     "median": 2.529,
+     "median ratio": 0.552
+    },
+    "by reference": {
+     "1-2": {
+      "n": 8,
+      "ref median": 1.532,
+      "map": 14.596,
+      "ctrees": 17.24,
+      "cci": 0.0,
+      "orndahl woody": 0.499
+     },
+     "2-5": {
+      "n": 1868,
+      "ref median": 3.953,
+      "map": 22.182,
+      "ctrees": 32.297,
+      "cci": 0.0,
+      "orndahl woody": 2.049
+     },
+     "5-10": {
+      "n": 1535,
+      "ref median": 6.766,
+      "map": 26.38,
+      "ctrees": 32.452,
+      "cci": 0.0,
+      "orndahl woody": 3.785
+     },
+     "10-20": {
+      "n": 187,
+      "ref median": 11.051,
+      "map": 27.259,
+      "ctrees": 32.1,
+      "cci": 0.0,
+      "orndahl woody": 8.135
+     }
+    },
+    "center": [
+     70.3118,
+     67.4062
+    ],
+    "note": "veg_squares.json",
+    "head classes 2020": {
+     "trees": 0.0,
+     "grass": 0.946,
+     "water": 0.001,
+     "wetland": 0.052,
+     "moss": 0.0
+    },
+    "map inside Orndahl's 95 % range": 0.001,
+    "ctrees inside Orndahl's 95 % range": 0.006
+   },
+   "noatak-us": {
+    "n": 3598,
+    "ref median": 3.884,
+    "map": {
+     "rank": 0.049,
+     "r2 log": -2.932,
+     "median": 16.467,
+     "median ratio": 3.602
+    },
+    "ctrees": {
+     "rank": -0.151,
+     "r2 log": -3.836,
+     "median": 18.14,
+     "median ratio": 3.957
+    },
+    "cci": {
+     "rank": 0.197,
+     "r2 log": -2.692,
+     "median": 0.0,
+     "median ratio": 0.064
+    },
+    "orndahl woody": {
+     "rank": 0.993,
+     "r2 log": 0.801,
+     "median": 2.136,
+     "median ratio": 0.614
+    },
+    "by reference": {
+     "0-1": {
+      "n": 807,
+      "ref median": 0.0,
+      "map": 21.274,
+      "ctrees": 27.93,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 145,
+      "ref median": 1.575,
+      "map": 18.454,
+      "ctrees": 21.256,
+      "cci": 0.0,
+      "orndahl woody": 0.488
+     },
+     "2-5": {
+      "n": 1322,
+      "ref median": 3.57,
+      "map": 14.43,
+      "ctrees": 15.546,
+      "cci": 0.0,
+      "orndahl woody": 1.863
+     },
+     "5-10": {
+      "n": 906,
+      "ref median": 6.624,
+      "map": 16.427,
+      "ctrees": 16.632,
+      "cci": 0.0,
+      "orndahl woody": 4.163
+     },
+     "10-20": {
+      "n": 417,
+      "ref median": 12.923,
+      "map": 22.827,
+      "ctrees": 20.285,
+      "cci": 16.5,
+      "orndahl woody": 10.953
+     }
+    },
+    "center": [
+     -160.7018,
+     67.6128
+    ],
+    "note": "veg_squares.json",
+    "head classes 2020": {
+     "trees": 0.024,
+     "grass": 0.632,
+     "bare": 0.0,
+     "moss": 0.343
+    },
+    "map inside Orndahl's 95 % range": 0.066,
+    "ctrees inside Orndahl's 95 % range": 0.129
+   },
+   "nunavik-ca": {
+    "n": 3600,
+    "ref median": 2.705,
+    "map": {
+     "rank": 0.762,
+     "r2 log": -3.5,
+     "median": 7.095,
+     "median ratio": 2.576
+    },
+    "ctrees": {
+     "rank": -0.105,
+     "r2 log": -5.889,
+     "median": 6.661,
+     "median ratio": 2.656
+    },
+    "cci": {
+     "rank": 0.229,
+     "r2 log": -6.314,
+     "median": 0.0,
+     "median ratio": 0.036
+    },
+    "orndahl woody": {
+     "rank": 0.973,
+     "r2 log": 0.084,
+     "median": 1.337,
+     "median ratio": 0.574
+    },
+    "by reference": {
+     "0-1": {
+      "n": 583,
+      "ref median": 0.283,
+      "map": 5.173,
+      "ctrees": 8.156,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 528,
+      "ref median": 1.541,
+      "map": 6.424,
+      "ctrees": 6.858,
+      "cci": 0.0,
+      "orndahl woody": 0.459
+     },
+     "2-5": {
+      "n": 2455,
+      "ref median": 3.084,
+      "map": 7.443,
+      "ctrees": 6.332,
+      "cci": 0.0,
+      "orndahl woody": 1.812
+     },
+     "5-10": {
+      "n": 34,
+      "ref median": 5.479,
+      "map": 9.066,
+      "ctrees": 4.541,
+      "cci": 0.0,
+      "orndahl woody": 3.937
+     }
+    },
+    "center": [
+     -71.8872,
+     59.7222
+    ],
+    "note": "veg_squares.json",
+    "head classes 2020": {
+     "grass": 0.257,
+     "water": 0.06,
+     "wetland": 0.0,
+     "moss": 0.684
+    },
+    "map inside Orndahl's 95 % range": 0.045,
+    "ctrees inside Orndahl's 95 % range": 0.218
+   },
+   "taymyr-ru": {
+    "n": 3600,
+    "ref median": 3.256,
+    "map": {
+     "rank": 0.541,
+     "r2 log": -23.375,
+     "median": 24.409,
+     "median ratio": 7.464
+    },
+    "ctrees": {
+     "rank": 0.217,
+     "r2 log": -27.811,
+     "median": 29.473,
+     "median ratio": 8.999
+    },
+    "cci": {
+     "rank": 0.095,
+     "r2 log": -12.429,
+     "median": 0.0,
+     "median ratio": 0.03
+    },
+    "orndahl woody": {
+     "rank": 0.871,
+     "r2 log": -0.967,
+     "median": 1.483,
+     "median ratio": 0.47
+    },
+    "by reference": {
+     "0-1": {
+      "n": 289,
+      "ref median": 0.132,
+      "map": 15.873,
+      "ctrees": 26.02,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 192,
+      "ref median": 1.601,
+      "map": 20.826,
+      "ctrees": 17.952,
+      "cci": 0.0,
+      "orndahl woody": 0.576
+     },
+     "2-5": {
+      "n": 3065,
+      "ref median": 3.317,
+      "map": 24.747,
+      "ctrees": 30.028,
+      "cci": 0.0,
+      "orndahl woody": 1.527
+     },
+     "5-10": {
+      "n": 54,
+      "ref median": 5.596,
+      "map": 24.66,
+      "ctrees": 22.558,
+      "cci": 0.0,
+      "orndahl woody": 2.435
+     }
+    },
+    "center": [
+     98.0,
+     73.0
+    ],
+    "note": "Taymyr lowland tundra",
+    "head classes 2020": {
+     "grass": 0.826,
+     "water": 0.027,
+     "wetland": 0.146,
+     "moss": 0.0
+    },
+    "map inside Orndahl's 95 % range": 0.0,
+    "ctrees inside Orndahl's 95 % range": 0.018
+   },
+   "kytalyk-ru": {
+    "n": 2954,
+    "ref median": 3.494,
+    "map": {
+     "rank": 0.421,
+     "r2 log": -7.165,
+     "median": 21.203,
+     "median ratio": 6.064
+    },
+    "ctrees": {
+     "rank": 0.019,
+     "r2 log": -14.94,
+     "median": 33.705,
+     "median ratio": 9.285
+    },
+    "cci": {
+     "rank": 0.065,
+     "r2 log": -4.863,
+     "median": 0.0,
+     "median ratio": 0.028
+    },
+    "orndahl woody": {
+     "rank": 0.947,
+     "r2 log": 0.419,
+     "median": 1.681,
+     "median ratio": 0.533
+    },
+    "by reference": {
+     "0-1": {
+      "n": 479,
+      "ref median": 0.0,
+      "map": 14.609,
+      "ctrees": 61.722,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 175,
+      "ref median": 1.504,
+      "map": 19.295,
+      "ctrees": 33.512,
+      "cci": 0.0,
+      "orndahl woody": 0.541
+     },
+     "2-5": {
+      "n": 1731,
+      "ref median": 3.538,
+      "map": 21.693,
+      "ctrees": 31.27,
+      "cci": 0.0,
+      "orndahl woody": 1.705
+     },
+     "5-10": {
+      "n": 530,
+      "ref median": 6.149,
+      "map": 21.048,
+      "ctrees": 41.233,
+      "cci": 0.0,
+      "orndahl woody": 3.842
+     },
+     "10-20": {
+      "n": 39,
+      "ref median": 12.264,
+      "map": 22.377,
+      "ctrees": 26.014,
+      "cci": 0.0,
+      "orndahl woody": 9.778
+     }
+    },
+    "center": [
+     147.5,
+     70.8
+    ],
+    "note": "Indigirka lowland shrub tundra (Kytalyk)",
+    "head classes 2020": {
+     "trees": 0.0,
+     "grass": 0.628,
+     "water": 0.089,
+     "wetland": 0.282,
+     "moss": 0.001
+    },
+    "map inside Orndahl's 95 % range": 0.007,
+    "ctrees inside Orndahl's 95 % range": 0.014
+   },
+   "chukotka-ru": {
+    "n": 3599,
+    "ref median": 4.136,
+    "map": {
+     "rank": 0.113,
+     "r2 log": -40.128,
+     "median": 16.894,
+     "median ratio": 3.987
+    },
+    "ctrees": {
+     "rank": 0.289,
+     "r2 log": -81.017,
+     "median": 29.69,
+     "median ratio": 6.785
+    },
+    "cci": {
+     "rank": -0.378,
+     "r2 log": -78.066,
+     "median": 0.0,
+     "median ratio": 0.024
+    },
+    "orndahl woody": {
+     "rank": 0.959,
+     "r2 log": -4.111,
+     "median": 2.418,
+     "median ratio": 0.577
+    },
+    "by reference": {
+     "2-5": {
+      "n": 2833,
+      "ref median": 3.938,
+      "map": 16.787,
+      "ctrees": 29.162,
+      "cci": 0.0,
+      "orndahl woody": 2.242
+     },
+     "5-10": {
+      "n": 736,
+      "ref median": 5.73,
+      "map": 17.42,
+      "ctrees": 31.942,
+      "cci": 0.0,
+      "orndahl woody": 3.478
+     },
+     "10-20": {
+      "n": 30,
+      "ref median": 11.889,
+      "map": 18.679,
+      "ctrees": 20.918,
+      "cci": 0.0,
+      "orndahl woody": 9.839
+     }
+    },
+    "center": [
+     174.0,
+     65.3
+    ],
+    "note": "Anadyr lowland, Chukotka",
+    "head classes 2020": {
+     "trees": 0.0,
+     "grass": 0.997,
+     "water": 0.001,
+     "wetland": 0.001,
+     "moss": 0.001
+    },
+    "map inside Orndahl's 95 % range": 0.004,
+    "ctrees inside Orndahl's 95 % range": 0.01
+   },
+   "kangerlussuaq-gl": {
+    "n": 3600,
+    "ref median": 3.057,
+    "map": {
+     "rank": 0.552,
+     "r2 log": -1.986,
+     "median": 7.378,
+     "median ratio": 2.616
+    },
+    "ctrees": {
+     "rank": 0.344,
+     "r2 log": -3.864,
+     "median": 12.122,
+     "median ratio": 4.107
+    },
+    "cci": {
+     "rank": 0.38,
+     "r2 log": -2.661,
+     "median": 2.65,
+     "median ratio": 1.0
+    },
+    "orndahl woody": {
+     "rank": 0.977,
+     "r2 log": -0.01,
+     "median": 1.13,
+     "median ratio": 0.408
+    },
+    "by reference": {
+     "0-1": {
+      "n": 690,
+      "ref median": 0.0,
+      "map": 5.127,
+      "ctrees": 3.452,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 263,
+      "ref median": 1.528,
+      "map": 6.539,
+      "ctrees": 8.7,
+      "cci": 0.0,
+      "orndahl woody": 0.375
+     },
+     "2-5": {
+      "n": 2345,
+      "ref median": 3.317,
+      "map": 8.087,
+      "ctrees": 13.53,
+      "cci": 4.8,
+      "orndahl woody": 1.272
+     },
+     "5-10": {
+      "n": 302,
+      "ref median": 5.692,
+      "map": 7.236,
+      "ctrees": 14.084,
+      "cci": 13.78,
+      "orndahl woody": 2.61
+     }
+    },
+    "center": [
+     -50.5,
+     67.1
+    ],
+    "note": "west Greenland dry shrub tundra",
+    "head classes 2020": {
+     "trees": 0.0,
+     "grass": 0.843,
+     "water": 0.156,
+     "moss": 0.001
+    },
+    "map inside Orndahl's 95 % range": 0.098,
+    "ctrees inside Orndahl's 95 % range": 0.085
+   },
+   "banks-island-ca": {
+    "n": 3600,
+    "ref median": 1.734,
+    "map": {
+     "rank": 0.38,
+     "r2 log": -24.671,
+     "median": 14.028,
+     "median ratio": 7.645
+    },
+    "ctrees": {
+     "rank": 0.066,
+     "r2 log": -3.482,
+     "median": 1.068,
+     "median ratio": 0.654
+    },
+    "cci": {
+     "rank": 0.174,
+     "r2 log": -7.219,
+     "median": 0.0,
+     "median ratio": 0.055
+    },
+    "orndahl woody": {
+     "rank": 0.955,
+     "r2 log": -1.847,
+     "median": 0.467,
+     "median ratio": 0.347
+    },
+    "by reference": {
+     "0-1": {
+      "n": 651,
+      "ref median": 0.436,
+      "map": 13.39,
+      "ctrees": 0.99,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 1560,
+      "ref median": 1.528,
+      "map": 13.884,
+      "ctrees": 1.059,
+      "cci": 0.0,
+      "orndahl woody": 0.321
+     },
+     "2-5": {
+      "n": 1389,
+      "ref median": 2.441,
+      "map": 14.456,
+      "ctrees": 1.121,
+      "cci": 0.0,
+      "orndahl woody": 0.939
+     }
+    },
+    "center": [
+     -119.6,
+     73.2
+    ],
+    "note": "Banks Island, high Arctic",
+    "head classes 2020": {
+     "grass": 0.081,
+     "wetland": 0.0,
+     "moss": 0.919
+    },
+    "map inside Orndahl's 95 % range": 0.0,
+    "ctrees inside Orndahl's 95 % range": 0.559
+   },
+   "daring-lake-ca": {
+    "n": 3600,
+    "ref median": 0.0,
+    "map": {
+     "rank": 0.719,
+     "r2 log": -3.784,
+     "median": 6.569,
+     "median ratio": 53.326
+    },
+    "ctrees": {
+     "rank": -0.203,
+     "r2 log": -4.822,
+     "median": 2.496,
+     "median ratio": 11.045
+    },
+    "cci": {
+     "rank": 0.021,
+     "r2 log": -0.453,
+     "median": 0.0,
+     "median ratio": 1.0
+    },
+    "orndahl woody": {
+     "rank": 0.892,
+     "r2 log": 0.849,
+     "median": 0.0,
+     "median ratio": 1.0
+    },
+    "by reference": {
+     "0-1": {
+      "n": 2357,
+      "ref median": 0.0,
+      "map": 5.937,
+      "ctrees": 3.348,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 108,
+      "ref median": 1.471,
+      "map": 9.25,
+      "ctrees": 1.775,
+      "cci": 0.0,
+      "orndahl woody": 0.612
+     },
+     "2-5": {
+      "n": 821,
+      "ref median": 4.039,
+      "map": 14.746,
+      "ctrees": 1.515,
+      "cci": 0.0,
+      "orndahl woody": 1.992
+     },
+     "5-10": {
+      "n": 311,
+      "ref median": 5.641,
+      "map": 15.849,
+      "ctrees": 1.79,
+      "cci": 0.0,
+      "orndahl woody": 3.061
+     }
+    },
+    "center": [
+     -111.6,
+     64.87
+    ],
+    "note": "Low Arctic shrub tundra, Northwest Territories",
+    "head classes 2020": {
+     "grass": 0.317,
+     "water": 0.615,
+     "wetland": 0.0,
+     "moss": 0.068
+    },
+    "map inside Orndahl's 95 % range": 0.002,
+    "ctrees inside Orndahl's 95 % range": 0.069
+   },
+   "toolik-us": {
+    "n": 3600,
+    "ref median": 3.356,
+    "map": {
+     "rank": 0.626,
+     "r2 log": -6.462,
+     "median": 13.891,
+     "median ratio": 4.05
+    },
+    "ctrees": {
+     "rank": 0.098,
+     "r2 log": -3.149,
+     "median": 3.709,
+     "median ratio": 1.295
+    },
+    "cci": {
+     "rank": -0.271,
+     "r2 log": -7.308,
+     "median": 0.0,
+     "median ratio": 0.029
+    },
+    "orndahl woody": {
+     "rank": 0.949,
+     "r2 log": 0.192,
+     "median": 1.783,
+     "median ratio": 0.554
+    },
+    "by reference": {
+     "0-1": {
+      "n": 429,
+      "ref median": 0.0,
+      "map": 6.6,
+      "ctrees": 2.17,
+      "cci": 0.0,
+      "orndahl woody": 0.0
+     },
+     "1-2": {
+      "n": 83,
+      "ref median": 1.457,
+      "map": 10.531,
+      "ctrees": 1.876,
+      "cci": 0.0,
+      "orndahl woody": 0.606
+     },
+     "2-5": {
+      "n": 2982,
+      "ref median": 3.451,
+      "map": 14.149,
+      "ctrees": 3.803,
+      "cci": 0.0,
+      "orndahl woody": 1.858
+     },
+     "5-10": {
+      "n": 106,
+      "ref median": 5.329,
+      "map": 15.232,
+      "ctrees": 6.459,
+      "cci": 0.0,
+      "orndahl woody": 2.93
+     }
+    },
+    "center": [
+     -149.6,
+     68.63
+    ],
+    "note": "Alaska North Slope foothills (Toolik)",
+    "head classes 2020": {
+     "grass": 0.858,
+     "water": 0.1,
+     "moss": 0.041
+    },
+    "map inside Orndahl's 95 % range": 0.0,
+    "ctrees inside Orndahl's 95 % range": 0.258
+   },
+   "finnmark-no": {
+    "n": 0,
+    "ref median": NaN,
+    "map": {
+     "rank": null,
+     "r2 log": null,
+     "median": null,
+     "median ratio": null
+    },
+    "ctrees": {
+     "rank": null,
+     "r2 log": null,
+     "median": null,
+     "median ratio": null
+    },
+    "cci": {
+     "rank": null,
+     "r2 log": null,
+     "median": null,
+     "median ratio": null
+    },
+    "orndahl woody": {
+     "rank": null,
+     "r2 log": null,
+     "median": null,
+     "median ratio": null
+    },
+    "by reference": {},
+    "center": [
+     25.5,
+     69.6
+    ],
+    "note": "Finnmark plateau heath and birch",
+    "head classes 2020": {
+     "trees": 0.08,
+     "grass": 0.912,
+     "water": 0.004,
+     "wetland": 0.004
+    },
+    "map inside Orndahl's 95 % range": null,
+    "ctrees inside Orndahl's 95 % range": null
+   }
+  }
+ },
+ "berner": {
+  "all sites": {
+   "vascular": {
+    "n": 473,
+    "ref median": 2.122,
+    "map": {
+     "rank": -0.022,
+     "r2 log": -2.86,
+     "median": 9.364,
+     "median ratio": 4.069
+    },
+    "ctrees": {
+     "rank": -0.039,
+     "r2 log": -5.32,
+     "median": 15.6,
+     "median ratio": 5.96
+    },
+    "cci": {
+     "rank": 0.073,
+     "r2 log": -2.432,
+     "median": 0.0,
+     "median ratio": 0.05
+    },
+    "orndahl": {
+     "rank": 0.283,
+     "r2 log": -1.182,
+     "median": 5.39,
+     "median ratio": 2.56
+    },
+    "by reference": {
+     "0-1": {
+      "n": 112,
+      "ref median": 0.57,
+      "map": 10.309,
+      "ctrees": 16.4,
+      "cci": 0.0,
+      "orndahl": 4.24
+     },
+     "1-2": {
+      "n": 112,
+      "ref median": 1.507,
+      "map": 9.322,
+      "ctrees": 17.05,
+      "cci": 0.0,
+      "orndahl": 5.185
+     },
+     "2-5": {
+      "n": 168,
+      "ref median": 3.048,
+      "map": 8.865,
+      "ctrees": 13.95,
+      "cci": 0.0,
+      "orndahl": 5.39
+     },
+     "5-10": {
+      "n": 48,
+      "ref median": 6.7,
+      "map": 8.915,
+      "ctrees": 11.6,
+      "cci": 0.0,
+      "orndahl": 7.02
+     },
+     "10-20": {
+      "n": 24,
+      "ref median": 12.998,
+      "map": 11.677,
+      "ctrees": 16.35,
+      "cci": 0.0,
+      "orndahl": 9.205
+     },
+     "20-1000": {
+      "n": 9,
+      "ref median": 29.456,
+      "map": 35.612,
+      "ctrees": 25.4,
+      "cci": 37.0,
+      "orndahl": 17.18
+     }
+    }
+   },
+   "woody": {
+    "n": 473,
+    "ref median": 1.96,
+    "map": {
+     "rank": -0.035,
+     "r2 log": -2.811,
+     "median": 9.364,
+     "median ratio": 4.552
+    },
+    "ctrees": {
+     "rank": -0.024,
+     "r2 log": -4.911,
+     "median": 15.6,
+     "median ratio": 7.336
+    },
+    "cci": {
+     "rank": 0.08,
+     "r2 log": -1.711,
+     "median": 0.0,
+     "median ratio": 0.056
+    },
+    "orndahl woody": {
+     "rank": 0.302,
+     "r2 log": -0.277,
+     "median": 2.85,
+     "median ratio": 1.585
+    },
+    "by reference": {
+     "0-1": {
+      "n": 145,
+      "ref median": 0.279,
+      "map": 10.126,
+      "ctrees": 16.7,
+      "cci": 0.0,
+      "orndahl woody": 2.42
+     },
+     "1-2": {
+      "n": 97,
+      "ref median": 1.516,
+      "map": 9.199,
+      "ctrees": 16.5,
+      "cci": 0.0,
+      "orndahl woody": 2.83
+     },
+     "2-5": {
+      "n": 155,
+      "ref median": 3.05,
+      "map": 8.954,
+      "ctrees": 13.8,
+      "cci": 0.0,
+      "orndahl woody": 2.915
+     },
+     "5-10": {
+      "n": 43,
+      "ref median": 6.48,
+      "map": 8.659,
+      "ctrees": 11.8,
+      "cci": 0.0,
+      "orndahl woody": 4.07
+     },
+     "10-20": {
+      "n": 24,
+      "ref median": 12.688,
+      "map": 11.677,
+      "ctrees": 16.35,
+      "cci": 0.0,
+      "orndahl woody": 6.58
+     },
+     "20-1000": {
+      "n": 9,
+      "ref median": 29.453,
+      "map": 35.612,
+      "ctrees": 25.4,
+      "cci": 37.0,
+      "orndahl woody": 15.67
+     }
+    }
+   }
+  },
+  "not in Orndahl's training": {
+   "vascular": {
+    "n": 324,
+    "ref median": 1.994,
+    "map": {
+     "rank": -0.185,
+     "r2 log": -5.363,
+     "median": 9.263,
+     "median ratio": 4.563
+    },
+    "ctrees": {
+     "rank": -0.106,
+     "r2 log": -9.247,
+     "median": 15.35,
+     "median ratio": 6.809
+    },
+    "cci": {
+     "rank": -0.056,
+     "r2 log": -3.992,
+     "median": 0.0,
+     "median ratio": 0.048
+    },
+    "orndahl": {
+     "rank": 0.269,
+     "r2 log": -1.771,
+     "median": 5.265,
+     "median ratio": 2.646
+    },
+    "by reference": {
+     "0-1": {
+      "n": 78,
+      "ref median": 0.583,
+      "map": 11.005,
+      "ctrees": 16.8,
+      "cci": 0.0,
+      "orndahl": 4.24
+     },
+     "1-2": {
+      "n": 84,
+      "ref median": 1.516,
+      "map": 9.288,
+      "ctrees": 17.0,
+      "cci": 0.0,
+      "orndahl": 5.29
+     },
+     "2-5": {
+      "n": 128,
+      "ref median": 3.001,
+      "map": 8.566,
+      "ctrees": 13.65,
+      "cci": 0.0,
+      "orndahl": 5.53
+     },
+     "5-10": {
+      "n": 25,
+      "ref median": 6.395,
+      "map": 8.117,
+      "ctrees": 12.4,
+      "cci": 0.0,
+      "orndahl": 7.02
+     },
+     "10-20": {
+      "n": 8,
+      "ref median": 11.571,
+      "map": 7.363,
+      "ctrees": 16.0,
+      "cci": 0.0,
+      "orndahl": 6.47
+     }
+    }
+   },
+   "woody": {
+    "n": 324,
+    "ref median": 1.924,
+    "map": {
+     "rank": -0.191,
+     "r2 log": -4.842,
+     "median": 9.263,
+     "median ratio": 4.842
+    },
+    "ctrees": {
+     "rank": -0.102,
+     "r2 log": -8.034,
+     "median": 15.35,
+     "median ratio": 7.72
+    },
+    "cci": {
+     "rank": -0.057,
+     "r2 log": -2.759,
+     "median": 0.0,
+     "median ratio": 0.049
+    },
+    "orndahl woody": {
+     "rank": 0.263,
+     "r2 log": -0.5,
+     "median": 2.84,
+     "median ratio": 1.621
+    },
+    "by reference": {
+     "0-1": {
+      "n": 95,
+      "ref median": 0.279,
+      "map": 10.799,
+      "ctrees": 16.7,
+      "cci": 0.0,
+      "orndahl woody": 2.51
+     },
+     "1-2": {
+      "n": 78,
+      "ref median": 1.532,
+      "map": 9.146,
+      "ctrees": 16.65,
+      "cci": 0.0,
+      "orndahl woody": 2.85
+     },
+     "2-5": {
+      "n": 117,
+      "ref median": 3.022,
+      "map": 8.865,
+      "ctrees": 13.5,
+      "cci": 0.0,
+      "orndahl woody": 2.96
+     },
+     "5-10": {
+      "n": 25,
+      "ref median": 6.084,
+      "map": 8.117,
+      "ctrees": 12.4,
+      "cci": 0.0,
+      "orndahl woody": 3.89
+     },
+     "10-20": {
+      "n": 8,
+      "ref median": 11.548,
+      "map": 7.363,
+      "ctrees": 16.0,
+      "cci": 0.0,
+      "orndahl woody": 3.52
+     }
+    }
+   }
+  },
+  "sites": 473,
+  "by country": {
+   "Canada": 58,
+   "Finland": 333,
+   "Norway": 10,
+   "Russia": 6,
+   "Sweden": 33,
+   "USA": 33
+  }
+ },
+ "seconds": 3117,
+ "peak_gb": 0.62
+}

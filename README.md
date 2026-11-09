@@ -114,6 +114,7 @@ forest.
 | `grass_abroad.py` | Grass years outside the US against Wu et al. 2026 global grassland biomass (500 m, 2018 to 2022), the map and a RAP-taught head; Wu against RAP at home |
 | `aef_read.py` | AlphaEarth (raw int8) over any lon/lat box from the mosaic, and the map's head on it, for the label checks outside the squares |
 | `top_end_plots.py` | The top end against plot biomass: Rodda et al. 2024 lidar and plot maps (13 tropical sites) and GEO-TREES census subplots, beside CTrees and CCI |
+| `tundra_check.py`, `orndahl_read.py` | Tundra against Orndahl's 30 m Arctic biomass (2020) on 11 squares and the Berner harvest plots from 2017 on; a reader for Orndahl's striped tiles over HTTP |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold
