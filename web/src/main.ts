@@ -269,6 +269,7 @@ function boot2() {
   follow(map, m2);
   follow(m2, map);
   m2.on("moveend", () => paint());
+  m2.on("idle", () => addMissingGroups(m2, [...s2Left, ...(st.pair ? outlines("l") : [])]));
   // the left side hovers as the right does: one camera, so a point is the same place on both
   m2.on("mousemove", hoverAt);
   m2.on("mouseout", hoverOff);
@@ -540,6 +541,15 @@ function drawLayers() {
   overlay.setProps({ layers: [...bioLayers, ...s2Main, ...outlines("")] as never });
   if (map2 && overlay2) overlay2.setProps({ layers: [...s2Left, ...(st.pair ? outlines("l") : [])] as never });
 }
+/**
+ * deck adds its layer groups (the slot under the labels) only while MapLibre reports the style loaded, which is false
+ * while any tile loads; the left map is always loading when its layers are set, so it never got one and its imagery
+ * drew over the labels. Once a map is idle, any group missing is added by setting the layers again.
+ */
+const groupId = (l: any) => (l.props.beforeId ? `deck-maplibre-layer-group-before:${l.props.beforeId}` : "deck-maplibre-layer-group-last");
+function addMissingGroups(m: maplibregl.Map, layers: unknown[]) {
+  if (layers.some((l) => !m.getLayer(groupId(l)))) drawLayers();
+}
 function styleS2card() {
   s2card.classList.toggle("on", st.holding || st.pair);
   const y = imgYear(), off = y !== mapYear() ? `<div class="keys">no ${mapYear()} mosaic</div>` : "";
@@ -753,3 +763,6 @@ await mapLoaded;
 firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
 styleLabels(map);
 render();
+map.on("idle", () => addMissingGroups(map, [...bioLayers, ...s2Main]));
+// dev only: lets a headless probe read both maps' layer order
+if (import.meta.env.DEV) Object.assign(window, { __pair: { map, map2: () => map2 } });
