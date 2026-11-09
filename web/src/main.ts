@@ -7,7 +7,7 @@ import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
 import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
-import { type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
+import { AGB_HI, type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
 import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
@@ -63,7 +63,6 @@ const st = {
   prev: null as string | null,
   dir: -1,
   hover: null as [number, number] | null,
-  viewDirty: true,
   // the year's view all in (deck.gl's onViewportLoad): the bar goes away even where a chunk has no data
   viewLoaded: false,
   on: [] as string[],
@@ -440,7 +439,6 @@ function status() {
 }
 
 function keyTicks() {
-  const s = bio.stretch;
   const ticks = $(".ticks");
   if (st.mode === "change") {
     ticks.innerHTML = CH_TICKS.map((v) => {
@@ -449,18 +447,12 @@ function keyTicks() {
     }).join("");
     return;
   }
-  const fmt = (v: number) => (v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(1) : v.toFixed(2));
-  if (s.rank) {
-    ticks.innerHTML = [0, 0.25, 0.5, 0.75, 1].map((t) => `<span style="left:${t * 100}%">${fmt(bio.valueAt(t))}</span>`).join("");
-  } else {
-    ticks.innerHTML =
-      TICKS.map((v) => {
-        const t = Math.log1p(v) / s.hi;
-        // a tick near the end would sit on the end's own label
-        return t <= 0.9 ? `<span style="left:${t * 100}%">${v}</span>` : "";
-      }).join("") + `<span style="left:100%">${Math.round(Math.expm1(s.hi))}+</span>`;
-  }
-  $(".rk").textContent = s.rank ? "rank stretch on (view)" : "rank stretch";
+  ticks.innerHTML =
+    TICKS.map((v) => {
+      const t = Math.log1p(v) / AGB_HI;
+      // a tick near the end would sit on the end's own label
+      return t <= 0.9 ? `<span style="left:${t * 100}%">${v}</span>` : "";
+    }).join("") + `<span style="left:100%">${Math.round(Math.expm1(AGB_HI))}+</span>`;
 }
 
 /** The pixel under the pointer: the card's readout line, and the tooltip by the pointer (Q hides it). */
@@ -568,7 +560,7 @@ function styleMode() {
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
     ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
-    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>R</kbd>&nbsp;<span class="rk">rank stretch</span> &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
+    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -650,11 +642,6 @@ function render() {
             st.prev = null;
             render();
           }
-          if (st.mode === "year" && st.viewDirty && bio.rebuildCdf(bbox(), st.year)) {
-            st.viewDirty = false;
-            if (bio.stretch.rank) render();
-            keyTicks();
-          }
           status();
           readAhead();
         },
@@ -701,7 +688,6 @@ function setMode(m: Mode) {
   // the other mode's layer is not kept under: viridis showing through the clear no change would read as change
   st.prev = null;
   st.viewLoaded = false;
-  st.viewDirty = true;
   stopAhead();
   styleMode();
   render();
@@ -759,10 +745,7 @@ window.addEventListener("keydown", (e) => {
   else if (e.code === "BracketLeft") step(-1);
   else if (e.code === "BracketRight") step(1);
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
-  else if (e.code === "KeyR" && !e.shiftKey && st.mode === "year") {
-    bio.setRank(!bio.stretch.rank);
-    render();
-  } else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
+  else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
   else if (e.code === "KeyF") toggleFull();
   else if (e.code === "KeyL" && !e.shiftKey) toggleLabels();
   else if (e.key === "/") search.focus();
@@ -809,12 +792,7 @@ map.on("zoom", () => {
     render();
   }
 });
-map.on("moveend", () => {
-  if (st.mode !== "year") return void status();
-  st.viewDirty = !bio.rebuildCdf(bbox(), st.year);
-  if (!st.viewDirty && bio.stretch.rank) render();
-  else status();
-});
+map.on("moveend", () => status());
 
 
 styleMode();

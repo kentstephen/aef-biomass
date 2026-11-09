@@ -1,6 +1,6 @@
 import type { MinimalTileData, RasterModule } from "@developmentseed/deck.gl-raster";
 import { ZarrLayer } from "@developmentseed/deck.gl-zarr";
-import type { Device, Texture } from "@luma.gl/core";
+import type { Texture } from "@luma.gl/core";
 import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
@@ -51,33 +51,21 @@ export type ChangeStats = {
 };
 export const ALPHA_MIN = 0.2;
 
-export type Stretch = { lo: number; hi: number; rank: boolean; n: number };
+/** The biomass ramp's ends in log1p(Mg/ha): 0 to 350 Mg/ha, the same in every view and year. */
+export const AGB_LO = 0;
+export const AGB_HI = Math.log1p(350);
 
-const CDF_N = 256;
-
-/**
- * Biomass per pixel, colored on 50-stop viridis. lo..hi is the stretch in log1p(Mg/ha); with rank on, the
- * position in it goes through the CDF of the pixels in view (cdfTex), so the colors spread over what is there.
- */
+/** Biomass per pixel, colored on 50-stop viridis over AGB_LO..AGB_HI in log1p(Mg/ha). */
 const BiomassColor = {
   name: "biomass",
   fs: `uniform biomassUniforms {
   float lo;
   float hi;
-  float rank;
 } biomass;`,
   inject: {
     "fs:#decl": `precision highp usampler2D;
 uniform highp usampler2D agbTex;
-uniform highp sampler2D cdfTex;
-${glslRamp("viridis", VIRIDIS_50)}
-float biomass_cdf(float t) {
-  float x = clamp(t, 0.0, 1.0) * ${CDF_N - 1}.0;
-  int i = min(int(floor(x)), ${CDF_N - 2});
-  float a = texelFetch(cdfTex, ivec2(i, 0), 0).r;
-  float b = texelFetch(cdfTex, ivec2(i + 1, 0), 0).r;
-  return mix(a, b, x - float(i));
-}`,
+${glslRamp("viridis", VIRIDIS_50)}`,
     "fs:DECKGL_FILTER_COLOR": /* glsl */ `
       ivec2 size = textureSize(agbTex, 0);
       ivec2 px = clamp(ivec2(geometry.uv * vec2(size)), ivec2(0), size - 1);
@@ -85,13 +73,12 @@ float biomass_cdf(float t) {
       if (c == 0u) discard;
       float v = float(c - 1u) / ${CODE.toFixed(1)};
       float t = (v - biomass.lo) / max(biomass.hi - biomass.lo, 1e-6);
-      if (biomass.rank > 0.5) t = biomass_cdf(t);
       color = vec4(viridis(t), 1.0);
     `,
   },
-  uniformTypes: { lo: "f32", hi: "f32", rank: "f32" },
+  uniformTypes: { lo: "f32", hi: "f32" },
   getUniforms: (p: Record<string, unknown>) => p,
-} as unknown as ShaderModule<{ agbTex: Texture; cdfTex: Texture; lo: number; hi: number; rank: number }>;
+} as unknown as ShaderModule<{ agbTex: Texture; lo: number; hi: number }>;
 
 /**
  * A window's change per pixel on the 50-stop orange (loss) to white to blue (gain) ramp: loss to -LOSS_END %, gain
@@ -234,37 +221,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     return { inHand: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
   }
 
-  // the rank stretch's CDF, shared by every tile
-  const cdf = new Float32Array(CDF_N);
-  for (let i = 0; i < CDF_N; i++) cdf[i] = i / (CDF_N - 1);
-  let cdfTex: Texture | null = null, cdfTexN = -1, device: Device | null = null;
-  const stretch: Stretch = { lo: 0, hi: Math.log1p(350), rank: false, n: 0 };
-  const linear = { lo: 0, hi: Math.log1p(350) };
-  let cdfRange = { lo: 0, hi: 1 };
-  /**
-   * One texture for the whole session, its data rewritten when the CDF changes. Tiles drawn earlier keep a handle
-   * to it until they are drawn again; a texture made anew and the old one destroyed left them binding a deleted
-   * texture, and WebGL then drew them with whatever texture was bound last (a view of one repeated tile).
-   */
-  function cdfTexture(dev: Device): Texture {
-    if (cdfTex && cdfTexN === stretch.n) return cdfTex;
-    if (cdfTex) {
-      cdfTex.writeData(cdf);
-      cdfTexN = stretch.n;
-      return cdfTex;
-    }
-    cdfTex = dev.createTexture({
-      data: cdf,
-      format: "r32float",
-      width: CDF_N,
-      height: 1,
-      mipLevels: 1,
-      sampler: { minFilter: "nearest", magFilter: "nearest", addressModeU: "clamp-to-edge", addressModeV: "clamp-to-edge" },
-    });
-    cdfTexN = stretch.n;
-    return cdfTex;
-  }
-
   const chunkRange = (bbox: [number, number, number, number]) => {
     const [w, s, e, n] = bbox;
     return {
@@ -274,42 +230,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
       r1: Math.min(Math.ceil(H / CHUNK) - 1, Math.floor((Y0 - s) / RES / CHUNK)),
     };
   };
-
-  /**
-   * The CDF of log biomass over the pixels in view for one year (every 5th pixel of the chunks in hand), its
-   * domain p0.5 to p99.5. False when no chunk of the view is in hand.
-   */
-  function rebuildCdf(bbox: [number, number, number, number], year: number): boolean {
-    const { c0, c1, r0, r1 } = chunkRange(bbox);
-    const [bw, bs, be, bn] = bbox;
-    const vals: number[] = [];
-    for (let r = r0; r <= r1; r++)
-      for (let c = c0; c <= c1; c++) {
-        const p = planes.get(keyOf(yearKey(year), r, c));
-        if (!p) continue;
-        for (let i = 0; i < p.w * p.h; i += 5) {
-          const code = p.planes[i]!;
-          if (code === 0) continue;
-          const lon = X0 + (c * CHUNK + (i % p.w) + 0.5) * RES, lat = Y0 - (r * CHUNK + Math.floor(i / p.w) + 0.5) * RES;
-          if (lon < bw || lon > be || lat < bs || lat > bn) continue;
-          vals.push((code - 1) / CODE);
-        }
-      }
-    if (vals.length < 100) return false;
-    const s = Float64Array.from(vals).sort();
-    const q = (f: number) => s[Math.min(s.length - 1, Math.floor(f * (s.length - 1)))]!;
-    const lo = q(0.005), hi = Math.max(q(0.995), lo + 0.01);
-    let j = 0;
-    for (let i = 0; i < CDF_N; i++) {
-      const v = lo + ((hi - lo) * i) / (CDF_N - 1);
-      while (j < s.length && s[j]! <= v) j++;
-      cdf[i] = j / s.length;
-    }
-    cdfRange = { lo, hi };
-    if (stretch.rank) Object.assign(stretch, cdfRange);
-    stretch.n++;
-    return true;
-  }
 
   /**
    * The change in view, counted live for the card: hectares per step of the ramp (HIST_N columns, the ramp's own
@@ -382,20 +302,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     return { sure, faint, loss: named(loss), gain: named(gain), dataHa, inHand, wanted, every: k };
   }
 
-  function setRank(on: boolean) {
-    stretch.rank = on;
-    Object.assign(stretch, on ? cdfRange : linear);
-    stretch.n++;
-  }
-
-  /** Mg/ha at the stretch position t (0..1), through the CDF when rank is on: for the key's ticks. */
-  function valueAt(t: number): number {
-    if (!stretch.rank) return Math.expm1(stretch.lo + t * (stretch.hi - stretch.lo));
-    let k = 0;
-    while (k < CDF_N - 1 && cdf[k]! < t) k++;
-    return Math.expm1(stretch.lo + ((stretch.hi - stretch.lo) * k) / (CDF_N - 1));
-  }
-
   /** A layer: a year's biomass (key "2025") or a window's change (key "2018-2025"). */
   function layer(opts: { key: string; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
     const lk = opts.key;
@@ -409,7 +315,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
         const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;
         const py0 = ys.start ?? 0, px0 = xs.start ?? 0;
         const { width, height } = o;
-        device = o.device;
         const p = await planesFor(lk, py0, px0, height, width, o.signal);
         const key = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
         loaded.add(key);
@@ -445,7 +350,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
               }
             : {
                 module: BiomassColor,
-                props: { agbTex: data.tex, cdfTex: cdfTexture(device!), lo: stretch.lo, hi: stretch.hi, rank: stretch.rank ? 1 : 0 },
+                props: { agbTex: data.tex, lo: AGB_LO, hi: AGB_HI },
               },
         ] as RasterModule[],
       }),
@@ -464,7 +369,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
         t.tex?.destroy();
       },
       onViewportLoad: () => opts.onViewportLoad && opts.onViewportLoad(),
-      updateTriggers: { renderTile: [stretch.n] },
       // @ts-expect-error beforeId is read by the MapLibre overlay (the layer draws under the labels), not typed on the layer
       beforeId: beforeId(),
     });
@@ -520,7 +424,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
   }
 
   return {
-    layer, release, valueAtPoint, changeAtPoint, changeStats, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt,
-    stretch, pool,
+    layer, release, valueAtPoint, changeAtPoint, changeStats, loadedIn, inHand, prefetch, pool,
   };
 }
