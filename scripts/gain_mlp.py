@@ -39,8 +39,12 @@ HID = 32
 P = [0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.925, 0.95, 0.96, 0.97, 0.975, 0.98, 0.985, 0.99, 0.9925, 0.995, 0.9975, 0.999]
 
 
+L_MAX = 5  # the longest window the nine lidar squares teach; longer windows are fed as this (the browser does the same)
+
+
 def feats(qa, qb, L, v):
     ea, eb = bh.deq(qa), bh.deq(qb)
+    L = np.minimum(L, L_MAX)
     Lc = np.full((ea.shape[0], 1), L, np.float32) if np.isscalar(L) else np.asarray(L, np.float32)[:, None]
     cols = [eb - ea] if v == "difference" else [ea, eb, eb - ea]
     return np.concatenate(cols + [Lc], 1).astype(np.float32)
@@ -171,8 +175,8 @@ def main():
         net = finals[v].net
         sd = {k: t.detach().numpy().astype(np.float64) for k, t in net.state_dict().items()}
         n_in = sd["l1.weight"].shape[1]
-        out = {"name": "gain_lidar", "input": v, "n_in": n_in, "hidden": HID,
-               "note": "lidar-taught gain (FINDINGS 34): p(canopy rose 2 m) from AlphaEarth; inputs " +
+        out = {"name": "gain_lidar", "input": v, "n_in": n_in, "hidden": HID, "L_max": L_MAX,
+               "note": "lidar-taught gain (FINDINGS 38): p(canopy rose 2 m) from AlphaEarth; inputs " +
                        ("e_b - e_a (64), years" if v == "difference" else "e_a, e_b, e_b - e_a (192), years"),
                "mean": sd["mu"].round(6).tolist(), "scale": sd["sd"].round(6).tolist(),
                "w1": sd["l1.weight"].ravel().round(6).tolist(), "b1": sd["l1.bias"].round(6).tolist(),

@@ -1582,6 +1582,38 @@ By Orndahl's plant biomass per block (pooled): the map reads 6.6 Mg/ha where Orn
   taught with Orndahl's level north of the treeline, or a lower cap where the head's class is grass or moss above
   60 N. Orndahl covers 2020 only, so it sets a level, not years.
 
+## 38. The lidar-taught gain in the browser (`scripts/gain_mlp.py`, `results/gain_mlp.json`, `web/src/gain.ts`, `web/public/models/gain_lidar.json`)
+
+Sections 32 and 33 taught gain on lidar's canopy rise with boosted trees. For the map the same teacher and harness
+with a network the browser runs per pixel: one hidden layer of 32, on the difference of the two years' AlphaEarth
+and the window's length (section 33: the part that carries to other places), held out by lidar square. The window
+input is capped at 5 years, the longest the nine squares teach; the map's longer windows are fed as 5 (uncapped, its
+output saturated on steady ground over six and seven years). Its confidence is the share of steady ground (127
+squares, Esri class held, CTrees steady) scored below it at the window's length, as the map's other change rules;
+gain is drawn from 98.5 %, the 1.5 % of steady ground the map's two-part floor lights. 3 minutes, 1.6 GB.
+
+| | Lidar, pooled: AUC | Found at the floor's lit (1.5 %) | Esri "became trees": AUC | Found at 2 % lit |
+|---|---|---|---|---|
+| The network, difference (exported) | .786 | .353 | .580 | **.064** |
+| The network, both years and the difference | **.956** | **.568** | .603 | .023 |
+| Boosted trees, difference (section 33) | .822 | .346 | .577 | .042 |
+| The map's rise and floor | .785 | .387 | **.614** | .020 |
+
+On Esri's label by window length the exported network finds .049, .056, .069, .074, .063 and .052 at 2 % lit for one
+to six years, about three times the map's at every length.
+
+- **The network matches the boosted trees** on the difference (.35 against .35 at the floor's lit), so the browser
+  loses nothing to the smaller model.
+- **It trades lidar for reach.** On the nine lidar squares it finds slightly less regrowth than the map's floor at
+  the same false alarm rate (.35 against .39); on Esri's "became trees" everywhere else it finds three times as much
+  at 2 % lit (.064 against .020). Both-years input would win on lidar and lose elsewhere, as section 33 found.
+- **In the browser it is a switch, off by default**: G in the change view, remembered. The worker runs it on the
+  pixels the head says rose; its output matches the export's own on a probe of 32 pixels to 1e-5. At Glenbervie
+  (2019 to 2024) it draws 610 ha of gain where the floor draws 1,455, holding the plantation and dropping the faint
+  fringe; at the Arkhangelsk clearcuts (2018 to 2025) 0.5 ha against 7. The loss side is unchanged.
+- Caveat: taught on nine squares in three countries; the regrowth lidar found since (New Brunswick,
+  Finland, Brazil, Poland, Alabama) would widen it.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1648,8 +1680,9 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   needs a reference that tells dead trees from live ones; lidar height does not.
 - **Gain taught on lidar** (section 32): beats the map on every held-out lidar square, not on Esri's "became trees".
   Section 33: inside a square its ranking comes mostly from the first year (where canopy tends to rise); the part
-  that carries to Esri's label is the difference. Open: lidar squares with regrowth outside New Zealand and Estonia,
-  and in the browser a small network in place of the trees (two years of AlphaEarth, already read).
+  that carries to Esri's label is the difference. Section 38: in the browser as a small network on the difference,
+  a switch (G) beside the floor. Open: lidar squares with regrowth outside New Zealand and Estonia (found, not read:
+  New Brunswick, Finland, Brazil, Poland, Alabama).
 - **Change** (earlier): loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
   own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
   most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not

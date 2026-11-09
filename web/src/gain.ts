@@ -1,7 +1,7 @@
 import { deq, NODATA } from "./head";
 
 /**
- * The lidar-taught gain (scripts/gain_mlp.py, FINDINGS 34): a 32-unit network that gives the chance that lidar's
+ * The lidar-taught gain (scripts/gain_mlp.py, FINDINGS 38): a 32-unit network that gives the chance that lidar's
  * canopy rose 2 m or more between two years, from AlphaEarth alone, taught on nine two-flight lidar squares. Input
  * "difference": the two years' dequantized difference and the window's length; "embeddings": year a, year b, their
  * difference and the length. Its confidence is the share of steady ground (127 squares, Esri class held, CTrees
@@ -18,6 +18,8 @@ export type GainHead = {
   b1: number[];
   w2: number[];
   b2: number;
+  /** The longest window the network was taught on; longer windows are fed as this. */
+  L_max?: number;
   steady: { p: number[]; L: Record<string, { n: number; q: number[] }> };
   probe_a: number[];
   probe_b: number[];
@@ -50,7 +52,7 @@ export function gainP(g: GainNet, ea: Int8Array, eb: Int8Array, n: number, p: nu
     for (let b = 0; b < 64; b++) x[o++] = deq(eb[b * n + p]!);
   }
   for (let b = 0; b < 64; b++) x[o++] = deq(eb[b * n + p]!) - deq(ea[b * n + p]!);
-  x[o++] = L;
+  x[o++] = Math.min(L, h.L_max ?? Infinity);
   for (let i = 0; i < h.n_in; i++) x[i] = (x[i]! - h.mean[i]!) * inv[i]!;
   let z = h.b2;
   for (let j = 0; j < h.hidden; j++) {
