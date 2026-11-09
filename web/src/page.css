@@ -222,3 +222,7 @@ body.pair #map { left: 50%; }
 .at-chip { border: 1px solid var(--line); background: var(--glass-hi); color: var(--text); font: inherit; border-radius: 999px;
   padding: 4px 12px; cursor: pointer; }
 .at-chip:hover { border-color: rgba(255, 255, 255, 0.35); }
+
+/* the main card's one link: the repo (the code and the README) */
+.card .repo { margin-top: 8px; font-size: 12px; }
+.card .repo a { color: var(--text); text-underline-offset: 2px; }

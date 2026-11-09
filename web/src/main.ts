@@ -134,6 +134,7 @@ card.innerHTML = `
   <div class="zoom"></div>
   <div class="status"></div>
   <div class="keys"></div>
+  <div class="repo"><a href="https://github.com/kentstephen/aef-biomass" target="_blank" rel="noopener">The code and how it works on GitHub</a></div>
   <div class="credits">AlphaEarth &copy; Google, Google DeepMind, via Source Cooperative &middot; head taught on CTrees AGB and Meta canopy height (CC BY 4.0) &middot; ${S2_CREDIT} &middot; search by Photon and Nominatim over OpenStreetMap &middot; &copy; CARTO &copy; OpenStreetMap</div>
   </div>`;
 // the pixel's tooltip, by the pointer
