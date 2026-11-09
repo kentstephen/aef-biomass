@@ -72,7 +72,7 @@ const st = {
   // Sentinel-2: held over the whole map (Space, one map only), or the pair's left side (P)
   holding: false,
   pair: false,
-  // picking (Q, Earthwork's): the tooltip by the pointer and the gold outlines; remembered. Where the pointer is
+  // picking (Q, Earthwork's): the tooltip by the pointer and the picked pixel's gold boundary; remembered. Where the pointer is
   // on screen; the pixel clicked
   tips: stored("aef-biomass-tips") !== "0",
   // the basemap's place names (L), on both maps; remembered
@@ -526,16 +526,12 @@ function pixelRing(lon: number, lat: number): [number, number][] {
   const x0 = X0 + Math.floor((lon - X0) / RES) * RES, y0 = Y0 - Math.floor((Y0 - lat) / RES) * RES;
   return [[x0, y0], [x0 + RES, y0], [x0 + RES, y0 - RES], [x0, y0 - RES], [x0, y0]];
 }
-/** Earthwork's outlines, in gold: the pixel under the pointer (thin) and the one picked (thick), on both maps. */
+/** The picked pixel's boundary, in gold, on both maps. */
 function outlines(side: string) {
-  if (!st.tips || !readable()) return [];
-  const out = [];
-  for (const [id, pt, w] of [["hover", st.hover, 1.5], ["picked", st.picked, 3]] as const) {
-    if (!pt) continue;
-    out.push(new PathLayer({ id: `${id}${side}`, data: [pixelRing(pt[0], pt[1])], getPath: (d: [number, number][]) => d,
-      getColor: [255, 200, 40, 255], widthUnits: "pixels", getWidth: w, pickable: false }));
-  }
-  return out;
+  const pt = st.picked;
+  if (!st.tips || !readable() || !pt) return [];
+  return [new PathLayer({ id: `picked${side}`, data: [pixelRing(pt[0], pt[1])], getPath: (d: [number, number][]) => d,
+    getColor: [255, 200, 40, 255], widthUnits: "pixels", getWidth: 2, pickable: false })];
 }
 function drawLayers() {
   overlay.setProps({ layers: [...bioLayers, ...s2Main, ...outlines("")] as never });
@@ -681,7 +677,7 @@ window.addEventListener("keydown", (e) => {
   }
   // ; and ': the imagery's gamma (Earthwork's brightness keys)
   else if (e.code === "Semicolon" || e.code === "Quote") setGamma(st.gamma + (e.code === "Quote" ? 0.1 : -0.1));
-  // Q: picking off and on (the tooltip and the gold outlines, Earthwork's)
+  // Q: picking off and on (the tooltip and the picked pixel's boundary)
   else if (e.code === "KeyQ") {
     st.tips = !st.tips;
     store("aef-biomass-tips", st.tips ? "1" : "0");
@@ -712,26 +708,21 @@ yearsEl.onclick = (e) => {
   if (y) setYear(y);
 };
 
-const samePixel = (a: [number, number] | null, b: [number, number] | null) =>
-  !!a && !!b && Math.floor((a[0] - X0) / RES) === Math.floor((b[0] - X0) / RES) && Math.floor((Y0 - a[1]) / RES) === Math.floor((Y0 - b[1]) / RES);
+// hovering reads the pixel (tooltip and card) but draws nothing on the map
 const hoverAt = (e: maplibregl.MapMouseEvent) => {
-  const was = st.hover;
   st.hover = [e.lngLat.lng, e.lngLat.lat];
   st.hoverPt = [e.originalEvent.clientX, e.originalEvent.clientY];
   readout();
-  if (st.tips && !samePixel(was, st.hover)) drawLayers();
 };
 const hoverOff = () => {
   st.hover = null;
   st.hoverPt = null;
   readout();
-  if (st.tips) drawLayers();
 };
-// a click picks the pixel (gold, thick); the same pixel again lets it go
+// a click outlines the pixel's boundary, on both maps; with one outlined, a click anywhere lets it go
 const pickAt = (e: maplibregl.MapMouseEvent) => {
   if (!st.tips) return;
-  const p: [number, number] = [e.lngLat.lng, e.lngLat.lat];
-  st.picked = samePixel(st.picked, p) ? null : p;
+  st.picked = st.picked ? null : [e.lngLat.lng, e.lngLat.lat];
   readout();
   drawLayers();
 };
@@ -764,5 +755,5 @@ firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
 styleLabels(map);
 render();
 map.on("idle", () => addMissingGroups(map, [...bioLayers, ...s2Main]));
-// dev only: lets a headless probe read both maps' layer order
-if (import.meta.env.DEV) Object.assign(window, { __pair: { map, map2: () => map2 } });
+// dev only: lets a headless probe read both maps' layer order and the head's values
+if (import.meta.env.DEV) Object.assign(window, { __pair: { map, map2: () => map2, bio, st } });
