@@ -1,10 +1,10 @@
 import type { MinimalTileData, RasterModule } from "@developmentseed/deck.gl-raster";
-import { ZarrLayer } from "@developmentseed/deck.gl-zarr";
+import { ZarrLayer, ZarrSource } from "@developmentseed/deck.gl-zarr";
 import type { Texture } from "@luma.gl/core";
 import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
-import { type AefArray, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
+import { CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
 import { CH_NODATA, CONF_SCALE, type ConfTables, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
 import type { GainHead } from "./gain";
 import { type BiomassHead, CODE, codeValue } from "./head";
@@ -19,9 +19,9 @@ type TileData = MinimalTileData & { key: string; tex: Texture };
  * setProps: a key taken off and put back before that frame keeps its old layer and tiles (deck hands the state to the
  * new layer of the same id) and is never finalized. So a layer's textures are freed here, never on a timer.
  */
-class BioLayer extends ZarrLayer<zarr.Readable, "int8", TileData> {
+class BioLayer extends ZarrLayer<TileData, "int8"> {
   static override layerName = "BioLayer";
-  override finalizeState(context: Parameters<ZarrLayer<zarr.Readable, "int8", TileData>["finalizeState"]>[0]) {
+  override finalizeState(context: Parameters<ZarrLayer<TileData, "int8">["finalizeState"]>[0]) {
     super.finalizeState(context);
     (this.props as unknown as { onFinalize?: () => void }).onFinalize?.();
   }
@@ -133,6 +133,10 @@ ${glslRamp("changeRamp", CHANGE_50)}`,
 export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: GainHead | null, beforeId: () => string | undefined) {
   const { arr, attrs } = await openMosaic();
   const [, , H, W] = arr.shape as number[];
+  // the tile grid and CRS, read once from the group's GeoZarr attributes and shared by every layer
+  const opened = await ZarrSource.open(arr, { geoZarrMetadata: attrs });
+  if (!opened.is("int8")) throw new Error("Expected int8 embeddings");
+  const source: ZarrSource<"int8"> = opened;
   const pool = new Pool(head, conf, gain);
 
   // the planes by "year:row-col", the last used last; 384 KB each, at most CAP_BYTES (a zoom 11 view in a large
@@ -334,8 +338,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     const win = windowOf(lk);
     return new BioLayer({
       id: win ? `change-${lk}` : `biomass-${lk}`,
-      node: arr as AefArray,
-      metadata: attrs,
+      source,
       selection: { time: (win ? win[1] : Number(lk)) - YEAR_ORIGIN, band: null },
       getTileData: async (_a, o) => {
         const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;

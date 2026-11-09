@@ -959,6 +959,6 @@ await mapLoaded;
 firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
 styleLabels(map);
 render();
-map.on("idle", () => addMissingGroups(map, [...bioLayers, ...s2Main]));
+map.on("idle", () => addMissingGroups(map, [...bioLayers, ...s2Main, ...outlines("")]));
 // dev only: lets a headless probe read both maps' layer order and the head's values
 if (import.meta.env.DEV) Object.assign(window, { __pair: { map, map2: () => map2, bio, st } });
