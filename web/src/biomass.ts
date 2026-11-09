@@ -14,7 +14,7 @@ import { CHANGE_50, glslRamp, VIRIDIS_50 } from "./ramp";
 type TileData = MinimalTileData & { key: string; tex: Texture };
 /**
  * One chunk's planes on the page: a year's [agb codes n, height codes n, class n] (Uint16), or a window's
- * [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n] (Int16, change.ts).
+ * [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n, classes n] (Int16, change.ts).
  */
 type Planes = { planes: Uint16Array | Int16Array; w: number; h: number };
 
@@ -34,6 +34,21 @@ export const GAIN_END = 150;
  * the floor, faint where steady ground of its class often rises as much). Exactly 0 is not drawn at all.
  */
 export const GAIN_FROM = 0.5;
+
+/** The card's live histogram of change in view: columns along the change ramp, one per ramp stop. */
+export const HIST_N = 50;
+type SideStats = { ha: number; t: number; pairs: { from: string; to: string; ha: number; t: number }[] };
+export type ChangeStats = {
+  sure: Float64Array;
+  faint: Float64Array;
+  loss: SideStats;
+  gain: SideStats;
+  /** hectares in view with data in both years; chunks of the view counted and wanted; every k-th pixel counted */
+  dataHa: number;
+  inHand: number;
+  wanted: number;
+  every: number;
+};
 export const ALPHA_MIN = 0.2;
 
 export type Stretch = { lo: number; hi: number; rank: boolean; n: number };
@@ -287,6 +302,77 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     return true;
   }
 
+  /**
+   * The change in view, counted live for the card: hectares per step of the ramp (HIST_N columns, the ramp's own
+   * positions), each split into pixels the map draws more than half opaque ("sure") and the rest; each side's
+   * hectares and tonnes; and hectares and tonnes per class pair (the head's class in year a, then in year b). Only
+   * pixels the map draws count. A pixel's area is the ground it covers (the grid is in degrees, so it narrows with
+   * latitude). Big views are counted on every k-th pixel each way and scaled by k x k, at most ~1.5 M pixels.
+   */
+  function changeStats(bbox: [number, number, number, number], lk: string): ChangeStats {
+    const { c0, c1, r0, r1 } = chunkRange(bbox);
+    const [bw, bs, be, bn] = bbox;
+    // the view's pixel box on the grid
+    const gx0 = Math.floor((bw - X0) / RES), gx1 = Math.ceil((be - X0) / RES);
+    const gy0 = Math.floor((Y0 - bn) / RES), gy1 = Math.ceil((Y0 - bs) / RES);
+    const k = Math.max(1, Math.ceil(Math.sqrt(((gx1 - gx0) * (gy1 - gy0)) / 1.5e6)));
+    const sure = new Float64Array(HIST_N), faint = new Float64Array(HIST_N);
+    const side = () => ({ ha: 0, t: 0, pairs: new Map<number, { ha: number; t: number }>() });
+    const loss = side(), gain = side();
+    let dataHa = 0, inHand = 0, wanted = 0;
+    const sureLoss = (LOSS_FROM + 0.995) / 2, sureGain = (GAIN_FROM + 0.995) / 2;
+    const M_PER_DEG_LAT = 110574, M_PER_DEG_LON = 111320, D2R = Math.PI / 180;
+    for (let r = r0; r <= r1; r++)
+      for (let c = c0; c <= c1; c++) {
+        wanted++;
+        const p = planes.get(keyOf(lk, r, c));
+        if (!p) continue;
+        inHand++;
+        const n = p.w * p.h, P = p.planes;
+        // the chunk's part of the view, on the k-pixel lattice of the whole grid (no seams between chunks)
+        const x0 = Math.max(gx0, c * CHUNK), x1 = Math.min(gx1, c * CHUNK + p.w);
+        const y0 = Math.max(gy0, r * CHUNK), y1 = Math.min(gy1, r * CHUNK + p.h);
+        for (let gy = Math.ceil(y0 / k) * k; gy < y1; gy += k) {
+          const lat = Y0 - (gy + 0.5) * RES;
+          const ha = (k * k * RES * M_PER_DEG_LON * Math.cos(lat * D2R) * RES * M_PER_DEG_LAT) / 1e4;
+          const row = (gy - r * CHUNK) * p.w - c * CHUNK;
+          for (let gx = Math.ceil(x0 / k) * k; gx < x1; gx += k) {
+            const i = row + gx;
+            const v = P[i]!;
+            if (v === CH_NODATA) continue;
+            dataHa += ha;
+            if (v === 0) continue;
+            const pct = v / PCT_SCALE, mg = P[n + i]! / MG_SCALE, conf = P[2 * n + i]! / CONF_SCALE;
+            const t = pct < 0 ? 0.5 - 0.5 * Math.min(-pct / LOSS_END, 1) : 0.5 + 0.5 * Math.min(pct / GAIN_END, 1);
+            const b = Math.min(HIST_N - 1, Math.floor(t * HIST_N));
+            const s = pct < 0 ? loss : gain;
+            if (conf >= (pct < 0 ? sureLoss : sureGain)) sure[b] += ha;
+            else faint[b] += ha;
+            s.ha += ha;
+            s.t += Math.abs(mg) * ha;
+            const pk = P[3 * n + i] ?? -1;
+            const q = s.pairs.get(pk);
+            if (q) {
+              q.ha += ha;
+              q.t += Math.abs(mg) * ha;
+            } else s.pairs.set(pk, { ha, t: Math.abs(mg) * ha });
+          }
+        }
+      }
+    const named = (sd: ReturnType<typeof side>) => ({
+      ha: sd.ha,
+      t: sd.t,
+      pairs: [...sd.pairs]
+        .map(([pk, v]) => ({
+          from: pk < 0 ? "" : (head.classes[pk % 256] ?? ""),
+          to: pk < 0 ? "" : (head.classes[pk >> 8] ?? ""),
+          ...v,
+        }))
+        .sort((a, b) => b.ha - a.ha),
+    });
+    return { sure, faint, loss: named(loss), gain: named(gain), dataHa, inHand, wanted, every: k };
+  }
+
   function setRank(on: boolean) {
     stretch.rank = on;
     Object.assign(stretch, on ? cdfRange : linear);
@@ -383,8 +469,8 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     if (set) setTimeout(() => set.forEach((t) => t.destroy()), 1500);
   }
 
-  /** A layer's three plane values at a point, from the planes in hand; null where none. */
-  function planeAt(lon: number, lat: number, lk: string): [number, number, number] | null {
+  /** A layer's plane values at a point (three for a year, four for a change), from the planes in hand; null where none. */
+  function planeAt(lon: number, lat: number, lk: string): [number, number, number, number] | null {
     const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
     const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
     const p = planes.get(keyOf(lk, r, c));
@@ -392,7 +478,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     const ix = px - c * CHUNK, iy = py - r * CHUNK;
     if (ix < 0 || iy < 0 || ix >= p.w || iy >= p.h) return null;
     const i = iy * p.w + ix, n = p.w * p.h;
-    return [p.planes[i]!, p.planes[n + i]!, p.planes[2 * n + i]!];
+    return [p.planes[i]!, p.planes[n + i]!, p.planes[2 * n + i]!, p.planes[3 * n + i] ?? -1];
   }
 
   /** Biomass (Mg/ha), canopy height (m) and the head's class at a point for a year, from the planes in hand; null where none. */
@@ -402,11 +488,18 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     return { agb: codeValue(v[0]), height: codeValue(v[1]), cls: head.classes[v[2]] ?? "" };
   }
 
-  /** A window's change at a point: percent of the pixel's biomass, Mg/ha, and its confidence (0 to 1). */
-  function changeAtPoint(lon: number, lat: number, lk: string): { pct: number; mg: number; conf: number } | null {
+  /**
+   * A window's change at a point: percent of the pixel's biomass, Mg/ha, its confidence (0 to 1), and the head's
+   * class in each of the two years.
+   */
+  function changeAtPoint(
+    lon: number, lat: number, lk: string,
+  ): { pct: number; mg: number; conf: number; clsA: string; clsB: string } | null {
     const v = planeAt(lon, lat, lk);
     if (!v || v[0] === CH_NODATA) return null;
-    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE, conf: v[2] / CONF_SCALE };
+    const k = v[3] < 0 ? -1 : v[3];
+    const clsA = k < 0 ? "" : (head.classes[k % 256] ?? ""), clsB = k < 0 ? "" : (head.classes[k >> 8] ?? "");
+    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE, conf: v[2] / CONF_SCALE, clsA, clsB };
   }
 
   /** How many of the chunks under a box are on the GPU for a layer. */
@@ -417,5 +510,8 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
     return { loaded: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
   }
 
-  return { layer, release, valueAtPoint, changeAtPoint, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt, stretch, pool };
+  return {
+    layer, release, valueAtPoint, changeAtPoint, changeStats, loadedIn, inHand, prefetch, rebuildCdf, setRank, valueAt,
+    stretch, pool,
+  };
 }

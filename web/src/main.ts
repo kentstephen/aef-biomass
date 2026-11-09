@@ -7,7 +7,7 @@ import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
 import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
-import { createBiomass, GAIN_END, LOSS_END, windowKey, yearKey } from "./biomass";
+import { type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
 import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
@@ -124,7 +124,8 @@ card.innerHTML = `
     <span class="at-win"><span class="trk"></span><span class="spn" title="drag to move the window, its length kept"></span><span class="tks"></span></span>
     <span class="at-wtxt"></span>
   </div>
-  <div class="key"><div class="bar"></div><div class="ticks"></div><div class="unit"></div></div>
+  <div class="key"><div class="hist"><div class="hl"></div><div class="cov"></div><div class="chart"><svg viewBox="0 0 ${HIST_N} 64" preserveAspectRatio="none"></svg><span class="pk l"></span><span class="pk r"></span></div></div><div class="bar"></div><div class="ticks"></div><div class="unit"></div></div>
+  <div class="pairs"></div>
   <div class="readout">&nbsp;</div>
   <div class="zoom"></div>
   <div class="status"></div>
@@ -345,7 +346,69 @@ const bbox = (): [number, number, number, number] => {
 };
 const readable = () => map.getZoom() >= MIN_ZOOM;
 
+// ---- the change in view, counted live (change mode): totals, columns over the ramp, what it was and became
+const HIST_TOP = 12; // room at the chart's top for the scale's label
+const num = (v: number) => (v >= 100 ? Math.round(v).toLocaleString("en-US") : v >= 10 ? v.toFixed(0) : v.toFixed(1));
+let histTimer = 0;
+/** Recount at most every 300 ms while the view loads or moves, and once after the last ask. */
+function queueHist() {
+  if (histTimer) return;
+  histTimer = window.setTimeout(() => {
+    histTimer = 0;
+    drawHist();
+  }, 300);
+}
+function drawHist() {
+  if (st.mode !== "change") return;
+  const svg = $(".hist svg"), hl = $(".hist .hl"), cov = $(".hist .cov"), pairs = $(".pairs");
+  const pkL = $(".hist .pk.l"), pkR = $(".hist .pk.r");
+  if (!readable()) {
+    svg.innerHTML = "";
+    hl.innerHTML = "";
+    pkL.textContent = pkR.textContent = "";
+    cov.textContent = `Zoom in to ${MIN_ZOOM} to count the change in view`;
+    pairs.innerHTML = "";
+    return;
+  }
+  const S: ChangeStats = bio.changeStats(bbox(), curKey());
+  // loss and gain on one scale, so their heights compare; a column with any hectares keeps at least 1 px
+  const tot = (b: number) => S.sure[b]! + S.faint[b]!;
+  let m = 0;
+  for (let b = 0; b < HIST_N; b++) m = Math.max(m, tot(b));
+  const H = 64 - HIST_TOP;
+  let bars = "";
+  for (let b = 0; b < HIST_N; b++) {
+    if (!m || !tot(b)) continue;
+    const lift = Math.max(1, (H * tot(b)) / m) / ((H * tot(b)) / m);
+    const hs = (lift * H * S.sure[b]!) / m, hf = (lift * H * S.faint[b]!) / m;
+    const col = CHANGE_50[b]!;
+    // solid: pixels the map draws more than half opaque; faint on top: the rest
+    if (hs > 0) bars += `<rect x="${b + 0.1}" y="${64 - hs}" width="0.8" height="${hs}" fill="${col}"/>`;
+    if (hf > 0) bars += `<rect x="${b + 0.1}" y="${64 - hs - hf}" width="0.8" height="${hf}" fill="${col}" fill-opacity="0.35"/>`;
+  }
+  svg.innerHTML = bars;
+  pkL.textContent = m ? `tallest ${num(m)} ha` : "";
+  pkR.textContent = "";
+  const net = S.gain.t - S.loss.t;
+  hl.innerHTML =
+    `<span><i class="sw" style="background:${CHANGE_50[8]}"></i>Loss <b>${num(S.loss.ha)}</b> ha &middot; ${num(S.loss.t)} t</span>` +
+    `<span><i class="sw" style="background:${CHANGE_50[41]}"></i>Gain <b>${num(S.gain.ha)}</b> ha &middot; ${num(S.gain.t)} t</span>`;
+  const part = S.inHand < S.wanted ? ` &middot; ${S.inHand} of ${S.wanted} chunks counted so far` : "";
+  cov.innerHTML = `In view: ${num(S.dataHa)} ha with data &middot; net ${net > 0 ? "+" : net < 0 ? "-" : ""}${num(Math.abs(net))} t${part}`;
+  // what it was in the first year, and what it became in the last (the head's class)
+  const table = (name: string, sd: ChangeStats["loss"], top: number) => {
+    if (!sd.ha) return "";
+    const rows = sd.pairs.slice(0, top).map((q) => {
+      const what = !q.from ? "no class" : q.from === q.to ? `${q.from}, still ${q.to}` : `${q.from} to ${q.to}`;
+      return `<tr><td>${what}</td><td>${num(q.ha)} ha</td><td>${Math.round((100 * q.ha) / sd.ha)}%</td><td>${num(q.t)} t</td></tr>`;
+    });
+    return `<div class="h">${name}: what it was, what it became</div><table>${rows.join("")}</table>`;
+  };
+  pairs.innerHTML = table("Loss", S.loss, 4) + table("Gain", S.gain, 3);
+}
+
 function status() {
+  queueHist();
   const z = map.getZoom();
   const zEl = $(".zoom");
   zEl.classList.toggle("out", !readable());
@@ -426,9 +489,14 @@ function readout() {
     }
     // the confidence: the share of steady ground of its class with less change
     const share = `${Math.min(99.9, 100 * c.conf).toFixed(c.conf >= 0.99 ? 1 : 0)}%`;
+    // what the head calls the pixel in each year: one class if it stayed, "a to b" if it changed
+    const cls = !c.clsA ? "" : c.clsA === c.clsB ? c.clsA : `${c.clsA} to ${c.clsB}`;
     if (c.mg !== 0) {
-      mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}</div><div>more than ${share} of steady ground</div>`;
-      line += ` &middot; more than ${share} of steady ground`;
+      mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}</div>${cls ? `<div>${cls}</div>` : ""}<div>more than ${share} of steady ground</div>`;
+      line += `${cls ? ` &middot; ${cls}` : ""} &middot; more than ${share} of steady ground`;
+    } else if (cls) {
+      mid = `<div>${cls}</div>`;
+      line += ` &middot; ${cls}`;
     }
     sub = keyName(curKey());
   } else {

@@ -6,8 +6,10 @@ import { codeValue, deq, NODATA } from "./head";
  * head's own, at the first year) and window length whose change is smaller (models/change_conf.json, built by
  * scripts/growth_test.py from the steady pixels of 127 squares).
  * - Loss: the head's fall, its confidence the lower of two: the fall in percent of the pixel's own biomass, and the
- *   embedding's own move ((1 - cosine) / AEF_CUT). Drawn from LOSS_FROM up. Its size is divided by the loss factor
- *   (the head's muting on clear loss cells) and capped at the pixel's own biomass in year a.
+ *   embedding's own move ((1 - cosine) / AEF_CUT). Drawn from LOSS_FROM up. Its size is the head's own fall f (a
+ *   share of the pixel's biomass in year a) blended toward a soft curve, tanh(f / loss factor), by SOFT. The loss
+ *   factor (the head's muting on clear loss cells, a 100 m mean) alone pushed every fall over ~42 % to the cap, so
+ *   a half-burned and a cleared pixel drew the same; the raw fall keeps partial loss apart, the curve lifts it.
  * - Gain: the pixel's own rise, where it is at least TAU Mg/ha and a quarter of the pixel's biomass in year a (the
  *   two-part floor); its confidence from the rise in Mg/ha. Per pixel finds more of lidar's regrowth than 100 m
  *   blocks for the same steady ground lit: averaging over 100 m does not lower the noise, whole patches drift.
@@ -18,6 +20,8 @@ export const AEF_CUT = 0.1035354882478714;
 const FIT = { L1: { tau: 20, loss: 0.34219714999198914 }, L7: { tau: 40, loss: 0.8100864887237549 } };
 /** Loss is drawn from this confidence up (FINDINGS 30: at .95 it lights 1 to 3 % of steady ground). */
 export const LOSS_FROM = 0.9;
+/** How far loss's size goes from the head's raw fall (0) toward the soft curve (1). */
+export const SOFT = 2 / 3;
 
 export function ruleFor(years: number) {
   const f = Math.min(1, Math.max(0, (years - 1) / 6));
@@ -47,7 +51,10 @@ function shareBelow(p: number[], q: number[], x: number): number {
   return span > 0 ? p[lo]! + ((p[hi]! - p[lo]!) * (x - q[lo]!)) / span : p[lo]!;
 }
 
-/** The change plane's codes: percent x 100 (no data at CH_NODATA), Mg/ha x 4, and the confidence x 10000. */
+/**
+ * The change plane's codes: percent x 100 (no data at CH_NODATA), Mg/ha x 4, the confidence x 10000, and the head's
+ * class in each year (year a's index + 256 x year b's; -1 where either year has no data).
+ */
 export const CH_NODATA = -32768;
 export const PCT_SCALE = 100;
 export const MG_SCALE = 4;
@@ -56,7 +63,8 @@ const clamp16 = (v: number) => Math.max(-32767, Math.min(32767, Math.round(v)));
 
 /**
  * One chunk's change from year a to year b. ea, eb: band-major int8 [64, n]; ca, cb: the head's planes for each
- * ([agb codes n, height codes n, class n]). Out: Int16 [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n].
+ * ([agb codes n, height codes n, class n]). Out: Int16 [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n,
+ * classes n].
  * Both loss and gain are a percent of the pixel's own biomass in year a.
  */
 export function changeOf(
@@ -65,11 +73,12 @@ export function changeOf(
   const { tau, loss } = ruleFor(years);
   const L = Math.min(Math.max(years, T.L[0]!), T.L[T.L.length - 1]!);
   const tab = (v: keyof ConfTables["q"], c: number) => T.q[v][`${T.classes[c] ?? "all"}:${L}`] ?? T.q[v][`all:${L}`]!;
-  const out = new Int16Array(3 * n).fill(CH_NODATA, 0, n);
+  const out = new Int16Array(4 * n).fill(CH_NODATA, 0, n).fill(-1, 3 * n);
   for (let p = 0; p < n; p++) {
     if (ca[p] === 0 || cb[p] === 0 || ea[p] === NODATA || eb[p] === NODATA) continue;
     const a = codeValue(ca[p]!), d = codeValue(cb[p]!) - a;
     const cls = ca[2 * n + p]!;
+    out[3 * n + p] = cls + 256 * cb[2 * n + p]!;
     let mg = 0, pct = 0, conf = 0;
     if (d < 0) {
       const cPct = shareBelow(T.p, tab("neg_dpct", cls), (-100 * d) / Math.max(a, 1));
@@ -85,7 +94,8 @@ export function changeOf(
         const mv = (1 - ab / Math.max(Math.sqrt(aa * bb), 1e-12)) / AEF_CUT;
         conf = Math.min(cPct, shareBelow(T.p, tab("mv", cls), mv));
         if (conf >= LOSS_FROM) {
-          mg = Math.max(d / loss, -a);
+          const f = -d / Math.max(a, 1);
+          mg = -a * Math.min(1, (1 - SOFT) * f + SOFT * Math.tanh(f / loss));
           pct = (100 * mg) / Math.max(a, 1);
         }
       }

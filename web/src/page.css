@@ -78,6 +78,22 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .key .ticks span:last-child { transform: translateX(-100%); }
 .key .unit { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .readout { margin-top: 8px; min-height: 18px; }
+/* the change in view, counted live (change mode only): totals, columns over the ramp, what it was and became */
+.card:not(.ch) .hist, .card:not(.ch) .pairs { display: none; }
+.hist .hl { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 10px; font-size: 11.5px; }
+.hist .hl > span { white-space: nowrap; }
+.hist .hl .sw { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+.hist .cov { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.hist .chart { position: relative; height: 64px; margin: 4px 0 2px; }
+.hist svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hist .pk { position: absolute; top: 0; font-size: 9.5px; color: var(--muted); line-height: 1; }
+.hist .pk.l { left: 0; }
+.hist .pk.r { right: 0; }
+.pairs .h { font-size: 10.5px; color: var(--muted); margin-top: 6px; }
+.pairs table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.pairs td { padding: 1px 0; white-space: nowrap; }
+.pairs td:first-child { white-space: normal; padding-right: 6px; }
+.pairs td:not(:first-child) { text-align: right; color: var(--muted); padding-left: 6px; }
 .zoom { font-size: 12px; color: var(--muted); margin-top: 6px; }
 .zoom.out { color: var(--text); }
 .status { font-size: 11px; color: var(--muted); margin-top: 3px; min-height: 14px; }
@@ -127,6 +143,11 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .at-win .spn{cursor:grab}
 .at-win .spn::before{content:"";position:absolute;left:0;right:0;top:-8px;bottom:-8px}
 .at-win .spn.held{cursor:grabbing}
+/* its grip: a small pill with two ridges at the middle of the span, under the end handles where they meet */
+.at-win .spn::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:10px;transform:translate(-50%,-50%);
+  border-radius:3px;border:1.5px solid var(--on);box-shadow:0 0 0 1px rgba(255,255,255,.3);
+  background:linear-gradient(90deg,transparent 3.5px,var(--on) 3.5px 4.5px,transparent 4.5px 6.5px,var(--on) 6.5px 7.5px,transparent 7.5px),var(--text)}
+.at-win .spn:hover::after,.at-win .spn.held::after{background-color:#fff}
 
 /* only the controls the setting uses: the year stepper for each year, the window for change; never both */
 .card:not(.ch) .winrow{display:none}
