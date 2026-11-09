@@ -593,10 +593,10 @@ function styleMode() {
     ? "percent of the pixel's own biomass the first year. Faint: steady ground of its class often changes as much. Clear: no change counted"
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
-    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
+    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
       (gainHead ? `<kbd>G</kbd>&nbsp;gain ${st.lidarGain ? "by floor" : "by lidar"} &nbsp; ` : "") +
       "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
-    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
+    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -742,6 +742,14 @@ function setMode(m: Mode) {
 function step(d: number) {
   const y = YEARS[YEARS.indexOf(st.year) + d];
   if (y === undefined) return;
+  goYear(y);
+}
+/** B: the latest year, then the first, back and forth (from any other year, the latest first), as [ ] step. */
+function blink() {
+  const a = YEARS[0]!, b = YEARS[YEARS.length - 1]!;
+  goYear(st.year === b ? a : b);
+}
+function goYear(y: number) {
   if (st.mode === "year") return setYear(y);
   // in change the window stays: the year steps the imagery, and each year opens on it (C)
   st.year = y;
@@ -790,6 +798,7 @@ window.addEventListener("keydown", (e) => {
   // keyboard layout does not change them
   else if (e.code === "BracketLeft") step(-1);
   else if (e.code === "BracketRight") step(1);
+  else if (e.code === "KeyB" && !e.shiftKey) blink();
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
   else if (e.code === "KeyG" && !e.shiftKey && st.mode === "change" && gainHead) setLidarGain(!st.lidarGain);
