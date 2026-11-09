@@ -241,9 +241,18 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, beforeI
   const stretch: Stretch = { lo: 0, hi: Math.log1p(350), rank: false, n: 0 };
   const linear = { lo: 0, hi: Math.log1p(350) };
   let cdfRange = { lo: 0, hi: 1 };
+  /**
+   * One texture for the whole session, its data rewritten when the CDF changes. Tiles drawn earlier keep a handle
+   * to it until they are drawn again; a texture made anew and the old one destroyed left them binding a deleted
+   * texture, and WebGL then drew them with whatever texture was bound last (a view of one repeated tile).
+   */
   function cdfTexture(dev: Device): Texture {
     if (cdfTex && cdfTexN === stretch.n) return cdfTex;
-    cdfTex?.destroy();
+    if (cdfTex) {
+      cdfTex.writeData(cdf);
+      cdfTexN = stretch.n;
+      return cdfTex;
+    }
     cdfTex = dev.createTexture({
       data: cdf,
       format: "r32float",
