@@ -1,7 +1,8 @@
 /**
- * EOxCloudless Sentinel-2 by EOX (one cloudless mosaic a year, web mercator JPEG tiles over WMTS), 2019 onward
- * (free for non-commercial use with the credit on the map, CC BY-NC-SA 4.0). EOX's 2018 mosaic exists but is hazy
- * and pale (milky over the Amazon, a blue-green cast in the boreal), so 2018 shows 2019's; 2017 has none. Each
+ * Sentinel-2 imagery, one mosaic a year. 2019 on: EOxCloudless by EOX (web mercator JPEG tiles over WMTS; free for
+ * non-commercial use with the credit on the map, CC BY-NC-SA 4.0). 2018: EOX's mosaic is hazy and pale (milky over
+ * the Amazon, a blue-green cast in the boreal), so it comes from the Copernicus quarterly mosaics instead, made into
+ * map tiles in the browser (s2q.ts). Each
  * year is a deck.gl TileLayer of BitmapLayers; the years beside the one shown stay mounted at opacity 0, so their
  * tiles load ahead and a step to them is instant. A gamma on the imagery (; and ') is one uniform, so changing it
  * is a redraw, not a reload.
@@ -10,11 +11,18 @@ import { LayerExtension } from "@deck.gl/core";
 import { TileLayer } from "@deck.gl/geo-layers";
 import { BitmapLayer } from "@deck.gl/layers";
 
-export const S2Y = [2019, 2020, 2021, 2022, 2023, 2024, 2025];
+import { S2Q_CREDIT, s2qTile } from "./s2q";
+
+export const S2Y = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+/** Years drawn from the Copernicus quarterly mosaics (s2q.ts) instead of EOX's tiles. */
+const FROM_S2Q = new Set([2018]);
+/** Below this zoom a year from the quarterly mosaics is not drawn (too many 100 km tiles to read). */
+const S2Q_MIN_ZOOM = 8;
 const URL = (y: number) => `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-${y}_3857/default/g/{z}/{y}/{x}.jpg`;
 /** EOX's attribution wording (June 2026), with the years the map shows. */
 export const S2_CREDIT =
-  'EOxCloudless <a href="https://cloudless.eox.at" target="_blank" rel="noopener">https://cloudless.eox.at</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2019 to 2025)';
+  'EOxCloudless <a href="https://cloudless.eox.at" target="_blank" rel="noopener">https://cloudless.eox.at</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2019 to 2025) &middot; ' +
+  S2Q_CREDIT;
 
 const gammaModule = {
   name: "s2gamma",
@@ -43,7 +51,9 @@ const GAMMA = new GammaExtension();
 function yearLayer(year: number, side: string, shown: boolean, gamma: number, beforeId?: string) {
   return new TileLayer({
     id: `s2${side}-${year}`,
-    data: URL(year),
+    ...(FROM_S2Q.has(year)
+      ? { getTileData: (t: any) => (t.index.z < S2Q_MIN_ZOOM ? null : s2qTile(year, t.index.z, t.index.x, t.index.y, t.signal)) }
+      : { data: URL(year) }),
     minZoom: 0,
     maxZoom: 15,
     tileSize: 256,
