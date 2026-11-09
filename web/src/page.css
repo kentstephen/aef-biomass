@@ -192,3 +192,33 @@ body.pair #map { left: 50%; }
 .tip .c { margin-top: 4px; color: var(--text); }
 .tip .s { color: var(--muted); font-size: 11.5px; white-space: nowrap; }
 .tip .c + .s, .tip .v + .s { margin-top: 5px; }
+
+/* what G does, the first time it is pressed: left of the card, at its top */
+.help { position: fixed; top: 12px; right: 310px; z-index: 7; width: 330px; max-width: calc(100vw - 334px);
+  max-height: calc(100vh - 24px); overflow-y: auto; padding: 12px 14px 4px; font-size: 13px; line-height: 1.4; display: none; }
+.help.at-glass { background: var(--card); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); }
+.help.on { display: block; }
+.help .t { font-weight: 600; font-size: 14px; margin-bottom: 6px; padding-right: 22px; }
+.help p { margin: 0 0 8px; color: var(--text); }
+.help a { color: var(--cool); }
+.help .x { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border: 0; border-radius: 6px;
+  background: none; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.help .x:hover { color: var(--text); background: var(--faint); }
+@media (max-width: 700px) { .help { right: 12px; top: auto; bottom: 12px; max-width: calc(100vw - 24px); } }
+
+/* the first visit's card and the about card (?), Earthwork's: over a dimmed map */
+.at-about { position: fixed; inset: 0; z-index: 20; display: none; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.5); }
+.at-about.on { display: flex; }
+.at-about .box { width: min(620px, calc(100% - 32px)); max-height: calc(100% - 64px); overflow: auto; padding: 22px 26px;
+  line-height: 1.55; background: var(--glass-hi); }
+.at-about.welcome .box { width: min(440px, calc(100% - 32px)); padding: 20px 22px 18px; font-size: 13.5px; }
+.at-about h2 { margin: 0 0 10px; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.at-about p { margin: 0 0 10px; max-width: 66ch; }
+.at-about small { color: var(--muted); }
+.at-about ul { margin: 0 0 10px; padding-left: 18px; }
+.at-about li { margin: 0 0 5px; }
+.at-about a { color: var(--text); text-underline-offset: 2px; }
+.at-chip { border: 1px solid var(--line); background: var(--glass-hi); color: var(--text); font: inherit; border-radius: 999px;
+  padding: 4px 12px; cursor: pointer; }
+.at-chip:hover { border-color: rgba(255, 255, 255, 0.35); }

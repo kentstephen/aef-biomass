@@ -594,9 +594,11 @@ function styleMode() {
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
     ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
-      (gainHead ? `<kbd>G</kbd>&nbsp;gain ${st.lidarGain ? "by floor" : "by lidar"} &nbsp; ` : "") +
-      "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search"
-    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search';
+      (gainHead ? `<kbd>G</kbd>&nbsp;lidar gain, ${st.lidarGain ? "on" : "off"} &nbsp; ` : "") +
+      "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about"
+    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; ' +
+      (gainHead ? '<kbd>G</kbd>&nbsp;lidar gain (in change) &nbsp; ' : '') +
+      '<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -715,10 +717,101 @@ function setWindow(a: number, b: number) {
   stopAhead();
   render();
 }
+/** The page that explains the map, on GitHub. */
+const HOW_URL = "https://github.com/kentstephen/aef-biomass#how-the-map-works";
+/** What G does, the first time it is pressed (then remembered); a close button or Esc puts it away. */
+const gainHelp = document.createElement("div");
+gainHelp.className = "help at-glass";
+gainHelp.innerHTML = `<button class="x" aria-label="Close">&times;</button>
+  <div class="t">Gain taught on lidar</div>
+  <p>G switches how the map decides where biomass went <b>up</b> (blue). Loss (orange) does not change.</p>
+  <p><b>Off</b> (the default): a pixel is gain where its biomass rose past a floor, 20 to 40 Mg/ha by window length
+  and at least a quarter of what was there.</p>
+  <p><b>On</b>: a second model, taught on airborne lidar flown twice over the same forest, marks gain only where the
+  change looks like canopy that grew. The size is still the biomass rise. It usually draws less, more concentrated
+  gain.</p>
+  <p>Neither is clearly better: on the lidar places the floor finds a little more regrowth; elsewhere the lidar-taught
+  one agrees with Esri's "became trees" about three times as often. Press G again to switch back.</p>
+  <p><a href="${HOW_URL}" target="_blank" rel="noopener">How the map works</a></p>`;
+document.body.append(gainHelp);
+const closeHelp = () => gainHelp.classList.remove("on");
+gainHelp.querySelector<HTMLButtonElement>(".x")!.onclick = closeHelp;
+
+/**
+ * The first visit's card (Earthwork's welcome): what this is and what to do, in a few lines; ? opens the about card
+ * with the rest. Both close on their button, a click outside, or Esc.
+ */
+const REPO_URL = "https://github.com/kentstephen/aef-biomass";
+function overlay_(cls: string, html: string) {
+  const el = document.createElement("div");
+  el.className = `at-about ${cls}`;
+  el.innerHTML = `<div class="box at-glass">${html}</div>`;
+  document.body.append(el);
+  el.onclick = (e) => {
+    if (e.target === el) el.classList.remove("on");
+  };
+  el.querySelector<HTMLButtonElement>("button.at-chip")!.onclick = () => el.classList.remove("on");
+  return el;
+}
+const welcome = overlay_("welcome", `<h2>Biomass</h2>
+  <p>This map shows how much living plant matter stands on every 10 m of land, each year from 2018 to 2025, and where
+  it was lost or gained between two years. A small model reads it in your browser from AlphaEarth (Google DeepMind),
+  a yearly summary of each 10 m pixel from satellites, taught on biomass, canopy height and land cover maps.</p>
+  <p>It starts in the Sierra Nevada foothills along the Tuolumne River, California. Zoom in to 11 or closer to read it;
+  anywhere on land works.</p>
+  <ul>
+    <li><b>Hover</b> a pixel for its biomass (Mg/ha), canopy height and land cover; in change, how much it changed and between which years.</li>
+    <li><kbd>C</kbd> switches between <b>each year</b> and <b>change</b>: orange is loss, blue is gain, faint where steady ground often changes as much.</li>
+    <li><kbd>[</kbd> <kbd>]</kbd> step the year, <kbd>B</kbd> blinks between the first and the latest; in change, drag the window of years on the card.</li>
+    <li><b>Hold</b> <kbd>Space</kbd> to see the Sentinel-2 imagery of that year; <kbd>P</kbd> pairs it on the left, moving with the map.</li>
+    <li><kbd>G</kbd> in change: gain decided by a model taught on airborne lidar instead of a floor.</li>
+  </ul>
+  <p><small><kbd>?</kbd> has everything else. How it works, what it gets wrong, and the code:
+  <a href="${HOW_URL}" target="_blank" rel="noopener">aef-biomass</a> on GitHub.</small></p>
+  <div><button class="at-chip">Start</button></div>`);
+const about = overlay_("about", `<h2>Biomass</h2>
+  <p><b>Biomass</b> here is aboveground living plant matter, dry, in megagrams per hectare (Mg/ha; 1 Mg/ha is 100 g
+  per square meter). A small model (the head) turns each 10 m pixel's AlphaEarth embedding for a year into biomass,
+  canopy height and a land cover class. It is taught on CTrees biomass, Meta canopy height and land cover, so its
+  biomass is mostly the woody kind: trees and shrubs. It runs on your GPU, from zoom 11 in; nothing is precomputed.</p>
+  <p><b>Each year</b> shows one year's biomass on a viridis ramp, 0 to 350+ Mg/ha (log scale). <b>Change</b> shows a window
+  of years (drag its ends or the span between them on the card): loss in orange where the biomass fell and the
+  embedding itself changed, gain in blue where it rose past a floor (20 to 40 Mg/ha by window length and a quarter
+  of what was there), as a percent of the pixel's first-year biomass. Faint is change that steady ground of the same
+  class often matches; solid is change it rarely does; clear is no change counted. Hovering a changed pixel says
+  between which two years it happened. The card's histogram counts the change in view by hectare, and what each
+  pixel was and became.</p>
+  <p><b>G</b> (change) decides gain with a second model, taught on airborne lidar flown twice over the same forest (New
+  Zealand, Estonia, California): gain only where the change looks like canopy that grew. It usually draws less, more
+  concentrated gain; on the lidar places the floor finds a little more regrowth, elsewhere the lidar-taught one
+  agrees with Esri's "became trees" about three times as often.</p>
+  <p><b>What it does not do well yet.</b> Grass and crops get a rough number, not their own mass (the head is taught on
+  woody biomass). Tundra reads four to five times too high. Tall tropical forest reads short above about 150 Mg/ha.
+  Burned stands with dead trees still standing are hard for it and for lidar. Slow regrowth is small against the
+  year-to-year noise.</p>
+  <p><small>Keys: C each year or change; [ and ] the year (in change, the imagery's year); B the first year or the latest;
+  G gain by lidar, on or off (change); hold Space for the imagery; P pairs the map with the imagery; Q the tooltip
+  and picking off and on; L place names; ; and ' the imagery's brightness; F full screen; / search; ? this page;
+  Esc closes a card, else folds the main card.</small></p>
+  <p><small>AlphaEarth Foundations by Google and Google DeepMind, via Source Cooperative (CC BY 4.0). The head taught on
+  CTrees aboveground biomass and Meta and WRI canopy height (CC BY 4.0), with ESA WorldCover and Impact Observatory
+  land cover. Imagery: EOxCloudless by EOX IT Services GmbH, 2019 to 2025 (contains modified Copernicus Sentinel data;
+  free for non-commercial use); 2018 from the Copernicus Sentinel-2 Global Mosaics (ESA), via TGE Labs on Source
+  Cooperative. Search by Photon and Nominatim over OpenStreetMap. Basemap by CARTO, &copy; OpenStreetMap. Every test
+  behind the map: <a href="${REPO_URL}/blob/main/FINDINGS.md" target="_blank" rel="noopener">FINDINGS.md</a>.</small></p>
+  <div style="margin-top:12px"><button class="at-chip">Close</button></div>`);
+if (!stored("aef-biomass-welcome")) welcome.classList.add("on");
+store("aef-biomass-welcome", "1");
+const overlayOpen = () => welcome.classList.contains("on") || about.classList.contains("on");
+
 /** G: gain by the lidar-taught network or by the two-part floor (change only). */
 function setLidarGain(on: boolean) {
   if (!gainHead || on === st.lidarGain) return;
   st.lidarGain = on;
+  if (on && !stored("aef-biomass-gain-help")) {
+    gainHelp.classList.add("on");
+    store("aef-biomass-gain-help", "1");
+  }
   store("aef-biomass-gain", on ? "lidar" : "floor");
   st.prev = null;
   st.viewLoaded = false;
@@ -793,7 +886,17 @@ window.addEventListener("keydown", (e) => {
     drawLayers();
   }
   // Esc folds the card
-  else if (e.code === "Escape") fold(true);
+  else if (e.code === "Escape") {
+    if (overlayOpen()) {
+      welcome.classList.remove("on");
+      about.classList.remove("on");
+    } else if (gainHelp.classList.contains("on")) closeHelp();
+    else fold(true);
+  }
+  else if (e.key === "?") {
+    welcome.classList.remove("on");
+    about.classList.toggle("on");
+  }
   // [ and ]: the year, the embeddings' and the imagery's together (Earthwork's); by the key's code, so Shift or a
   // keyboard layout does not change them
   else if (e.code === "BracketLeft") step(-1);

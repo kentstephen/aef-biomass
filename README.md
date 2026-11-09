@@ -7,7 +7,49 @@ v1.3, 2018 to 2025.
 
 **Live map:** [kentstephen.github.io/aef-biomass](https://kentstephen.github.io/aef-biomass/), biomass every year and its change
 between years, from AlphaEarth, run in the browser (zoom in to 11 to read it). Built from `web/` and deployed on each
-push to `main` (`.github/workflows/pages.yml`).
+push to `main` (`.github/workflows/pages.yml`). How to read it: [How the map works](#how-the-map-works).
+
+## How the map works
+
+Everything is computed in your browser from [AlphaEarth](https://source.coop/tge-labs/aef) embeddings, one 64-number
+summary per 10 m pixel per year (2018 to 2025), read from zoom 11 in. A small model (the "head", taught on CTrees
+biomass, Meta canopy height and land cover) turns each pixel's embedding into aboveground biomass in Mg/ha, a canopy
+height and a land cover class. Nothing is precomputed; the head runs on the GPU in your browser.
+
+**Each year (C to switch).** One year's biomass per pixel, on a viridis ramp from 0 to 350+ Mg/ha (log scale).
+Hover a pixel for its biomass, canopy height and class.
+
+**Change (C).** The window of years at the top of the card (drag either end, or the span between them). Orange is
+loss, blue is gain, as a percent of the pixel's own biomass in the first year; clear means no change counted.
+- Loss: drawn where the head's biomass fell and the embedding itself changed, both by more than nearly all steady
+  ground of the same class does (FINDINGS 29 to 32).
+- Gain, by default: where the pixel's biomass rose past a floor (20 to 40 Mg/ha by window length, and at least a
+  quarter of what was there).
+- Faint against solid: faint is a change that steady ground of the same class often matches; solid is one it rarely
+  does. Hovering a changed pixel says between which two years it happened (the one-year step that moved most).
+- The card's histogram counts the change in view, by hectare, and what each pixel was and became.
+
+**G: gain taught on lidar (change only, off by default).** Switches how gain is decided. Instead of the floor, a
+second model taught on airborne lidar flown twice over the same forest (New Zealand, Estonia, California) marks a
+pixel as gain only where the change looks like canopy that grew; the size is still the biomass rise. It usually
+draws less, more concentrated gain. On the lidar places it finds slightly less regrowth than the floor; everywhere
+else it agrees with Esri's "became trees" about three times as often (FINDINGS 33, 38). G again switches back.
+
+**Imagery.** Hold Space for Sentinel-2 over the whole map, or P for it on the left beside the map. 2019 to 2025:
+EOxCloudless by EOX. 2018: the Copernicus Sentinel-2 quarterly mosaics (July to September north of the Tropic of
+Capricorn, January to March south of it), made into map tiles in the browser.
+
+**Keys.** C each year or change; `[` `]` the year (in change, the imagery's year); B blink between the first and the
+latest year; G lidar gain on or off (change view); Space imagery; P pair; Q picking and tooltip; L place names;
+`;` `'` the imagery's brightness; F full screen; / search; Esc folds the card.
+
+**What it does not do well yet.**
+- Grass and crops: the head is taught on woody biomass, so fields and grass get a rough number, not their own crop
+  or grass mass (FINDINGS 34).
+- Tundra reads four to five times too high, CTrees' level (FINDINGS 36).
+- Tall tropical forest reads short above about 150 Mg/ha, about half the plot biomass above 400 (FINDINGS 35).
+- Burns: a burned stand can keep standing dead trees, which the map and lidar height both struggle with (FINDINGS 32).
+- Regrowth is the weak half of change: slow growth year to year is small against the noise.
 
 ## Where this starts
 
@@ -54,19 +96,12 @@ forest.
   scars, biomass by land cover against Annual NLCD and Esri's annual land cover, the noise on steady ground per
   class, and which way of drawing change with its confidence works (loss, and gain at pixel or 100 m size).
 - `PLAN.md`: the plan for the biomass classes and their change.
-- `web/`: the map. Biomass from AlphaEarth alone, the head run on the GPU in the browser (WebGPU in workers, the CPU
-  without it). Two settings (C): each year, on a 50-stop viridis ramp, log scale from 0 to 350+ Mg/ha; and change
-  over a window of years (Earthwork's two-handle range, the span between the ends drags the window), every 10 m
-  pixel drawn with its confidence (FINDINGS 29 to 31): loss where the head fell and the embedding itself moved,
-  gain where the pixel's own rise passed a two-part floor, each pixel's opacity from how unusual its change is on
-  steady ground of its class (the head's own class; `web/public/models/change_conf.json`), on a 50-stop orange to
-  white to blue ramp, no change left clear. Sentinel-2 cloudless by EOX, 2019 onward: hold Space for it over the
-  whole map, P pairs it on the left with one camera. Keys: `[` `]` the year, the embeddings' and the imagery's
-  together (the next one is read ahead; in change they step the imagery alone, and each year opens on its year), `;` `'` the imagery's gamma, R spreads the ramp over the view, Esc folds the card,
-  F full screen, / search. AlphaEarth is read from zoom 11 in, straight from S3 behind Source Cooperative, its chunks
-  kept on disk between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn
-  and Earthwork's web apps. Run: `cd web && npm install && npm run dev` (port 3010). The head:
-  `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`.
+- `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
+  workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
+  between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn and
+  Earthwork's web apps. Run: `cd web && npm install && npm run dev` (port 3010). The head:
+  `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`; the lidar-taught gain:
+  `scripts/gain_mlp.py --export difference` writes `web/public/models/gain_lidar.json`.
 
 ## Scripts
 
