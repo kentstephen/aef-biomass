@@ -1,0 +1,1078 @@
+{
+ "rows": {
+  "steady": 8803692,
+  "grew": 2611119,
+  "lidar px": 2461968
+ },
+ "gain": {
+  "esri": {
+   "end": {
+    "all": {
+     "n_real": 2611119,
+     "n_steady": 8803692,
+     "floor_found": 0.0777,
+     "floor_lit": 0.0245,
+     "auc": 0.6275,
+     "found_at_2pct_lit": 0.0327,
+     "real_median_Mg": 3.1,
+     "steady_p90_abs_Mg": 23.1
+    },
+    "L1": {
+     "n_real": 596453,
+     "n_steady": 2811901,
+     "floor_found": 0.0615,
+     "floor_lit": 0.0194,
+     "auc": 0.5873,
+     "found_at_2pct_lit": 0.0161,
+     "real_median_Mg": 1.7,
+     "steady_p90_abs_Mg": 19.4
+    },
+    "L2": {
+     "n_real": 630406,
+     "n_steady": 2176404,
+     "floor_found": 0.0771,
+     "floor_lit": 0.0268,
+     "auc": 0.6157,
+     "found_at_2pct_lit": 0.0233,
+     "real_median_Mg": 2.7,
+     "steady_p90_abs_Mg": 22.8
+    },
+    "L3": {
+     "n_real": 509718,
+     "n_steady": 1617166,
+     "floor_found": 0.0843,
+     "floor_lit": 0.0284,
+     "auc": 0.6309,
+     "found_at_2pct_lit": 0.0305,
+     "real_median_Mg": 3.6,
+     "steady_p90_abs_Mg": 25.1
+    },
+    "L4": {
+     "n_real": 394924,
+     "n_steady": 1143356,
+     "floor_found": 0.0934,
+     "floor_lit": 0.027,
+     "auc": 0.6445,
+     "found_at_2pct_lit": 0.0433,
+     "real_median_Mg": 4.2,
+     "steady_p90_abs_Mg": 26.3
+    },
+    "L5": {
+     "n_real": 313586,
+     "n_steady": 717015,
+     "floor_found": 0.0827,
+     "floor_lit": 0.0255,
+     "auc": 0.6596,
+     "found_at_2pct_lit": 0.0369,
+     "real_median_Mg": 4.8,
+     "steady_p90_abs_Mg": 27.2
+    },
+    "L6": {
+     "n_real": 166032,
+     "n_steady": 337850,
+     "floor_found": 0.0706,
+     "floor_lit": 0.0236,
+     "auc": 0.6546,
+     "found_at_2pct_lit": 0.0415,
+     "real_median_Mg": 4.7,
+     "steady_p90_abs_Mg": 29.4
+    }
+   },
+   "ols": {
+    "all": {
+     "n_real": 2611119,
+     "n_steady": 8803692,
+     "floor_found": 0.0771,
+     "floor_lit": 0.0244,
+     "auc": 0.6298,
+     "found_at_2pct_lit": 0.033,
+     "real_median_Mg": 3.1,
+     "steady_p90_abs_Mg": 22.8
+    },
+    "L1": {
+     "n_real": 596453,
+     "n_steady": 2811901,
+     "floor_found": 0.0615,
+     "floor_lit": 0.0194,
+     "auc": 0.5873,
+     "found_at_2pct_lit": 0.0161,
+     "real_median_Mg": 1.7,
+     "steady_p90_abs_Mg": 19.4
+    },
+    "L2": {
+     "n_real": 630406,
+     "n_steady": 2176404,
+     "floor_found": 0.0771,
+     "floor_lit": 0.0269,
+     "auc": 0.6157,
+     "found_at_2pct_lit": 0.0233,
+     "real_median_Mg": 2.7,
+     "steady_p90_abs_Mg": 22.8
+    },
+    "L3": {
+     "n_real": 509718,
+     "n_steady": 1617166,
+     "floor_found": 0.0881,
+     "floor_lit": 0.0278,
+     "auc": 0.6322,
+     "found_at_2pct_lit": 0.0333,
+     "real_median_Mg": 3.7,
+     "steady_p90_abs_Mg": 24.6
+    },
+    "L4": {
+     "n_real": 394924,
+     "n_steady": 1143356,
+     "floor_found": 0.0886,
+     "floor_lit": 0.0267,
+     "auc": 0.6506,
+     "found_at_2pct_lit": 0.0441,
+     "real_median_Mg": 4.4,
+     "steady_p90_abs_Mg": 25.6
+    },
+    "L5": {
+     "n_real": 313586,
+     "n_steady": 717015,
+     "floor_found": 0.0789,
+     "floor_lit": 0.0257,
+     "auc": 0.6666,
+     "found_at_2pct_lit": 0.0394,
+     "real_median_Mg": 4.7,
+     "steady_p90_abs_Mg": 26.2
+    },
+    "L6": {
+     "n_real": 166032,
+     "n_steady": 337850,
+     "floor_found": 0.0688,
+     "floor_lit": 0.0238,
+     "auc": 0.6583,
+     "found_at_2pct_lit": 0.0408,
+     "real_median_Mg": 4.7,
+     "steady_p90_abs_Mg": 27.3
+    }
+   },
+   "theil": {
+    "all": {
+     "n_real": 2611119,
+     "n_steady": 8803692,
+     "floor_found": 0.0786,
+     "floor_lit": 0.0254,
+     "auc": 0.629,
+     "found_at_2pct_lit": 0.0334,
+     "real_median_Mg": 3.2,
+     "steady_p90_abs_Mg": 23.0
+    },
+    "L1": {
+     "n_real": 596453,
+     "n_steady": 2811901,
+     "floor_found": 0.0615,
+     "floor_lit": 0.0194,
+     "auc": 0.5873,
+     "found_at_2pct_lit": 0.0161,
+     "real_median_Mg": 1.7,
+     "steady_p90_abs_Mg": 19.4
+    },
+    "L2": {
+     "n_real": 630406,
+     "n_steady": 2176404,
+     "floor_found": 0.0771,
+     "floor_lit": 0.0271,
+     "auc": 0.6157,
+     "found_at_2pct_lit": 0.0233,
+     "real_median_Mg": 2.7,
+     "steady_p90_abs_Mg": 22.8
+    },
+    "L3": {
+     "n_real": 509718,
+     "n_steady": 1617166,
+     "floor_found": 0.0901,
+     "floor_lit": 0.0297,
+     "auc": 0.6303,
+     "found_at_2pct_lit": 0.0337,
+     "real_median_Mg": 3.8,
+     "steady_p90_abs_Mg": 25.2
+    },
+    "L4": {
+     "n_real": 394924,
+     "n_steady": 1143356,
+     "floor_found": 0.0911,
+     "floor_lit": 0.029,
+     "auc": 0.6468,
+     "found_at_2pct_lit": 0.0438,
+     "real_median_Mg": 4.5,
+     "steady_p90_abs_Mg": 26.3
+    },
+    "L5": {
+     "n_real": 313586,
+     "n_steady": 717015,
+     "floor_found": 0.0829,
+     "floor_lit": 0.028,
+     "auc": 0.6634,
+     "found_at_2pct_lit": 0.0404,
+     "real_median_Mg": 4.9,
+     "steady_p90_abs_Mg": 27.0
+    },
+    "L6": {
+     "n_real": 166032,
+     "n_steady": 337850,
+     "floor_found": 0.0726,
+     "floor_lit": 0.0263,
+     "auc": 0.661,
+     "found_at_2pct_lit": 0.0405,
+     "real_median_Mg": 5.0,
+     "steady_p90_abs_Mg": 28.2
+    }
+   }
+  },
+  "lidar": {
+   "end": {
+    "all": {
+     "n_real": 249952,
+     "n_steady": 1317650,
+     "floor_found": 0.3869,
+     "floor_lit": 0.015,
+     "auc": 0.785,
+     "found_at_2pct_lit": 0.4734,
+     "real_median_Mg": 25.0,
+     "steady_p90_abs_Mg": 13.7
+    },
+    "L1": {
+     "n_real": 376,
+     "n_steady": 183172,
+     "floor_found": 0.0,
+     "floor_lit": 0.0,
+     "auc": 0.4808,
+     "found_at_2pct_lit": 0.0213,
+     "real_median_Mg": 0.6,
+     "steady_p90_abs_Mg": 2.3,
+     "squares": [
+      "lidar-nz-roxburgh"
+     ]
+    },
+    "L2": {
+     "n_real": 1185,
+     "n_steady": 239958,
+     "floor_found": 0.0008,
+     "floor_lit": 0.0016,
+     "auc": 0.4241,
+     "found_at_2pct_lit": 0.0228,
+     "real_median_Mg": -1.7,
+     "steady_p90_abs_Mg": 11.5,
+     "squares": [
+      "lidar-us-eaton",
+      "lidar-us-palisades"
+     ]
+    },
+    "L4": {
+     "n_real": 82209,
+     "n_steady": 552791,
+     "floor_found": 0.1561,
+     "floor_lit": 0.0234,
+     "auc": 0.7301,
+     "found_at_2pct_lit": 0.146,
+     "real_median_Mg": 16.0,
+     "steady_p90_abs_Mg": 18.3,
+     "squares": [
+      "lidar-ee-kivioli",
+      "lidar-ee-lahemaa",
+      "lidar-ee-tartu",
+      "lidar-nz-esk-valley"
+     ]
+    },
+    "L5": {
+     "n_real": 166182,
+     "n_steady": 341729,
+     "floor_found": 0.5046,
+     "floor_lit": 0.0188,
+     "auc": 0.8028,
+     "found_at_2pct_lit": 0.5547,
+     "real_median_Mg": 41.9,
+     "steady_p90_abs_Mg": 8.4,
+     "squares": [
+      "lidar-nz-banks",
+      "lidar-nz-glenbervie"
+     ]
+    }
+   },
+   "ols": {
+    "all": {
+     "n_real": 249952,
+     "n_steady": 1317650,
+     "floor_found": 0.396,
+     "floor_lit": 0.0181,
+     "auc": 0.7827,
+     "found_at_2pct_lit": 0.447,
+     "real_median_Mg": 23.5,
+     "steady_p90_abs_Mg": 13.3
+    },
+    "L1": {
+     "n_real": 376,
+     "n_steady": 183172,
+     "floor_found": 0.0,
+     "floor_lit": 0.0,
+     "auc": 0.4808,
+     "found_at_2pct_lit": 0.0213,
+     "real_median_Mg": 0.6,
+     "steady_p90_abs_Mg": 2.3,
+     "squares": [
+      "lidar-nz-roxburgh"
+     ]
+    },
+    "L2": {
+     "n_real": 1185,
+     "n_steady": 239958,
+     "floor_found": 0.0008,
+     "floor_lit": 0.0016,
+     "auc": 0.4241,
+     "found_at_2pct_lit": 0.0228,
+     "real_median_Mg": -1.7,
+     "steady_p90_abs_Mg": 11.5,
+     "squares": [
+      "lidar-us-eaton",
+      "lidar-us-palisades"
+     ]
+    },
+    "L4": {
+     "n_real": 82209,
+     "n_steady": 552791,
+     "floor_found": 0.1145,
+     "floor_lit": 0.0225,
+     "auc": 0.6974,
+     "found_at_2pct_lit": 0.1108,
+     "real_median_Mg": 12.6,
+     "steady_p90_abs_Mg": 16.8,
+     "squares": [
+      "lidar-ee-kivioli",
+      "lidar-ee-lahemaa",
+      "lidar-ee-tartu",
+      "lidar-nz-esk-valley"
+     ]
+    },
+    "L5": {
+     "n_real": 166182,
+     "n_steady": 341729,
+     "floor_found": 0.539,
+     "floor_lit": 0.0322,
+     "auc": 0.7961,
+     "found_at_2pct_lit": 0.5056,
+     "real_median_Mg": 45.9,
+     "steady_p90_abs_Mg": 8.1,
+     "squares": [
+      "lidar-nz-banks",
+      "lidar-nz-glenbervie"
+     ]
+    }
+   },
+   "theil": {
+    "all": {
+     "n_real": 249952,
+     "n_steady": 1317650,
+     "floor_found": 0.3949,
+     "floor_lit": 0.0194,
+     "auc": 0.7796,
+     "found_at_2pct_lit": 0.439,
+     "real_median_Mg": 23.9,
+     "steady_p90_abs_Mg": 13.9
+    },
+    "L1": {
+     "n_real": 376,
+     "n_steady": 183172,
+     "floor_found": 0.0,
+     "floor_lit": 0.0,
+     "auc": 0.4808,
+     "found_at_2pct_lit": 0.0213,
+     "real_median_Mg": 0.6,
+     "steady_p90_abs_Mg": 2.3,
+     "squares": [
+      "lidar-nz-roxburgh"
+     ]
+    },
+    "L2": {
+     "n_real": 1185,
+     "n_steady": 239958,
+     "floor_found": 0.0008,
+     "floor_lit": 0.0016,
+     "auc": 0.4241,
+     "found_at_2pct_lit": 0.0228,
+     "real_median_Mg": -1.7,
+     "steady_p90_abs_Mg": 11.5,
+     "squares": [
+      "lidar-us-eaton",
+      "lidar-us-palisades"
+     ]
+    },
+    "L4": {
+     "n_real": 82209,
+     "n_steady": 552791,
+     "floor_found": 0.132,
+     "floor_lit": 0.0265,
+     "auc": 0.6966,
+     "found_at_2pct_lit": 0.112,
+     "real_median_Mg": 13.5,
+     "steady_p90_abs_Mg": 17.3,
+     "squares": [
+      "lidar-ee-kivioli",
+      "lidar-ee-lahemaa",
+      "lidar-ee-tartu",
+      "lidar-nz-esk-valley"
+     ]
+    },
+    "L5": {
+     "n_real": 166182,
+     "n_steady": 341729,
+     "floor_found": 0.5286,
+     "floor_lit": 0.0307,
+     "auc": 0.788,
+     "found_at_2pct_lit": 0.5009,
+     "real_median_Mg": 44.1,
+     "steady_p90_abs_Mg": 9.5,
+     "squares": [
+      "lidar-nz-banks",
+      "lidar-nz-glenbervie"
+     ]
+    }
+   }
+  }
+ },
+ "loss": {
+  "all": {
+   "lidar lost px": 101925,
+   "drawn share of lidar lost": 0.71,
+   "drawn share of forest with lidar fall < 10 %": 0.0865,
+   "rules": {
+    "raw": {
+     "spearman with lidar fall": 0.6059,
+     "median drawn": 0.611,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": -0.038,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 44516,
+       "median drawn": 0.448,
+       "p25": 0.326,
+       "p75": 0.602
+      },
+      "0.10-0.25": {
+       "px": 11598,
+       "median drawn": 0.456,
+       "p25": 0.337,
+       "p75": 0.586
+      },
+      "0.25-0.50": {
+       "px": 10689,
+       "median drawn": 0.48,
+       "p25": 0.35,
+       "p75": 0.608
+      },
+      "0.50-0.75": {
+       "px": 7133,
+       "median drawn": 0.489,
+       "p25": 0.356,
+       "p75": 0.611
+      },
+      "0.75-1.00": {
+       "px": 60503,
+       "median drawn": 0.762,
+       "p25": 0.669,
+       "p75": 0.823
+      }
+     }
+    },
+    "factor + cap": {
+     "spearman with lidar fall": 0.3437,
+     "median drawn": 1.0,
+     "share drawn at 99 % or more": 0.6516,
+     "median drawn minus lidar fall": 0.345,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 44516,
+       "median drawn": 0.981,
+       "p25": 0.732,
+       "p75": 1.0
+      },
+      "0.10-0.25": {
+       "px": 11598,
+       "median drawn": 1.0,
+       "p25": 0.774,
+       "p75": 1.0
+      },
+      "0.25-0.50": {
+       "px": 10689,
+       "median drawn": 1.0,
+       "p25": 0.784,
+       "p75": 1.0
+      },
+      "0.50-0.75": {
+       "px": 7133,
+       "median drawn": 1.0,
+       "p25": 0.771,
+       "p75": 1.0
+      },
+      "0.75-1.00": {
+       "px": 60503,
+       "median drawn": 1.0,
+       "p25": 1.0,
+       "p75": 1.0
+      }
+     }
+    },
+    "soft 2/3 (map)": {
+     "spearman with lidar fall": 0.4837,
+     "median drawn": 0.749,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": 0.134,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 44516,
+       "median drawn": 0.656,
+       "p25": 0.527,
+       "p75": 0.763
+      },
+      "0.10-0.25": {
+       "px": 11598,
+       "median drawn": 0.673,
+       "p25": 0.547,
+       "p75": 0.776
+      },
+      "0.25-0.50": {
+       "px": 10689,
+       "median drawn": 0.689,
+       "p25": 0.555,
+       "p75": 0.788
+      },
+      "0.50-0.75": {
+       "px": 7133,
+       "median drawn": 0.684,
+       "p25": 0.555,
+       "p75": 0.78
+      },
+      "0.75-1.00": {
+       "px": 60503,
+       "median drawn": 0.807,
+       "p25": 0.746,
+       "p75": 0.844
+      }
+     }
+    },
+    "soft": {
+     "spearman with lidar fall": 0.2919,
+     "median drawn": 0.808,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": 0.224,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 44516,
+       "median drawn": 0.753,
+       "p25": 0.624,
+       "p75": 0.85
+      },
+      "0.10-0.25": {
+       "px": 11598,
+       "median drawn": 0.779,
+       "p25": 0.649,
+       "p75": 0.875
+      },
+      "0.25-0.50": {
+       "px": 10689,
+       "median drawn": 0.791,
+       "p25": 0.655,
+       "p75": 0.883
+      },
+      "0.50-0.75": {
+       "px": 7133,
+       "median drawn": 0.775,
+       "p25": 0.647,
+       "p75": 0.869
+      },
+      "0.75-1.00": {
+       "px": 60503,
+       "median drawn": 0.829,
+       "p25": 0.783,
+       "p75": 0.856
+      }
+     }
+    }
+   },
+   "drawn forest px": 134439,
+   "lidar fall of drawn px, median": 0.513,
+   "head raw fall of drawn px, median": 0.611,
+   "cells": {
+    "cells": 7015,
+    "cells lidar fall >= 25 %": 1084,
+    "rules": {
+     "raw": {
+      "pearson with lidar fall": 0.8164,
+      "spearman with lidar fall": 0.7664,
+      "median drawn, cells lidar fall >= 25 %": 0.608,
+      "median lidar fall, same cells": 0.787,
+      "median drawn minus lidar fall, same cells": -0.179
+     },
+     "factor + cap": {
+      "pearson with lidar fall": 0.7467,
+      "spearman with lidar fall": 0.7643,
+      "median drawn, cells lidar fall >= 25 %": 0.932,
+      "median lidar fall, same cells": 0.787,
+      "median drawn minus lidar fall, same cells": 0.028
+     },
+     "soft 2/3 (map)": {
+      "pearson with lidar fall": 0.7684,
+      "spearman with lidar fall": 0.7648,
+      "median drawn, cells lidar fall >= 25 %": 0.718,
+      "median lidar fall, same cells": 0.787,
+      "median drawn minus lidar fall, same cells": -0.139
+     },
+     "soft": {
+      "pearson with lidar fall": 0.7432,
+      "spearman with lidar fall": 0.7626,
+      "median drawn, cells lidar fall >= 25 %": 0.763,
+      "median lidar fall, same cells": 0.787,
+      "median drawn minus lidar fall, same cells": -0.122
+     }
+    }
+   }
+  },
+  "burns (Eaton, Palisades)": {
+   "lidar lost px": 21883,
+   "drawn share of lidar lost": 0.5535,
+   "drawn share of forest with lidar fall < 10 %": 0.3558,
+   "rules": {
+    "raw": {
+     "spearman with lidar fall": 0.1446,
+     "median drawn": 0.428,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": 0.292,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 32992,
+       "median drawn": 0.404,
+       "p25": 0.305,
+       "p75": 0.523
+      },
+      "0.10-0.25": {
+       "px": 10432,
+       "median drawn": 0.45,
+       "p25": 0.333,
+       "p75": 0.577
+      },
+      "0.25-0.50": {
+       "px": 9195,
+       "median drawn": 0.47,
+       "p25": 0.343,
+       "p75": 0.597
+      },
+      "0.50-0.75": {
+       "px": 5333,
+       "median drawn": 0.464,
+       "p25": 0.342,
+       "p75": 0.584
+      },
+      "0.75-1.00": {
+       "px": 3836,
+       "median drawn": 0.437,
+       "p25": 0.318,
+       "p75": 0.565
+      }
+     }
+    },
+    "factor + cap": {
+     "spearman with lidar fall": 0.1208,
+     "median drawn": 1.0,
+     "share drawn at 99 % or more": 0.5248,
+     "median drawn minus lidar fall": 0.737,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 32992,
+       "median drawn": 0.962,
+       "p25": 0.727,
+       "p75": 1.0
+      },
+      "0.10-0.25": {
+       "px": 10432,
+       "median drawn": 1.0,
+       "p25": 0.793,
+       "p75": 1.0
+      },
+      "0.25-0.50": {
+       "px": 9195,
+       "median drawn": 1.0,
+       "p25": 0.817,
+       "p75": 1.0
+      },
+      "0.50-0.75": {
+       "px": 5333,
+       "median drawn": 1.0,
+       "p25": 0.814,
+       "p75": 1.0
+      },
+      "0.75-1.00": {
+       "px": 3836,
+       "median drawn": 1.0,
+       "p25": 0.756,
+       "p75": 1.0
+      }
+     }
+    },
+    "soft 2/3 (map)": {
+     "spearman with lidar fall": 0.1446,
+     "median drawn": 0.655,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": 0.502,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 32992,
+       "median drawn": 0.632,
+       "p25": 0.516,
+       "p75": 0.738
+      },
+      "0.10-0.25": {
+       "px": 10432,
+       "median drawn": 0.677,
+       "p25": 0.551,
+       "p75": 0.778
+      },
+      "0.25-0.50": {
+       "px": 9195,
+       "median drawn": 0.695,
+       "p25": 0.563,
+       "p75": 0.792
+      },
+      "0.50-0.75": {
+       "px": 5333,
+       "median drawn": 0.689,
+       "p25": 0.562,
+       "p75": 0.783
+      },
+      "0.75-1.00": {
+       "px": 3836,
+       "median drawn": 0.664,
+       "p25": 0.532,
+       "p75": 0.77
+      }
+     }
+    },
+    "soft": {
+     "spearman with lidar fall": 0.1446,
+     "median drawn": 0.769,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": 0.607,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 32992,
+       "median drawn": 0.745,
+       "p25": 0.621,
+       "p75": 0.846
+      },
+      "0.10-0.25": {
+       "px": 10432,
+       "median drawn": 0.79,
+       "p25": 0.66,
+       "p75": 0.879
+      },
+      "0.25-0.50": {
+       "px": 9195,
+       "median drawn": 0.807,
+       "p25": 0.673,
+       "p75": 0.89
+      },
+      "0.50-0.75": {
+       "px": 5333,
+       "median drawn": 0.802,
+       "p25": 0.672,
+       "p75": 0.883
+      },
+      "0.75-1.00": {
+       "px": 3836,
+       "median drawn": 0.778,
+       "p25": 0.639,
+       "p75": 0.873
+      }
+     }
+    }
+   },
+   "drawn forest px": 61788,
+   "lidar fall of drawn px, median": 0.08,
+   "head raw fall of drawn px, median": 0.428,
+   "cells": {
+    "cells": 1418,
+    "cells lidar fall >= 25 %": 266,
+    "rules": {
+     "raw": {
+      "pearson with lidar fall": 0.3879,
+      "spearman with lidar fall": 0.4453,
+      "median drawn, cells lidar fall >= 25 %": 0.274,
+      "median lidar fall, same cells": 0.35,
+      "median drawn minus lidar fall, same cells": -0.09
+     },
+     "factor + cap": {
+      "pearson with lidar fall": 0.3627,
+      "spearman with lidar fall": 0.4425,
+      "median drawn, cells lidar fall >= 25 %": 0.626,
+      "median lidar fall, same cells": 0.35,
+      "median drawn minus lidar fall, same cells": 0.236
+     },
+     "soft 2/3 (map)": {
+      "pearson with lidar fall": 0.3779,
+      "spearman with lidar fall": 0.4443,
+      "median drawn, cells lidar fall >= 25 %": 0.436,
+      "median lidar fall, same cells": 0.35,
+      "median drawn minus lidar fall, same cells": 0.058
+     },
+     "soft": {
+      "pearson with lidar fall": 0.3735,
+      "spearman with lidar fall": 0.4438,
+      "median drawn, cells lidar fall >= 25 %": 0.518,
+      "median lidar fall, same cells": 0.35,
+      "median drawn minus lidar fall, same cells": 0.137
+     }
+    }
+   }
+  },
+  "harvest and storm (NZ, EE)": {
+   "lidar lost px": 80042,
+   "drawn share of lidar lost": 0.7528,
+   "drawn share of forest with lidar fall < 10 %": 0.0273,
+   "rules": {
+    "raw": {
+     "spearman with lidar fall": 0.4786,
+     "median drawn": 0.751,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": -0.163,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 11524,
+       "median drawn": 0.644,
+       "p25": 0.481,
+       "p75": 0.751
+      },
+      "0.10-0.25": {
+       "px": 1166,
+       "median drawn": 0.538,
+       "p25": 0.379,
+       "p75": 0.676
+      },
+      "0.25-0.50": {
+       "px": 1494,
+       "median drawn": 0.553,
+       "p25": 0.395,
+       "p75": 0.692
+      },
+      "0.50-0.75": {
+       "px": 1800,
+       "median drawn": 0.57,
+       "p25": 0.423,
+       "p75": 0.708
+      },
+      "0.75-1.00": {
+       "px": 56667,
+       "median drawn": 0.771,
+       "p25": 0.692,
+       "p75": 0.827
+      }
+     }
+    },
+    "factor + cap": {
+     "spearman with lidar fall": 0.3667,
+     "median drawn": 1.0,
+     "share drawn at 99 % or more": 0.7594,
+     "median drawn minus lidar fall": 0.034,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 11524,
+       "median drawn": 1.0,
+       "p25": 0.756,
+       "p75": 1.0
+      },
+      "0.10-0.25": {
+       "px": 1166,
+       "median drawn": 0.847,
+       "p25": 0.614,
+       "p75": 1.0
+      },
+      "0.25-0.50": {
+       "px": 1494,
+       "median drawn": 0.859,
+       "p25": 0.64,
+       "p75": 1.0
+      },
+      "0.50-0.75": {
+       "px": 1800,
+       "median drawn": 0.889,
+       "p25": 0.671,
+       "p75": 1.0
+      },
+      "0.75-1.00": {
+       "px": 56667,
+       "median drawn": 1.0,
+       "p25": 1.0,
+       "p75": 1.0
+      }
+     }
+    },
+    "soft 2/3 (map)": {
+     "spearman with lidar fall": 0.47,
+     "median drawn": 0.799,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": -0.134,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 11524,
+       "median drawn": 0.729,
+       "p25": 0.585,
+       "p75": 0.821
+      },
+      "0.10-0.25": {
+       "px": 1166,
+       "median drawn": 0.639,
+       "p25": 0.486,
+       "p75": 0.748
+      },
+      "0.25-0.50": {
+       "px": 1494,
+       "median drawn": 0.648,
+       "p25": 0.507,
+       "p75": 0.756
+      },
+      "0.50-0.75": {
+       "px": 1800,
+       "median drawn": 0.662,
+       "p25": 0.532,
+       "p75": 0.766
+      },
+      "0.75-1.00": {
+       "px": 56667,
+       "median drawn": 0.811,
+       "p25": 0.756,
+       "p75": 0.846
+      }
+     }
+    },
+    "soft": {
+     "spearman with lidar fall": 0.4584,
+     "median drawn": 0.822,
+     "share drawn at 99 % or more": 0.0,
+     "median drawn minus lidar fall": -0.121,
+     "by lidar fall": {
+      "0.00-0.10": {
+       "px": 11524,
+       "median drawn": 0.77,
+       "p25": 0.639,
+       "p75": 0.859
+      },
+      "0.10-0.25": {
+       "px": 1166,
+       "median drawn": 0.69,
+       "p25": 0.547,
+       "p75": 0.785
+      },
+      "0.25-0.50": {
+       "px": 1494,
+       "median drawn": 0.696,
+       "p25": 0.565,
+       "p75": 0.789
+      },
+      "0.50-0.75": {
+       "px": 1800,
+       "median drawn": 0.711,
+       "p25": 0.586,
+       "p75": 0.796
+      },
+      "0.75-1.00": {
+       "px": 56667,
+       "median drawn": 0.83,
+       "p25": 0.788,
+       "p75": 0.856
+      }
+     }
+    }
+   },
+   "drawn forest px": 72651,
+   "lidar fall of drawn px, median": 0.958,
+   "head raw fall of drawn px, median": 0.751,
+   "cells": {
+    "cells": 5597,
+    "cells lidar fall >= 25 %": 818,
+    "rules": {
+     "raw": {
+      "pearson with lidar fall": 0.8838,
+      "spearman with lidar fall": 0.7358,
+      "median drawn, cells lidar fall >= 25 %": 0.703,
+      "median lidar fall, same cells": 0.933,
+      "median drawn minus lidar fall, same cells": -0.189
+     },
+     "factor + cap": {
+      "pearson with lidar fall": 0.881,
+      "spearman with lidar fall": 0.7351,
+      "median drawn, cells lidar fall >= 25 %": 0.972,
+      "median lidar fall, same cells": 0.933,
+      "median drawn minus lidar fall, same cells": 0.024
+     },
+     "soft 2/3 (map)": {
+      "pearson with lidar fall": 0.8821,
+      "spearman with lidar fall": 0.7349,
+      "median drawn, cells lidar fall >= 25 %": 0.76,
+      "median lidar fall, same cells": 0.933,
+      "median drawn minus lidar fall, same cells": -0.149
+     },
+     "soft": {
+      "pearson with lidar fall": 0.8807,
+      "spearman with lidar fall": 0.7341,
+      "median drawn, cells lidar fall >= 25 %": 0.788,
+      "median lidar fall, same cells": 0.933,
+      "median drawn minus lidar fall, same cells": -0.129
+     }
+    }
+   }
+  },
+  "per square (map rule)": {
+   "lidar-ee-kivioli": {
+    "drawn px": 237,
+    "median drawn": 0.489,
+    "median lidar fall": 0.978,
+    "spearman": -0.0124
+   },
+   "lidar-ee-lahemaa": {
+    "drawn px": 1581,
+    "median drawn": 0.482,
+    "median lidar fall": 0.906,
+    "spearman": 0.1728
+   },
+   "lidar-ee-tartu": {
+    "drawn px": 480,
+    "median drawn": 0.469,
+    "median lidar fall": 0.717,
+    "spearman": 0.1726
+   },
+   "lidar-nz-banks": {
+    "drawn px": 4950,
+    "median drawn": 0.822,
+    "median lidar fall": 0.98,
+    "spearman": 0.5479
+   },
+   "lidar-nz-esk-valley": {
+    "drawn px": 16101,
+    "median drawn": 0.855,
+    "median lidar fall": 0.998,
+    "spearman": 0.384
+   },
+   "lidar-nz-glenbervie": {
+    "drawn px": 49302,
+    "median drawn": 0.789,
+    "median lidar fall": 0.955,
+    "spearman": 0.5406
+   },
+   "lidar-us-eaton": {
+    "drawn px": 33942,
+    "median drawn": 0.586,
+    "median lidar fall": 0.026,
+    "spearman": 0.0055
+   },
+   "lidar-us-palisades": {
+    "drawn px": 27846,
+    "median drawn": 0.753,
+    "median lidar fall": 0.169,
+    "spearman": -0.0141
+   }
+  }
+ },
+ "seconds": 114,
+ "peak_gb": 3.45
+}

@@ -4,7 +4,8 @@ What the tests in this repo found, November 2026. Sections 1 to 5 are tree loss 
 10 are biomass and land cover over every kind of ground (the second); sections 11 to 16 work through the open items
 of the second (margins of error, calibrated change, the top end, regrowth, hard ground, airborne lidar); sections 17
 to 26 test the open directions; sections 27 to 30 check the map's head on burn scars and land cover, and how to
-draw change with its confidence. Three 10 m yearly embeddings, compared on the same pixels:
+draw change with its confidence; sections 31 and 32 test the growth signal, the size of loss against lidar and gain
+taught on lidar. Three 10 m yearly embeddings, compared on the same pixels:
 AlphaEarth Foundations (AEF, 64 numbers), TESSERA v1.1 (128) and OlmoEarth v1.3 (128). Years 2018 to 2025 (2017
 is left out: TESSERA lacks much of it and AEF rebuilt it differently). Reference: Hansen Global Forest Change v1.12
 (30 m, loss year to 2024), which has its own errors. The pixels in sections 1 to 3 come from Earthwork
@@ -1317,6 +1318,91 @@ TESSERA. A trajectory head reads all eight years for any change view (8 x 21 = 1
 AEF + TESSERA) and needs a new GPU pass that mixes across years. TESSERA in the browser is a second embedding read
 (46 MB per square-year) the map does not do yet.
 
+## 32. Loss size against lidar, gain by window length, gain taught on lidar (`scripts/window_test.py`, `scripts/lidar_gain_head.py`, `results/window_test.json`, `results/lidar_gain_head.json`)
+
+Three checks on the change view with the map's head (one year of AlphaEarth, taught on all 92 squares, none of them
+lidar squares). The harness reproduces section 31's map row exactly on the lidar pixels (gain floor .387 found, .015
+lit). About 2 minutes and 3.5 GB for `window_test.py`; 8 minutes and 1.5 GB for `lidar_gain_head.py`.
+
+**Loss size.** The map draws a loss's size as the head's fall f blended 2/3 of the way toward tanh(f / loss factor),
+capped at the pixel's biomass (`web/src/change.ts`). Against lidar's canopy fall (a share of the first flight's
+height) on the forest pixels (5 m or taller) the map draws as loss, nine two-flight squares:
+
+| Rule | Rank with lidar fall, per pixel: all / harvest and storm | Median drawn, harvest and storm (lidar .958) | Drawn at -100 % | Per 100 m cell, lidar fell 25 % or more: median drawn (lidar .933, harvest and storm) |
+|---|---|---|---|---|
+| Raw fall | **.61** / **.48** | .751 | 0 | .70 |
+| Loss factor + cap (the rule before) | .34 / .37 | 1.0 | .65 (.76) | **.97** |
+| Soft 2/3 (the map now) | .48 / .47 | .799 | 0 | .76 |
+| Soft curve | .29 / .46 | .822 | 0 | .79 |
+
+- **The map's rule keeps partial loss apart about as well as the raw fall** on harvest and storm (rank .47 against
+  .48) and much better than the factor with the cap (.37), which draws three quarters of those pixels at -100 %.
+- **It draws clear loss short.** Lidar says 96 % of the canopy went (median, per pixel) where the map draws 80 %; per
+  100 m cell 76 % against 93 %. The factor with the cap gets the size of clear loss right (97 %) and flattens all the
+  rest.
+- **The head barely tells partial from full loss.** Within the pixels drawn, the drawn size is nearly flat from 10 %
+  to 75 % lidar fall under every rule (the map: .66, .67, .69, .68), rising only above 75 % (.81). The limit is the
+  head's fall, not the rule laid on it.
+- **On burns lidar is not a referee.** On Eaton and Palisades (flights 2023 and 2025) the pixels drawn as loss have a
+  median lidar canopy fall of 8 %, and 36 % of the forest where lidar's canopy fell under 10 % is drawn (2.7 % on
+  harvest and storm). Lidar's canopy height counts trees that stand dead, and both the map and lidar miss what the
+  other sees (rank .14). Burn severity needs a reference that tells dead from live.
+- Lidar finds .71 of its lost forest drawn (.75 harvest and storm, .55 burns).
+- Caveat: canopy height fall is not biomass fall. On clear loss both reach about 100 %, so the size comparison is
+  fair there; partial fall in height can under- or overstate the biomass that went.
+
+**Gain by window length.** Esri's "became trees" against steady ground, every square and window 2018 to 2024; every
+variant on the same pixels (valid in every year of the window). "Trend" is the least-squares slope of the head's
+yearly biomass over every year of the window, times its length (Theil-Sen within .005 of it).
+
+| Window | AUC: two years / trend | Found at 2 % lit | Grew: median rise, Mg/ha | Steady: p90 of the change, Mg/ha | Floor: found / lit |
+|---|---|---|---|---|---|
+| 1 year | .587 / .587 | .016 | 1.7 | 19.4 | .061 / .019 |
+| 2 | .616 / .616 | .023 | 2.7 | 22.8 | .077 / .027 |
+| 3 | .631 / .632 | .031 | 3.6 | 25.1 | .084 / .028 |
+| 4 | .645 / .651 | .043 | 4.2 | 26.3 | .093 / .027 |
+| 5 | .660 / .667 | .037 | 4.8 | 27.2 | .083 / .026 |
+| 6 | .655 / .658 | .042 | 4.7 | 29.4 | .071 / .024 |
+
+- **Longer windows help a little**: AUC .59 over one year to .66 over five, as the rise grows faster than the steady
+  noise. Esri's "became trees" stays a weak signal at every length (a median rise of 2 to 5 Mg/ha against steady
+  noise of 19 to 29).
+- **A trend over every year of the window adds next to nothing** (+.006 AUC at four and five years) and against lidar
+  it is slightly worse (found at 2 % lit .447 against .473 for the two years).
+- **Lidar cannot split by window length**: each square's gap is tied to its place. Five years is the two New Zealand
+  squares (found at the floor .505), four is Estonia and Esk Valley (.156), one and two years have almost no
+  regrowth. Window and place cannot be told apart there.
+
+**Gain taught on lidar.** The only teacher that is not itself a model. Gradient-boosted trees on AlphaEarth at both
+flight years and their difference (and the window's length), target: lidar's canopy rose 2 m. Held out by square
+(leave one out), scored as section 31 against steady (moved under 0.5 m):
+
+| Square (flights) | Gained px | AUC: lidar-taught / map | Found at 2 % lit: lidar-taught / map | At the map floor's lit: lidar-taught / map floor |
+|---|---|---|---|---|
+| NZ Glenbervie (2019, 2024) | 148,092 | .899 / .819 | .340 / .421 | .608 / .566 (lit .087) |
+| NZ Esk Valley (2020, 2024) | 11,856 | .862 / .771 | .659 / .517 | .704 / .585 (lit .043) |
+| NZ Banks (2018, 2023) | 18,129 | .982 / .309 | .804 / .159 | .176 / .006 (lit 0) |
+| NZ Roxburgh (2021, 2022) | 376 | .968 / .481 | .548 / .021 | (the floor lights nothing) |
+| EE Lahemaa (2018, 2022) | 56,194 | .857 / .670 | .164 / .096 | .183 / .105 (lit .023) |
+| EE Kivioli (2018, 2022) | 4,126 | .848 / .718 | .605 / .198 | (the floor lights nothing) |
+| EE Tartu (2019, 2023) | 10,033 | .781 / .458 | .172 / .036 | (the floor lights nothing) |
+| US Eaton (2023, 2025) | 992 | .564 / .408 | .044 / .019 | |
+| US Palisades (2023, 2025) | 193 | .691 / .498 | .176 / .042 | |
+| **Pooled** | 249,991 | .964 / .785 | **.671** / .473 | **.597** / .387 (lit .015) |
+
+- **On every held-out square the lidar-taught head ranks regrowth above steady ground better than the map.** At the
+  map's own false alarm rate (1.5 % of steady lit) it finds six in ten of lidar's regrowth pixels against four in ten.
+  On Banks the map's rise runs against lidar's (AUC .31); the lidar-taught head reads it at .98.
+- Adding the map's biomass and change to the inputs does not help (pooled found at the floor's lit .567 against .597).
+- **It does not carry over to Esri's "became trees"** on the other squares: AUC .58 against the map's .61, found at
+  2 % lit .020 for both. Either Esri's label is the weak referee section 31 found it to be (AUC .52 to .69 for every
+  head), or the head learned what canopy rise looks like in New Zealand and Estonian forest, where all its regrowth
+  comes from, and not elsewhere. Nine squares in three countries; Glenbervie holds 59 % of the gained pixels.
+- The pooled AUC (.96) is above every square's because it also ranks whole squares against each other; the per-square
+  numbers (.78 to .98 on the seven with regrowth) are the fair ones.
+- Not tested yet: whether it sees the rise or predicts it. Each year's embedding is an input, so it may learn where
+  canopy tends to rise (young plantation) as much as the rise itself; a difference-only input would tell.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
@@ -1374,6 +1460,12 @@ Tested in sections 17 to 31; what is still open (directions, not ranked):
   steady ground lit (the trajectory head on AEF + TESSERA to a third), so they serve a stricter cutoff, at three to
   thirteen times the map's read for a change view.
 - **Tundra**: Esri files it as rangeland (section 28); the Berner / Orndahl Arctic biomass maps are the check.
+- **Loss size** (section 32): the map's soft 2/3 rule keeps partial loss apart but draws clear loss 15 to 20 points
+  short of lidar; the head's fall is nearly flat across partial loss, so a rule cannot fix it alone. Burn severity
+  needs a reference that tells dead trees from live ones; lidar height does not.
+- **Gain taught on lidar** (section 32): beats the map on every held-out lidar square, not on Esri's "became trees".
+  Open: a difference-only input (sees the rise or predicts it), lidar squares with regrowth outside New Zealand and
+  Estonia, and in the browser a small network in place of the trees (two years of AlphaEarth, already read).
 - **Change** (earlier): loss and gain from separate sources (section 22); AEF for both parts, gain above a floor at the head's
   own size, is the best against lidar (.84 per cell) and the cheapest to read. Regrowth stays the weak half (at
   most four in ten of lidar's gained cells); full-size gain lights steady ground, and the gradual gate did not

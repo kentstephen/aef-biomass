@@ -109,6 +109,8 @@ forest.
 | `change_confidence.py` | The head's change on steady ground (Esri class held, CTrees steady) per class and window length: how big a change must be to be believed |
 | `change_confidence_test.py` | Every way of drawing change with its confidence (one percent table, per class, with the embedding's move; gain per pixel, sliding 100 m or fixed blocks) against lidar and Esri's changes, held out by square |
 | `growth_test.py` | The ways to a stronger growth signal (the trajectory head, TESSERA, the two together) under `change_confidence_test.py`'s harness, every head held out; for the map's head, the confidence keyed on its own class, and the browser's tables (`--write-tables`) |
+| `window_test.py` | The map's loss size (its soft rule and the others) against lidar's canopy fall; gain by window length, two years against a trend over every year of the window, on Esri's changes and lidar |
+| `lidar_gain_head.py` | Gain taught on lidar's canopy rise directly (AlphaEarth at both flight years), held out by square, beside the map's gain; then on Esri's "became trees" over every other square |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold

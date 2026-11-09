@@ -1,0 +1,603 @@
+{
+ "note": "held out by square; gained = canopy rose 2 m, steady = moved under 0.5 m",
+ "variants": {
+  "embeddings": {
+   "pooled": {
+    "gained": 249991,
+    "steady": 1317703,
+    "lidar head": {
+     "auc": 0.9638,
+     "found_at_2pct_lit": 0.6708
+    },
+    "map rise": {
+     "auc": 0.7849,
+     "found_at_2pct_lit": 0.4734,
+     "floor_found": 0.3868,
+     "floor_lit": 0.015
+    },
+    "lidar head at map floor's lit": 0.5971
+   },
+   "per square": {
+    "lidar-nz-glenbervie": {
+     "gained": 148092,
+     "steady": 73773,
+     "lidar head": {
+      "auc": 0.8993,
+      "found_at_2pct_lit": 0.3398
+     },
+     "map rise": {
+      "auc": 0.8187,
+      "found_at_2pct_lit": 0.4208,
+      "floor_found": 0.5656,
+      "floor_lit": 0.0869
+     },
+     "lidar head at map floor's lit": 0.6081,
+     "years": [
+      2019,
+      2024
+     ]
+    },
+    "lidar-nz-esk-valley": {
+     "gained": 11856,
+     "steady": 276768,
+     "lidar head": {
+      "auc": 0.8623,
+      "found_at_2pct_lit": 0.6594
+     },
+     "map rise": {
+      "auc": 0.771,
+      "found_at_2pct_lit": 0.5168,
+      "floor_found": 0.5849,
+      "floor_lit": 0.043
+     },
+     "lidar head at map floor's lit": 0.7038,
+     "years": [
+      2020,
+      2024
+     ]
+    },
+    "lidar-nz-roxburgh": {
+     "gained": 376,
+     "steady": 183172,
+     "lidar head": {
+      "auc": 0.9678,
+      "found_at_2pct_lit": 0.5479
+     },
+     "map rise": {
+      "auc": 0.4808,
+      "found_at_2pct_lit": 0.0213,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.0,
+     "years": [
+      2021,
+      2022
+     ]
+    },
+    "lidar-nz-banks": {
+     "gained": 18129,
+     "steady": 267985,
+     "lidar head": {
+      "auc": 0.9818,
+      "found_at_2pct_lit": 0.8036
+     },
+     "map rise": {
+      "auc": 0.3091,
+      "found_at_2pct_lit": 0.159,
+      "floor_found": 0.0062,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.1756,
+     "years": [
+      2018,
+      2023
+     ]
+    },
+    "lidar-ee-lahemaa": {
+     "gained": 56194,
+     "steady": 44855,
+     "lidar head": {
+      "auc": 0.8569,
+      "found_at_2pct_lit": 0.1639
+     },
+     "map rise": {
+      "auc": 0.6698,
+      "found_at_2pct_lit": 0.0963,
+      "floor_found": 0.105,
+      "floor_lit": 0.0227
+     },
+     "lidar head at map floor's lit": 0.1825,
+     "years": [
+      2018,
+      2022
+     ]
+    },
+    "lidar-ee-kivioli": {
+     "gained": 4126,
+     "steady": 149122,
+     "lidar head": {
+      "auc": 0.8475,
+      "found_at_2pct_lit": 0.6054
+     },
+     "map rise": {
+      "auc": 0.7183,
+      "found_at_2pct_lit": 0.1978,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.1076,
+     "years": [
+      2018,
+      2022
+     ]
+    },
+    "lidar-ee-tartu": {
+     "gained": 10033,
+     "steady": 82046,
+     "lidar head": {
+      "auc": 0.7814,
+      "found_at_2pct_lit": 0.1718
+     },
+     "map rise": {
+      "auc": 0.4578,
+      "found_at_2pct_lit": 0.0364,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.0028,
+     "years": [
+      2019,
+      2023
+     ]
+    },
+    "lidar-us-eaton": {
+     "gained": 992,
+     "steady": 139321,
+     "lidar head": {
+      "auc": 0.5635,
+      "found_at_2pct_lit": 0.0444
+     },
+     "map rise": {
+      "auc": 0.4077,
+      "found_at_2pct_lit": 0.0192,
+      "floor_found": 0.001,
+      "floor_lit": 0.0022
+     },
+     "lidar head at map floor's lit": 0.0071,
+     "years": [
+      2023,
+      2025
+     ]
+    },
+    "lidar-us-palisades": {
+     "gained": 193,
+     "steady": 100661,
+     "lidar head": {
+      "auc": 0.691,
+      "found_at_2pct_lit": 0.1762
+     },
+     "map rise": {
+      "auc": 0.498,
+      "found_at_2pct_lit": 0.0415,
+      "floor_found": 0.0,
+      "floor_lit": 0.0008
+     },
+     "lidar head at map floor's lit": 0.0207,
+     "years": [
+      2023,
+      2025
+     ]
+    }
+   }
+  },
+  "embeddings + head": {
+   "pooled": {
+    "gained": 249991,
+    "steady": 1317703,
+    "lidar head": {
+     "auc": 0.9648,
+     "found_at_2pct_lit": 0.6468
+    },
+    "map rise": {
+     "auc": 0.7849,
+     "found_at_2pct_lit": 0.4734,
+     "floor_found": 0.3868,
+     "floor_lit": 0.015
+    },
+    "lidar head at map floor's lit": 0.5665
+   },
+   "per square": {
+    "lidar-nz-glenbervie": {
+     "gained": 148092,
+     "steady": 73773,
+     "lidar head": {
+      "auc": 0.8924,
+      "found_at_2pct_lit": 0.3358
+     },
+     "map rise": {
+      "auc": 0.8187,
+      "found_at_2pct_lit": 0.4208,
+      "floor_found": 0.5656,
+      "floor_lit": 0.0869
+     },
+     "lidar head at map floor's lit": 0.5866,
+     "years": [
+      2019,
+      2024
+     ]
+    },
+    "lidar-nz-esk-valley": {
+     "gained": 11856,
+     "steady": 276768,
+     "lidar head": {
+      "auc": 0.8615,
+      "found_at_2pct_lit": 0.6583
+     },
+     "map rise": {
+      "auc": 0.771,
+      "found_at_2pct_lit": 0.5168,
+      "floor_found": 0.5849,
+      "floor_lit": 0.043
+     },
+     "lidar head at map floor's lit": 0.7001,
+     "years": [
+      2020,
+      2024
+     ]
+    },
+    "lidar-nz-roxburgh": {
+     "gained": 376,
+     "steady": 183172,
+     "lidar head": {
+      "auc": 0.9598,
+      "found_at_2pct_lit": 0.5665
+     },
+     "map rise": {
+      "auc": 0.4808,
+      "found_at_2pct_lit": 0.0213,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.0106,
+     "years": [
+      2021,
+      2022
+     ]
+    },
+    "lidar-nz-banks": {
+     "gained": 18129,
+     "steady": 267985,
+     "lidar head": {
+      "auc": 0.9828,
+      "found_at_2pct_lit": 0.8185
+     },
+     "map rise": {
+      "auc": 0.3091,
+      "found_at_2pct_lit": 0.159,
+      "floor_found": 0.0062,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.1802,
+     "years": [
+      2018,
+      2023
+     ]
+    },
+    "lidar-ee-lahemaa": {
+     "gained": 56194,
+     "steady": 44855,
+     "lidar head": {
+      "auc": 0.8388,
+      "found_at_2pct_lit": 0.1055
+     },
+     "map rise": {
+      "auc": 0.6698,
+      "found_at_2pct_lit": 0.0963,
+      "floor_found": 0.105,
+      "floor_lit": 0.0227
+     },
+     "lidar head at map floor's lit": 0.1189,
+     "years": [
+      2018,
+      2022
+     ]
+    },
+    "lidar-ee-kivioli": {
+     "gained": 4126,
+     "steady": 149122,
+     "lidar head": {
+      "auc": 0.8441,
+      "found_at_2pct_lit": 0.6365
+     },
+     "map rise": {
+      "auc": 0.7183,
+      "found_at_2pct_lit": 0.1978,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.0836,
+     "years": [
+      2018,
+      2022
+     ]
+    },
+    "lidar-ee-tartu": {
+     "gained": 10033,
+     "steady": 82046,
+     "lidar head": {
+      "auc": 0.7856,
+      "found_at_2pct_lit": 0.1588
+     },
+     "map rise": {
+      "auc": 0.4578,
+      "found_at_2pct_lit": 0.0364,
+      "floor_found": 0.0,
+      "floor_lit": 0.0
+     },
+     "lidar head at map floor's lit": 0.0033,
+     "years": [
+      2019,
+      2023
+     ]
+    },
+    "lidar-us-eaton": {
+     "gained": 992,
+     "steady": 139321,
+     "lidar head": {
+      "auc": 0.5623,
+      "found_at_2pct_lit": 0.0403
+     },
+     "map rise": {
+      "auc": 0.4077,
+      "found_at_2pct_lit": 0.0192,
+      "floor_found": 0.001,
+      "floor_lit": 0.0022
+     },
+     "lidar head at map floor's lit": 0.006,
+     "years": [
+      2023,
+      2025
+     ]
+    },
+    "lidar-us-palisades": {
+     "gained": 193,
+     "steady": 100661,
+     "lidar head": {
+      "auc": 0.6404,
+      "found_at_2pct_lit": 0.0829
+     },
+     "map rise": {
+      "auc": 0.498,
+      "found_at_2pct_lit": 0.0415,
+      "floor_found": 0.0,
+      "floor_lit": 0.0008
+     },
+     "lidar head at map floor's lit": 0.0104,
+     "years": [
+      2023,
+      2025
+     ]
+    }
+   }
+  }
+ },
+ "esri": {
+  "embeddings": {
+   "all": {
+    "gained": 2282645,
+    "steady": 2029610,
+    "lidar head": {
+     "auc": 0.5811,
+     "found_at_2pct_lit": 0.0201
+    },
+    "map rise": {
+     "auc": 0.6144,
+     "found_at_2pct_lit": 0.02,
+     "floor_found": 0.061,
+     "floor_lit": 0.0244
+    },
+    "lidar head at map floor's lit": 0.0246
+   },
+   "L1": {
+    "gained": 528169,
+    "steady": 647433,
+    "lidar head": {
+     "auc": 0.5408,
+     "found_at_2pct_lit": 0.0047
+    },
+    "map rise": {
+     "auc": 0.5758,
+     "found_at_2pct_lit": 0.0129,
+     "floor_found": 0.0525,
+     "floor_lit": 0.019
+    },
+    "lidar head at map floor's lit": 0.004
+   },
+   "L2": {
+    "gained": 548150,
+    "steady": 502344,
+    "lidar head": {
+     "auc": 0.5621,
+     "found_at_2pct_lit": 0.0052
+    },
+    "map rise": {
+     "auc": 0.6001,
+     "found_at_2pct_lit": 0.0173,
+     "floor_found": 0.0638,
+     "floor_lit": 0.0262
+    },
+    "lidar head at map floor's lit": 0.0079
+   },
+   "L3": {
+    "gained": 445019,
+    "steady": 373113,
+    "lidar head": {
+     "auc": 0.5687,
+     "found_at_2pct_lit": 0.0104
+    },
+    "map rise": {
+     "auc": 0.6128,
+     "found_at_2pct_lit": 0.0167,
+     "floor_found": 0.0653,
+     "floor_lit": 0.0288
+    },
+    "lidar head at map floor's lit": 0.0164
+   },
+   "L4": {
+    "gained": 349897,
+    "steady": 263856,
+    "lidar head": {
+     "auc": 0.5841,
+     "found_at_2pct_lit": 0.0197
+    },
+    "map rise": {
+     "auc": 0.6326,
+     "found_at_2pct_lit": 0.0209,
+     "floor_found": 0.0684,
+     "floor_lit": 0.0271
+    },
+    "lidar head at map floor's lit": 0.0288
+   },
+   "L5": {
+    "gained": 274141,
+    "steady": 165139,
+    "lidar head": {
+     "auc": 0.5976,
+     "found_at_2pct_lit": 0.0165
+    },
+    "map rise": {
+     "auc": 0.6561,
+     "found_at_2pct_lit": 0.0138,
+     "floor_found": 0.0586,
+     "floor_lit": 0.0256
+    },
+    "lidar head at map floor's lit": 0.0194
+   },
+   "L6": {
+    "gained": 137269,
+    "steady": 77725,
+    "lidar head": {
+     "auc": 0.5976,
+     "found_at_2pct_lit": 0.0206
+    },
+    "map rise": {
+     "auc": 0.6406,
+     "found_at_2pct_lit": 0.0217,
+     "floor_found": 0.0547,
+     "floor_lit": 0.0241
+    },
+    "lidar head at map floor's lit": 0.0222
+   }
+  },
+  "embeddings + head": {
+   "all": {
+    "gained": 2282645,
+    "steady": 2029610,
+    "lidar head": {
+     "auc": 0.552,
+     "found_at_2pct_lit": 0.0169
+    },
+    "map rise": {
+     "auc": 0.6144,
+     "found_at_2pct_lit": 0.02,
+     "floor_found": 0.061,
+     "floor_lit": 0.0244
+    },
+    "lidar head at map floor's lit": 0.0206
+   },
+   "L1": {
+    "gained": 528169,
+    "steady": 647433,
+    "lidar head": {
+     "auc": 0.5142,
+     "found_at_2pct_lit": 0.0112
+    },
+    "map rise": {
+     "auc": 0.5758,
+     "found_at_2pct_lit": 0.0129,
+     "floor_found": 0.0525,
+     "floor_lit": 0.019
+    },
+    "lidar head at map floor's lit": 0.0104
+   },
+   "L2": {
+    "gained": 548150,
+    "steady": 502344,
+    "lidar head": {
+     "auc": 0.5341,
+     "found_at_2pct_lit": 0.0044
+    },
+    "map rise": {
+     "auc": 0.6001,
+     "found_at_2pct_lit": 0.0173,
+     "floor_found": 0.0638,
+     "floor_lit": 0.0262
+    },
+    "lidar head at map floor's lit": 0.0071
+   },
+   "L3": {
+    "gained": 445019,
+    "steady": 373113,
+    "lidar head": {
+     "auc": 0.5317,
+     "found_at_2pct_lit": 0.0087
+    },
+    "map rise": {
+     "auc": 0.6128,
+     "found_at_2pct_lit": 0.0167,
+     "floor_found": 0.0653,
+     "floor_lit": 0.0288
+    },
+    "lidar head at map floor's lit": 0.0126
+   },
+   "L4": {
+    "gained": 349897,
+    "steady": 263856,
+    "lidar head": {
+     "auc": 0.5613,
+     "found_at_2pct_lit": 0.0208
+    },
+    "map rise": {
+     "auc": 0.6326,
+     "found_at_2pct_lit": 0.0209,
+     "floor_found": 0.0684,
+     "floor_lit": 0.0271
+    },
+    "lidar head at map floor's lit": 0.0287
+   },
+   "L5": {
+    "gained": 274141,
+    "steady": 165139,
+    "lidar head": {
+     "auc": 0.5652,
+     "found_at_2pct_lit": 0.0168
+    },
+    "map rise": {
+     "auc": 0.6561,
+     "found_at_2pct_lit": 0.0138,
+     "floor_found": 0.0586,
+     "floor_lit": 0.0256
+    },
+    "lidar head at map floor's lit": 0.0193
+   },
+   "L6": {
+    "gained": 137269,
+    "steady": 77725,
+    "lidar head": {
+     "auc": 0.5633,
+     "found_at_2pct_lit": 0.0207
+    },
+    "map rise": {
+     "auc": 0.6406,
+     "found_at_2pct_lit": 0.0217,
+     "floor_found": 0.0547,
+     "floor_lit": 0.0241
+    },
+    "lidar head at map floor's lit": 0.0219
+   }
+  }
+ },
+ "seconds": 459,
+ "peak_gb": 1.45
+}
