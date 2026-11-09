@@ -4,12 +4,14 @@ What the tests in this repo found, November 2026. Sections 1 to 5 are tree loss 
 10 are biomass and land cover over every kind of ground (the second); sections 11 to 16 work through the open items
 of the second (margins of error, calibrated change, the top end, regrowth, hard ground, airborne lidar); sections 17
 to 26 test the open directions; sections 27 to 30 check the map's head on burn scars and land cover, and how to
-draw change with its confidence; sections 31 and 32 test the growth signal, the size of loss against lidar and gain
-taught on lidar. Three 10 m yearly embeddings, compared on the same pixels:
+draw change with its confidence; sections 31 to 33 test the growth signal, the size of loss against lidar and gain
+taught on lidar; sections 34 to 38 check the map against references its head never saw (grass abroad, plot biomass
+in tall forest, tundra, a burn flown before and after) and put the lidar-taught gain in the browser. Three 10 m
+yearly embeddings, compared on the same pixels:
 AlphaEarth Foundations (AEF, 64 numbers), TESSERA v1.1 (128) and OlmoEarth v1.3 (128). Years 2018 to 2025 (2017
 is left out: TESSERA lacks much of it and AEF rebuilt it differently). Reference: Hansen Global Forest Change v1.12
 (30 m, loss year to 2024), which has its own errors. The pixels in sections 1 to 3 come from Earthwork
-(`~/dev/projects/aef-tessera-earthwork/data`); section 4's squares were picked and read here.
+([aef-tessera-earthwork](https://github.com/kentstephen/aef-tessera-earthwork)'s `data/`); section 4's squares were picked and read here.
 
 ## 1. The signal is there (`scripts/signal_trees.py`, `scripts/trees3.py`)
 

@@ -1,7 +1,7 @@
 # Plan: biomass classes and their change, from yearly embeddings
 
-Started November 2026. Findings so far are in `FINDINGS.md`. This file is the plan; append dated sections, do not
-rewrite old ones.
+Started November 2026. Kept as written: this is the original testing plan. The map it describes has since been
+built (see the README's "How the map works"), and every test is in `FINDINGS.md`.
 
 ## Goal
 

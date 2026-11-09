@@ -83,19 +83,15 @@ forest.
 
 ## Files
 
-- `FINDINGS.md`: what the tests found so far. Biomass, canopy height and land cover from one year's embedding over 92
-  squares of every kind of ground, held out by square and by continent; biomass change against CTrees; Earthwork's
-  trouble spots through the biomass head; the three embeddings side by side. Before that, tree loss (signal, false
-  alarms, 37 squares wall to wall, fire-knn's volume head abroad). After it: class margins of error, change
-  calibrated per window length, the squeezed top end and a second biomass map (ESA CCI), a head on the whole
-  series for regrowth, classes where the land cover maps disagree, and airborne lidar canopy height and change.
-  Then grass against RAP (a yearly rangeland biomass map that is not CTrees), the classes calibrated on the pixels
-  where the land cover maps disagree, shrub against the SoCal chaparral map, the open directions tested (grass,
-  hard-ground classes, combined change, the top end and shrub level against lidar, more lidar read at 2 m, tree
-  loss), and which embeddings the map should read, accuracy against bandwidth. Then the map's head inside burn
-  scars, biomass by land cover against Annual NLCD and Esri's annual land cover, the noise on steady ground per
-  class, and which way of drawing change with its confidence works (loss, and gain at pixel or 100 m size).
-- `PLAN.md`: the plan for the biomass classes and their change.
+- `FINDINGS.md`: every test behind the map, in order, with what did not work. Tree loss (sections 1 to 5);
+  biomass, canopy height and land cover from one year's embedding over 92 squares of every kind of ground, held out
+  by square and by continent (6 to 10); margins of error, calibrated change, the top end, regrowth, hard ground and
+  airborne lidar (11 to 16); grass, shrub, combined change, lidar at 2 m, tree loss and which embeddings to read (17
+  to 26); the map's head on burns and land cover, steady-ground noise and drawing change with its confidence (27 to
+  30); growth, loss size and gain taught on lidar (31 to 33); and checks against references the head never saw:
+  grass abroad, plot biomass in tall forest, tundra, a burn flown before and after, and the lidar-taught gain in the
+  browser (34 to 38).
+- `PLAN.md`: the original testing plan (November 2026), kept as written; the map has since been built.
 - `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
   workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
   between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn and
@@ -147,6 +143,7 @@ forest.
 | `window_test.py` | The map's loss size (its soft rule and the others) against lidar's canopy fall; gain by window length, two years against a trend over every year of the window, on Esri's changes and lidar |
 | `lidar_gain_head.py` | Gain taught on lidar's canopy rise directly (AlphaEarth at both flight years), held out by square, beside the map's gain; then on Esri's "became trees" over every other square; `--variants difference,"first year"` for the difference alone and the first year alone |
 | `grass_abroad.py` | Grass years outside the US against Wu et al. 2026 global grassland biomass (500 m, 2018 to 2022), the map and a RAP-taught head; Wu against RAP at home |
+| `export_biomass_head.py` | Exports the map's head (one year's AlphaEarth to biomass, canopy height and class) to `web/public/models/biomass_aef.json` |
 | `aef_read.py` | AlphaEarth (raw int8) over any lon/lat box from the mosaic, and the map's head on it, for the label checks outside the squares |
 | `top_end_plots.py` | The top end against plot biomass: Rodda et al. 2024 lidar and plot maps (13 tropical sites) and GEO-TREES census subplots, beside CTrees and CCI |
 | `tundra_check.py`, `orndahl_read.py` | Tundra against Orndahl's 30 m Arctic biomass (2020) on 11 squares and the Berner harvest plots from 2017 on; a reader for Orndahl's striped tiles over HTTP |
@@ -157,8 +154,8 @@ forest.
 Several scripts read pixels and labels that the Earthwork repos already hold
 (`../aef-tessera-earthwork/data`, built by [aef-tessera-earthwork](https://github.com/kentstephen/aef-tessera-earthwork)) and
 run with its environment: `uv run --project ../aef-tessera-earthwork --with psutil python scripts/<script>.py`. The
-others carry their dependencies inline (`uv run scripts/<script>.py`). Data and logs are not in the repo; results are
-in `results/`.
+others carry their dependencies inline (`uv run scripts/<script>.py`). Those scripts expect aef-tessera-earthwork
+cloned at `~/dev/projects/aef-tessera-earthwork`. Data and logs are not in the repo; results are in `results/`.
 
 ## Data
 
@@ -173,6 +170,12 @@ Rangeland Analysis Platform v3 (Univ. of Montana), MTBS burned area perimeters (
 Cooperative), and the SoCal annual biomass map (Schrader-Patton et al., Dryad, CC0; its download needs a browser or a
 Dryad account token), GLAD forest loss due to fire (University of Maryland), Sentinel-2 L2A (Earth Search), and airborne
 lidar read at 2 m: IGN LiDAR HD canopy height (France), the Scottish Remote Sensing Portal, NRCan HRDEM (Canada),
-AHN5 (the Netherlands) and Kartverket (Norway). The picks are in `results/veg_squares.json`,
+AHN5 (the Netherlands) and Kartverket (Norway). For the label checks of sections 34 to 37: Wu et al. 2026 global
+grassland biomass (Zenodo 18044163, CC BY 4.0), Rodda et al. 2024 lidar-based biomass maps (IRD Dataverse
+doi:10.23708/H2MHXF, CC BY 4.0), GEO-TREES plot biomass (IIASA, GEO-TREES terms), Orndahl et al. 30 m Arctic plant
+biomass (Arctic Data Center doi:10.18739/A2NS0M06B), the Berner et al. 2024 Arctic plant biomass synthesis (Arctic
+Data Center doi:10.18739/A2QJ78081), and NRCan HRDEM lidar over Jasper (Open Government Licence Canada). The map's
+imagery: EOxCloudless by EOX IT Services GmbH, 2019 to 2025 (free for non-commercial use with attribution), and the
+Copernicus Sentinel-2 Global Mosaics (ESA) for 2018, via TGE Labs on Source Cooperative. The picks are in `results/veg_squares.json`,
 `results/lidar_squares.json`, `results/lidar2_squares.json` and `results/us_squares.json`; trained heads and cell
 tables stay in `data/`.
