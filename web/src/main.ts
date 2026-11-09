@@ -607,7 +607,7 @@ let bioLayers: unknown[] = [];
 let s2Main: unknown[] = [], s2Left: unknown[] = [];
 /**
  * The imagery's year is the year ([ ]): the embeddings' in each year; in change the imagery's own, which each year
- * opens on. The nearest with a mosaic (EOX's start in 2019).
+ * opens on. The nearest with a mosaic (EOX's start in 2018).
  */
 const mapYear = () => st.year;
 const imgYear = () => s2YearFor(mapYear());
