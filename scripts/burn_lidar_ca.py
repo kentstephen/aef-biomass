@@ -17,7 +17,7 @@ the trees stand dead (height kept, cover gone). Lytton (2021) has no pre-fire fl
 2019 projects listed for it overlap the 2023 flight only 100 km south), and Fort McMurray (May 2016) has no pre-fire
 AlphaEarth year, so Jasper is the one pair here.
 
-Writes results/burn_lidar_ca.json and data/lidar/jasper_burn.npz (per-pixel table). Peak RAM about 3 GB.
+Writes results/burn_lidar_ca.json. Peak RAM about 2 GB.
 
     uv run --project ~/dev/projects/aef-tessera-earthwork --with psutil --with shapely --with icechunk --with xarray \
         --with requests --with pyproj --with pyogrio --with scipy python scripts/burn_lidar_ca.py
@@ -41,7 +41,6 @@ import aef_read as ar  # noqa: E402
 import top_end_plots as tp  # noqa: E402
 
 OUT = HERE / "results" / "burn_lidar_ca.json"
-TAB = HERE / "data" / "lidar" / "jasper_burn.npz"
 EXT = HERE / "data" / "labels_new" / "hrdem"
 URL = "https://canelevation-dem.s3.ca-central-1.amazonaws.com/hrdem-lidar/{}-{}.tif"
 P19, P24 = "NRCAN-Jasper_Park_2019_2-1m", "PC-Jasper_2024-1m"
@@ -122,7 +121,10 @@ def main():
         for d in dss.values():
             d.close()
     n = acc.pop("n")
-    keep = n >= 80
+    # 1 m cells per AlphaEarth pixel at this latitude (about 10 m north-south by 6 m east-west at 53 N); 80 % of them
+    mid_lat = float(np.mean(lats))
+    per_px = (ar.RES * 111320) ** 2 * np.cos(np.radians(mid_lat))
+    keep = n >= 0.8 * per_px
     T = {k: np.where(keep, v / np.maximum(n, 1), np.nan).astype(np.float32) for k, v in acc.items()}
     idx = np.flatnonzero(keep)
     print(f"pixels with both flights: {idx.size} [{time.time() - t0:.0f} s]", flush=True)
@@ -134,15 +136,23 @@ def main():
     tab["loss"] = tp.hansen_loss(LONk[None, :], LATk[None, :]).ravel()
     ct = tp.ctrees(LONk[None, :], LATk[None, :], [2019, 2024])
     tab["ct19"], tab["ct24"] = ct[0].ravel(), ct[1].ravel()
+    # AlphaEarth in strips of rows, the head in batches: the whole box at once is several GB
+    STRIP = 256
+    rows_of = idx // Ww
     for Y in YEARS:
-        q = ar.raw(rc, Y)
-        agb, _, _ = ar.head(q[idx])
+        agb = np.full(idx.size, np.nan, np.float32)
+        for r0 in range(0, Hh, STRIP):
+            sel = np.flatnonzero((rows_of >= r0) & (rows_of < r0 + STRIP))
+            if not sel.size:
+                continue
+            q = ar.raw((y0 + r0, y0 + min(r0 + STRIP, Hh), x0, x1), Y)
+            local = idx[sel] - r0 * Ww
+            agb[sel] = ar.head(q[local])[0]
+            del q
         tab[f"map{Y}"] = agb
-        del q
         print(f"  AlphaEarth {Y} [{time.time() - t0:.0f} s, {proc.memory_info().rss / 1e9:.1f} GB]", flush=True)
     tab["block"] = ((idx // Ww) // 10 * (Ww // 10 + 1) + (idx % Ww) // 10).astype(np.int64)
     tab["lon"], tab["lat"] = LONk.astype(np.float32), LATk.astype(np.float32)
-    np.savez_compressed(TAB, **tab)
     res = analyze(tab) | {"overlap km2": round(O.area / 1e6, 1), "pixels": int(idx.size), "seconds": round(time.time() - t0),
                           "peak_gb": round(proc.memory_info().rss / 1e9, 2)}
     json.dump(res, open(OUT, "w"), indent=1)

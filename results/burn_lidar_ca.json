@@ -1,0 +1,109 @@
+{
+ "forest px": 3121959,
+ "burned px (Hansen 2024)": 2784125,
+ "steady px": 295892,
+ "tells burned from steady forest (AUC)": {
+  "lidar height fall": 0.9069,
+  "lidar cover fall (>2 m)": 0.8935,
+  "lidar cover fall (>5 m)": 0.8907,
+  "map fall 2019-2025": 0.957,
+  "map fall 2019-2024": 0.7775,
+  "CTrees fall 2019-2024": 0.5706
+ },
+ "median fall": {
+  "burned": {
+   "lidar height": 0.943,
+   "lidar cover >2 m": 0.904,
+   "lidar cover >5 m": 0.98,
+   "map 2019-2025": 0.845,
+   "map 2019-2024": 0.212,
+   "CTrees 2019-2024": 0.02
+  },
+  "steady": {
+   "lidar height": 0.191,
+   "lidar cover >2 m": 0.034,
+   "lidar cover >5 m": 0.111,
+   "map 2019-2025": 0.157,
+   "map 2019-2024": 0.006,
+   "CTrees 2019-2024": 0.008
+  }
+ },
+ "levels, burned": {
+  "h19": 13.209,
+  "h24": 0.687,
+  "c19": 1.0,
+  "c24": 0.086,
+  "map2019": 80.549,
+  "map2024": 63.003,
+  "map2025": 12.078,
+  "ct19": 74.3,
+  "ct24": 73.3
+ },
+ "burned, height kept and cover gone (standing dead)": {
+  "share of burned": 0.0,
+  "map fall": 0.591,
+  "lidar height fall": 0.22,
+  "lidar cover fall": 0.521
+ },
+ "burned, height fell by half (trees down)": {
+  "share of burned": 0.889,
+  "map fall": 0.855,
+  "lidar cover fall": 0.949
+ },
+ "rank of the map's fall, per pixel": {
+  "forest": {
+   "with height fall": 0.595,
+   "with cover fall": 0.582,
+   "with cover fall >5 m": 0.58
+  },
+  "burned": {
+   "with height fall": 0.484,
+   "with cover fall": 0.476,
+   "with cover fall >5 m": 0.475
+  }
+ },
+ "per 100 m cell (forest pixels)": {
+  "cells": 32869,
+  "map fall with height fall": 0.704,
+  "map fall with cover fall": 0.687,
+  "map fall with Hansen's burned share": 0.491,
+  "cover fall with Hansen's burned share": 0.477,
+  "height fall with Hansen's burned share": 0.485
+ },
+ "by lidar cover fall (forest)": {
+  "-1-0.1": {
+   "px": 346499,
+   "map fall": 0.301,
+   "lidar height fall": 0.164,
+   "Hansen 2024 share": 0.431
+  },
+  "0.1-0.25": {
+   "px": 196642,
+   "map fall": 0.634,
+   "lidar height fall": 0.407,
+   "Hansen 2024 share": 0.779
+  },
+  "0.25-0.5": {
+   "px": 316634,
+   "map fall": 0.759,
+   "lidar height fall": 0.615,
+   "Hansen 2024 share": 0.904
+  },
+  "0.5-0.75": {
+   "px": 452516,
+   "map fall": 0.826,
+   "lidar height fall": 0.802,
+   "Hansen 2024 share": 0.954
+  },
+  "0.75-1.01": {
+   "px": 1809668,
+   "map fall": 0.865,
+   "lidar height fall": 0.982,
+   "Hansen 2024 share": 0.975
+  }
+ },
+ "overlap km2": 226.6,
+ "pixels": 3830522,
+ "seconds": 868,
+ "peak_gb": 2.67
+}

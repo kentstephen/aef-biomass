@@ -151,6 +151,7 @@ forest.
 | `top_end_plots.py` | The top end against plot biomass: Rodda et al. 2024 lidar and plot maps (13 tropical sites) and GEO-TREES census subplots, beside CTrees and CCI |
 | `tundra_check.py`, `orndahl_read.py` | Tundra against Orndahl's 30 m Arctic biomass (2020) on 11 squares and the Berner harvest plots from 2017 on; a reader for Orndahl's striped tiles over HTTP |
 | `gain_mlp.py` | The lidar-taught gain as a small network the browser runs (on the difference of two years), held out by lidar square, with its steady-ground table; exports `web/public/models/gain_lidar.json` (the map's G switch) |
+| `burn_lidar_ca.py` | The Jasper fire (2024) against NRCan lidar flown in 2019 and 2024: canopy height and cover per pixel, beside the map's fall and CTrees |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold
