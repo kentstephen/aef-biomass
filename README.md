@@ -90,7 +90,7 @@ forest.
   to 26); the map's head on burns and land cover, steady-ground noise and drawing change with its confidence (27 to
   30); growth, loss size and gain taught on lidar (31 to 33); and checks against references the head never saw:
   grass abroad, plot biomass in tall forest, tundra, a burn flown before and after, and the lidar-taught gain in the
-  browser (34 to 38).
+  browser (34 to 38); and a zoomed-out map from a few of the 64 bands (39, 40).
 - `PLAN.md`: the original testing plan (November 2026), kept as written; the map has since been built.
 - `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
   workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
@@ -149,6 +149,9 @@ forest.
 | `tundra_check.py`, `orndahl_read.py` | Tundra against Orndahl's 30 m Arctic biomass (2020) on 11 squares and the Berner harvest plots from 2017 on; a reader for Orndahl's striped tiles over HTTP |
 | `gain_mlp.py` | The lidar-taught gain as a small network the browser runs (on the difference of two years), held out by lidar square, with its steady-ground table; exports `web/public/models/gain_lidar.json` (the map's G switch) |
 | `burn_lidar_ca.py` | The Jasper fire (2024) against NRCan lidar flown in 2019 and 2024: canopy height and cover per pixel, beside the map's fall and CTrees |
+| `band_subset.py` | How few of AlphaEarth's 64 bands the head needs: heads on 4 to 32 bands (picked greedily, by weight, at random), held out by square |
+| `zoomed_out.py` | A zoomed-out map from a few bands, four ways (k-band head, a copy of the map's head, fill-in of the missing bands, neighbors), and two for change that read one year whole, scored against the map's head per pixel and over 60 to 300 m blocks |
+| `zoomed_out_more.py` | The same networks with more unlabeled pixels (the 40 other squares too), a bigger network, and fill-in taught through the map's head |
 | `volume_head.py` | The vegetation volume head of [aef-hls-s1-fire-knn](https://github.com/kentstephen/aef-hls-s1-fire-knn-hrrr) (`models/fuel_volume.json`, trained on LANDFIRE in California) in numpy |
 
 Several scripts read pixels and labels that the Earthwork repos already hold

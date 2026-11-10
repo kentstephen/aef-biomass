@@ -1655,6 +1655,126 @@ to six years, about three times the map's at every length.
 - Caveat: taught on nine squares in three countries; the regrowth lidar found since (New Brunswick,
   Finland, Brazil, Poland, Alabama) would widen it.
 
+## 39. How few of the 64 bands the head needs (`scripts/band_subset.py`, `results/band_subset.json`)
+
+The map reads AlphaEarth from zoom 11 in, because a view costs whole chunks of all 64 bands and every zoom step out
+is four times the ground. The head only gives three numbers per pixel, so the question is whether it needs all 64.
+Two parts to it: what the stores let a reader skip, and what the head uses.
+
+- **The Zarr mosaic cannot skip bands.** Each 256 px inner chunk is one zstd block of all 64 bands (`tge-labs/aef-mosaic`,
+  `zarr.json`); a median chunk is 2.6 MB, 63 % of raw (one 2024 shard over the Sierra Nevada foothills).
+- **AEF's GeoTIFFs can.** They are planar: each band in its own 1024 x 1024 zstd tiles, a median 580 KB, 55 % of raw
+  (one 2024 tile, zone 10N). A reader such as geotiff.js fetches only the bands asked for.
+- **The map's head uses nearly all 64.** Of its first-layer weight (on the standardized input), 53 bands carry 90 % and
+  the weakest band has a third of the strongest's; as directions, 27 carry 90 %.
+
+Heads on k bands, taught exactly as section 7's (same rows, loss and epochs), held out by square (8 folds). Bands
+picked inside each fold from its training squares only: greedy forward selection by a ridge proxy (log biomass on
+the cell mean, log height and class per pixel, weighted as the head's loss), or the largest first-layer weights of
+a 64-band head on the same squares, or at random (3 draws). 10 minutes, 2.2 GB.
+
+| Bands | Biomass, R2 of log | Biomass, median error (Mg/ha) | Height R2 | Class right | Class F1 |
+|---|---|---|---|---|---|
+| 64 | **.723** | **10.0** | .656 | **.858** | **.651** |
+| 32, greedy | .695 | 10.3 | .655 | .815 | .533 |
+| 32, weights | .659 | 11.3 | **.678** | .823 | .630 |
+| 16, greedy | .638 | 11.0 | .551 | .770 | .479 |
+| 16, weights | .512 | 14.4 | .307 | .755 | .498 |
+| 16, random (3) | .44 to .54 | 13.6 to 14.1 | .30 to .50 | .71 to .73 | .45 to .47 |
+| 8, greedy | .449 | 13.9 | .214 | .709 | .393 |
+| 8, random (3) | .21 to .45 | 15.1 to 17.4 | .03 to .18 | .61 to .67 | .37 to .41 |
+| 4, greedy | .301 | 17.0 | .00 | .598 | .236 |
+
+- **Half the bands is nearly free; a quarter is not.** 32 bands keep biomass and height; classes drop a few points,
+  mostly the rare ones. 16 lose about a tenth of the biomass fit and more of height and classes; 8 or fewer fall apart.
+- **Which bands matters little.** Greedy beats random at 8 and 16 by about what random draws differ from each other,
+  and the folds agree on only .56, .62, .64 and .75 of their 4, 8, 16 and 32 picks. AlphaEarth spreads what it
+  knows across the vector.
+- The 64-band head scores .723 here against section 7's .702, from the same recipe; differences of .02 are run noise.
+- **The skipped bands are partly predictable from the rest** (pixels of a quarter of the squares held out): from 8,
+  16 and 32 bands, a linear fit recovers a median .10, .19 and .42 of each other band's variance, a fit with squared
+  and pairwise terms .22, .45 and .74. The pattern is there but curved.
+- **The change map's own test holds better than the head.** Loss is drawn only where the embedding moved between
+  years (1 - cosine over all 64 bands). Over the rows' one-year steps, the move on the 16 and 32 picked bands ranks
+  .87 and .95 with the 64-band move, and keeps 76 % and 87 % of its top 1 %.
+
+## 40. A zoomed-out map from a few bands: four ways, against the map's own head (`scripts/zoomed_out.py`, `results/zoomed_out.json`)
+
+Zoomed out, a screen pixel covers many 10 m pixels (about 60 m at zoom 10, 120 m at 9, 300 m at 8), so the map needs a
+rough picture that agrees with what zooming in will show, not the 10 m answer. Four ways from k bands, each scored
+against the 64-band head of the same fold, on the fold's held-out squares, per pixel and over 6, 12 and 30 pixel
+blocks:
+- **plain**: section 39's k-band head, taught on the labels.
+- **copy**: a small network (256 x 2) taught to give the 64-band head's answers from k bands, on every training pixel.
+- **fill**: a network that rebuilds the other 64 - k bands from the k read; the 64-band head runs on the result.
+- **neighbors**: copy, also given the same k bands of the 5 x 5 pixels around (they come in the same block, at no cost).
+
+For the change map, two more that read year A whole and year B on k bands (64 + k of 128 bands, against 2k for the
+four above): **copyA** takes B's missing bands from A as they are; **years alike** rebuilds how B's missing bands
+differ from A's. Teacher in each fold: a 64-band head on the training squares' rows; networks taught on 1 M
+pixel-years from 4 patches of 64 x 64 per training square (all 8 years); scored on the same patches of the held-out
+squares (inner 60 x 60, 92 squares in all), bands from each fold's greedy picks. 14 minutes, 7.5 GB.
+
+Each year, at 60 m (the median pixel there is 21 Mg/ha):
+
+| Bands | Way | Biomass, R2 of log | Biomass off the map, median (Mg/ha) | Height off, median (m) | Class same |
+|---|---|---|---|---|---|
+| 8 | plain | .59 | 10.4 | .65 | .70 |
+| 8 | copy | **.62** | **9.7** | **.54** | .71 |
+| 8 | fill | .55 | 11.0 | .58 | .70 |
+| 8 | neighbors | .51 | 10.4 | .55 | .70 |
+| 16 | plain | .82 | 6.7 | .44 | .79 |
+| 16 | copy | .85 | 5.7 | **.34** | .80 |
+| 16 | fill | **.87** | **5.3** | .36 | .80 |
+| 16 | neighbors | .80 | 6.7 | .37 | **.82** |
+| 32 | plain | .91 | 5.1 | .42 | .86 |
+| 32 | copy | .92 | 4.4 | .25 | .88 |
+| 32 | fill | **.94** | **3.2** | **.21** | **.90** |
+| 32 | neighbors | .93 | 4.0 | .25 | .90 |
+
+Change, at 60 m. Big: the 64-band head changed by more than 20 Mg/ha; seen: the rough way changed by more than 10 the
+same way; false: the head changed by less than 5 and the rough way by more than 10.
+
+| Bands | Way | Bands read per pair | Big loss seen | Big gain seen | False loss | False gain |
+|---|---|---|---|---|---|---|
+| 8 | fill | 16 | .69 | .50 | .110 | .124 |
+| 8 | copyA | 72 | .60 | .35 | **.008** | **.010** |
+| 8 | years alike | 72 | .65 | .63 | .016 | .061 |
+| 16 | plain | 32 | .72 | .56 | .053 | .060 |
+| 16 | copy | 32 | .73 | .54 | .039 | .047 |
+| 16 | fill | 32 | **.76** | .59 | .053 | .064 |
+| 16 | neighbors | 32 | .74 | .58 | .062 | .071 |
+| 16 | copyA | 80 | .73 | .49 | **.011** | **.015** |
+| 16 | years alike | 80 | .72 | **.72** | .013 | .059 |
+| 32 | fill | 64 | .86 | .81 | .029 | .035 |
+| 32 | copyA | 96 | **.88** | .74 | .014 | **.020** |
+| 32 | years alike | 96 | .87 | **.92** | **.008** | .042 |
+
+Against the labels on the rows (section 7's scores; the rows have no neighbors):
+
+| Bands | Way | Biomass, R2 of log | Biomass, median error | Height R2 | Class right | Class F1 |
+|---|---|---|---|---|---|---|
+| 64 | the head | .723 | 10.0 | .656 | .858 | .651 |
+| 16 | plain / copy / fill | .638 / .651 / .660 | 11.0 / 10.7 / 10.8 | .551 / .505 / .340 | .770 / .787 / .779 | .479 / .501 / .520 |
+| 32 | plain / copy / fill | .695 / .691 / .690 | 10.3 / 10.4 / 10.4 | .655 / .663 / .615 | .815 / .835 / .830 | .533 / .561 / .581 |
+
+- **16 bands give a usable rough map; 8 do not.** Fill at 16 is a median 5.3 Mg/ha off the map at 60 m (about a
+  quarter of the median pixel) with the class the same on 80 %; at 8 the best way is 9.7 off. On the GeoTIFFs, 16
+  bands are a quarter of the read: zoom 10 for what zoom 11 costs now. Zoom 9 at that cost needs 4 bands.
+- **Zooming out does not hide the errors.** From 10 m to 300 m, fill at 16 goes from .86 to .89 and 5.6 to 5.1 Mg/ha:
+  the misses are whole areas reading high or low, not speckle that averages away.
+- **Neighbors add nothing.** The 5 x 5 around does as well as copy or worse at every k.
+- **Copy and fill follow the map; they are not truer.** Against the 64-band head they beat plain (5.3 to 5.7 Mg/ha
+  against 6.7 at 16 bands); against the labels all three score about the same. Following the map is the point for a
+  view that should not jump when zoomed in.
+- **Reading one year whole is what removes false change.** Few bands of both years light 4 to 12 % of steady blocks
+  as change; with A whole, about 1 %. copyA is the quietest and misses gain; years alike sees gain best (.72 at 16,
+  .92 at 32) at about 5 % false gain. It reads 80 or 96 of 128 bands, less than one zoom step.
+- The move test on fold picks, held-out patches: 16 bands keep 70 % of the 64-band move's top 1 % (copyA 72 %, fill
+  69 %), 32 bands 82 % (copyA 84 %).
+- Caveat: copy and fill learned from about 70 squares' patches per fold; they need no labels, so they can learn
+  from any AlphaEarth pixels (section 41).
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |
