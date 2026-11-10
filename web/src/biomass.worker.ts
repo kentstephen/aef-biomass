@@ -82,8 +82,8 @@ async function scorer(h: BiomassHead, w: Float32Array): Promise<Scorer> {
 
 /**
  * A chunk-year (or a window's two): from the front of each chunk, the first FRONT_BANDS bands and the rest rebuilt,
- * scored and sent at once (rough: true); then the rest of each chunk read and the exact planes sent. A chunk already
- * on disk is sent exact only.
+ * scored and sent at once (rough: true, a single year only); then the rest of each chunk read and the exact planes
+ * sent. A chunk already on disk is sent exact only.
  */
 async function read(m: Read) {
   const ac = new AbortController();
@@ -104,7 +104,9 @@ async function read(m: Read) {
       const cb = await score(es[1]!, n);
       return changeOf(es[0]!, es[1]!, ca, cb, n, m.timeIdxB! - m.timeIdx, conf!, m.lidarGain ? gain : null);
     };
-    if (parts.some((p) => !p.full) && fillNet) {
+    // a single year only: a window's change from two rough years is far off (their errors add), so it draws
+    // only from all 64 bands (headless at the Park Fire: rough loss 370 ha against 118 ha exact)
+    if (ts.length === 1 && parts.some((p) => !p.full) && fillNet) {
       if (!filling) filling = filler(fillNet);
       const fill = await filling;
       const rough = await Promise.all(parts.map((p) => p.full ?? fill(p.front!, n)));

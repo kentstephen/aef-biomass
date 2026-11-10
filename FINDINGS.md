@@ -1854,6 +1854,72 @@ agreement of the rough way's change with the head's, every pixel.
   (fill 5.4 against 5.3, years alike within a point); single runs of copy can differ by about 1 Mg/ha, so gaps of a few
   tenths between ways at the same k are not settled. copyA was not run again.
 
+## 42. Cut forest drawn as gain: the head's own height and class as a check; biomass loss beside digging (`scripts/cut_rule.py`, `scripts/four_box.py`, `scripts/dug_or_cleared.py`, `results/cut_rule.json`, `results/four_box.json`, `results/dug_or_cleared.json`)
+
+A harvest at Stoddard, New Hampshire (43.1536, -72.1087; closed forest in Sentinel-2 to 2022, tan cut patches by 2025)
+drew as gain in the change view for 2021 to 2025. The head gives three answers a year, and on the 1,019 pixels it
+calls trees in 2021 and grass in 2025 with biomass up by 20 Mg/ha or more (medians):
+
+| Year | Biomass (Mg/ha) | Canopy height (m) | Class |
+|---|---|---|---|
+| 2021 | 74 | 12.9 | trees |
+| 2022 | 65 | 12.4 | trees (97 %) |
+| 2023 | 101 | 2.0 | grass 60 %, trees 39 % |
+| 2024 | 111 | 3.0 | grass 65 % |
+| 2025 | 116 | 2.8 | grass |
+
+Steady forest in the same chunk (30,472 pixels) holds 9 to 12 m and trees every year. Height and class say cut in
+2023, the year the embedding moved (.34, about three times the map's cut for loss); biomass rose. The gain rule
+read biomass alone.
+
+Rules from year a to year b, on the 12 two-flight lidar squares over each flight window (cut_as_gain.py's sets),
+each square weighed the same, and on the Stoddard chunk read live. 25 seconds, 2.0 GB.
+
+| Rule (head height 5 m or more in year a) | Stoddard cut called cut | Steady forest called cut | Lidar lost forest found | Gain the map draws on lidar lost forest, taken back | Gain the map draws on lidar gained ground, taken away |
+|---|---|---|---|---|---|
+| height fell 3 m | .95 | .077 | .45 | .16 | .011 |
+| height fell 5 m | .90 | .049 | .39 | .12 | .006 |
+| trees to grass, crop, built or bare | 1.00 | .019 | .24 | .001 | 0 |
+| the same, and the embedding moved past the cut | .98 | .007 | .21 | 0 | 0 |
+
+- **The head knew it was a cut.** Every rule calls 90 to 100 % of the Stoddard cut and at most 3 % of the forest
+  around it.
+- **As a check on gain it is nearly free.** Where the map would draw gain, height fallen 5 m or a class from trees
+  to open ground takes away at most .6 % of the gain lidar confirms (the two rules' costs added).
+- **As a loss signal of its own it is not.** Every height rule calls 4 to 8 % of steady forest cut, against about
+  1 % lit as loss now (section 30); only the strictest class rule stays there (.7 %), and it finds a fifth of lost
+  forest.
+- The map now does the first: where gain would be drawn and the head's height fell 5 m or more from 5 m, or its class
+  went from trees to grass, crop, built or bare, the pixel draws as a cut at the loss ramp's end, with no amount (its
+  biomass is the answer that failed); the card counts cut hectares apart from loss, gain and the net
+  (web/src/change.ts). At Stoddard, headless at 1400 x 800: gain 3.6 ha, cut 10 ha.
+
+### Biomass loss beside Earthwork's digging
+
+Earthwork (aef-tessera-earthwork) finds ground that was dug, filled or graded. Could the change view sort loss by
+whether the ground was also dug? Truth from Earthwork's section 19 files: Hansen forest loss in the lidar window
+crossed with the repeat lidar's ground change, at eight sites (Kentucky coal, Hibbing, four building sites). The
+map's loss rule against Earthwork's AlphaEarth layer (world recipe, held out where it was taught). Share of each
+truth put in the right box, mean of the five US sites; 13 seconds, 7.4 GB.
+
+| Rule | Cleared and dug | Cleared, not dug | Dug, not cleared | Neither |
+|---|---|---|---|---|
+| loss x Earthwork as shipped | .54 | .12 | .41 | .88 |
+| loss x Earthwork taught cuts as quiet (best of four saved variants) | .37 | .21 | .41 | .93 |
+| where loss: an AlphaEarth-only head, dug or not (`dug_or_cleared.py`); elsewhere Earthwork | .44 | .23 | .41 | .88 |
+
+- **Earthwork cannot tell clearing from digging:** it lights about half of cleared ground that was not dug, as
+  much as dug ground that was not cleared. Each fix moves cleared ground into its box only by taking as much from
+  cleared and dug.
+- The dug-or-cleared head, held out by place (9 seconds, 5.0 GB), orders the mines well (Kentucky Clay .94, Hibbing
+  .97, Perry .89) and calls 1 % of the clearcut regions dug, but not the building sites (Lakewood Ranch .70, Four
+  Corners .36, inverted as under every rule of Earthwork's section 19).
+- The map's loss itself is the other cap: on cleared ground that was not dug it fires on 10 to 28 % at the Florida
+  sites and Pike.
+- Not carried into the map.
+- Caveats: Hansen's loss is 30 m and includes harvest; Kentucky Clay and Perry's pairs start in 2017, before the
+  map's first year.
+
 ## The embeddings, side by side (all sections)
 
 | | AEF | TESSERA | OlmoEarth | All three |

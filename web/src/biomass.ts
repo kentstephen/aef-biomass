@@ -5,7 +5,7 @@ import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
 import { CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
-import { CH_NODATA, CONF_SCALE, type ConfTables, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
+import { CH_NODATA, CONF_SCALE, type ConfTables, CUT, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
 import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
 import { type BiomassHead, CODE, codeValue } from "./head";
@@ -59,6 +59,8 @@ export type ChangeStats = {
   faint: Float64Array;
   loss: SideStats;
   gain: SideStats;
+  /** where the head's height and class say the forest was cut (change.ts): hectares only, no amount */
+  cut: SideStats;
   /** hectares in view with data in both years; chunks of the view counted and wanted; every k-th pixel counted */
   dataHa: number;
   inHand: number;
@@ -119,12 +121,17 @@ ${glslRamp("changeRamp", CHANGE_50)}`,
       ivec2 cc = texelFetch(chTex, px, 0).rg;
       int c = cc.r;
       if (c == 0 || c == ${CH_NODATA}) discard;
-      float pct = float(c) / ${PCT_SCALE.toFixed(1)};
-      float conf = float(cc.g) / ${CONF_SCALE.toFixed(1)};
-      float t = pct < 0.0 ? 0.5 - 0.5 * min(-pct / change.lossEnd, 1.0) : 0.5 + 0.5 * min(pct / change.gainEnd, 1.0);
-      float from = pct < 0.0 ? change.lossFrom : change.gainFrom;
-      float a = mix(change.alphaMin, 1.0, smoothstep(from, 0.995, conf));
-      color = vec4(changeRamp(t), a);
+      if (cc.g == ${CUT}) {
+        // a cut (change.ts): the loss ramp's end, fully drawn
+        color = vec4(changeRamp(0.0), 1.0);
+      } else {
+        float pct = float(c) / ${PCT_SCALE.toFixed(1)};
+        float conf = float(cc.g) / ${CONF_SCALE.toFixed(1)};
+        float t = pct < 0.0 ? 0.5 - 0.5 * min(-pct / change.lossEnd, 1.0) : 0.5 + 0.5 * min(pct / change.gainEnd, 1.0);
+        float from = pct < 0.0 ? change.lossFrom : change.gainFrom;
+        float a = mix(change.alphaMin, 1.0, smoothstep(from, 0.995, conf));
+        color = vec4(changeRamp(t), a);
+      }
     `,
   },
   uniformTypes: { lossEnd: "f32", gainEnd: "f32", lossFrom: "f32", gainFrom: "f32", alphaMin: "f32" },
@@ -146,9 +153,10 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   const pool = new Pool(head, conf, gain, fill);
 
   // the planes by "year:row-col", the last used last; 384 KB each, at most CAP_BYTES (a zoom 11 view in a large
-  // window is about 1,000 chunks, 375 MB)
+  // window is about 1,000 chunks, 375 MB a year): the reading ahead takes only the years that fit (main.ts)
   const planes = new Map<string, Planes>();
-  const CAP_BYTES = 384 * 1024 ** 2;
+  const CAP_BYTES = 768 * 1024 ** 2;
+  const capChunks = Math.floor(CAP_BYTES / (384 * 1024));
   let planeBytes = 0;
   const keyOf = (lk: string, r: number, c: number) => `${lk}:${r}-${c}`;
   const keep = (k: string, p: Planes) => {
@@ -351,7 +359,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     const k = Math.max(1, Math.ceil(Math.sqrt(((gx1 - gx0) * (gy1 - gy0)) / 1.5e6)));
     const sure = new Float64Array(HIST_N), faint = new Float64Array(HIST_N);
     const side = () => ({ ha: 0, t: 0, pairs: new Map<number, { ha: number; t: number }>() });
-    const loss = side(), gain = side();
+    const loss = side(), gain = side(), cut = side();
     let dataHa = 0, inHand = 0, wanted = 0;
     const sureLoss = (LOSS_FROM + 0.995) / 2, sureGain = (GAIN_FROM + 0.995) / 2;
     const M_PER_DEG_LAT = 110574, M_PER_DEG_LON = 111320, D2R = Math.PI / 180;
@@ -375,6 +383,14 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
             if (v === CH_NODATA) continue;
             dataHa += ha;
             if (v === 0) continue;
+            if (P[2 * n + i] === CUT) {
+              cut.ha += ha;
+              const pk = P[3 * n + i] ?? -1;
+              const q = cut.pairs.get(pk);
+              if (q) q.ha += ha;
+              else cut.pairs.set(pk, { ha, t: 0 });
+              continue;
+            }
             const pct = v / PCT_SCALE, mg = P[n + i]! / MG_SCALE, conf = P[2 * n + i]! / CONF_SCALE;
             const t = pct < 0 ? 0.5 - 0.5 * Math.min(-pct / LOSS_END, 1) : 0.5 + 0.5 * Math.min(pct / GAIN_END, 1);
             const b = Math.min(HIST_N - 1, Math.floor(t * HIST_N));
@@ -403,7 +419,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         }))
         .sort((a, b) => b.ha - a.ha),
     });
-    return { sure, faint, loss: named(loss), gain: named(gain), dataHa, inHand, wanted, every: k };
+    return { sure, faint, loss: named(loss), gain: named(gain), cut: named(cut), dataHa, inHand, wanted, every: k };
   }
 
   /** A layer: a year's biomass (key "2025") or a window's change (key "2018-2025"). */
@@ -504,12 +520,13 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
    */
   function changeAtPoint(
     lon: number, lat: number, lk: string,
-  ): { pct: number; mg: number; conf: number; clsA: string; clsB: string } | null {
+  ): { pct: number; mg: number; conf: number; clsA: string; clsB: string; cut: boolean } | null {
     const v = planeAt(lon, lat, lk);
     if (!v || v[0] === CH_NODATA) return null;
     const k = v[3] < 0 ? -1 : v[3];
     const clsA = k < 0 ? "" : (head.classes[k % 256] ?? ""), clsB = k < 0 ? "" : (head.classes[k >> 8] ?? "");
-    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE, conf: v[2] / CONF_SCALE, clsA, clsB };
+    const cut = v[2] === CUT;
+    return { pct: v[0] / PCT_SCALE, mg: v[1] / MG_SCALE, conf: cut ? 0 : v[2] / CONF_SCALE, clsA, clsB, cut };
   }
 
   /**
@@ -548,6 +565,6 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   }
 
   return {
-    layer, valueAtPoint, changeAtPoint, whenAtPoint, changeStats, loadedIn, inHand, prefetch, pool,
+    layer, valueAtPoint, changeAtPoint, whenAtPoint, changeStats, loadedIn, inHand, prefetch, pool, capChunks,
   };
 }

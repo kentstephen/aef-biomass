@@ -411,7 +411,8 @@ function drawHist() {
   const net = S.gain.t - S.loss.t;
   hl.innerHTML =
     `<span><i class="sw" style="background:${CHANGE_50[8]}"></i>Loss <b>${num(S.loss.ha)}</b> ha &middot; ${num(S.loss.t)} t</span>` +
-    `<span><i class="sw" style="background:${CHANGE_50[41]}"></i>Gain <b>${num(S.gain.ha)}</b> ha &middot; ${num(S.gain.t)} t</span>`;
+    `<span><i class="sw" style="background:${CHANGE_50[41]}"></i>Gain <b>${num(S.gain.ha)}</b> ha &middot; ${num(S.gain.t)} t</span>` +
+    (S.cut.ha ? `<span><i class="sw" style="background:${CHANGE_50[0]}"></i>Cut <b>${num(S.cut.ha)}</b> ha &middot; amount not counted</span>` : "");
   const part = S.inHand < S.wanted ? ` &middot; ${S.inHand} of ${S.wanted} chunks counted so far` : "";
   cov.innerHTML = `In view: ${num(S.dataHa)} ha with data &middot; net ${net > 0 ? "+" : net < 0 ? "-" : ""}${num(Math.abs(net))} t${part}`;
   // what it was in the first year, and what it became in the last (the head's class)
@@ -419,11 +420,11 @@ function drawHist() {
     if (!sd.ha) return "";
     const rows = sd.pairs.slice(0, top).map((q) => {
       const what = !q.from ? "no class" : q.from === q.to ? `${q.from}, still ${q.to}` : `${q.from} to ${q.to}`;
-      return `<tr><td>${what}</td><td>${num(q.ha)} ha</td><td>${Math.round((100 * q.ha) / sd.ha)}%</td><td>${num(q.t)} t</td></tr>`;
+      return `<tr><td>${what}</td><td>${num(q.ha)} ha</td><td>${Math.round((100 * q.ha) / sd.ha)}%</td><td>${name === "Cut" ? "" : `${num(q.t)} t`}</td></tr>`;
     });
     return `<div class="h">${name}: what it was, what it became</div><table>${rows.join("")}</table>`;
   };
-  pairs.innerHTML = table("Loss", S.loss, 4) + table("Gain", S.gain, 3);
+  pairs.innerHTML = table("Loss", S.loss, 4) + table("Gain", S.gain, 3) + table("Cut", S.cut, 3);
 }
 
 function status() {
@@ -520,7 +521,11 @@ function readout() {
     const c = bio.changeAtPoint(pt[0], pt[1], curKey());
     if (!c) return off();
     const sg = (v: number, d: number) => `${v > 0 ? "+" : ""}${v.toFixed(d)}`;
-    if (c.mg === 0) {
+    if (c.cut) {
+      // a cut (change.ts): the head's height and class say the forest was cut; its biomass gives no amount
+      big = "<b>Cut</b>";
+      line = `<b>Cut</b> &middot; ${at}`;
+    } else if (c.mg === 0) {
       big = '<span class="none">No change counted</span>';
       line = `no change counted &middot; ${at}`;
     } else {
@@ -531,7 +536,10 @@ function readout() {
     const share = `${Math.min(99.9, 100 * c.conf).toFixed(c.conf >= 0.99 ? 1 : 0)}%`;
     // what the head calls the pixel in each year: one class if it stayed, "a to b" if it changed
     const cls = !c.clsA ? "" : c.clsA === c.clsB ? c.clsA : `${c.clsA} to ${c.clsB}`;
-    if (c.mg !== 0) {
+    if (c.cut) {
+      mid = `${cls ? `<div>${cls}</div>` : ""}<div>canopy fell or trees cleared</div><div>amount not counted</div>`;
+      line += `${cls ? ` &middot; ${cls}` : ""} &middot; canopy fell or trees cleared &middot; amount not counted`;
+    } else if (c.mg !== 0) {
       const yrs = whenFor(pt[0], pt[1], Math.sign(c.mg));
       mid = `<div>${c.mg < 0 ? "Loss" : "Gain"}${yrs ? ` ${yrs}` : ""}</div>${cls ? `<div>${cls}</div>` : ""}<div>more than ${share} of steady ground</div>`;
       line += `${yrs ? ` &middot; ${yrs}` : ""}${cls ? ` &middot; ${cls}` : ""} &middot; more than ${share} of steady ground`;
@@ -567,17 +575,22 @@ function stopAhead() {
   st.aheadKey = null;
 }
 
-/** With the view in: read ahead the next year in the stepping direction, then the one the other way (each year). */
+/**
+ * With the view in: read ahead every other year (each year), nearest first and the stepping direction first at the
+ * same distance, so any step draws from what is in hand.
+ */
 function readAhead() {
   stopAhead();
   if (!readable()) return;
   const ac = (st.ahead = new AbortController());
-  const next: string[] = [];
-  for (const d of [st.dir, -st.dir]) {
-    if (st.mode !== "year") break;
-    const y = YEARS[YEARS.indexOf(st.year) + d];
-    if (y !== undefined) next.push(yearKey(y));
-  }
+  const i0 = YEARS.indexOf(st.year);
+  const next = st.mode !== "year" ? [] : YEARS
+    .map((y, i) => ({ y, d: i - i0 }))
+    .filter((o) => o.d !== 0)
+    .sort((a, b) => Math.abs(a.d) - Math.abs(b.d) || (Math.sign(b.d) === st.dir ? 1 : 0) - (Math.sign(a.d) === st.dir ? 1 : 0))
+    .map((o) => yearKey(o.y))
+    // only the years whose chunks fit in the planes kept beside this year's (biomass.ts CAP_BYTES)
+    .slice(0, Math.max(1, Math.floor(bio.capChunks / Math.max(1, bio.inHand(bbox(), curKey()).wanted)) - 1));
   void (async () => {
     for (const k of next) {
       if (ac.signal.aborted) return;

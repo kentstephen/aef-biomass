@@ -25,6 +25,9 @@ loss, blue is gain, as a percent of the pixel's own biomass in the first year; c
   ground of the same class does (FINDINGS 29 to 32).
 - Gain, by default: where the pixel's biomass rose past a floor (20 to 40 Mg/ha by window length, and at least a
   quarter of what was there).
+- Cut: where gain would be drawn but the head's own canopy height fell 5 m or more, or its class went from trees to
+  open ground, the pixel draws as a cut in the darkest orange, with no amount. On fresh harvests the head's biomass
+  can rise while its height falls 12 to 2 m; the card counts cut hectares apart from loss, gain and the net (FINDINGS 42).
 - Faint against solid: faint is a change that steady ground of the same class often matches; solid is one it rarely
   does. Hovering a changed pixel says between which two years it happened (the one-year step that moved most).
 - The card's histogram counts the change in view, by hectare, and what each pixel was and became.
@@ -90,7 +93,7 @@ forest.
   to 26); the map's head on burns and land cover, steady-ground noise and drawing change with its confidence (27 to
   30); growth, loss size and gain taught on lidar (31 to 33); and checks against references the head never saw:
   grass abroad, plot biomass in tall forest, tundra, a burn flown before and after, and the lidar-taught gain in the
-  browser (34 to 38); and a zoomed-out map from a few of the 64 bands (39 to 41).
+  browser (34 to 38); a zoomed-out map from a few of the 64 bands (39 to 41); and cut forest drawn as gain, and loss beside digging (42).
 - `PLAN.md`: the original testing plan (November 2026), kept as written; the map has since been built.
 - `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
   workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
@@ -115,6 +118,9 @@ forest.
 | `class_report.py` | Land cover with its margins of error: per class with intervals, and the head's confidence against how often it is right |
 | `biomass_change.py` | Biomass change between years against CTrees' change: plain difference, calibrated, gated by embedding change, a pair head; and the 10 m view at Hansen loss |
 | `biomass_lookalikes.py` | Earthwork's trouble spots (crop switches, farms, marsh, reservoirs, floods, burns) through the biomass head |
+| `cut_rule.py` | The change view's cut check on gain: the head's height and class against the two-flight lidar and a New Hampshire harvest (FINDINGS 42) |
+| `four_box.py` | Biomass loss against Earthwork's digging, against Hansen loss and repeat lidar at Earthwork's section 19 sites (FINDINGS 42) |
+| `dug_or_cleared.py` | An AlphaEarth-only head: where forest was cleared, was the ground also dug (FINDINGS 42) |
 | `class_calibrate.py` | Temperature scaling and conformal class sets, fit across folds (`models/class_temperature.json`) |
 | `change_calibrate.py` | Biomass change calibrated per window length, from the saved cell tables |
 | `top_end.py` | CTrees' own error at the top end, quantile mapping, and the head taught with weight on high biomass (`biomass_head.py --weight-top 1 --tag _top`) |

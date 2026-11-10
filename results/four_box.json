@@ -1,0 +1,2695 @@
+{
+ "sites": {
+  "ky-clay": {
+   "px": 27890,
+   "pairs": [
+    "2017-2023"
+   ],
+   "before_2018": 1.0,
+   "world_used": "final",
+   "biomass_lost": {
+    "cleared + dug": 0.888,
+    "cleared only": 0.161,
+    "dug only": 0.16,
+    "neither": 0.0
+   }
+  },
+  "ky-perry": {
+   "px": 10130,
+   "pairs": [
+    "2017-2023"
+   ],
+   "before_2018": 1.0,
+   "world_used": "final",
+   "biomass_lost": {
+    "cleared + dug": 0.048,
+    "cleared only": 0.0,
+    "dug only": 0.264,
+    "neither": 0.001
+   }
+  },
+  "ky-pike": {
+   "px": 25410,
+   "pairs": [
+    "2018-2023"
+   ],
+   "before_2018": 0.0,
+   "world_used": "final",
+   "biomass_lost": {
+    "cleared + dug": 0.293,
+    "cleared only": 0.282,
+    "dug only": 0.03,
+    "neither": 0.001
+   }
+  },
+  "hibbing-mn": {
+   "px": 15285,
+   "pairs": [
+    "2020-2022"
+   ],
+   "before_2018": 0.0,
+   "world_used": "held_out",
+   "biomass_lost": {
+    "cleared + dug": 0.968,
+    "cleared only": 0.255,
+    "dug only": 0.174,
+    "neither": 0.005
+   }
+  },
+  "lakewood-ranch-fl": {
+   "px": 39592,
+   "pairs": [
+    "2018-2024"
+   ],
+   "before_2018": 0.0,
+   "world_used": "held_out",
+   "biomass_lost": {
+    "cleared + dug": 0.244,
+    "cleared only": 0.239,
+    "dug only": 0.047,
+    "neither": 0.007
+   }
+  },
+  "four-corners-fl": {
+   "px": 20797,
+   "pairs": [
+    "2018-2024"
+   ],
+   "before_2018": 0.0,
+   "world_used": "held_out",
+   "biomass_lost": {
+    "cleared + dug": 0.21,
+    "cleared only": 0.101,
+    "dug only": 0.289,
+    "neither": 0.019
+   }
+  },
+  "huntsville-al": {
+   "px": 14192,
+   "pairs": [
+    "2019-2023"
+   ],
+   "before_2018": 0.0,
+   "world_used": "held_out",
+   "biomass_lost": {
+    "cleared + dug": 0.678,
+    "cleared only": 0.784,
+    "dug only": 0.052,
+    "neither": 0.073
+   }
+  },
+  "new-albany-oh": {
+   "px": 11394,
+   "pairs": [
+    "2018-2022"
+   ],
+   "before_2018": 0.0,
+   "world_used": "held_out",
+   "biomass_lost": {
+    "cleared + dug": 0.939,
+    "cleared only": 0.769,
+    "dug only": 0.31,
+    "neither": 0.019
+   }
+  }
+ },
+ "variants": {
+  "A/B: biomass lost x Earthwork world (the map today)": {
+   "sites": {
+    "ky-clay": {
+     "cleared + dug": {
+      "n": 13073,
+      "cleared + dug": 0.887,
+      "cleared only": 0.001,
+      "dug only": 0.098,
+      "neither": 0.014
+     },
+     "cleared only": {
+      "n": 4817,
+      "cleared + dug": 0.146,
+      "cleared only": 0.015,
+      "dug only": 0.18,
+      "neither": 0.66
+     },
+     "dug only": {
+      "n": 125,
+      "cleared + dug": 0.152,
+      "cleared only": 0.008,
+      "dug only": 0.136,
+      "neither": 0.704
+     },
+     "neither": {
+      "n": 9875,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.002,
+      "neither": 0.997
+     }
+    },
+    "ky-perry": {
+     "cleared + dug": {
+      "n": 42,
+      "cleared + dug": 0.048,
+      "cleared only": 0.0,
+      "dug only": 0.881,
+      "neither": 0.071
+     },
+     "cleared only": {
+      "n": 88,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.125,
+      "neither": 0.875
+     },
+     "dug only": {
+      "n": 235,
+      "cleared + dug": 0.26,
+      "cleared only": 0.004,
+      "dug only": 0.285,
+      "neither": 0.451
+     },
+     "neither": {
+      "n": 9765,
+      "cleared + dug": 0.001,
+      "cleared only": 0.0,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "ky-pike": {
+     "cleared + dug": {
+      "n": 410,
+      "cleared + dug": 0.229,
+      "cleared only": 0.063,
+      "dug only": 0.4,
+      "neither": 0.307
+     },
+     "cleared only": {
+      "n": 15000,
+      "cleared + dug": 0.231,
+      "cleared only": 0.051,
+      "dug only": 0.231,
+      "neither": 0.487
+     },
+     "dug only": {
+      "n": 33,
+      "cleared + dug": 0.03,
+      "cleared only": 0.0,
+      "dug only": 0.212,
+      "neither": 0.758
+     },
+     "neither": {
+      "n": 9967,
+      "cleared + dug": 0.001,
+      "cleared only": 0.0,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.917,
+      "cleared only": 0.051,
+      "dug only": 0.011,
+      "neither": 0.021
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.103,
+      "cleared only": 0.151,
+      "dug only": 0.002,
+      "neither": 0.744
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.109,
+      "cleared only": 0.064,
+      "dug only": 0.052,
+      "neither": 0.774
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.002,
+      "cleared only": 0.003,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.219,
+      "cleared only": 0.025,
+      "dug only": 0.69,
+      "neither": 0.066
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.074,
+      "cleared only": 0.165,
+      "dug only": 0.409,
+      "neither": 0.352
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.042,
+      "cleared only": 0.005,
+      "dug only": 0.71,
+      "neither": 0.244
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.06,
+      "neither": 0.933
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.016,
+      "cleared only": 0.194,
+      "dug only": 0.659,
+      "neither": 0.13
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.099,
+      "cleared only": 0.003,
+      "dug only": 0.816,
+      "neither": 0.083
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.213,
+      "cleared only": 0.074,
+      "dug only": 0.252,
+      "neither": 0.46
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.005,
+      "cleared only": 0.014,
+      "dug only": 0.094,
+      "neither": 0.887
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.632,
+      "cleared only": 0.046,
+      "dug only": 0.317,
+      "neither": 0.005
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.6,
+      "cleared only": 0.184,
+      "dug only": 0.127,
+      "neither": 0.089
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.052,
+      "cleared only": 0.0,
+      "dug only": 0.676,
+      "neither": 0.271
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.061,
+      "cleared only": 0.012,
+      "dug only": 0.312,
+      "neither": 0.615
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.934,
+      "cleared only": 0.004,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.694,
+      "cleared only": 0.076,
+      "dug only": 0.095,
+      "neither": 0.136
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.257,
+      "cleared only": 0.053,
+      "dug only": 0.381,
+      "neither": 0.31
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.006,
+      "cleared only": 0.013,
+      "dug only": 0.009,
+      "neither": 0.972
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.544,
+      "cleared only": 0.064,
+      "dug only": 0.338,
+      "neither": 0.054
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.314,
+      "cleared only": 0.116,
+      "dug only": 0.29,
+      "neither": 0.281
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.135,
+      "cleared only": 0.039,
+      "dug only": 0.414,
+      "neither": 0.412
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.015,
+      "cleared only": 0.009,
+      "dug only": 0.095,
+      "neither": 0.88
+     }
+    },
+    "right": {
+     "cleared + dug": 0.544,
+     "cleared only": 0.116,
+     "dug only": 0.414,
+     "neither": 0.88
+    },
+    "mean_right": 0.489
+   },
+   "all eight": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 34452,
+      "cleared + dug": 0.548,
+      "cleared only": 0.055,
+      "dug only": 0.313,
+      "neither": 0.084
+     },
+     "cleared only": {
+      "n": 50185,
+      "cleared + dug": 0.243,
+      "cleared only": 0.081,
+      "dug only": 0.248,
+      "neither": 0.428
+     },
+     "dug only": {
+      "n": 5632,
+      "cleared + dug": 0.155,
+      "cleared only": 0.03,
+      "dug only": 0.356,
+      "neither": 0.459
+     },
+     "neither": {
+      "n": 74151,
+      "cleared + dug": 0.01,
+      "cleared only": 0.006,
+      "dug only": 0.06,
+      "neither": 0.924
+     }
+    },
+    "right": {
+     "cleared + dug": 0.548,
+     "cleared only": 0.081,
+     "dug only": 0.356,
+     "neither": 0.924
+    },
+    "mean_right": 0.477
+   }
+  },
+  "C: lost -> pair head; else Earthwork": {
+   "sites": {
+    "ky-clay": {
+     "cleared + dug": {
+      "n": 13073,
+      "cleared + dug": 0.667,
+      "cleared only": 0.221,
+      "dug only": 0.098,
+      "neither": 0.014
+     },
+     "cleared only": {
+      "n": 4817,
+      "cleared + dug": 0.036,
+      "cleared only": 0.125,
+      "dug only": 0.18,
+      "neither": 0.66
+     },
+     "dug only": {
+      "n": 125,
+      "cleared + dug": 0.08,
+      "cleared only": 0.08,
+      "dug only": 0.136,
+      "neither": 0.704
+     },
+     "neither": {
+      "n": 9875,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.002,
+      "neither": 0.997
+     }
+    },
+    "ky-perry": {
+     "cleared + dug": {
+      "n": 42,
+      "cleared + dug": 0.048,
+      "cleared only": 0.0,
+      "dug only": 0.881,
+      "neither": 0.071
+     },
+     "cleared only": {
+      "n": 88,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.125,
+      "neither": 0.875
+     },
+     "dug only": {
+      "n": 235,
+      "cleared + dug": 0.264,
+      "cleared only": 0.0,
+      "dug only": 0.285,
+      "neither": 0.451
+     },
+     "neither": {
+      "n": 9765,
+      "cleared + dug": 0.001,
+      "cleared only": 0.0,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "ky-pike": {
+     "cleared + dug": {
+      "n": 410,
+      "cleared + dug": 0.046,
+      "cleared only": 0.246,
+      "dug only": 0.4,
+      "neither": 0.307
+     },
+     "cleared only": {
+      "n": 15000,
+      "cleared + dug": 0.003,
+      "cleared only": 0.279,
+      "dug only": 0.231,
+      "neither": 0.487
+     },
+     "dug only": {
+      "n": 33,
+      "cleared + dug": 0.03,
+      "cleared only": 0.0,
+      "dug only": 0.212,
+      "neither": 0.758
+     },
+     "neither": {
+      "n": 9967,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.934,
+      "cleared only": 0.034,
+      "dug only": 0.011,
+      "neither": 0.021
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.076,
+      "cleared only": 0.179,
+      "dug only": 0.002,
+      "neither": 0.744
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.159,
+      "cleared only": 0.014,
+      "dug only": 0.052,
+      "neither": 0.774
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.003,
+      "cleared only": 0.001,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.048,
+      "cleared only": 0.195,
+      "dug only": 0.69,
+      "neither": 0.066
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.014,
+      "cleared only": 0.225,
+      "dug only": 0.409,
+      "neither": 0.352
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.036,
+      "cleared only": 0.011,
+      "dug only": 0.71,
+      "neither": 0.244
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.002,
+      "cleared only": 0.006,
+      "dug only": 0.06,
+      "neither": 0.933
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.184,
+      "cleared only": 0.027,
+      "dug only": 0.659,
+      "neither": 0.13
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.097,
+      "cleared only": 0.005,
+      "dug only": 0.816,
+      "neither": 0.083
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.171,
+      "cleared only": 0.117,
+      "dug only": 0.252,
+      "neither": 0.46
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.004,
+      "cleared only": 0.015,
+      "dug only": 0.094,
+      "neither": 0.887
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.074,
+      "cleared only": 0.604,
+      "dug only": 0.317,
+      "neither": 0.005
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.088,
+      "cleared only": 0.696,
+      "dug only": 0.127,
+      "neither": 0.089
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.017,
+      "cleared only": 0.035,
+      "dug only": 0.676,
+      "neither": 0.271
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.013,
+      "cleared only": 0.06,
+      "dug only": 0.312,
+      "neither": 0.615
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.939,
+      "cleared only": 0.0,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.701,
+      "cleared only": 0.068,
+      "dug only": 0.095,
+      "neither": 0.136
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.301,
+      "cleared only": 0.009,
+      "dug only": 0.381,
+      "neither": 0.31
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.011,
+      "cleared only": 0.009,
+      "dug only": 0.009,
+      "neither": 0.972
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.436,
+      "cleared only": 0.172,
+      "dug only": 0.338,
+      "neither": 0.054
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.195,
+      "cleared only": 0.235,
+      "dug only": 0.29,
+      "neither": 0.281
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.137,
+      "cleared only": 0.037,
+      "dug only": 0.414,
+      "neither": 0.412
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.007,
+      "cleared only": 0.018,
+      "dug only": 0.095,
+      "neither": 0.88
+     }
+    },
+    "right": {
+     "cleared + dug": 0.436,
+     "cleared only": 0.235,
+     "dug only": 0.414,
+     "neither": 0.88
+    },
+    "mean_right": 0.491
+   },
+   "all eight": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 34452,
+      "cleared + dug": 0.413,
+      "cleared only": 0.19,
+      "dug only": 0.313,
+      "neither": 0.084
+     },
+     "cleared only": {
+      "n": 50185,
+      "cleared + dug": 0.127,
+      "cleared only": 0.197,
+      "dug only": 0.248,
+      "neither": 0.428
+     },
+     "dug only": {
+      "n": 5632,
+      "cleared + dug": 0.147,
+      "cleared only": 0.038,
+      "dug only": 0.356,
+      "neither": 0.459
+     },
+     "neither": {
+      "n": 74151,
+      "cleared + dug": 0.004,
+      "cleared only": 0.011,
+      "dug only": 0.06,
+      "neither": 0.924
+     }
+    },
+    "right": {
+     "cleared + dug": 0.413,
+     "cleared only": 0.197,
+     "dug only": 0.356,
+     "neither": 0.924
+    },
+    "mean_right": 0.473
+   }
+  },
+  "C: lost -> pair head AND Earthwork; else Earthwork": {
+   "sites": {
+    "ky-clay": {
+     "cleared + dug": {
+      "n": 13073,
+      "cleared + dug": 0.667,
+      "cleared only": 0.221,
+      "dug only": 0.098,
+      "neither": 0.014
+     },
+     "cleared only": {
+      "n": 4817,
+      "cleared + dug": 0.036,
+      "cleared only": 0.125,
+      "dug only": 0.18,
+      "neither": 0.66
+     },
+     "dug only": {
+      "n": 125,
+      "cleared + dug": 0.08,
+      "cleared only": 0.08,
+      "dug only": 0.136,
+      "neither": 0.704
+     },
+     "neither": {
+      "n": 9875,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.002,
+      "neither": 0.997
+     }
+    },
+    "ky-perry": {
+     "cleared + dug": {
+      "n": 42,
+      "cleared + dug": 0.048,
+      "cleared only": 0.0,
+      "dug only": 0.881,
+      "neither": 0.071
+     },
+     "cleared only": {
+      "n": 88,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.125,
+      "neither": 0.875
+     },
+     "dug only": {
+      "n": 235,
+      "cleared + dug": 0.26,
+      "cleared only": 0.004,
+      "dug only": 0.285,
+      "neither": 0.451
+     },
+     "neither": {
+      "n": 9765,
+      "cleared + dug": 0.001,
+      "cleared only": 0.0,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "ky-pike": {
+     "cleared + dug": {
+      "n": 410,
+      "cleared + dug": 0.046,
+      "cleared only": 0.246,
+      "dug only": 0.4,
+      "neither": 0.307
+     },
+     "cleared only": {
+      "n": 15000,
+      "cleared + dug": 0.003,
+      "cleared only": 0.279,
+      "dug only": 0.231,
+      "neither": 0.487
+     },
+     "dug only": {
+      "n": 33,
+      "cleared + dug": 0.03,
+      "cleared only": 0.0,
+      "dug only": 0.212,
+      "neither": 0.758
+     },
+     "neither": {
+      "n": 9967,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.9,
+      "cleared only": 0.068,
+      "dug only": 0.011,
+      "neither": 0.021
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.068,
+      "cleared only": 0.186,
+      "dug only": 0.002,
+      "neither": 0.744
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.109,
+      "cleared only": 0.064,
+      "dug only": 0.052,
+      "neither": 0.774
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.002,
+      "cleared only": 0.003,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.048,
+      "cleared only": 0.196,
+      "dug only": 0.69,
+      "neither": 0.066
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.013,
+      "cleared only": 0.227,
+      "dug only": 0.409,
+      "neither": 0.352
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.034,
+      "cleared only": 0.012,
+      "dug only": 0.71,
+      "neither": 0.244
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.001,
+      "cleared only": 0.006,
+      "dug only": 0.06,
+      "neither": 0.933
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.009,
+      "cleared only": 0.202,
+      "dug only": 0.659,
+      "neither": 0.13
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.816,
+      "neither": 0.083
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.156,
+      "cleared only": 0.132,
+      "dug only": 0.252,
+      "neither": 0.46
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.003,
+      "cleared only": 0.016,
+      "dug only": 0.094,
+      "neither": 0.887
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.074,
+      "cleared only": 0.604,
+      "dug only": 0.317,
+      "neither": 0.005
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.07,
+      "cleared only": 0.714,
+      "dug only": 0.127,
+      "neither": 0.089
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.017,
+      "cleared only": 0.035,
+      "dug only": 0.676,
+      "neither": 0.271
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.012,
+      "cleared only": 0.061,
+      "dug only": 0.312,
+      "neither": 0.615
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.934,
+      "cleared only": 0.004,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.683,
+      "cleared only": 0.086,
+      "dug only": 0.095,
+      "neither": 0.136
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.257,
+      "cleared only": 0.053,
+      "dug only": 0.381,
+      "neither": 0.31
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.006,
+      "cleared only": 0.013,
+      "dug only": 0.009,
+      "neither": 0.972
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.393,
+      "cleared only": 0.215,
+      "dug only": 0.338,
+      "neither": 0.054
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.186,
+      "cleared only": 0.244,
+      "dug only": 0.29,
+      "neither": 0.281
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.115,
+      "cleared only": 0.059,
+      "dug only": 0.414,
+      "neither": 0.412
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.005,
+      "cleared only": 0.02,
+      "dug only": 0.095,
+      "neither": 0.88
+     }
+    },
+    "right": {
+     "cleared + dug": 0.393,
+     "cleared only": 0.244,
+     "dug only": 0.414,
+     "neither": 0.88
+    },
+    "mean_right": 0.483
+   },
+   "all eight": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 34452,
+      "cleared + dug": 0.383,
+      "cleared only": 0.22,
+      "dug only": 0.313,
+      "neither": 0.084
+     },
+     "cleared only": {
+      "n": 50185,
+      "cleared + dug": 0.121,
+      "cleared only": 0.203,
+      "dug only": 0.248,
+      "neither": 0.428
+     },
+     "dug only": {
+      "n": 5632,
+      "cleared + dug": 0.13,
+      "cleared only": 0.054,
+      "dug only": 0.356,
+      "neither": 0.459
+     },
+     "neither": {
+      "n": 74151,
+      "cleared + dug": 0.003,
+      "cleared only": 0.013,
+      "dug only": 0.06,
+      "neither": 0.924
+     }
+    },
+    "right": {
+     "cleared + dug": 0.383,
+     "cleared only": 0.203,
+     "dug only": 0.356,
+     "neither": 0.924
+    },
+    "mean_right": 0.467
+   }
+  },
+  "C: lost -> ctx head; else Earthwork": {
+   "sites": {
+    "ky-clay": {
+     "cleared + dug": {
+      "n": 13073,
+      "cleared + dug": 0.72,
+      "cleared only": 0.168,
+      "dug only": 0.098,
+      "neither": 0.014
+     },
+     "cleared only": {
+      "n": 4817,
+      "cleared + dug": 0.053,
+      "cleared only": 0.108,
+      "dug only": 0.18,
+      "neither": 0.66
+     },
+     "dug only": {
+      "n": 125,
+      "cleared + dug": 0.104,
+      "cleared only": 0.056,
+      "dug only": 0.136,
+      "neither": 0.704
+     },
+     "neither": {
+      "n": 9875,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.002,
+      "neither": 0.997
+     }
+    },
+    "ky-perry": {
+     "cleared + dug": {
+      "n": 42,
+      "cleared + dug": 0.024,
+      "cleared only": 0.024,
+      "dug only": 0.881,
+      "neither": 0.071
+     },
+     "cleared only": {
+      "n": 88,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.125,
+      "neither": 0.875
+     },
+     "dug only": {
+      "n": 235,
+      "cleared + dug": 0.038,
+      "cleared only": 0.226,
+      "dug only": 0.285,
+      "neither": 0.451
+     },
+     "neither": {
+      "n": 9765,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "ky-pike": {
+     "cleared + dug": {
+      "n": 410,
+      "cleared + dug": 0.051,
+      "cleared only": 0.241,
+      "dug only": 0.4,
+      "neither": 0.307
+     },
+     "cleared only": {
+      "n": 15000,
+      "cleared + dug": 0.009,
+      "cleared only": 0.273,
+      "dug only": 0.231,
+      "neither": 0.487
+     },
+     "dug only": {
+      "n": 33,
+      "cleared + dug": 0.03,
+      "cleared only": 0.0,
+      "dug only": 0.212,
+      "neither": 0.758
+     },
+     "neither": {
+      "n": 9967,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.95,
+      "cleared only": 0.018,
+      "dug only": 0.011,
+      "neither": 0.021
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.093,
+      "cleared only": 0.162,
+      "dug only": 0.002,
+      "neither": 0.744
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.133,
+      "cleared only": 0.04,
+      "dug only": 0.052,
+      "neither": 0.774
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.001,
+      "cleared only": 0.003,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.113,
+      "cleared only": 0.131,
+      "dug only": 0.69,
+      "neither": 0.066
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.025,
+      "cleared only": 0.214,
+      "dug only": 0.409,
+      "neither": 0.352
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.034,
+      "cleared only": 0.013,
+      "dug only": 0.71,
+      "neither": 0.244
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.002,
+      "cleared only": 0.005,
+      "dug only": 0.06,
+      "neither": 0.933
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.019,
+      "cleared only": 0.192,
+      "dug only": 0.659,
+      "neither": 0.13
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.816,
+      "neither": 0.083
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.103,
+      "cleared only": 0.184,
+      "dug only": 0.252,
+      "neither": 0.46
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.003,
+      "cleared only": 0.016,
+      "dug only": 0.094,
+      "neither": 0.887
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.108,
+      "cleared only": 0.57,
+      "dug only": 0.317,
+      "neither": 0.005
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.154,
+      "cleared only": 0.63,
+      "dug only": 0.127,
+      "neither": 0.089
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.022,
+      "cleared only": 0.03,
+      "dug only": 0.676,
+      "neither": 0.271
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.009,
+      "cleared only": 0.064,
+      "dug only": 0.312,
+      "neither": 0.615
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.939,
+      "cleared only": 0.0,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.704,
+      "cleared only": 0.065,
+      "dug only": 0.095,
+      "neither": 0.136
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.301,
+      "cleared only": 0.009,
+      "dug only": 0.381,
+      "neither": 0.31
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.009,
+      "cleared only": 0.01,
+      "dug only": 0.009,
+      "neither": 0.972
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.426,
+      "cleared only": 0.182,
+      "dug only": 0.338,
+      "neither": 0.054
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.214,
+      "cleared only": 0.215,
+      "dug only": 0.29,
+      "neither": 0.281
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.119,
+      "cleared only": 0.055,
+      "dug only": 0.414,
+      "neither": 0.412
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.005,
+      "cleared only": 0.02,
+      "dug only": 0.095,
+      "neither": 0.88
+     }
+    },
+    "right": {
+     "cleared + dug": 0.426,
+     "cleared only": 0.215,
+     "dug only": 0.414,
+     "neither": 0.88
+    },
+    "mean_right": 0.484
+   },
+   "all eight": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 34452,
+      "cleared + dug": 0.414,
+      "cleared only": 0.189,
+      "dug only": 0.313,
+      "neither": 0.084
+     },
+     "cleared only": {
+      "n": 50185,
+      "cleared + dug": 0.142,
+      "cleared only": 0.182,
+      "dug only": 0.248,
+      "neither": 0.428
+     },
+     "dug only": {
+      "n": 5632,
+      "cleared + dug": 0.105,
+      "cleared only": 0.08,
+      "dug only": 0.356,
+      "neither": 0.459
+     },
+     "neither": {
+      "n": 74151,
+      "cleared + dug": 0.003,
+      "cleared only": 0.013,
+      "dug only": 0.06,
+      "neither": 0.924
+     }
+    },
+    "right": {
+     "cleared + dug": 0.414,
+     "cleared only": 0.182,
+     "dug only": 0.356,
+     "neither": 0.924
+    },
+    "mean_right": 0.469
+   }
+  },
+  "C: lost -> ctx head AND Earthwork; else Earthwork": {
+   "sites": {
+    "ky-clay": {
+     "cleared + dug": {
+      "n": 13073,
+      "cleared + dug": 0.72,
+      "cleared only": 0.168,
+      "dug only": 0.098,
+      "neither": 0.014
+     },
+     "cleared only": {
+      "n": 4817,
+      "cleared + dug": 0.053,
+      "cleared only": 0.108,
+      "dug only": 0.18,
+      "neither": 0.66
+     },
+     "dug only": {
+      "n": 125,
+      "cleared + dug": 0.104,
+      "cleared only": 0.056,
+      "dug only": 0.136,
+      "neither": 0.704
+     },
+     "neither": {
+      "n": 9875,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.002,
+      "neither": 0.997
+     }
+    },
+    "ky-perry": {
+     "cleared + dug": {
+      "n": 42,
+      "cleared + dug": 0.024,
+      "cleared only": 0.024,
+      "dug only": 0.881,
+      "neither": 0.071
+     },
+     "cleared only": {
+      "n": 88,
+      "cleared + dug": 0.0,
+      "cleared only": 0.0,
+      "dug only": 0.125,
+      "neither": 0.875
+     },
+     "dug only": {
+      "n": 235,
+      "cleared + dug": 0.034,
+      "cleared only": 0.23,
+      "dug only": 0.285,
+      "neither": 0.451
+     },
+     "neither": {
+      "n": 9765,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "ky-pike": {
+     "cleared + dug": {
+      "n": 410,
+      "cleared + dug": 0.051,
+      "cleared only": 0.241,
+      "dug only": 0.4,
+      "neither": 0.307
+     },
+     "cleared only": {
+      "n": 15000,
+      "cleared + dug": 0.009,
+      "cleared only": 0.273,
+      "dug only": 0.231,
+      "neither": 0.487
+     },
+     "dug only": {
+      "n": 33,
+      "cleared + dug": 0.03,
+      "cleared only": 0.0,
+      "dug only": 0.212,
+      "neither": 0.758
+     },
+     "neither": {
+      "n": 9967,
+      "cleared + dug": 0.0,
+      "cleared only": 0.001,
+      "dug only": 0.003,
+      "neither": 0.996
+     }
+    },
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.914,
+      "cleared only": 0.053,
+      "dug only": 0.011,
+      "neither": 0.021
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.08,
+      "cleared only": 0.174,
+      "dug only": 0.002,
+      "neither": 0.744
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.095,
+      "cleared only": 0.078,
+      "dug only": 0.052,
+      "neither": 0.774
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.001,
+      "cleared only": 0.004,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.11,
+      "cleared only": 0.134,
+      "dug only": 0.69,
+      "neither": 0.066
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.02,
+      "cleared only": 0.219,
+      "dug only": 0.409,
+      "neither": 0.352
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.033,
+      "cleared only": 0.014,
+      "dug only": 0.71,
+      "neither": 0.244
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.001,
+      "cleared only": 0.006,
+      "dug only": 0.06,
+      "neither": 0.933
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.009,
+      "cleared only": 0.202,
+      "dug only": 0.659,
+      "neither": 0.13
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.816,
+      "neither": 0.083
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.103,
+      "cleared only": 0.185,
+      "dug only": 0.252,
+      "neither": 0.46
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.002,
+      "cleared only": 0.017,
+      "dug only": 0.094,
+      "neither": 0.887
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.108,
+      "cleared only": 0.57,
+      "dug only": 0.317,
+      "neither": 0.005
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.136,
+      "cleared only": 0.648,
+      "dug only": 0.127,
+      "neither": 0.089
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.022,
+      "cleared only": 0.03,
+      "dug only": 0.676,
+      "neither": 0.271
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.008,
+      "cleared only": 0.065,
+      "dug only": 0.312,
+      "neither": 0.615
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.934,
+      "cleared only": 0.004,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.683,
+      "cleared only": 0.086,
+      "dug only": 0.095,
+      "neither": 0.136
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.257,
+      "cleared only": 0.053,
+      "dug only": 0.381,
+      "neither": 0.31
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.005,
+      "cleared only": 0.014,
+      "dug only": 0.009,
+      "neither": 0.972
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.415,
+      "cleared only": 0.193,
+      "dug only": 0.338,
+      "neither": 0.054
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.203,
+      "cleared only": 0.226,
+      "dug only": 0.29,
+      "neither": 0.281
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.102,
+      "cleared only": 0.072,
+      "dug only": 0.414,
+      "neither": 0.412
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.003,
+      "cleared only": 0.021,
+      "dug only": 0.095,
+      "neither": 0.88
+     }
+    },
+    "right": {
+     "cleared + dug": 0.415,
+     "cleared only": 0.226,
+     "dug only": 0.414,
+     "neither": 0.88
+    },
+    "mean_right": 0.484
+   },
+   "all eight": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 34452,
+      "cleared + dug": 0.407,
+      "cleared only": 0.196,
+      "dug only": 0.313,
+      "neither": 0.084
+     },
+     "cleared only": {
+      "n": 50185,
+      "cleared + dug": 0.135,
+      "cleared only": 0.189,
+      "dug only": 0.248,
+      "neither": 0.428
+     },
+     "dug only": {
+      "n": 5632,
+      "cleared + dug": 0.093,
+      "cleared only": 0.092,
+      "dug only": 0.356,
+      "neither": 0.459
+     },
+     "neither": {
+      "n": 74151,
+      "cleared + dug": 0.002,
+      "cleared only": 0.014,
+      "dug only": 0.06,
+      "neither": 0.924
+     }
+    },
+    "right": {
+     "cleared + dug": 0.407,
+     "cleared only": 0.189,
+     "dug only": 0.356,
+     "neither": 0.924
+    },
+    "mean_right": 0.469
+   }
+  },
+  "A/B: biomass lost x Earthwork burns quiet": {
+   "sites": {
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.127,
+      "cleared only": 0.841,
+      "dug only": 0.005,
+      "neither": 0.028
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.009,
+      "cleared only": 0.245,
+      "dug only": 0.0,
+      "neither": 0.746
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.012,
+      "cleared only": 0.162,
+      "dug only": 0.043,
+      "neither": 0.784
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.0,
+      "cleared only": 0.005,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.224,
+      "cleared only": 0.019,
+      "dug only": 0.698,
+      "neither": 0.059
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.097,
+      "cleared only": 0.142,
+      "dug only": 0.457,
+      "neither": 0.304
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.042,
+      "cleared only": 0.005,
+      "dug only": 0.749,
+      "neither": 0.204
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.065,
+      "neither": 0.928
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.159,
+      "cleared only": 0.052,
+      "dug only": 0.662,
+      "neither": 0.127
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.811,
+      "neither": 0.087
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.094,
+      "cleared only": 0.194,
+      "dug only": 0.193,
+      "neither": 0.519
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.002,
+      "cleared only": 0.017,
+      "dug only": 0.089,
+      "neither": 0.892
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.498,
+      "cleared only": 0.18,
+      "dug only": 0.107,
+      "neither": 0.215
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.438,
+      "cleared only": 0.346,
+      "dug only": 0.045,
+      "neither": 0.17
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.048,
+      "cleared only": 0.005,
+      "dug only": 0.59,
+      "neither": 0.357
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.033,
+      "cleared only": 0.04,
+      "dug only": 0.049,
+      "neither": 0.878
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.932,
+      "cleared only": 0.007,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.697,
+      "cleared only": 0.073,
+      "dug only": 0.098,
+      "neither": 0.132
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.248,
+      "cleared only": 0.062,
+      "dug only": 0.451,
+      "neither": 0.239
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.008,
+      "cleared only": 0.011,
+      "dug only": 0.013,
+      "neither": 0.968
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.388,
+      "cleared only": 0.22,
+      "dug only": 0.297,
+      "neither": 0.095
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.267,
+      "cleared only": 0.162,
+      "dug only": 0.282,
+      "neither": 0.288
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.089,
+      "cleared only": 0.086,
+      "dug only": 0.405,
+      "neither": 0.421
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.009,
+      "cleared only": 0.015,
+      "dug only": 0.043,
+      "neither": 0.932
+     }
+    },
+    "right": {
+     "cleared + dug": 0.388,
+     "cleared only": 0.162,
+     "dug only": 0.405,
+     "neither": 0.932
+    },
+    "mean_right": 0.472
+   }
+  },
+  "A/B: biomass lost x Earthwork burns + every cut quiet": {
+   "sites": {
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.127,
+      "cleared only": 0.841,
+      "dug only": 0.005,
+      "neither": 0.027
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.006,
+      "cleared only": 0.248,
+      "dug only": 0.0,
+      "neither": 0.746
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.014,
+      "cleared only": 0.159,
+      "dug only": 0.043,
+      "neither": 0.784
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.0,
+      "cleared only": 0.005,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.21,
+      "cleared only": 0.034,
+      "dug only": 0.696,
+      "neither": 0.06
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.071,
+      "cleared only": 0.168,
+      "dug only": 0.468,
+      "neither": 0.293
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.041,
+      "cleared only": 0.005,
+      "dug only": 0.776,
+      "neither": 0.177
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.075,
+      "neither": 0.918
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.148,
+      "cleared only": 0.063,
+      "dug only": 0.663,
+      "neither": 0.126
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.812,
+      "neither": 0.087
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.081,
+      "cleared only": 0.206,
+      "dug only": 0.196,
+      "neither": 0.517
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.001,
+      "cleared only": 0.018,
+      "dug only": 0.089,
+      "neither": 0.892
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.271,
+      "cleared only": 0.407,
+      "dug only": 0.1,
+      "neither": 0.222
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.17,
+      "cleared only": 0.614,
+      "dug only": 0.034,
+      "neither": 0.182
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.041,
+      "cleared only": 0.011,
+      "dug only": 0.568,
+      "neither": 0.379
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.024,
+      "cleared only": 0.049,
+      "dug only": 0.039,
+      "neither": 0.888
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.932,
+      "cleared only": 0.007,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.7,
+      "cleared only": 0.069,
+      "dug only": 0.106,
+      "neither": 0.125
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.248,
+      "cleared only": 0.062,
+      "dug only": 0.451,
+      "neither": 0.239
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.009,
+      "cleared only": 0.011,
+      "dug only": 0.015,
+      "neither": 0.965
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.338,
+      "cleared only": 0.27,
+      "dug only": 0.296,
+      "neither": 0.096
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.209,
+      "cleared only": 0.221,
+      "dug only": 0.284,
+      "neither": 0.287
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.085,
+      "cleared only": 0.089,
+      "dug only": 0.407,
+      "neither": 0.419
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.007,
+      "cleared only": 0.017,
+      "dug only": 0.044,
+      "neither": 0.932
+     }
+    },
+    "right": {
+     "cleared + dug": 0.338,
+     "cleared only": 0.221,
+     "dug only": 0.407,
+     "neither": 0.932
+    },
+    "mean_right": 0.475
+   }
+  },
+  "A/B: biomass lost x Earthwork burns + cuts least like digging": {
+   "sites": {
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.119,
+      "cleared only": 0.849,
+      "dug only": 0.005,
+      "neither": 0.028
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.005,
+      "cleared only": 0.249,
+      "dug only": 0.0,
+      "neither": 0.746
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.014,
+      "cleared only": 0.159,
+      "dug only": 0.043,
+      "neither": 0.784
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.0,
+      "cleared only": 0.005,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.208,
+      "cleared only": 0.036,
+      "dug only": 0.692,
+      "neither": 0.064
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.072,
+      "cleared only": 0.167,
+      "dug only": 0.467,
+      "neither": 0.293
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.041,
+      "cleared only": 0.006,
+      "dug only": 0.771,
+      "neither": 0.183
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.076,
+      "neither": 0.917
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.156,
+      "cleared only": 0.054,
+      "dug only": 0.676,
+      "neither": 0.113
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.812,
+      "neither": 0.086
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.081,
+      "cleared only": 0.206,
+      "dug only": 0.195,
+      "neither": 0.518
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.001,
+      "cleared only": 0.018,
+      "dug only": 0.091,
+      "neither": 0.89
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.307,
+      "cleared only": 0.371,
+      "dug only": 0.101,
+      "neither": 0.221
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.186,
+      "cleared only": 0.598,
+      "dug only": 0.036,
+      "neither": 0.18
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.043,
+      "cleared only": 0.01,
+      "dug only": 0.575,
+      "neither": 0.373
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.025,
+      "cleared only": 0.048,
+      "dug only": 0.04,
+      "neither": 0.887
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.934,
+      "cleared only": 0.004,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.699,
+      "cleared only": 0.07,
+      "dug only": 0.105,
+      "neither": 0.126
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.248,
+      "cleared only": 0.062,
+      "dug only": 0.451,
+      "neither": 0.239
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.008,
+      "cleared only": 0.011,
+      "dug only": 0.014,
+      "neither": 0.966
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.345,
+      "cleared only": 0.263,
+      "dug only": 0.298,
+      "neither": 0.094
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.212,
+      "cleared only": 0.218,
+      "dug only": 0.284,
+      "neither": 0.286
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.085,
+      "cleared only": 0.089,
+      "dug only": 0.407,
+      "neither": 0.419
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.007,
+      "cleared only": 0.017,
+      "dug only": 0.044,
+      "neither": 0.931
+     }
+    },
+    "right": {
+     "cleared + dug": 0.345,
+     "cleared only": 0.218,
+     "dug only": 0.407,
+     "neither": 0.931
+    },
+    "mean_right": 0.475
+   }
+  },
+  "A/B: biomass lost x Earthwork burns + 5,000 cut px per region": {
+   "sites": {
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.196,
+      "cleared only": 0.772,
+      "dug only": 0.007,
+      "neither": 0.025
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.012,
+      "cleared only": 0.242,
+      "dug only": 0.0,
+      "neither": 0.746
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.014,
+      "cleared only": 0.159,
+      "dug only": 0.043,
+      "neither": 0.784
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.0,
+      "cleared only": 0.005,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.213,
+      "cleared only": 0.031,
+      "dug only": 0.695,
+      "neither": 0.061
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.077,
+      "cleared only": 0.162,
+      "dug only": 0.461,
+      "neither": 0.299
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.041,
+      "cleared only": 0.005,
+      "dug only": 0.766,
+      "neither": 0.187
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.072,
+      "neither": 0.921
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.16,
+      "cleared only": 0.05,
+      "dug only": 0.671,
+      "neither": 0.119
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.813,
+      "neither": 0.086
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.084,
+      "cleared only": 0.204,
+      "dug only": 0.193,
+      "neither": 0.519
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.001,
+      "cleared only": 0.018,
+      "dug only": 0.09,
+      "neither": 0.891
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.359,
+      "cleared only": 0.319,
+      "dug only": 0.101,
+      "neither": 0.221
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.237,
+      "cleared only": 0.547,
+      "dug only": 0.037,
+      "neither": 0.179
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.041,
+      "cleared only": 0.011,
+      "dug only": 0.57,
+      "neither": 0.378
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.026,
+      "cleared only": 0.047,
+      "dug only": 0.041,
+      "neither": 0.886
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.932,
+      "cleared only": 0.007,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.698,
+      "cleared only": 0.072,
+      "dug only": 0.105,
+      "neither": 0.126
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.248,
+      "cleared only": 0.062,
+      "dug only": 0.451,
+      "neither": 0.239
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.008,
+      "cleared only": 0.011,
+      "dug only": 0.014,
+      "neither": 0.966
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.372,
+      "cleared only": 0.236,
+      "dug only": 0.298,
+      "neither": 0.094
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.224,
+      "cleared only": 0.206,
+      "dug only": 0.283,
+      "neither": 0.287
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.086,
+      "cleared only": 0.088,
+      "dug only": 0.405,
+      "neither": 0.421
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.008,
+      "cleared only": 0.017,
+      "dug only": 0.043,
+      "neither": 0.932
+     }
+    },
+    "right": {
+     "cleared + dug": 0.372,
+     "cleared only": 0.206,
+     "dug only": 0.405,
+     "neither": 0.932
+    },
+    "mean_right": 0.479
+   }
+  },
+  "A/B: biomass lost x Earthwork burns + cuts at weight .25": {
+   "sites": {
+    "hibbing-mn": {
+     "cleared + dug": {
+      "n": 1539,
+      "cleared + dug": 0.107,
+      "cleared only": 0.861,
+      "dug only": 0.004,
+      "neither": 0.029
+     },
+     "cleared only": {
+      "n": 3744,
+      "cleared + dug": 0.006,
+      "cleared only": 0.248,
+      "dug only": 0.0,
+      "neither": 0.746
+     },
+     "dug only": {
+      "n": 421,
+      "cleared + dug": 0.01,
+      "cleared only": 0.164,
+      "dug only": 0.043,
+      "neither": 0.784
+     },
+     "neither": {
+      "n": 9526,
+      "cleared + dug": 0.0,
+      "cleared only": 0.005,
+      "dug only": 0.0,
+      "neither": 0.995
+     }
+    },
+    "lakewood-ranch-fl": {
+     "cleared + dug": {
+      "n": 15000,
+      "cleared + dug": 0.213,
+      "cleared only": 0.03,
+      "dug only": 0.694,
+      "neither": 0.062
+     },
+     "cleared only": {
+      "n": 14592,
+      "cleared + dug": 0.078,
+      "cleared only": 0.161,
+      "dug only": 0.461,
+      "neither": 0.299
+     },
+     "dug only": {
+      "n": 1981,
+      "cleared + dug": 0.041,
+      "cleared only": 0.006,
+      "dug only": 0.763,
+      "neither": 0.191
+     },
+     "neither": {
+      "n": 7971,
+      "cleared + dug": 0.003,
+      "cleared only": 0.004,
+      "dug only": 0.072,
+      "neither": 0.921
+     }
+    },
+    "four-corners-fl": {
+     "cleared + dug": {
+      "n": 2927,
+      "cleared + dug": 0.146,
+      "cleared only": 0.065,
+      "dug only": 0.66,
+      "neither": 0.129
+     },
+     "cleared only": {
+      "n": 7861,
+      "cleared + dug": 0.096,
+      "cleared only": 0.005,
+      "dug only": 0.81,
+      "neither": 0.088
+     },
+     "dug only": {
+      "n": 2127,
+      "cleared + dug": 0.084,
+      "cleared only": 0.204,
+      "dug only": 0.193,
+      "neither": 0.519
+     },
+     "neither": {
+      "n": 7867,
+      "cleared + dug": 0.001,
+      "cleared only": 0.018,
+      "dug only": 0.088,
+      "neither": 0.893
+     }
+    },
+    "huntsville-al": {
+     "cleared + dug": {
+      "n": 1046,
+      "cleared + dug": 0.374,
+      "cleared only": 0.304,
+      "dug only": 0.101,
+      "neither": 0.221
+     },
+     "cleared only": {
+      "n": 3146,
+      "cleared + dug": 0.255,
+      "cleared only": 0.529,
+      "dug only": 0.038,
+      "neither": 0.178
+     },
+     "dug only": {
+      "n": 630,
+      "cleared + dug": 0.043,
+      "cleared only": 0.01,
+      "dug only": 0.579,
+      "neither": 0.368
+     },
+     "neither": {
+      "n": 9370,
+      "cleared + dug": 0.027,
+      "cleared only": 0.046,
+      "dug only": 0.042,
+      "neither": 0.885
+     }
+    },
+    "new-albany-oh": {
+     "cleared + dug": {
+      "n": 457,
+      "cleared + dug": 0.934,
+      "cleared only": 0.004,
+      "dug only": 0.015,
+      "neither": 0.046
+     },
+     "cleared only": {
+      "n": 937,
+      "cleared + dug": 0.698,
+      "cleared only": 0.072,
+      "dug only": 0.1,
+      "neither": 0.13
+     },
+     "dug only": {
+      "n": 113,
+      "cleared + dug": 0.248,
+      "cleared only": 0.062,
+      "dug only": 0.451,
+      "neither": 0.239
+     },
+     "neither": {
+      "n": 9810,
+      "cleared + dug": 0.008,
+      "cleared only": 0.011,
+      "dug only": 0.014,
+      "neither": 0.967
+     }
+    }
+   },
+   "five US sites": {
+    "pooled": {
+     "cleared + dug": {
+      "n": 20969,
+      "cleared + dug": 0.355,
+      "cleared only": 0.253,
+      "dug only": 0.295,
+      "neither": 0.097
+     },
+     "cleared only": {
+      "n": 30280,
+      "cleared + dug": 0.227,
+      "cleared only": 0.203,
+      "dug only": 0.282,
+      "neither": 0.288
+     },
+     "dug only": {
+      "n": 5272,
+      "cleared + dug": 0.085,
+      "cleared only": 0.089,
+      "dug only": 0.406,
+      "neither": 0.42
+     },
+     "neither": {
+      "n": 44544,
+      "cleared + dug": 0.008,
+      "cleared only": 0.017,
+      "dug only": 0.043,
+      "neither": 0.932
+     }
+    },
+    "right": {
+     "cleared + dug": 0.355,
+     "cleared only": 0.203,
+     "dug only": 0.406,
+     "neither": 0.932
+    },
+    "mean_right": 0.474
+   }
+  }
+ },
+ "peak_gb": 7.4,
+ "seconds": 13
+}

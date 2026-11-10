@@ -1,0 +1,665 @@
+{
+ "per_place": {
+  "ky-clay": {
+   "src": "lidar",
+   "dug": 13073,
+   "not": 4817,
+   "pair_auc": 0.937,
+   "ctx_auc": 0.928,
+   "pair_dug_called": 0.721,
+   "ctx_dug_called": 0.782,
+   "pair_not_called": 0.09,
+   "ctx_not_called": 0.123
+  },
+  "ky-pike": {
+   "src": "lidar",
+   "dug": 410,
+   "not": 15000,
+   "pair_auc": 0.619,
+   "ctx_auc": 0.607,
+   "pair_dug_called": 0.2,
+   "ctx_dug_called": 0.21,
+   "pair_not_called": 0.014,
+   "ctx_not_called": 0.017
+  },
+  "ky-perry": {
+   "src": "lidar",
+   "dug": 42,
+   "not": 88,
+   "pair_auc": 0.894,
+   "ctx_auc": 0.885,
+   "pair_dug_called": 0.881,
+   "ctx_dug_called": 0.738,
+   "pair_not_called": 0.114,
+   "ctx_not_called": 0.114
+  },
+  "hibbing-mn": {
+   "src": "lidar",
+   "dug": 1539,
+   "not": 3746,
+   "pair_auc": 0.97,
+   "ctx_auc": 0.974,
+   "pair_dug_called": 0.962,
+   "ctx_dug_called": 0.978,
+   "pair_not_called": 0.093,
+   "ctx_not_called": 0.11
+  },
+  "lakewood-ranch-fl": {
+   "src": "lidar",
+   "dug": 15000,
+   "not": 14592,
+   "pair_auc": 0.695,
+   "ctx_auc": 0.659,
+   "pair_dug_called": 0.406,
+   "ctx_dug_called": 0.626,
+   "pair_not_called": 0.264,
+   "ctx_not_called": 0.39
+  },
+  "four-corners-fl": {
+   "src": "lidar",
+   "dug": 2927,
+   "not": 7870,
+   "pair_auc": 0.357,
+   "ctx_auc": 0.266,
+   "pair_dug_called": 0.855,
+   "ctx_dug_called": 0.562,
+   "pair_not_called": 0.861,
+   "ctx_not_called": 0.864
+  },
+  "huntsville-al": {
+   "src": "lidar",
+   "dug": 1046,
+   "not": 3146,
+   "pair_auc": 0.653,
+   "ctx_auc": 0.654,
+   "pair_dug_called": 0.145,
+   "ctx_dug_called": 0.21,
+   "pair_not_called": 0.11,
+   "ctx_not_called": 0.189
+  },
+  "new-albany-oh": {
+   "src": "lidar",
+   "dug": 457,
+   "not": 937,
+   "pair_auc": 0.729,
+   "ctx_auc": 0.773,
+   "pair_dug_called": 0.982,
+   "ctx_dug_called": 0.965,
+   "pair_not_called": 0.845,
+   "ctx_not_called": 0.83
+  },
+  "coast-range-or": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "willapa-wa": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "ware-ga": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.004,
+   "ctx_not_called": 0.0
+  },
+  "pine-ms": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.104,
+   "ctx_not_called": 0.0
+  },
+  "north-woods-me": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "norrland-se": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "kainuu-fi": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "kaingaroa-nz": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "tres-lagoas-br": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "biobio-cl": {
+   "src": "cut",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "space-amaravati-in": {
+   "src": "space",
+   "dug": 6,
+   "not": 708,
+   "pair_auc": 0.661,
+   "ctx_auc": 0.791,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 0.0,
+   "pair_not_called": 0.007,
+   "ctx_not_called": 0.007
+  },
+  "space-eko-atlantic-ng": {
+   "src": "space",
+   "dug": 23,
+   "not": 1819,
+   "pair_auc": 0.768,
+   "ctx_auc": 0.735,
+   "pair_dug_called": 0.565,
+   "ctx_dug_called": 0.478,
+   "pair_not_called": 0.032,
+   "ctx_not_called": 0.025
+  },
+  "space-kolwezi-cd": {
+   "src": "space",
+   "dug": 392,
+   "not": 2614,
+   "pair_auc": 0.935,
+   "ctx_auc": 0.951,
+   "pair_dug_called": 0.781,
+   "ctx_dug_called": 0.814,
+   "pair_not_called": 0.07,
+   "ctx_not_called": 0.056
+  },
+  "space-mobimbi-sl": {
+   "src": "space",
+   "dug": 54,
+   "not": 156,
+   "pair_auc": 0.86,
+   "ctx_auc": 0.898,
+   "pair_dug_called": 0.778,
+   "ctx_dug_called": 0.778,
+   "pair_not_called": 0.064,
+   "ctx_not_called": 0.103
+  },
+  "space-morowali-id": {
+   "src": "space",
+   "dug": 36,
+   "not": 237,
+   "pair_auc": 0.917,
+   "ctx_auc": 0.925,
+   "pair_dug_called": 0.806,
+   "ctx_dug_called": 0.778,
+   "pair_not_called": 0.127,
+   "ctx_not_called": 0.127
+  },
+  "space-new-capital-eg": {
+   "src": "space",
+   "dug": 788,
+   "not": 9189,
+   "pair_auc": 0.61,
+   "ctx_auc": 0.566,
+   "pair_dug_called": 0.702,
+   "ctx_dug_called": 0.874,
+   "pair_not_called": 0.539,
+   "ctx_not_called": 0.786
+  },
+  "space-salonga-cd": {
+   "src": "space",
+   "dug": 0,
+   "not": 11,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "space-sembehun-sl": {
+   "src": "space",
+   "dug": 85,
+   "not": 997,
+   "pair_auc": 0.84,
+   "ctx_auc": 0.888,
+   "pair_dug_called": 0.776,
+   "ctx_dug_called": 0.835,
+   "pair_not_called": 0.276,
+   "ctx_not_called": 0.124
+  },
+  "space-serengeti-tz": {
+   "src": "space",
+   "dug": 0,
+   "not": 1255,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "space-shurugwi-zw": {
+   "src": "space",
+   "dug": 13,
+   "not": 224,
+   "pair_auc": 0.825,
+   "ctx_auc": 0.828,
+   "pair_dug_called": 0.462,
+   "ctx_dug_called": 0.615,
+   "pair_not_called": 0.009,
+   "ctx_not_called": 0.013
+  },
+  "space-unki-zw": {
+   "src": "space",
+   "dug": 1,
+   "not": 664,
+   "pair_auc": 0.961,
+   "ctx_auc": 0.98,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 0.0,
+   "pair_not_called": 0.017,
+   "ctx_not_called": 0.002
+  },
+  "space-weda-bay-id": {
+   "src": "space",
+   "dug": 1,
+   "not": 380,
+   "pair_auc": 0.987,
+   "ctx_auc": 0.989,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 1.0,
+   "pair_not_called": 0.011,
+   "ctx_not_called": 0.013
+  },
+  "space-xiongan-cn": {
+   "src": "space",
+   "dug": 405,
+   "not": 1768,
+   "pair_auc": 0.789,
+   "ctx_auc": 0.752,
+   "pair_dug_called": 0.504,
+   "ctx_dug_called": 0.647,
+   "pair_not_called": 0.155,
+   "ctx_not_called": 0.283
+  },
+  "space-madre-de-dios-pe": {
+   "src": "space",
+   "dug": 25,
+   "not": 239,
+   "pair_auc": 0.646,
+   "ctx_auc": 0.677,
+   "pair_dug_called": 1.0,
+   "ctx_dug_called": 1.0,
+   "pair_not_called": 0.736,
+   "ctx_not_called": 0.753
+  },
+  "space-tarkwa-gh": {
+   "src": "space",
+   "dug": 0,
+   "not": 42,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.048,
+   "ctx_not_called": 0.143
+  },
+  "space-sangatta-id": {
+   "src": "space",
+   "dug": 21,
+   "not": 18,
+   "pair_auc": 0.78,
+   "ctx_auc": 0.757,
+   "pair_dug_called": 0.571,
+   "ctx_dug_called": 0.333,
+   "pair_not_called": 0.167,
+   "ctx_not_called": 0.0
+  },
+  "space-adaro-id": {
+   "src": "space",
+   "dug": 28,
+   "not": 42,
+   "pair_auc": 0.57,
+   "ctx_auc": 0.825,
+   "pair_dug_called": 0.25,
+   "ctx_dug_called": 0.25,
+   "pair_not_called": 0.286,
+   "ctx_not_called": 0.071
+  },
+  "space-sorowako-id": {
+   "src": "space",
+   "dug": 2,
+   "not": 14,
+   "pair_auc": 0.464,
+   "ctx_auc": 0.5,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 0.0,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.071
+  },
+  "space-pomalaa-id": {
+   "src": "space",
+   "dug": 5,
+   "not": 1,
+   "pair_auc": 0.2,
+   "ctx_auc": 0.2,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 0.0,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "space-boke-gn": {
+   "src": "space",
+   "dug": 35,
+   "not": 28,
+   "pair_auc": 0.989,
+   "ctx_auc": 0.998,
+   "pair_dug_called": 0.0,
+   "ctx_dug_called": 0.171,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "space-fort-hills-ab": {
+   "src": "space",
+   "dug": 10141,
+   "not": 2929,
+   "pair_auc": 0.694,
+   "ctx_auc": 0.722,
+   "pair_dug_called": 0.765,
+   "ctx_dug_called": 0.673,
+   "pair_not_called": 0.522,
+   "ctx_not_called": 0.35
+  },
+  "space-detour-lake-on": {
+   "src": "space",
+   "dug": 154,
+   "not": 2689,
+   "pair_auc": 0.897,
+   "ctx_auc": 0.915,
+   "pair_dug_called": 0.883,
+   "ctx_dug_called": 0.909,
+   "pair_not_called": 0.181,
+   "ctx_not_called": 0.165
+  },
+  "space-orapa-bw": {
+   "src": "space",
+   "dug": 1609,
+   "not": 8423,
+   "pair_auc": 0.944,
+   "ctx_auc": 0.918,
+   "pair_dug_called": 0.906,
+   "ctx_dug_called": 0.763,
+   "pair_not_called": 0.127,
+   "ctx_not_called": 0.134
+  },
+  "space-jwaneng-bw": {
+   "src": "space",
+   "dug": 2909,
+   "not": 13306,
+   "pair_auc": 0.905,
+   "ctx_auc": 0.934,
+   "pair_dug_called": 0.929,
+   "ctx_dug_called": 0.887,
+   "pair_not_called": 0.246,
+   "ctx_not_called": 0.167
+  },
+  "space-ekibastuz-kz": {
+   "src": "space",
+   "dug": 297,
+   "not": 3446,
+   "pair_auc": 0.926,
+   "ctx_auc": 0.943,
+   "pair_dug_called": 0.394,
+   "ctx_dug_called": 0.704,
+   "pair_not_called": 0.027,
+   "ctx_not_called": 0.058
+  },
+  "space-sokolov-kz": {
+   "src": "space",
+   "dug": 36,
+   "not": 851,
+   "pair_auc": 0.758,
+   "ctx_auc": 0.774,
+   "pair_dug_called": 0.194,
+   "ctx_dug_called": 0.083,
+   "pair_not_called": 0.02,
+   "ctx_not_called": 0.021
+  },
+  "near-kolwezi-cd": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-fort-hills-ab": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-detour-lake-on": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-adaro-id": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.006,
+   "ctx_not_called": 0.004
+  },
+  "near-sangatta-id": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.021,
+   "ctx_not_called": 0.001
+  },
+  "near-madre-de-dios-pe": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-boke-gn": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-mobimbi-sl": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-sembehun-sl": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.0,
+   "ctx_not_called": 0.0
+  },
+  "near-weda-bay-id": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.159,
+   "ctx_not_called": 0.464
+  },
+  "near-morowali-id": {
+   "src": "near",
+   "dug": 0,
+   "not": 15000,
+   "pair_auc": null,
+   "ctx_auc": null,
+   "pair_dug_called": null,
+   "ctx_dug_called": null,
+   "pair_not_called": 0.113,
+   "ctx_not_called": 0.108
+  }
+ },
+ "summary": {
+  "pair": {
+   "lidar": {
+    "places": 8,
+    "mean_auc": 0.709,
+    "dug_called_dug": 0.61,
+    "not_called_dug": 0.299
+   },
+   "cut": {
+    "places": 10,
+    "mean_auc": null,
+    "dug_called_dug": null,
+    "not_called_dug": 0.011
+   },
+   "near": {
+    "places": 11,
+    "mean_auc": null,
+    "dug_called_dug": null,
+    "not_called_dug": 0.027
+   },
+   "space": {
+    "places": 26,
+    "mean_auc": 0.84,
+    "dug_called_dug": 0.742,
+    "not_called_dug": 0.167
+   }
+  },
+  "ctx": {
+   "lidar": {
+    "places": 8,
+    "mean_auc": 0.694,
+    "dug_called_dug": 0.619,
+    "not_called_dug": 0.33
+   },
+   "cut": {
+    "places": 10,
+    "mean_auc": null,
+    "dug_called_dug": null,
+    "not_called_dug": 0.0
+   },
+   "near": {
+    "places": 11,
+    "mean_auc": null,
+    "dug_called_dug": null,
+    "not_called_dug": 0.052
+   },
+   "space": {
+    "places": 26,
+    "mean_auc": 0.849,
+    "dug_called_dug": 0.788,
+    "not_called_dug": 0.168
+   }
+  }
+ },
+ "peak_gb": 5.0,
+ "seconds": 9
+}

@@ -1,0 +1,1654 @@
+{
+ "squares": {
+  "lidar-ca-timmins-dome": {
+   "flights": [
+    2018,
+    2024
+   ],
+   "years": [
+    2018,
+    2024
+   ],
+   "px": {
+    "lost": 7222,
+    "clear cut": 3977,
+    "steady forest": 22148,
+    "gained": 937
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.003,
+     "loss": 0.2821
+    },
+    "clear cut": {
+     "gain": 0.0013,
+     "loss": 0.4938
+    },
+    "steady forest": {
+     "gain": 0.0052,
+     "loss": 0.0072
+    },
+    "gained": {
+     "gain": 0.0,
+     "loss": 0.0011
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.1617,
+     "clear cut found": 0.2668,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0242,
+     "steady forest called cut": 0.0079,
+     "gained called cut": 0.0011,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "h5": {
+     "lost found": 0.1346,
+     "clear cut found": 0.2326,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.001,
+     "steady forest called cut": 0.0031,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "h8": {
+     "lost found": 0.0435,
+     "clear cut found": 0.0767,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0002,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "half": {
+     "lost found": 0.1526,
+     "clear cut found": 0.2595,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0118,
+     "steady forest called cut": 0.0028,
+     "gained called cut": 0.0011,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "h5 moved": {
+     "lost found": 0.134,
+     "clear cut found": 0.2326,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0006,
+     "steady forest called cut": 0.0027,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "half moved": {
+     "lost found": 0.1455,
+     "clear cut found": 0.2497,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0035,
+     "steady forest called cut": 0.0026,
+     "gained called cut": 0.0011,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "class": {
+     "lost found": 0.2048,
+     "clear cut found": 0.3701,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0517,
+     "steady forest called cut": 0.0004,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "class moved": {
+     "lost found": 0.181,
+     "clear cut found": 0.3274,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0215,
+     "steady forest called cut": 0.0004,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    },
+    "h5 or class, moved": {
+     "lost found": 0.2459,
+     "clear cut found": 0.435,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0215,
+     "steady forest called cut": 0.0031,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 22
+    }
+   }
+  },
+  "lidar-ee-kivioli": {
+   "flights": [
+    2018,
+    2022
+   ],
+   "years": [
+    2018,
+    2022
+   ],
+   "px": {
+    "lost": 547,
+    "clear cut": 503,
+    "steady forest": 474,
+    "gained": 4126
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0018,
+     "loss": 0.4059
+    },
+    "clear cut": {
+     "gain": 0.0,
+     "loss": 0.4254
+    },
+    "steady forest": {
+     "gain": 0.0,
+     "loss": 0.0021
+    },
+    "gained": {
+     "gain": 0.0,
+     "loss": 0.0051
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.0603,
+     "clear cut found": 0.0616,
+     "gain on lost taken back": 1.0,
+     "missed loss added": 0.0741,
+     "steady forest called cut": 0.0042,
+     "gained called cut": 0.0061,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "h5": {
+     "lost found": 0.042,
+     "clear cut found": 0.0437,
+     "gain on lost taken back": 1.0,
+     "missed loss added": 0.0432,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0015,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "h8": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "half": {
+     "lost found": 0.0622,
+     "clear cut found": 0.0616,
+     "gain on lost taken back": 1.0,
+     "missed loss added": 0.0772,
+     "steady forest called cut": 0.0021,
+     "gained called cut": 0.0019,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "h5 moved": {
+     "lost found": 0.0201,
+     "clear cut found": 0.0219,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0123,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0005,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "half moved": {
+     "lost found": 0.0219,
+     "clear cut found": 0.0219,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0154,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0012,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "class": {
+     "lost found": 0.543,
+     "clear cut found": 0.5746,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.3272,
+     "steady forest called cut": 0.0316,
+     "gained called cut": 0.0308,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "class moved": {
+     "lost found": 0.4077,
+     "clear cut found": 0.4314,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1235,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0024,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    },
+    "h5 or class, moved": {
+     "lost found": 0.4077,
+     "clear cut found": 0.4314,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1235,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0024,
+     "gain on gained taken away": null,
+     "n gain on lost": 1
+    }
+   }
+  },
+  "lidar-ee-lahemaa": {
+   "flights": [
+    2018,
+    2022
+   ],
+   "years": [
+    2018,
+    2022
+   ],
+   "px": {
+    "lost": 6759,
+    "clear cut": 3672,
+    "steady forest": 14985,
+    "gained": 56194
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0115,
+     "loss": 0.1923
+    },
+    "clear cut": {
+     "gain": 0.0074,
+     "loss": 0.3118
+    },
+    "steady forest": {
+     "gain": 0.0298,
+     "loss": 0.0045
+    },
+    "gained": {
+     "gain": 0.105,
+     "loss": 0.0009
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.6661,
+     "clear cut found": 0.7889,
+     "gain on lost taken back": 0.0385,
+     "missed loss added": 0.5945,
+     "steady forest called cut": 0.0809,
+     "gained called cut": 0.0314,
+     "gain on gained taken away": 0.0003,
+     "n gain on lost": 78
+    },
+    "h5": {
+     "lost found": 0.5243,
+     "clear cut found": 0.6836,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.4178,
+     "steady forest called cut": 0.0327,
+     "gained called cut": 0.0125,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "h8": {
+     "lost found": 0.3267,
+     "clear cut found": 0.4695,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1946,
+     "steady forest called cut": 0.0112,
+     "gained called cut": 0.0035,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "half": {
+     "lost found": 0.3848,
+     "clear cut found": 0.5757,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.2475,
+     "steady forest called cut": 0.0113,
+     "gained called cut": 0.0036,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "h5 moved": {
+     "lost found": 0.2315,
+     "clear cut found": 0.3652,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0859,
+     "steady forest called cut": 0.0054,
+     "gained called cut": 0.0011,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "half moved": {
+     "lost found": 0.2277,
+     "clear cut found": 0.3636,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0831,
+     "steady forest called cut": 0.0041,
+     "gained called cut": 0.0008,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "class": {
+     "lost found": 0.0075,
+     "clear cut found": 0.0136,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0076,
+     "steady forest called cut": 0.0003,
+     "gained called cut": 0.0003,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "class moved": {
+     "lost found": 0.0036,
+     "clear cut found": 0.0063,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0026,
+     "steady forest called cut": 0.0001,
+     "gained called cut": 0.0,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    },
+    "h5 or class, moved": {
+     "lost found": 0.2327,
+     "clear cut found": 0.3671,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0873,
+     "steady forest called cut": 0.0055,
+     "gained called cut": 0.0011,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 78
+    }
+   }
+  },
+  "lidar-ee-tartu": {
+   "flights": [
+    2019,
+    2023
+   ],
+   "years": [
+    2019,
+    2023
+   ],
+   "px": {
+    "lost": 3007,
+    "clear cut": 2198,
+    "steady forest": 24063,
+    "gained": 10033
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0,
+     "loss": 0.1084
+    },
+    "clear cut": {
+     "gain": 0.0,
+     "loss": 0.1283
+    },
+    "steady forest": {
+     "gain": 0.0,
+     "loss": 0.0008
+    },
+    "gained": {
+     "gain": 0.0,
+     "loss": 0.023
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.1906,
+     "clear cut found": 0.1706,
+     "gain on lost taken back": null,
+     "missed loss added": 0.1548,
+     "steady forest called cut": 0.0338,
+     "gained called cut": 0.0633,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5": {
+     "lost found": 0.1048,
+     "clear cut found": 0.1046,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0668,
+     "steady forest called cut": 0.0087,
+     "gained called cut": 0.0167,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h8": {
+     "lost found": 0.0156,
+     "clear cut found": 0.0159,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0048,
+     "steady forest called cut": 0.0004,
+     "gained called cut": 0.0007,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half": {
+     "lost found": 0.1191,
+     "clear cut found": 0.1315,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0746,
+     "steady forest called cut": 0.0037,
+     "gained called cut": 0.0126,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 moved": {
+     "lost found": 0.0486,
+     "clear cut found": 0.0555,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0112,
+     "steady forest called cut": 0.0003,
+     "gained called cut": 0.0021,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half moved": {
+     "lost found": 0.0559,
+     "clear cut found": 0.0646,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0142,
+     "steady forest called cut": 0.0006,
+     "gained called cut": 0.0033,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class": {
+     "lost found": 0.2122,
+     "clear cut found": 0.2493,
+     "gain on lost taken back": null,
+     "missed loss added": 0.1492,
+     "steady forest called cut": 0.0246,
+     "gained called cut": 0.0429,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class moved": {
+     "lost found": 0.1068,
+     "clear cut found": 0.1338,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0436,
+     "steady forest called cut": 0.0009,
+     "gained called cut": 0.0104,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 or class, moved": {
+     "lost found": 0.1117,
+     "clear cut found": 0.1369,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0463,
+     "steady forest called cut": 0.001,
+     "gained called cut": 0.0114,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    }
+   }
+  },
+  "lidar-gb-devilla": {
+   "flights": [
+    2018,
+    2020
+   ],
+   "years": [
+    2018,
+    2020
+   ],
+   "px": {
+    "lost": 1077,
+    "clear cut": 806,
+    "steady forest": 23353,
+    "gained": 10028
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0362,
+     "loss": 0.4522
+    },
+    "clear cut": {
+     "gain": 0.0223,
+     "loss": 0.5658
+    },
+    "steady forest": {
+     "gain": 0.1274,
+     "loss": 0.0027
+    },
+    "gained": {
+     "gain": 0.4705,
+     "loss": 0.0004
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.3918,
+     "clear cut found": 0.4653,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0563,
+     "steady forest called cut": 0.0401,
+     "gained called cut": 0.0028,
+     "gain on gained taken away": 0.0002,
+     "n gain on lost": 39
+    },
+    "h5": {
+     "lost found": 0.3621,
+     "clear cut found": 0.4479,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0054,
+     "steady forest called cut": 0.007,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "h8": {
+     "lost found": 0.3222,
+     "clear cut found": 0.402,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0018,
+     "steady forest called cut": 0.0011,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "half": {
+     "lost found": 0.3668,
+     "clear cut found": 0.4516,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0091,
+     "steady forest called cut": 0.0039,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "h5 moved": {
+     "lost found": 0.3603,
+     "clear cut found": 0.4467,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0018,
+     "steady forest called cut": 0.0018,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "half moved": {
+     "lost found": 0.363,
+     "clear cut found": 0.4479,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0018,
+     "steady forest called cut": 0.0018,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "class": {
+     "lost found": 0.3129,
+     "clear cut found": 0.4169,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0181,
+     "steady forest called cut": 0.011,
+     "gained called cut": 0.0015,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "class moved": {
+     "lost found": 0.3083,
+     "clear cut found": 0.4119,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0091,
+     "steady forest called cut": 0.0002,
+     "gained called cut": 0.0,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    },
+    "h5 or class, moved": {
+     "lost found": 0.4383,
+     "clear cut found": 0.5509,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0091,
+     "steady forest called cut": 0.002,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 39
+    }
+   }
+  },
+  "lidar-no-holmenkollen": {
+   "flights": [
+    2019,
+    2024
+   ],
+   "years": [
+    2019,
+    2024
+   ],
+   "px": {
+    "lost": 17223,
+    "clear cut": 8544,
+    "steady forest": 49065,
+    "gained": 6546
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0008,
+     "loss": 0.0638
+    },
+    "clear cut": {
+     "gain": 0.0007,
+     "loss": 0.1125
+    },
+    "steady forest": {
+     "gain": 0.0001,
+     "loss": 0.0021
+    },
+    "gained": {
+     "gain": 0.0008,
+     "loss": 0.0185
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.1578,
+     "clear cut found": 0.2199,
+     "gain on lost taken back": 0.0769,
+     "missed loss added": 0.1154,
+     "steady forest called cut": 0.0111,
+     "gained called cut": 0.0073,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "h5": {
+     "lost found": 0.0848,
+     "clear cut found": 0.1309,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0426,
+     "steady forest called cut": 0.0034,
+     "gained called cut": 0.0021,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "h8": {
+     "lost found": 0.0301,
+     "clear cut found": 0.0517,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0054,
+     "steady forest called cut": 0.0009,
+     "gained called cut": 0.0012,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "half": {
+     "lost found": 0.0955,
+     "clear cut found": 0.1591,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0498,
+     "steady forest called cut": 0.0034,
+     "gained called cut": 0.0038,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "h5 moved": {
+     "lost found": 0.0431,
+     "clear cut found": 0.0775,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0061,
+     "steady forest called cut": 0.0009,
+     "gained called cut": 0.0015,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "half moved": {
+     "lost found": 0.0464,
+     "clear cut found": 0.0839,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0077,
+     "steady forest called cut": 0.0009,
+     "gained called cut": 0.0029,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "class": {
+     "lost found": 0.068,
+     "clear cut found": 0.1177,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0492,
+     "steady forest called cut": 0.02,
+     "gained called cut": 0.0309,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "class moved": {
+     "lost found": 0.0229,
+     "clear cut found": 0.0423,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0053,
+     "steady forest called cut": 0.0005,
+     "gained called cut": 0.0119,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    },
+    "h5 or class, moved": {
+     "lost found": 0.057,
+     "clear cut found": 0.1033,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0102,
+     "steady forest called cut": 0.0013,
+     "gained called cut": 0.0133,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 13
+    }
+   }
+  },
+  "lidar-nz-banks": {
+   "flights": [
+    2018,
+    2023
+   ],
+   "years": [
+    2018,
+    2023
+   ],
+   "px": {
+    "lost": 4922,
+    "clear cut": 4400,
+    "steady forest": 6947,
+    "gained": 18129
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0002,
+     "loss": 0.8553
+    },
+    "clear cut": {
+     "gain": 0.0,
+     "loss": 0.9116
+    },
+    "steady forest": {
+     "gain": 0.0,
+     "loss": 0.0121
+    },
+    "gained": {
+     "gain": 0.0062,
+     "loss": 0.02
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.8523,
+     "clear cut found": 0.9002,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1913,
+     "steady forest called cut": 0.0275,
+     "gained called cut": 0.1194,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "h5": {
+     "lost found": 0.8171,
+     "clear cut found": 0.8741,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0872,
+     "steady forest called cut": 0.0088,
+     "gained called cut": 0.0243,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "h8": {
+     "lost found": 0.7282,
+     "clear cut found": 0.7934,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0169,
+     "steady forest called cut": 0.0033,
+     "gained called cut": 0.0041,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "half": {
+     "lost found": 0.8234,
+     "clear cut found": 0.882,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0731,
+     "steady forest called cut": 0.0109,
+     "gained called cut": 0.0157,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "h5 moved": {
+     "lost found": 0.7952,
+     "clear cut found": 0.855,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0014,
+     "steady forest called cut": 0.0068,
+     "gained called cut": 0.0093,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "half moved": {
+     "lost found": 0.8027,
+     "clear cut found": 0.8623,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0078,
+     "gained called cut": 0.0103,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "class": {
+     "lost found": 0.2261,
+     "clear cut found": 0.2507,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0141,
+     "steady forest called cut": 0.005,
+     "gained called cut": 0.002,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "class moved": {
+     "lost found": 0.2235,
+     "clear cut found": 0.2486,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0001,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    },
+    "h5 or class, moved": {
+     "lost found": 0.8194,
+     "clear cut found": 0.8818,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0014,
+     "steady forest called cut": 0.0068,
+     "gained called cut": 0.0093,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1
+    }
+   }
+  },
+  "lidar-nz-esk-valley": {
+   "flights": [
+    2020,
+    2024
+   ],
+   "years": [
+    2020,
+    2024
+   ],
+   "px": {
+    "lost": 15032,
+    "clear cut": 12544,
+    "steady forest": 21795,
+    "gained": 11856
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0307,
+     "loss": 0.6921
+    },
+    "clear cut": {
+     "gain": 0.0141,
+     "loss": 0.7889
+    },
+    "steady forest": {
+     "gain": 0.2594,
+     "loss": 0.0425
+    },
+    "gained": {
+     "gain": 0.5849,
+     "loss": 0.1415
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.7185,
+     "clear cut found": 0.7871,
+     "gain on lost taken back": 0.3015,
+     "missed loss added": 0.1958,
+     "steady forest called cut": 0.0687,
+     "gained called cut": 0.228,
+     "gain on gained taken away": 0.0725,
+     "n gain on lost": 461
+    },
+    "h5": {
+     "lost found": 0.6936,
+     "clear cut found": 0.7718,
+     "gain on lost taken back": 0.1171,
+     "missed loss added": 0.1373,
+     "steady forest called cut": 0.0413,
+     "gained called cut": 0.1962,
+     "gain on gained taken away": 0.044,
+     "n gain on lost": 461
+    },
+    "h8": {
+     "lost found": 0.6388,
+     "clear cut found": 0.7241,
+     "gain on lost taken back": 0.013,
+     "missed loss added": 0.0679,
+     "steady forest called cut": 0.0293,
+     "gained called cut": 0.1611,
+     "gain on gained taken away": 0.0124,
+     "n gain on lost": 461
+    },
+    "half": {
+     "lost found": 0.6909,
+     "clear cut found": 0.7753,
+     "gain on lost taken back": 0.0325,
+     "missed loss added": 0.126,
+     "steady forest called cut": 0.0439,
+     "gained called cut": 0.1457,
+     "gain on gained taken away": 0.0009,
+     "n gain on lost": 461
+    },
+    "h5 moved": {
+     "lost found": 0.6695,
+     "clear cut found": 0.7601,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0643,
+     "steady forest called cut": 0.0331,
+     "gained called cut": 0.1446,
+     "gain on gained taken away": 0.0003,
+     "n gain on lost": 461
+    },
+    "half moved": {
+     "lost found": 0.6688,
+     "clear cut found": 0.7619,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0526,
+     "steady forest called cut": 0.0342,
+     "gained called cut": 0.1393,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 461
+    },
+    "class": {
+     "lost found": 0.6185,
+     "clear cut found": 0.7047,
+     "gain on lost taken back": 0.0043,
+     "missed loss added": 0.1778,
+     "steady forest called cut": 0.0416,
+     "gained called cut": 0.1129,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 461
+    },
+    "class moved": {
+     "lost found": 0.5911,
+     "clear cut found": 0.6796,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0866,
+     "steady forest called cut": 0.0307,
+     "gained called cut": 0.1106,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 461
+    },
+    "h5 or class, moved": {
+     "lost found": 0.7207,
+     "clear cut found": 0.8172,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1406,
+     "steady forest called cut": 0.0397,
+     "gained called cut": 0.1495,
+     "gain on gained taken away": 0.0003,
+     "n gain on lost": 461
+    }
+   }
+  },
+  "lidar-nz-glenbervie": {
+   "flights": [
+    2019,
+    2024
+   ],
+   "years": [
+    2019,
+    2024
+   ],
+   "px": {
+    "lost": 49805,
+    "clear cut": 46911,
+    "steady forest": 21117,
+    "gained": 148105
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0269,
+     "loss": 0.8798
+    },
+    "clear cut": {
+     "gain": 0.0219,
+     "loss": 0.9153
+    },
+    "steady forest": {
+     "gain": 0.246,
+     "loss": 0.0263
+    },
+    "gained": {
+     "gain": 0.5656,
+     "loss": 0.0237
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.8709,
+     "clear cut found": 0.9032,
+     "gain on lost taken back": 0.0172,
+     "missed loss added": 0.1687,
+     "steady forest called cut": 0.0275,
+     "gained called cut": 0.0288,
+     "gain on gained taken away": 0.0006,
+     "n gain on lost": 1341
+    },
+    "h5": {
+     "lost found": 0.8375,
+     "clear cut found": 0.8742,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0547,
+     "steady forest called cut": 0.0121,
+     "gained called cut": 0.019,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "h8": {
+     "lost found": 0.7696,
+     "clear cut found": 0.8088,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0075,
+     "steady forest called cut": 0.004,
+     "gained called cut": 0.0142,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "half": {
+     "lost found": 0.8503,
+     "clear cut found": 0.8891,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0572,
+     "steady forest called cut": 0.0107,
+     "gained called cut": 0.0171,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "h5 moved": {
+     "lost found": 0.8327,
+     "clear cut found": 0.8716,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0176,
+     "steady forest called cut": 0.0091,
+     "gained called cut": 0.0169,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "half moved": {
+     "lost found": 0.847,
+     "clear cut found": 0.8866,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0364,
+     "steady forest called cut": 0.01,
+     "gained called cut": 0.0168,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "class": {
+     "lost found": 0.2016,
+     "clear cut found": 0.2138,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.025,
+     "steady forest called cut": 0.001,
+     "gained called cut": 0.0003,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "class moved": {
+     "lost found": 0.1996,
+     "clear cut found": 0.2117,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0045,
+     "steady forest called cut": 0.0002,
+     "gained called cut": 0.0,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    },
+    "h5 or class, moved": {
+     "lost found": 0.8367,
+     "clear cut found": 0.8758,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0222,
+     "steady forest called cut": 0.0093,
+     "gained called cut": 0.0169,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 1341
+    }
+   }
+  },
+  "lidar-nz-roxburgh": {
+   "flights": [
+    2021,
+    2022
+   ],
+   "years": [
+    2021,
+    2022
+   ],
+   "px": {
+    "lost": 10,
+    "clear cut": 6,
+    "steady forest": 232,
+    "gained": 376
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0,
+     "loss": 0.0
+    },
+    "clear cut": {
+     "gain": 0.0,
+     "loss": 0.0
+    },
+    "steady forest": {
+     "gain": 0.0,
+     "loss": 0.0
+    },
+    "gained": {
+     "gain": 0.0,
+     "loss": 0.0
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h8": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 moved": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half moved": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0086,
+     "gained called cut": 0.0027,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class moved": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 or class, moved": {
+     "lost found": 0.0,
+     "clear cut found": 0.0,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0,
+     "steady forest called cut": 0.0,
+     "gained called cut": 0.0,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    }
+   }
+  },
+  "lidar-us-eaton": {
+   "flights": [
+    2023,
+    2025
+   ],
+   "years": [
+    2023,
+    2025
+   ],
+   "px": {
+    "lost": 11100,
+    "clear cut": 7133,
+    "steady forest": 40715,
+    "gained": 995
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0002,
+     "loss": 0.4617
+    },
+    "clear cut": {
+     "gain": 0.0001,
+     "loss": 0.431
+    },
+    "steady forest": {
+     "gain": 0.0073,
+     "loss": 0.3182
+    },
+    "gained": {
+     "gain": 0.001,
+     "loss": 0.2623
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.4409,
+     "clear cut found": 0.4052,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1564,
+     "steady forest called cut": 0.2975,
+     "gained called cut": 0.2141,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "h5": {
+     "lost found": 0.3374,
+     "clear cut found": 0.3051,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0696,
+     "steady forest called cut": 0.1987,
+     "gained called cut": 0.1477,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "h8": {
+     "lost found": 0.1345,
+     "clear cut found": 0.0979,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0075,
+     "steady forest called cut": 0.1028,
+     "gained called cut": 0.0884,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "half": {
+     "lost found": 0.4156,
+     "clear cut found": 0.3956,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1423,
+     "steady forest called cut": 0.2099,
+     "gained called cut": 0.1307,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "h5 moved": {
+     "lost found": 0.3324,
+     "clear cut found": 0.3014,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.0645,
+     "steady forest called cut": 0.1917,
+     "gained called cut": 0.1447,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "half moved": {
+     "lost found": 0.4049,
+     "clear cut found": 0.3881,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1289,
+     "steady forest called cut": 0.1985,
+     "gained called cut": 0.1176,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "class": {
+     "lost found": 0.2034,
+     "clear cut found": 0.2313,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1786,
+     "steady forest called cut": 0.0612,
+     "gained called cut": 0.0734,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "class moved": {
+     "lost found": 0.1851,
+     "clear cut found": 0.2152,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1513,
+     "steady forest called cut": 0.0401,
+     "gained called cut": 0.0563,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    },
+    "h5 or class, moved": {
+     "lost found": 0.4519,
+     "clear cut found": 0.4457,
+     "gain on lost taken back": 0.0,
+     "missed loss added": 0.1999,
+     "steady forest called cut": 0.2276,
+     "gained called cut": 0.198,
+     "gain on gained taken away": 0.0,
+     "n gain on lost": 2
+    }
+   }
+  },
+  "lidar-us-palisades": {
+   "flights": [
+    2023,
+    2025
+   ],
+   "years": [
+    2023,
+    2025
+   ],
+   "px": {
+    "lost": 10784,
+    "clear cut": 8708,
+    "steady forest": 18972,
+    "gained": 193
+   },
+   "map today": {
+    "lost": {
+     "gain": 0.0,
+     "loss": 0.6479
+    },
+    "clear cut": {
+     "gain": 0.0,
+     "loss": 0.6378
+    },
+    "steady forest": {
+     "gain": 0.0019,
+     "loss": 0.3746
+    },
+    "gained": {
+     "gain": 0.0,
+     "loss": 0.1917
+    }
+   },
+   "rules": {
+    "h3": {
+     "lost found": 0.4297,
+     "clear cut found": 0.3987,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0271,
+     "steady forest called cut": 0.3196,
+     "gained called cut": 0.0984,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5": {
+     "lost found": 0.3961,
+     "clear cut found": 0.369,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0129,
+     "steady forest called cut": 0.2748,
+     "gained called cut": 0.0881,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h8": {
+     "lost found": 0.1619,
+     "clear cut found": 0.133,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0029,
+     "steady forest called cut": 0.1655,
+     "gained called cut": 0.0155,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half": {
+     "lost found": 0.4281,
+     "clear cut found": 0.3984,
+     "gain on lost taken back": null,
+     "missed loss added": 0.025,
+     "steady forest called cut": 0.3067,
+     "gained called cut": 0.0984,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 moved": {
+     "lost found": 0.3925,
+     "clear cut found": 0.3663,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0103,
+     "steady forest called cut": 0.2574,
+     "gained called cut": 0.0622,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "half moved": {
+     "lost found": 0.4198,
+     "clear cut found": 0.3925,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0121,
+     "steady forest called cut": 0.2774,
+     "gained called cut": 0.0725,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class": {
+     "lost found": 0.0485,
+     "clear cut found": 0.0474,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0232,
+     "steady forest called cut": 0.0227,
+     "gained called cut": 0.0415,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "class moved": {
+     "lost found": 0.0418,
+     "clear cut found": 0.0426,
+     "gain on lost taken back": null,
+     "missed loss added": 0.0097,
+     "steady forest called cut": 0.0104,
+     "gained called cut": 0.0155,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    },
+    "h5 or class, moved": {
+     "lost found": 0.4114,
+     "clear cut found": 0.3862,
+     "gain on lost taken back": null,
+     "missed loss added": 0.019,
+     "steady forest called cut": 0.2638,
+     "gained called cut": 0.0674,
+     "gain on gained taken away": null,
+     "n gain on lost": 0
+    }
+   }
+  }
+ },
+ "pooled_mean_of_squares": {
+  "h3": {
+   "lost found": 0.4491,
+   "clear cut found": 0.488,
+   "gain on lost taken back": 0.1593,
+   "missed loss added": 0.1599,
+   "steady forest called cut": 0.0766,
+   "gained called cut": 0.0638,
+   "gain on gained taken away": 0.0105,
+   "n gain on lost": 1958
+  },
+  "h5": {
+   "lost found": 0.394,
+   "clear cut found": 0.4398,
+   "gain on lost taken back": 0.1241,
+   "missed loss added": 0.0853,
+   "steady forest called cut": 0.0492,
+   "gained called cut": 0.0382,
+   "gain on gained taken away": 0.0063,
+   "n gain on lost": 1958
+  },
+  "h8": {
+   "lost found": 0.2883,
+   "clear cut found": 0.3248,
+   "gain on lost taken back": 0.0014,
+   "missed loss added": 0.0281,
+   "steady forest called cut": 0.0266,
+   "gained called cut": 0.0248,
+   "gain on gained taken away": 0.0018,
+   "n gain on lost": 1958
+  },
+  "half": {
+   "lost found": 0.399,
+   "clear cut found": 0.4527,
+   "gain on lost taken back": 0.1147,
+   "missed loss added": 0.0812,
+   "steady forest called cut": 0.0508,
+   "gained called cut": 0.0302,
+   "gain on gained taken away": 0.0001,
+   "n gain on lost": 1958
+  },
+  "h5 moved": {
+   "lost found": 0.3509,
+   "clear cut found": 0.3958,
+   "gain on lost taken back": 0.0,
+   "missed loss added": 0.0251,
+   "steady forest called cut": 0.0424,
+   "gained called cut": 0.0292,
+   "gain on gained taken away": 0.0,
+   "n gain on lost": 1958
+  },
+  "half moved": {
+   "lost found": 0.364,
+   "clear cut found": 0.4112,
+   "gain on lost taken back": 0.0,
+   "missed loss added": 0.0323,
+   "steady forest called cut": 0.0448,
+   "gained called cut": 0.0267,
+   "gain on gained taken away": 0.0,
+   "n gain on lost": 1958
+  },
+  "class": {
+   "lost found": 0.2406,
+   "clear cut found": 0.29,
+   "gain on lost taken back": 0.0005,
+   "missed loss added": 0.0929,
+   "steady forest called cut": 0.019,
+   "gained called cut": 0.0271,
+   "gain on gained taken away": 0.0,
+   "n gain on lost": 1958
+  },
+  "class moved": {
+   "lost found": 0.2065,
+   "clear cut found": 0.2501,
+   "gain on lost taken back": 0.0,
+   "missed loss added": 0.0416,
+   "steady forest called cut": 0.007,
+   "gained called cut": 0.0174,
+   "gain on gained taken away": 0.0,
+   "n gain on lost": 1958
+  },
+  "h5 or class, moved": {
+   "lost found": 0.4303,
+   "clear cut found": 0.4938,
+   "gain on lost taken back": 0.0,
+   "missed loss added": 0.0619,
+   "steady forest called cut": 0.0467,
+   "gained called cut": 0.0365,
+   "gain on gained taken away": 0.0,
+   "n gain on lost": 1958
+  }
+ },
+ "stoddard": {
+  "px": {
+   "cut patch": 1019,
+   "steady forest": 30472
+  },
+  "rules": {
+   "h3": {
+    "cut patch called cut": 0.947,
+    "steady forest called cut": 0.0308
+   },
+   "h5": {
+    "cut patch called cut": 0.9048,
+    "steady forest called cut": 0.0156
+   },
+   "h8": {
+    "cut patch called cut": 0.7174,
+    "steady forest called cut": 0.0089
+   },
+   "half": {
+    "cut patch called cut": 0.9303,
+    "steady forest called cut": 0.0123
+   },
+   "h5 moved": {
+    "cut patch called cut": 0.9038,
+    "steady forest called cut": 0.0113
+   },
+   "half moved": {
+    "cut patch called cut": 0.9264,
+    "steady forest called cut": 0.0098
+   },
+   "class": {
+    "cut patch called cut": 1.0,
+    "steady forest called cut": 0.0
+   },
+   "class moved": {
+    "cut patch called cut": 0.9843,
+    "steady forest called cut": 0.0
+   },
+   "h5 or class, moved": {
+    "cut patch called cut": 0.9843,
+    "steady forest called cut": 0.0113
+   }
+  }
+ },
+ "seconds": 25,
+ "peak_gb": 2.0
+}
