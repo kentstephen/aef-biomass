@@ -1663,7 +1663,7 @@ Two parts to it: what the stores let a reader skip, and what the head uses.
 
 - **The Zarr mosaic cannot skip bands.** Each 256 px inner chunk is one zstd block of all 64 bands (`tge-labs/aef-mosaic`,
   `zarr.json`); a median chunk is 2.6 MB, 63 % of raw (one 2024 shard over the Sierra Nevada foothills).
-- **AEF's GeoTIFFs can.** They are planar: each band in its own 1024 x 1024 zstd tiles, a median 580 KB, 55 % of raw
+- **AEF's GeoTIFFs can.** They are planar: at the full-resolution 10 m level, each band in its own 1024 x 1024 zstd tiles, a median 580 KB, 55 % of raw
   (one 2024 tile, zone 10N). A reader such as geotiff.js fetches only the bands asked for.
 - **The map's head uses nearly all 64.** Of its first-layer weight (on the standardized input), 53 bands carry 90 % and
   the weakest band has a third of the strongest's; as directions, 27 carry 90 %.
@@ -1774,6 +1774,85 @@ Against the labels on the rows (section 7's scores; the rows have no neighbors):
   69 %), 32 bands 82 % (copyA 84 %).
 - Caveat: copy and fill learned from about 70 squares' patches per fold; they need no labels, so they can learn
   from any AlphaEarth pixels (section 41).
+
+## 41. A zoomed-out map from a few bands: more pixels, a bigger network, fill-in taught through the map (`scripts/zoomed_out_more.py`, `results/zoomed_out_more.json`)
+
+Copy, fill and years alike need no labels (section 40's caveat), so here they learn from far more AlphaEarth pixels:
+60,000 pixel-years from anywhere in each square (and a second year at the same pixel) from the 92 squares and the 40
+others on disk (lidar, fire and range squares, all 148 km or more from any of the 92), 7.9 M pixel-years in all; in
+each fold the held-out squares are left out. Ways, each against the same fold's 64-band head:
+- **base**: section 40's networks (256 x 2, 4 epochs, 1 M pixel-years from the patches), run again for the comparison.
+- **more**: the pool, same network.
+- **big**: the pool, 512 x 3, 6 epochs.
+- **fill+**: big fill whose loss also asks that the map's head give the same answers on the rebuilt vector; **years
+  alike+** the same for years alike.
+
+Scored as section 40 (the same patches of the held-out squares, 8 folds, each fold's greedy band picks). 106 minutes,
+7.0 GB, on the GPU.
+
+Each year, at 60 m (the median pixel there is 21 Mg/ha):
+
+| Bands | Way | Biomass, R2 of log | Biomass off the map, median (Mg/ha) | Height off, median (m) | Class same |
+|---|---|---|---|---|---|
+| 4 | copy, big | .43 | **13.2** | .96 | **.57** |
+| 4 | fill, big | .27 | 15.2 | 1.10 | **.57** |
+| 4 | fill+ | **.44** | **13.2** | **.95** | **.57** |
+| 8 | copy, big | .61 | 8.9 | .51 | **.70** |
+| 8 | fill, big | .59 | 9.5 | .52 | **.70** |
+| 8 | fill+ | **.62** | **8.7** | .51 | **.70** |
+| 16 | copy, base | .83 | 6.5 | .37 | .80 |
+| 16 | fill, base | .87 | 5.4 | .38 | .79 |
+| 16 | copy, more | .88 | 5.2 | .32 | .82 |
+| 16 | fill, more | .88 | 5.1 | .33 | .82 |
+| 16 | copy, big | .90 | **4.5** | **.28** | .83 |
+| 16 | fill, big | .88 | 4.8 | .32 | .83 |
+| 16 | fill+ | **.90** | **4.5** | .29 | **.84** |
+| 32 | copy, big | .95 | 2.9 | .18 | .92 |
+| 32 | fill, big | .95 | 2.8 | .17 | **.93** |
+| 32 | fill+ | **.96** | **2.6** | **.16** | **.93** |
+
+Change, at 60 m, as section 40 (big: the 64-band head changed by more than 20 Mg/ha; seen: the rough way changed by
+more than 10 the same way; false: the head changed by less than 5 and the rough way by more than 10). Rank: rank
+agreement of the rough way's change with the head's, every pixel.
+
+| Bands | Way | Bands read per pair | Rank with the map's change | Big loss seen | Big gain seen | False loss | False gain |
+|---|---|---|---|---|---|---|---|
+| 8 | fill+ | 16 | .30 | .69 | .56 | .095 | .108 |
+| 8 | years alike, big | 72 | .38 | .65 | **.63** | **.016** | .071 |
+| 8 | years alike+ | 72 | **.44** | **.75** | .60 | .019 | **.042** |
+| 16 | copy, base | 32 | .34 | .73 | .53 | .053 | .059 |
+| 16 | fill, base | 32 | .42 | .76 | .60 | .054 | .064 |
+| 16 | copy, big | 32 | .47 | .78 | .63 | .040 | .045 |
+| 16 | fill+ | 32 | .47 | .78 | .66 | .043 | .049 |
+| 16 | years alike, base | 80 | .48 | .70 | .71 | **.012** | .061 |
+| 16 | years alike, more | 80 | .54 | .76 | .73 | .020 | .047 |
+| 16 | years alike, big | 80 | .54 | .78 | **.74** | .017 | .050 |
+| 16 | years alike+ | 80 | **.57** | **.85** | .69 | .020 | **.041** |
+| 32 | fill+ | 64 | .75 | **.93** | .89 | .020 | **.024** |
+| 32 | years alike, big | 96 | .74 | .89 | **.91** | **.012** | .033 |
+| 32 | years alike+ | 96 | **.77** | **.93** | .90 | .013 | **.024** |
+
+- **More pixels and a bigger network cut the distance to the map by 10 to 20 %.** At 16 bands the best way goes
+  from 5.3 Mg/ha off (section 40's fill) to 4.5 (copy big, fill+), class same from 80 to 84 %; at 32 from 3.2 to 2.6
+  and 90 to 93 %; at 8 from 9.7 to 8.7. Copy gains most from the pool (6.5 to 5.2), then the network (to 4.5); fill
+  gains less from either (5.4, 5.1, 4.8).
+- **It does not buy a zoom step.** Big at 8 bands (8.7 off, 70 % same) stays well short of base at 16 (5.4, 79 %).
+  At 4 bands the map would be 13 Mg/ha off with the class the same on 57 %: zoom 9 at zoom 11's read is still out.
+- **Fill+ is the best or level at every k, by a little.** Taught through the head it mends plain fill where it was
+  worst (4 bands: 15.2 to 13.2) and leads at 32 (2.6 against 2.8 and 2.9). At 16, copy big ties it (copy gives the
+  head's answers itself; fill+ gives the rebuilt bands, and the map's own small head runs on them).
+- **Zooming out still does not hide the errors.** Fill+ at 16 is 4.8 Mg/ha off at 10 m and 4.3 at 300 m.
+- **Change: years alike+ finds more loss with less false gain.** At 16 bands (80 read per pair) it sees 85 % of big
+  loss against 72 % in section 40, false gain 4.1 % against 5.9 %, rank with the map's change .57 against .48 for
+  base; big gain seen drops a little (.69 against .72) and false loss rises (2.0 % against 1.3 %). Years alike+ at 8
+  (72 read per pair) sees more loss than section 40's years alike at 16 (.75 against .72) with less false gain (4.2
+  against 5.9 %), but less gain (.60 against .72).
+- **Reading one year whole now mostly quiets false loss.** At 16 bands, few bands of both years (fill+, copy big)
+  light 4 % of steady blocks as loss and 5 % as gain; years alike+ 2 % as loss and still 4 % as gain.
+- Network size in the browser: big is about 0.6 M weights (about 2.3 MB in float32), base about 0.08 M.
+- Caveat: base is section 40's set-up run again, and copy at 16 came out 6.5 Mg/ha off here against 5.7 there
+  (fill 5.4 against 5.3, years alike within a point); single runs of copy can differ by about 1 Mg/ha, so gaps of a few
+  tenths between ways at the same k are not settled. copyA was not run again.
 
 ## The embeddings, side by side (all sections)
 

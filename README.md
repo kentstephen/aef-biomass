@@ -90,7 +90,7 @@ forest.
   to 26); the map's head on burns and land cover, steady-ground noise and drawing change with its confidence (27 to
   30); growth, loss size and gain taught on lidar (31 to 33); and checks against references the head never saw:
   grass abroad, plot biomass in tall forest, tundra, a burn flown before and after, and the lidar-taught gain in the
-  browser (34 to 38); and a zoomed-out map from a few of the 64 bands (39, 40).
+  browser (34 to 38); and a zoomed-out map from a few of the 64 bands (39 to 41).
 - `PLAN.md`: the original testing plan (November 2026), kept as written; the map has since been built.
 - `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
   workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
