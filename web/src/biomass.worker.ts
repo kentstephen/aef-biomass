@@ -9,7 +9,7 @@ import { front, FRONT_BANDS, type Part } from "./zread";
 /**
  * One chunk-year per ask: AlphaEarth's 64 bands read from the mosaic in two parts (zread.ts), the head on them
  * (WebGPU, else the CPU) after each: a rough picture from the first 32 bands, then the exact one. Only the three u16 planes go back to the page (biomass, height, class: 384 KB per 256 x 256
- * chunk), never the embedding. A change ask reads the chunk in two years (the second from the disk cache, mostly)
+ * chunk), never the embedding. A change ask reads the chunk in two years
  * and sends back the change planes of change.ts (Int16, 384 KB).
  */
 /** ahead: reading ahead, after the view's own reads (zread.ts) */
@@ -83,7 +83,7 @@ async function scorer(h: BiomassHead, w: Float32Array): Promise<Scorer> {
 /**
  * A chunk-year (or a window's two): from the front of each chunk, the first FRONT_BANDS bands and the rest rebuilt,
  * scored and sent at once (rough: true, a single year only); then the rest of each chunk read and the exact planes
- * sent. A chunk already on disk is sent exact only.
+ * sent.
  */
 async function read(m: Read) {
   const ac = new AbortController();

@@ -6,7 +6,7 @@ import { MapLibreOverlay as MapboxOverlay } from "@deck.gl/maplibre";
 import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
-import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
+import { dropOldCache, MIN_ZOOM, RES, X0, Y0 } from "./aef";
 import { AGB_HI, type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
@@ -21,6 +21,9 @@ maplibregl.setWorkerUrl(maplibreWorkerUrl);
 const STYLE = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
 // The Sierra Nevada's west slope by Yosemite: standing conifer forest, the 2013 Rim Fire's scar growing back in shrub,
 // oak woodland and grass lower down
+// nothing is kept on the reader's disk; remove what earlier versions kept (aef.ts)
+dropOldCache();
+
 const HOME = { center: [-119.98, 37.86] as [number, number], zoom: 12.3 };
 // the key's ticks in linear mode, Mg/ha
 const TICKS = [0, 2, 10, 30, 100, 300];

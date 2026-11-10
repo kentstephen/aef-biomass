@@ -96,8 +96,8 @@ forest.
   browser (34 to 38); a zoomed-out map from a few of the 64 bands (39 to 41); and cut forest drawn as gain, and loss beside digging (42).
 - `PLAN.md`: the original testing plan (November 2026), kept as written; the map has since been built.
 - `web/`: the map ([How the map works](#how-the-map-works)). The head runs on the GPU in the browser (WebGPU in
-  workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative, its chunks kept on disk
-  between visits. Reading, the head on the GPU, search, the card and the window range come from fire-knn and
+  workers, the CPU without it); AlphaEarth is read straight from S3 behind Source Cooperative; nothing is written to the
+  reader's disk (scored chunks stay in memory, and a visit removes the chunk cache earlier versions kept). Reading, the head on the GPU, search, the card and the window range come from fire-knn and
   Earthwork's web apps. Run: `cd web && npm install && npm run dev` (port 3010). The head:
   `uv run scripts/export_biomass_head.py` writes `web/public/models/biomass_aef.json`; the lidar-taught gain:
   `scripts/gain_mlp.py --export difference` writes `web/public/models/gain_lidar.json`.

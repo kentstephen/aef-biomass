@@ -2,16 +2,14 @@ import { Decompress } from "fzstd";
 import { Zstd } from "numcodecs";
 
 import { fromS3, NUM_BANDS, ZARR_URL } from "./aef";
-import { cacheGet, cachePut, fingerprint, ZARR_TTL } from "./disk-cache";
 
 /**
  * The mosaic's chunks read in two parts. Each 256 px inner chunk is the 64 bands one after another (band-major,
  * "bytes" then zstd, no shuffle), so the front of its compressed bytes decodes to the first bands: the first 32 are
  * about half of a chunk's bytes (at most 53 % over 30 chunks in five places). front() reads 56 % of the chunk and
- * gives those 32 bands, rest() reads the other 44 % and gives all 64. Nothing is read twice.
- *
- * The whole chunk is kept on disk under the key zarrita's reads use (disk-cache.ts), so a chunk read before, by
- * either path, comes back whole at once.
+ * gives those 32 bands, rest() reads the other 44 % and gives all 64. Nothing is read twice for one draw, and
+ * nothing is kept on the reader's disk: the scored planes stay in memory (biomass.ts) and a chunk read again later
+ * is fetched again.
  */
 
 const ROOT = fromS3(ZARR_URL);
@@ -68,16 +66,6 @@ function scheduled<T>(prio: number, fn: () => Promise<T>, signal?: AbortSignal):
   });
 }
 
-let gen: Promise<string> | null = null;
-/** The array's zarr.json fingerprint, as DiskCachedStore keys its chunks. */
-function generation(): Promise<string> {
-  if (!gen) {
-    gen = fetch(`${ROOT}${ARRAY}/zarr.json`, { cache: "no-store" }).then((r) => r.text()).then(fingerprint);
-    gen.catch(() => (gen = null));
-  }
-  return gen;
-}
-
 const fetchRange = async (url: string, range: string, signal?: AbortSignal) => {
   const r = await fetch(url, { headers: { Range: `bytes=${range}` }, cache: "no-store", signal });
   if (!r.ok) throw new Error(`${r.status} for ${url}`);
@@ -85,18 +73,13 @@ const fetchRange = async (url: string, range: string, signal?: AbortSignal) => {
 };
 
 const shardIndex = new Map<string, Promise<DataView>>();
-/** A shard's index (its last 4,100 bytes), once per worker; on disk as zarrita keeps it. */
+/** A shard's index (its last 4,100 bytes), once per worker, kept in memory. */
 function index(key: string, prio: number, signal?: AbortSignal): Promise<DataView> {
   let p = shardIndex.get(key);
   if (p) return p;
   p = (async () => {
-    const dk = `zarr|${await generation()}|${ZARR_URL}${key}:-${INDEX_BYTES}`;
-    let b = await cacheGet(dk);
-    if (!b || b.byteLength !== INDEX_BYTES) {
-      b = await scheduled(prio, () => fetchRange(`${ROOT}${key}`, `-${INDEX_BYTES}`, signal), signal);
-      if (b.byteLength !== INDEX_BYTES) throw new Error(`shard index of ${b.byteLength} bytes`);
-      cachePut(dk, b, ZARR_TTL);
-    }
+    const b = await scheduled(prio, () => fetchRange(`${ROOT}${key}`, `-${INDEX_BYTES}`, signal), signal);
+    if (b.byteLength !== INDEX_BYTES) throw new Error(`shard index of ${b.byteLength} bytes`);
     return new DataView(b.buffer, b.byteOffset, b.byteLength);
   })();
   shardIndex.set(key, p);
@@ -105,7 +88,7 @@ function index(key: string, prio: number, signal?: AbortSignal): Promise<DataVie
 }
 
 export type Part = {
-  /** all 64 bands, band-major int8 [64, n], when the whole chunk is in hand (on disk, or empty) */
+  /** all 64 bands, band-major int8 [64, n], when the whole chunk is in hand (the front was all of it, or empty) */
   full?: Int8Array;
   /** the first FRONT_BANDS bands, band-major int8 [FRONT_BANDS, n] */
   front?: Int8Array;
@@ -116,7 +99,7 @@ export type Part = {
 const asInt8 = (u: Uint8Array) => new Int8Array(u.buffer, u.byteOffset, u.byteLength);
 
 /**
- * A chunk of year index t at (py0, px0) on the mosaic's grid: its front, or all of it where it is already on disk.
+ * A chunk of year index t at (py0, px0) on the mosaic's grid: its front (all of it where the front is the whole chunk).
  * ahead: reading ahead (after the view's own reads).
  */
 export async function front(t: number, py0: number, px0: number, signal?: AbortSignal, ahead = false): Promise<Part> {
@@ -131,24 +114,17 @@ export async function front(t: number, py0: number, px0: number, signal?: AbortS
     return { full, rest: async () => full };
   }
   const o = Number(off), L = Number(len);
-  const dk = `zarr|${await generation()}|${ZARR_URL}${key}:${o}+${L}`;
   const decodeAll = async (bytes: Uint8Array) => {
     const d = await zstd.decode(bytes);
     if (d.byteLength !== NUM_BANDS * n) throw new Error(`chunk of ${d.byteLength} bytes`);
     return asInt8(d);
   };
-  const disk = await cacheGet(dk);
-  if (disk && disk.byteLength === L) {
-    const full = await decodeAll(disk);
-    return { full, rest: async () => full };
-  }
   const F = Math.min(L, Math.ceil(FRONT_SHARE * L));
   const head = await scheduled(pf, () => fetchRange(`${ROOT}${key}`, `${o}-${o + F - 1}`, signal), signal);
   const whole = async (tail: Uint8Array) => {
     const all = new Uint8Array(L);
     all.set(head);
     all.set(tail, F);
-    cachePut(dk, all, ZARR_TTL);
     return decodeAll(all);
   };
   if (F === L) {
