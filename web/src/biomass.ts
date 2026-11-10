@@ -4,7 +4,7 @@ import type { Texture } from "@luma.gl/core";
 import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
-import { BAND_FLOOR, type Bands, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
+import { CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
 import { CH_NODATA, CONF_SCALE, type ConfTables, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
 import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
@@ -31,23 +31,15 @@ class BioLayer extends ZarrLayer<TileData, "int8"> {
  * One chunk's planes on the page: a year's [agb codes n, height codes n, class n] (Uint16), or a window's
  * [percent x 100 n, Mg/ha x 4 n, confidence x 10000 n, classes n] (Int16, change.ts).
  */
-type Planes = { planes: Uint16Array | Int16Array; w: number; h: number };
+type Planes = { planes: Uint16Array | Int16Array; w: number; h: number; rough?: boolean };
 
 /**
  * A layer's key: a year ("2025") or a window ("2018-2025", the change from the first year to the second); a window
- * ending in L draws gain by the lidar-taught network (gain.ts) instead of the two-part floor. "b16" after it: read 16
- * bands from the GeoTIFFs and rebuild the rest (b64: all 64 from the GeoTIFFs); without it, the mosaic.
+ * ending in L draws gain by the lidar-taught network (gain.ts) instead of the two-part floor.
  */
-const bk = (bands?: Bands) => (bands ? `b${bands}` : "");
-export const yearKey = (y: number, bands?: Bands) => `${y}${bk(bands)}`;
-export const windowKey = (a: number, b: number, lidarGain = false, bands?: Bands) => `${a}-${b}${lidarGain ? "L" : ""}${bk(bands)}`;
-const bandsOf = (lk: string): Bands | undefined => {
-  const m = /b(\d+)$/.exec(lk);
-  return m ? (Number(m[1]) as Bands) : undefined;
-};
-const bare = (lk: string) => lk.replace(/b\d+$/, "");
-const windowOf = (lk: string) => (bare(lk).includes("-") ? (bare(lk).replace("L", "").split("-").map(Number) as [number, number]) : null);
-const yearOf = (lk: string) => Number(bare(lk));
+export const yearKey = (y: number) => String(y);
+export const windowKey = (a: number, b: number, lidarGain = false) => `${a}-${b}${lidarGain ? "L" : ""}`;
+const windowOf = (lk: string) => (lk.includes("-") ? (lk.replace("L", "").split("-").map(Number) as [number, number]) : null);
 
 /** The change ramp's ends, percent of the pixel's own biomass: loss to all of it, gain to one and a half times it. */
 export const LOSS_END = 100;
@@ -139,14 +131,19 @@ ${glslRamp("changeRamp", CHANGE_50)}`,
   getUniforms: (p: Record<string, unknown>) => p,
 } as unknown as ShaderModule<{ chTex: Texture; lossEnd: number; gainEnd: number; lossFrom: number; gainFrom: number; alphaMin: number }>;
 
-export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: GainHead | null, beforeId: () => string | undefined, fills: FillNet[] = []) {
+/**
+ * fill: the network that rebuilds the bands after the first 32 (scripts/export_fill.py --prefix), so each chunk draws
+ * first from the front of its bytes and sharpens to the exact picture once the rest is in (zread.ts); onSharpen is
+ * called when chunks on the map have sharpened (the page repaints).
+ */
+export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: GainHead | null, beforeId: () => string | undefined, fill: FillNet | null = null, onSharpen: () => void = () => {}) {
   const { arr, attrs } = await openMosaic();
   const [, , H, W] = arr.shape as number[];
   // the tile grid and CRS, read once from the group's GeoZarr attributes and shared by every layer
   const opened = await ZarrSource.open(arr, { geoZarrMetadata: attrs });
   if (!opened.is("int8")) throw new Error("Expected int8 embeddings");
   const source: ZarrSource<"int8"> = opened;
-  const pool = new Pool(head, conf, gain, fills);
+  const pool = new Pool(head, conf, gain, fill);
 
   // the planes by "year:row-col", the last used last; 384 KB each, at most CAP_BYTES (a zoom 11 view in a large
   // window is about 1,000 chunks, 375 MB)
@@ -174,6 +171,38 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   const loaded = new Set<string>();
   // each layer's textures: deck.gl does not unload the tiles of a layer taken off the map, so its finalize frees them
   const texOf = new Map<string, Set<Texture>>();
+  // the textures of each chunk (by its planes' key), to write the exact planes into when they come
+  const texAt = new Map<string, Set<Texture>>();
+  // chunks drawn rough whose exact planes are still to come: stopped once no tile shows them
+  const sharpening = new Map<string, AbortController>();
+  const untex = (k: string, t: Texture) => {
+    const s = texAt.get(k);
+    if (!s) return;
+    s.delete(t);
+    if (!s.size) {
+      texAt.delete(k);
+      sharpening.get(k)?.abort();
+    }
+  };
+  /** A chunk's planes as its texture holds them: a year's biomass codes, or a window's percent and confidence side by side. */
+  const texData = (p: Planes, win: boolean) => {
+    const n = p.w * p.h;
+    if (!win) return p.planes.slice(0, n) as Uint16Array;
+    const data = new Int16Array(2 * n);
+    for (let i = 0; i < n; i++) {
+      data[2 * i] = p.planes[i]!;
+      data[2 * i + 1] = p.planes[2 * n + i]!;
+    }
+    return data;
+  };
+  let sharpTimer = 0;
+  const sharpened = () => {
+    if (sharpTimer) return;
+    sharpTimer = window.setTimeout(() => {
+      sharpTimer = 0;
+      onSharpen();
+    }, 100);
+  };
   /**
    * deck took a layer off the map (its state is gone, nothing draws its tiles again): free its textures and forget its
    * tiles for the loading count. Not on a timer from the step: put back before deck's next frame, the same layer and
@@ -182,12 +211,13 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   function freeTextures(lk: string) {
     const set = texOf.get(lk);
     texOf.delete(lk);
+    for (const [k, s] of [...texAt]) if (k.startsWith(`${lk}:`)) for (const t of [...s]) if (set?.has(t)) untex(k, t);
     set?.forEach((t) => t.destroy());
     for (const k of [...loaded]) if (k.startsWith(`${lk}:`)) loaded.delete(k);
   }
 
   /** A chunk's planes for a layer key: the year read and scored, or the window's change (both years read). */
-  async function planesFor(lk: string, py0: number, px0: number, h: number, w: number, signal?: AbortSignal): Promise<Planes> {
+  async function planesFor(lk: string, py0: number, px0: number, h: number, w: number, signal?: AbortSignal, ahead = false): Promise<Planes> {
     const k = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
     const have = planes.get(k);
     if (have) {
@@ -197,15 +227,50 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     let f = inflight.get(k);
     if (!f || f.ac.signal.aborted) {
       const ac = new AbortController();
-      const win = windowOf(lk), bands = bandsOf(lk);
-      const ask = win
-        ? pool.change(win[0] - YEAR_ORIGIN, win[1] - YEAR_ORIGIN, py0, px0, h, w, bare(lk).endsWith("L"), ac.signal, bands)
-        : pool.read(yearOf(lk) - YEAR_ORIGIN, py0, px0, h, w, ac.signal, bands);
-      const p = ask.then((pl) => {
-        const out = { planes: pl, w, h };
-        keep(k, out);
-        return out;
+      const win = windowOf(lk);
+      // the rough planes answer the tile; the exact ones replace them in the cache and in its texture
+      let answer!: (p: Planes) => void;
+      let fail!: (e: unknown) => void;
+      const p = new Promise<Planes>((ok, no) => {
+        answer = ok;
+        fail = no;
       });
+      let answered = false;
+      const rough = (pl: Uint16Array | Int16Array) => {
+        if (answered) return;
+        answered = true;
+        const out = { planes: pl, w, h, rough: true };
+        keep(k, out);
+        sharpening.set(k, ac);
+        answer(out);
+      };
+      const ask = win
+        ? pool.change(win[0] - YEAR_ORIGIN, win[1] - YEAR_ORIGIN, py0, px0, h, w, lk.endsWith("L"), ac.signal, rough, ahead)
+        : pool.read(Number(lk) - YEAR_ORIGIN, py0, px0, h, w, ac.signal, rough, ahead);
+      ask.then(
+        (pl) => {
+          const out = { planes: pl, w, h };
+          keep(k, out);
+          if (sharpening.get(k) === ac) sharpening.delete(k);
+          if (!answered) {
+            answered = true;
+            answer(out);
+            return;
+          }
+          const data = texData(out, !!win);
+          for (const t of texAt.get(k) ?? []) t.writeData(data);
+          sharpened();
+        },
+        (e) => {
+          if (sharpening.get(k) === ac) sharpening.delete(k);
+          // a rough chunk stopped before it sharpened: read afresh when next asked
+          const had = planes.get(k);
+          if (answered && had?.rough) {
+            planes.delete(k);
+            planeBytes -= had.planes.byteLength;
+          } else if (!answered) fail(e);
+        },
+      );
       const g = { p, ac, wants: 0 };
       inflight.set(k, g);
       const done = () => inflight.get(k) === g && inflight.delete(k);
@@ -242,7 +307,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         const [r, c] = todo[i++]!;
         const py0 = r * CHUNK, px0 = c * CHUNK;
         try {
-          await planesFor(lk, py0, px0, Math.min(CHUNK, H - py0), Math.min(CHUNK, W - px0), signal);
+          await planesFor(lk, py0, px0, Math.min(CHUNK, H - py0), Math.min(CHUNK, W - px0), signal, true);
           onChunk?.();
         } catch {
           // aborted, or a chunk with no data: the step reads it again if it needs it
@@ -348,7 +413,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     return new BioLayer({
       id: win ? `change-${lk}` : `biomass-${lk}`,
       source,
-      selection: { time: (win ? win[1] : yearOf(lk)) - YEAR_ORIGIN, band: null },
+      selection: { time: (win ? win[1] : Number(lk)) - YEAR_ORIGIN, band: null },
       getTileData: async (_a, o) => {
         const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;
         const py0 = ys.start ?? 0, px0 = xs.start ?? 0;
@@ -356,16 +421,8 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         const p = await planesFor(lk, py0, px0, height, width, o.signal);
         const key = keyOf(lk, Math.floor(py0 / CHUNK), Math.floor(px0 / CHUNK));
         loaded.add(key);
-        const n = width * height;
-        let data: Uint16Array | Int16Array = p.planes.slice(0, n);
-        if (win) {
-          // the change's percent and confidence side by side, one texel each
-          data = new Int16Array(2 * n);
-          for (let i = 0; i < n; i++) {
-            data[2 * i] = p.planes[i]!;
-            data[2 * i + 1] = p.planes[2 * n + i]!;
-          }
-        }
+        // the change's percent and confidence side by side, one texel each
+        const data = texData(p, !!win);
         const tex = o.device.createTexture({
           format: win ? "rg16sint" : "r16uint",
           width,
@@ -377,6 +434,12 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         let set = texOf.get(lk);
         if (!set) texOf.set(lk, (set = new Set()));
         set.add(tex);
+        let at = texAt.get(key);
+        if (!at) texAt.set(key, (at = new Set()));
+        at.add(tex);
+        // exact planes may have come between the rough answer and this texture
+        const now = planes.get(key);
+        if (p.rough && now && !now.rough) tex.writeData(texData(now, !!win));
         return { key, tex, width, height, byteLength: data.byteLength };
       },
       renderTile: (data: TileData) => ({
@@ -393,18 +456,19 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         ] as RasterModule[],
       }),
       visible: opts.visible,
-      // the page puts a layer on only from its band count's zoom (BAND_FLOOR); deck's tiles go by whole zooms
-      minZoom: Math.floor(bandsOf(lk) ? BAND_FLOOR[bandsOf(lk)!] : MIN_ZOOM),
-      // the S3 host answers over HTTP/1.1: six at a time is the browser's own limit per host (fire-knn)
-      maxRequests: 6,
-      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000, a zoom 10 view four times that
-      maxCacheSize: bandsOf(lk) && BAND_FLOOR[bandsOf(lk)!] < MIN_ZOOM ? 4800 : 1200,
+      minZoom: MIN_ZOOM,
+      // the view's chunks all asked at once: the workers read them a few at a time, every front before any rest
+      // (zread.ts), so the whole view draws rough before it sharpens (the S3 host's HTTP/1.1 allows six at a time)
+      maxRequests: 64,
+      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000
+      maxCacheSize: 1200,
       onTileLoad: () => opts.onTile && opts.onTile(),
       onTileUnload: (tile: { content?: TileData | null }) => {
         const t = tile.content;
         if (!t) return;
         loaded.delete(t.key);
         texOf.get(lk)?.delete(t.tex);
+        untex(t.key, t.tex);
         t.tex?.destroy();
       },
       onViewportLoad: () => opts.onViewportLoad && opts.onViewportLoad(),
@@ -428,8 +492,8 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   }
 
   /** Biomass (Mg/ha), canopy height (m) and the head's class at a point for a year, from the planes in hand; null where none. */
-  function valueAtPoint(lon: number, lat: number, year: number, bands?: Bands): { agb: number; height: number; cls: string } | null {
-    const v = planeAt(lon, lat, yearKey(year, bands));
+  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number; cls: string } | null {
+    const v = planeAt(lon, lat, yearKey(year));
     if (!v || v[0] === 0) return null;
     return { agb: codeValue(v[0]), height: codeValue(v[1]), cls: head.classes[v[2]] ?? "" };
   }
@@ -453,7 +517,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
    * its chunk, read where not in hand, and kept for the each-year view), and the one-year step that moved most in
    * the change's direction (sign -1 loss, +1 gain). Null where a year has no data.
    */
-  async function whenAtPoint(lon: number, lat: number, a: number, b: number, sign: number, signal?: AbortSignal, bands?: Bands): Promise<[number, number] | null> {
+  async function whenAtPoint(lon: number, lat: number, a: number, b: number, sign: number, signal?: AbortSignal): Promise<[number, number] | null> {
     if (b - a <= 1) return [a, b];
     const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
     const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
@@ -461,7 +525,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     const ix = px - px0, iy = py - py0;
     if (ix < 0 || iy < 0 || ix >= w || iy >= h) return null;
     const years = Array.from({ length: b - a + 1 }, (_, k) => a + k);
-    const got = await Promise.all(years.map((y) => planesFor(yearKey(y, bands), py0, px0, h, w, signal)));
+    const got = await Promise.all(years.map((y) => planesFor(yearKey(y), py0, px0, h, w, signal)));
     const v = got.map((p) => codeValue(p.planes[iy * p.w + ix]!));
     if (v.some((x) => !(x >= 0))) return null;
     let best = 0;
@@ -469,12 +533,18 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     return [years[best]!, years[best + 1]!];
   }
 
-  /** How many of the chunks under a box are on the GPU for a layer. */
+  /** How many of the chunks under a box are on the GPU for a layer, and how many of those are still rough. */
   function loadedIn(bbox: [number, number, number, number], lk: string) {
     const { c0, c1, r0, r1 } = chunkRange(bbox);
-    let n = 0;
-    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) if (loaded.has(keyOf(lk, r, c))) n++;
-    return { loaded: n, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
+    let n = 0, rough = 0;
+    for (let r = r0; r <= r1; r++)
+      for (let c = c0; c <= c1; c++) {
+        const k = keyOf(lk, r, c);
+        if (!loaded.has(k)) continue;
+        n++;
+        if (planes.get(k)?.rough) rough++;
+      }
+    return { loaded: n, rough, wanted: Math.max(0, (r1 - r0 + 1) * (c1 - c0 + 1)) };
   }
 
   return {

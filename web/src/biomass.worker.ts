@@ -1,64 +1,51 @@
-import * as zarr from "zarrita";
-
-import { type AefArray, NUM_BANDS, openMosaic, YEAR_ORIGIN } from "./aef";
 import { changeOf, type ConfTables } from "./change";
 import { fillCpu, type FillNet, fillProbeGap, packFill, probeInput } from "./fill";
 import { type Filler, makeFiller } from "./fill-gpu";
 import { type GainHead, type GainNet, gainNet, gainProbeGap } from "./gain";
 import { argClass, type BiomassHead, packHead, probeGap, scoreCpu, toCode } from "./head";
 import { makeScorer, type Scorer } from "./head-gpu";
-import { readChunk, tiffStats } from "./tiff";
+import { front, FRONT_BANDS, type Part } from "./zread";
 
 /**
- * One chunk-year per ask: AlphaEarth's 64 bands read from the mosaic, then the biomass head on them (WebGPU,
- * else the CPU). Only the three u16 planes go back to the page (biomass, height, class: 384 KB per 256 x 256
+ * One chunk-year per ask: AlphaEarth's 64 bands read from the mosaic in two parts (zread.ts), the head on them
+ * (WebGPU, else the CPU) after each: a rough picture from the first 32 bands, then the exact one. Only the three u16 planes go back to the page (biomass, height, class: 384 KB per 256 x 256
  * chunk), never the embedding. A change ask reads the chunk in two years (the second from the disk cache, mostly)
  * and sends back the change planes of change.ts (Int16, 384 KB).
  */
-/** bands: read that many from AlphaEarth's GeoTIFFs (tiff.ts), the rest rebuilt by a fill network (fill.ts); else the mosaic. */
-type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number; lidarGain?: boolean; bands?: number };
-type Msg = { type: "init"; head: BiomassHead; conf: ConfTables; gain: GainHead | null; fills?: FillNet[] } | Read | { type: "abort"; id: number };
+/** ahead: reading ahead, after the view's own reads (zread.ts) */
+type Read = { type: "read"; id: number; px0: number; py0: number; w: number; h: number; timeIdx: number; timeIdxB?: number; lidarGain?: boolean; ahead?: boolean };
+type Msg = { type: "init"; head: BiomassHead; conf: ConfTables; gain: GainHead | null; fill: FillNet | null } | Read | { type: "abort"; id: number };
 
 let head: BiomassHead | null = null;
 let conf: ConfTables | null = null;
 let gain: GainNet | null = null;
 let weights: Float32Array | null = null;
 let ready: Promise<Scorer> | null = null;
-let mosaic: Promise<AefArray> | null = null;
+let fillNet: FillNet | null = null;
+let filling: Promise<Filler> | null = null;
 const running = new Map<number, AbortController>();
-let fillNets: FillNet[] = [];
-const fillers = new Map<number, Promise<{ net: FillNet; run: Filler }>>();
-const ALL = Array.from({ length: NUM_BANDS }, (_, b) => b);
 
-/** The fill for k bands: on the GPU if it gives the export's own output on the probe (to a step of 1 in int8), else the CPU. */
-function filler(k: number) {
-  let f = fillers.get(k);
-  if (f) return f;
-  f = (async () => {
-    const net = fillNets.find((x) => x.k === k);
-    if (!net) throw new Error(`no fill network for ${k} bands`);
-    const w = packFill(net);
-    const cpu: Filler = async (e, n) => fillCpu(net, w, e, n);
-    const pr = probeInput(net);
-    const cpuGap = fillProbeGap(net, fillCpu(net, w, pr.e, pr.n), pr.n);
-    let run = cpu, mode = "cpu", gpuGap: { worst: number; off: number } | null = null;
-    try {
-      const g = await makeFiller(net, w, 256 * 256);
-      if (g) {
-        gpuGap = fillProbeGap(net, await g(pr.e, pr.n), pr.n);
-        if (gpuGap.worst <= 1) {
-          run = g;
-          mode = "gpu";
-        }
+/** The fill for the front's bands: on the GPU if it gives the export's own output on the probe (to 1 in int8), else the CPU. */
+async function filler(f: FillNet): Promise<Filler> {
+  const w = packFill(f);
+  const cpu: Filler = async (e, n) => fillCpu(f, w, e, n);
+  const pr = probeInput(f);
+  let run = cpu, mode = "cpu";
+  let gpuGap: { worst: number; off: number } | null = null;
+  try {
+    const g = await makeFiller(f, w, 256 * 256);
+    if (g) {
+      gpuGap = fillProbeGap(f, await g(pr.e, pr.n), pr.n);
+      if (gpuGap.worst <= 1) {
+        run = g;
+        mode = "gpu";
       }
-    } catch (e) {
-      postMessage({ type: "note", note: `fill ${k} on the GPU failed: ${(e as Error).message}` });
     }
-    postMessage({ type: "fill", k, mode, cpuGap, gpuGap });
-    return { net, run };
-  })();
-  fillers.set(k, f);
-  return f;
+  } catch {
+    // no WebGPU here: the CPU
+  }
+  postMessage({ type: "fill", mode, cpuGap: fillProbeGap(f, fillCpu(f, w, pr.e, pr.n), pr.n), gpuGap });
+  return run;
 }
 
 /** The GPU scorer if it gives the export's own outputs on the probe, else the CPU. */
@@ -93,38 +80,42 @@ async function scorer(h: BiomassHead, w: Float32Array): Promise<Scorer> {
   return use;
 }
 
+/**
+ * A chunk-year (or a window's two): from the front of each chunk, the first FRONT_BANDS bands and the rest rebuilt,
+ * scored and sent at once (rough: true); then the rest of each chunk read and the exact planes sent. A chunk already
+ * on disk is sent exact only.
+ */
 async function read(m: Read) {
   const ac = new AbortController();
   running.set(m.id, ac);
+  const stop = () => {
+    if (ac.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
+  };
   try {
-    if (!mosaic) mosaic = openMosaic().then((o) => o.arr);
-    mosaic.catch(() => (mosaic = null));
-    const [arr, score] = await Promise.all([mosaic, ready!]);
-    const k = m.bands;
-    const get = async (t: number): Promise<Int8Array> => {
-      if (k) {
-        if (k >= NUM_BANDS) return readChunk(YEAR_ORIGIN + t, m.py0, m.px0, m.h, m.w, ALL, ac.signal);
-        const f = await filler(k);
-        const e = await readChunk(YEAR_ORIGIN + t, m.py0, m.px0, m.h, m.w, f.net.bands, ac.signal);
-        if (ac.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
-        return f.run(e, m.w * m.h);
-      }
-      const c = await zarr.get(arr, [t, null, zarr.slice(m.py0, m.py0 + m.h), zarr.slice(m.px0, m.px0 + m.w)], { signal: ac.signal });
-      if (c.shape.length !== 3 || c.shape[0] !== NUM_BANDS || c.shape[1] !== m.h || c.shape[2] !== m.w)
-        throw new Error(`Unexpected chunk shape [${c.shape.join(", ")}] for a ${m.w} x ${m.h} tile`);
-      if (ac.signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
-      return c.data as Int8Array;
-    };
+    if (m.w !== 256 || m.h !== 256) throw new Error(`a ${m.w} x ${m.h} chunk`);
+    const score = await ready!;
     const n = m.w * m.h;
-    let planes: Uint16Array | Int16Array;
-    if (m.timeIdxB == null) planes = await score(await get(m.timeIdx), n);
-    else {
-      const [ea, eb] = await Promise.all([get(m.timeIdx), get(m.timeIdxB)]);
-      const ca = await score(ea, n);
-      const cb = await score(eb, n);
-      planes = changeOf(ea, eb, ca, cb, n, m.timeIdxB - m.timeIdx, conf!, m.lidarGain ? gain : null);
+    const ts = m.timeIdxB == null ? [m.timeIdx] : [m.timeIdx, m.timeIdxB];
+    const parts: Part[] = await Promise.all(ts.map((t) => front(t, m.py0, m.px0, ac.signal, !!m.ahead)));
+    stop();
+    const planesOf = async (es: Int8Array[]): Promise<Uint16Array | Int16Array> => {
+      if (es.length === 1) return score(es[0]!, n);
+      const ca = await score(es[0]!, n);
+      const cb = await score(es[1]!, n);
+      return changeOf(es[0]!, es[1]!, ca, cb, n, m.timeIdxB! - m.timeIdx, conf!, m.lidarGain ? gain : null);
+    };
+    if (parts.some((p) => !p.full) && fillNet) {
+      if (!filling) filling = filler(fillNet);
+      const fill = await filling;
+      const rough = await Promise.all(parts.map((p) => p.full ?? fill(p.front!, n)));
+      stop();
+      const planes = await planesOf(rough);
+      postMessage({ id: m.id, planes, rough: true }, { transfer: [planes.buffer as ArrayBuffer] });
     }
-    postMessage({ id: m.id, planes, tiff: k ? tiffStats() : undefined }, { transfer: [planes.buffer as ArrayBuffer] });
+    const full = await Promise.all(parts.map((p) => p.full ?? p.rest(ac.signal)));
+    stop();
+    const planes = await planesOf(full);
+    postMessage({ id: m.id, planes }, { transfer: [planes.buffer as ArrayBuffer] });
   } catch (e) {
     const err = e as { name?: string; message?: string };
     postMessage({ id: m.id, error: { name: err?.name || "Error", message: err?.message || String(e) } });
@@ -138,7 +129,7 @@ self.onmessage = (ev: MessageEvent<Msg>) => {
   if (m.type === "init") {
     head = m.head;
     conf = m.conf;
-    fillNets = m.fills ?? [];
+    fillNet = m.fill && m.fill.k === FRONT_BANDS ? m.fill : null;
     gain = m.gain ? gainNet(m.gain) : null;
     weights = packHead(head);
     ready = scorer(head, weights);

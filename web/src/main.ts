@@ -6,7 +6,7 @@ import { MapLibreOverlay as MapboxOverlay } from "@deck.gl/maplibre";
 import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
-import { BAND_FLOOR, type Bands, BANDS, MIN_ZOOM, RES, X0, Y0 } from "./aef";
+import { MIN_ZOOM, RES, X0, Y0 } from "./aef";
 import { AGB_HI, type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
@@ -54,10 +54,10 @@ const [head, confTables]: [BiomassHead, ConfTables] = await Promise.all(
 // the lidar-taught gain (G in change); the map runs without it if the file is missing
 const gainHead: GainHead | null = await fetch(`${import.meta.env.BASE_URL}models/gain_lidar.json`)
   .then((r) => (r.ok ? r.json() : null)).catch(() => null);
-// the fill-in networks for 16 and 32 bands (scripts/export_fill.py)
-const fills: FillNet[] = await Promise.all(
-  [16, 32].map(async (k) => (await fetch(`${import.meta.env.BASE_URL}models/fill_aef_${k}.json`)).json()),
-);
+// the network that rebuilds bands 32 to 63 from the first 32, for the rough first picture (scripts/export_fill.py
+// --prefix); without it every chunk waits for all 64
+const fill: FillNet | null = await fetch(`${import.meta.env.BASE_URL}models/fill_aef_32p.json`)
+  .then((r) => (r.ok ? r.json() : null)).catch(() => null);
 const YEARS = head.years;
 const savedWin = (stored(WIN_KEY) ?? "").split("-").map(Number);
 const winOk = savedWin.length === 2 && YEARS.includes(savedWin[0]!) && YEARS.includes(savedWin[1]!) && savedWin[0]! < savedWin[1]!;
@@ -90,15 +90,11 @@ const st = {
   gamma: Number(stored("aef-biomass-s2-gamma")) || 1,
   // gain by the lidar-taught network instead of the two-part floor (G, change only), remembered
   lidarGain: !!gainHead && stored("aef-biomass-gain") === "lidar",
-  // the bands read per pixel from AlphaEarth's GeoTIFFs (N cycles), the rest rebuilt; remembered
-  bands: (BANDS.find((b) => String(b) === stored("aef-biomass-bands")) ?? 16) as Bands,
 };
 /** The layer shown: the year, or the window. */
-const curKey = () => (st.mode === "year" ? yearKey(st.year, st.bands) : windowKey(st.y0, st.y1, st.lidarGain, st.bands));
-/** A layer key as words: "2025, 16 bands", or "2018 to 2025" (", lidar-taught gain" for a window ending in L). */
-const keyName = (k: string) => k.replace(/b(\d+)$/, ", $1 bands").replace("-", " to ").replace("L", ", lidar-taught gain");
-/** The zoom the bands are read from. */
-const floorZ = () => BAND_FLOOR[st.bands];
+const curKey = () => (st.mode === "year" ? yearKey(st.year) : windowKey(st.y0, st.y1, st.lidarGain));
+/** A layer key as words: "2025", or "2018 to 2025" (", lidar-taught gain" for a window ending in L). */
+const keyName = (k: string) => k.replace("-", " to ").replace("L", ", lidar-taught gain");
 
 // ---- the page: the map fills the window; search and the card down the top left, the loading bar along the top
 const mapEl = document.getElementById("map")!;
@@ -126,7 +122,6 @@ card.innerHTML = `
   <div class="body">
   <div class="sub"></div>
   <div class="seg-f mode"><button data-m="year">Each year</button><button data-m="change">Change</button><kbd>C</kbd></div>
-  <div class="bandrow"><span class="at-lab">Bands</span><div class="seg-f bandsel">${BANDS.map((b) => `<button data-b="${b}" title="${b} of 64 bands, read from zoom ${BAND_FLOOR[b]} (N cycles)">${b}</button>`).join("")}<kbd>N</kbd></div></div>
   <div class="yearrow">
     <button class="step" data-d="-1" title="Earlier year ([)">&lsaquo;</button>
     <div class="year"></div>
@@ -346,33 +341,29 @@ function say(s: string) {
 
 // the biomass draws under the basemap's labels
 let firstLabel: string | undefined;
-const bio = await createBiomass(head, confTables, gainHead, () => firstLabel, fills);
+// chunks drawn rough sharpen on their own: repaint, recount, reread the pixel under the pointer
+const bio = await createBiomass(head, confTables, gainHead, () => firstLabel, fill, () => {
+  map.triggerRepaint();
+  status();
+  readout();
+});
 let modeNote = "";
 const setModeNote = () => {
   const ms = bio.pool.modes;
   const gpu = ms.filter((m) => m.mode === "gpu").length;
   modeNote = gpu ? `head on WebGPU (${gpu} of ${ms.length} workers)` : "head on the CPU (no WebGPU)";
-  const fm = bio.pool.fillModes.filter((m) => m.k === st.bands);
-  if (fm.length) {
-    const g = fm.filter((m) => m.mode === "gpu").length;
-    modeNote += g ? `, fill on WebGPU (${g} of ${fm.length})` : ", fill on the CPU (slow)";
-  }
+  const fm = bio.pool.fillModes;
+  if (fm.length) modeNote += fm.some((m) => m.mode === "gpu") ? ", first picture's fill on WebGPU" : ", first picture's fill on the CPU";
   status();
 };
 bio.pool.onMode = setModeNote;
 bio.pool.onFill = setModeNote;
-/** The GeoTIFF bytes read from the network so far, and the band tiles taken from the disk cache. */
-const tiffNote = () => {
-  const t = bio.pool.tiff;
-  const mb = t.reduce((s, x) => s + x.fetchedBytes, 0) / 1e6, disk = t.reduce((s, x) => s + x.disk, 0);
-  return mb || disk ? ` · GeoTIFF ${mb >= 1000 ? `${(mb / 1000).toFixed(2)} GB` : `${mb.toFixed(0)} MB`} read${disk ? `, ${disk} tiles from disk` : ""}` : "";
-};
 
 const bbox = (): [number, number, number, number] => {
   const b = map.getBounds();
   return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
 };
-const readable = () => map.getZoom() >= floorZ();
+const readable = () => map.getZoom() >= MIN_ZOOM;
 
 // ---- the change in view, counted live (change mode): totals, columns over the ramp, what it was and became
 const HIST_TOP = 12; // room at the chart's top for the scale's label
@@ -394,7 +385,7 @@ function drawHist() {
     svg.innerHTML = "";
     hl.innerHTML = "";
     pkL.textContent = pkR.textContent = "";
-    cov.textContent = `Zoom in to ${floorZ()} to count the change in view`;
+    cov.textContent = `Zoom in to ${MIN_ZOOM} to count the change in view`;
     pairs.innerHTML = "";
     return;
   }
@@ -441,8 +432,8 @@ function status() {
   const zEl = $(".zoom");
   zEl.classList.toggle("out", !readable());
   zEl.innerHTML = readable()
-    ? `Zoom ${z.toFixed(1)} &middot; ${st.bands} of 64 bands, read from zoom ${floorZ()}`
-    : `Zoom ${z.toFixed(1)}: zoom in to ${floorZ()} to read ${st.bands} bands. AlphaEarth is 10 m with no coarser levels; fewer bands read less, so they are read further out (16 from 10, 32 from 10.5, 64 from 11).`;
+    ? `Zoom ${z.toFixed(1)} &middot; AlphaEarth is read from zoom ${MIN_ZOOM}`
+    : `Zoom ${z.toFixed(1)}: zoom in to ${MIN_ZOOM} to read AlphaEarth. It is 10 m with no coarser levels, so a wider view would read too much.`;
   if (!readable()) {
     bar.classList.remove("on");
     tag.classList.remove("on");
@@ -450,7 +441,7 @@ function status() {
     return;
   }
   const k = curKey();
-  const { loaded, wanted } = bio.loadedIn(bbox(), k);
+  const { loaded, rough, wanted } = bio.loadedIn(bbox(), k);
   // done when the view's chunks are all in, even if deck.gl's view-loaded call has not come
   const loading = !st.viewLoaded && wanted > 0 && loaded < wanted;
   bar.classList.toggle("on", loading);
@@ -464,7 +455,9 @@ function status() {
     const nm = keyName(st.aheadKey);
     ahead = h.inHand < h.wanted ? ` · reading ${nm} ahead, ${h.inHand} of ${h.wanted}` : ` · ${nm} read ahead`;
   }
-  say(`${loaded} of ${wanted} chunks for ${keyName(k)}${ahead}${modeNote ? ` · ${modeNote}` : ""}${tiffNote()}`);
+  // a chunk draws first from its first 32 bands (the rest rebuilt), then sharpens once all 64 are in
+  const sharp = rough ? ` · ${rough} drawn rough, sharpening` : "";
+  say(`${loaded} of ${wanted} chunks for ${keyName(k)}${sharp}${ahead}${modeNote ? ` · ${modeNote}` : ""}`);
 }
 
 function keyTicks() {
@@ -496,7 +489,7 @@ function whenFor(lon: number, lat: number, sign: number): string {
     when.ac?.abort();
     const ac = (when.ac = new AbortController());
     Object.assign(when, { key: k, years: null, busy: true });
-    bio.whenAtPoint(lon, lat, st.y0, st.y1, sign, ac.signal, st.bands).then(
+    bio.whenAtPoint(lon, lat, st.y0, st.y1, sign, ac.signal).then(
       (y) => {
         if (when.key !== k) return;
         Object.assign(when, { years: y, busy: false });
@@ -548,7 +541,7 @@ function readout() {
     }
     sub = keyName(curKey());
   } else {
-    const v = bio.valueAtPoint(pt[0], pt[1], st.year, st.bands);
+    const v = bio.valueAtPoint(pt[0], pt[1], st.year);
     if (!v) return off();
     const a = v.agb >= 10 ? v.agb.toFixed(0) : v.agb.toFixed(1);
     big = `<b>${a}</b> Mg/ha`;
@@ -583,7 +576,7 @@ function readAhead() {
   for (const d of [st.dir, -st.dir]) {
     if (st.mode !== "year") break;
     const y = YEARS[YEARS.indexOf(st.year) + d];
-    if (y !== undefined) next.push(yearKey(y, st.bands));
+    if (y !== undefined) next.push(yearKey(y));
   }
   void (async () => {
     for (const k of next) {
@@ -617,10 +610,10 @@ function styleMode() {
     ? "percent of the pixel's own biomass the first year. Faint: steady ground of its class often changes as much. Clear: no change counted"
     : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
-    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; <kbd>N</kbd>&nbsp;bands &nbsp; " +
+    ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
       (gainHead ? `<kbd>G</kbd>&nbsp;lidar gain, ${st.lidarGain ? "on" : "off"} &nbsp; ` : "") +
       "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about"
-    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; <kbd>N</kbd>&nbsp;bands &nbsp; ' +
+    : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; ' +
       (gainHead ? '<kbd>G</kbd>&nbsp;lidar gain (in change) &nbsp; ' : '') +
       '<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about';
   drag.y0 = st.y0;
@@ -843,23 +836,6 @@ function setLidarGain(on: boolean) {
   render();
   say(on ? "gain: the lidar-taught network" : "gain: the two-part floor");
 }
-/**
- * The bands read per pixel (N cycles 16, 32, 64): the layer left keeps drawing under the new one until the new one's view is in.
- * Below the new count's zoom nothing is drawn.
- */
-function setBands(b: Bands) {
-  if (b === st.bands) return;
-  if (st.prev == null && readable()) st.prev = curKey();
-  st.bands = b;
-  store("aef-biomass-bands", String(b));
-  if (!readable()) st.prev = null;
-  st.viewLoaded = false;
-  stopAhead();
-  for (const el of card.querySelectorAll<HTMLButtonElement>(".bandsel button")) el.classList.toggle("on", Number(el.dataset.b) === b);
-  wasReadable = readable();
-  setModeNote();
-  render();
-}
 function setMode(m: Mode) {
   if (m === st.mode) return;
   st.mode = m;
@@ -945,8 +921,6 @@ window.addEventListener("keydown", (e) => {
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
   else if (e.code === "KeyG" && !e.shiftKey && st.mode === "change" && gainHead) setLidarGain(!st.lidarGain);
-  // N: the bands read per pixel, 16, 32, 64 and round again
-  else if (e.code === "KeyN" && !e.shiftKey) setBands(BANDS[(BANDS.indexOf(st.bands) + 1) % BANDS.length]!);
   else if (e.code === "KeyF") toggleFull();
   else if (e.code === "KeyL" && !e.shiftKey) toggleLabels();
   else if (e.key === "/") search.focus();
@@ -955,10 +929,6 @@ window.addEventListener("keydown", (e) => {
 }, { capture: true });
 for (const b of card.querySelectorAll<HTMLButtonElement>(".step")) b.onclick = () => step(Number(b.dataset.d));
 for (const b of card.querySelectorAll<HTMLButtonElement>(".mode button")) b.onclick = () => setMode(b.dataset.m as Mode);
-for (const b of card.querySelectorAll<HTMLButtonElement>(".bandsel button")) {
-  b.classList.toggle("on", Number(b.dataset.b) === st.bands);
-  b.onclick = () => setBands(Number(b.dataset.b) as Bands);
-}
 yearsEl.onclick = (e) => {
   const y = Number((e.target as HTMLElement).dataset.y);
   if (y) setYear(y);

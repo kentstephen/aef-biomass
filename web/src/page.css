@@ -226,5 +226,3 @@ body.pair #map { left: 50%; }
 /* the main card's one link: the repo (the code and the README) */
 .card .repo { margin-top: 8px; font-size: 12px; }
 .card .repo a { color: var(--text); text-underline-offset: 2px; }
-/* the bands read per pixel (the 16, 32 and 64 comparison) */
-.bandrow{display:flex;align-items:center;gap:8px;margin-top:6px}
