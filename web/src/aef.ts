@@ -18,6 +18,15 @@ export const YEAR_ORIGIN = 2017;
 /** Below this the mosaic would read too much (every zoom step out is four times the chunks); nothing is read. */
 export const MIN_ZOOM = 11;
 
+/**
+ * The bands read per pixel (the comparison of 16, 32 and 64 from AlphaEarth's GeoTIFFs, tiff.ts) and the zoom each
+ * is read from: a quarter of the bands at a quarter of the read per pixel holds four times the ground, one zoom step
+ * out, at what zoom 11 costs with all 64; half the bands half a step.
+ */
+export type Bands = 16 | 32 | 64;
+export const BANDS: Bands[] = [16, 32, 64];
+export const BAND_FLOOR: Record<Bands, number> = { 16: 10, 32: 10.5, 64: 11 };
+
 /** The mosaic's grid (EPSG:4326, pixel registered) and its chunk size. */
 export const RES = 8.983111749910169e-5;
 export const X0 = -180;

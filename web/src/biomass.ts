@@ -4,8 +4,9 @@ import type { Texture } from "@luma.gl/core";
 import type { ShaderModule } from "@luma.gl/shadertools";
 import * as zarr from "zarrita";
 
-import { CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
+import { BAND_FLOOR, type Bands, CHUNK, MIN_ZOOM, openMosaic, RES, X0, Y0, YEAR_ORIGIN } from "./aef";
 import { CH_NODATA, CONF_SCALE, type ConfTables, LOSS_FROM, MG_SCALE, PCT_SCALE } from "./change";
+import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
 import { type BiomassHead, CODE, codeValue } from "./head";
 import { Pool } from "./pool";
@@ -34,11 +35,19 @@ type Planes = { planes: Uint16Array | Int16Array; w: number; h: number };
 
 /**
  * A layer's key: a year ("2025") or a window ("2018-2025", the change from the first year to the second); a window
- * ending in L draws gain by the lidar-taught network (gain.ts) instead of the two-part floor.
+ * ending in L draws gain by the lidar-taught network (gain.ts) instead of the two-part floor. "b16" after it: read 16
+ * bands from the GeoTIFFs and rebuild the rest (b64: all 64 from the GeoTIFFs); without it, the mosaic.
  */
-export const yearKey = (y: number) => String(y);
-export const windowKey = (a: number, b: number, lidarGain = false) => `${a}-${b}${lidarGain ? "L" : ""}`;
-const windowOf = (lk: string) => (lk.includes("-") ? (lk.replace("L", "").split("-").map(Number) as [number, number]) : null);
+const bk = (bands?: Bands) => (bands ? `b${bands}` : "");
+export const yearKey = (y: number, bands?: Bands) => `${y}${bk(bands)}`;
+export const windowKey = (a: number, b: number, lidarGain = false, bands?: Bands) => `${a}-${b}${lidarGain ? "L" : ""}${bk(bands)}`;
+const bandsOf = (lk: string): Bands | undefined => {
+  const m = /b(\d+)$/.exec(lk);
+  return m ? (Number(m[1]) as Bands) : undefined;
+};
+const bare = (lk: string) => lk.replace(/b\d+$/, "");
+const windowOf = (lk: string) => (bare(lk).includes("-") ? (bare(lk).replace("L", "").split("-").map(Number) as [number, number]) : null);
+const yearOf = (lk: string) => Number(bare(lk));
 
 /** The change ramp's ends, percent of the pixel's own biomass: loss to all of it, gain to one and a half times it. */
 export const LOSS_END = 100;
@@ -130,14 +139,14 @@ ${glslRamp("changeRamp", CHANGE_50)}`,
   getUniforms: (p: Record<string, unknown>) => p,
 } as unknown as ShaderModule<{ chTex: Texture; lossEnd: number; gainEnd: number; lossFrom: number; gainFrom: number; alphaMin: number }>;
 
-export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: GainHead | null, beforeId: () => string | undefined) {
+export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: GainHead | null, beforeId: () => string | undefined, fills: FillNet[] = []) {
   const { arr, attrs } = await openMosaic();
   const [, , H, W] = arr.shape as number[];
   // the tile grid and CRS, read once from the group's GeoZarr attributes and shared by every layer
   const opened = await ZarrSource.open(arr, { geoZarrMetadata: attrs });
   if (!opened.is("int8")) throw new Error("Expected int8 embeddings");
   const source: ZarrSource<"int8"> = opened;
-  const pool = new Pool(head, conf, gain);
+  const pool = new Pool(head, conf, gain, fills);
 
   // the planes by "year:row-col", the last used last; 384 KB each, at most CAP_BYTES (a zoom 11 view in a large
   // window is about 1,000 chunks, 375 MB)
@@ -188,10 +197,10 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     let f = inflight.get(k);
     if (!f || f.ac.signal.aborted) {
       const ac = new AbortController();
-      const win = windowOf(lk);
+      const win = windowOf(lk), bands = bandsOf(lk);
       const ask = win
-        ? pool.change(win[0] - YEAR_ORIGIN, win[1] - YEAR_ORIGIN, py0, px0, h, w, lk.endsWith("L"), ac.signal)
-        : pool.read(Number(lk) - YEAR_ORIGIN, py0, px0, h, w, ac.signal);
+        ? pool.change(win[0] - YEAR_ORIGIN, win[1] - YEAR_ORIGIN, py0, px0, h, w, bare(lk).endsWith("L"), ac.signal, bands)
+        : pool.read(yearOf(lk) - YEAR_ORIGIN, py0, px0, h, w, ac.signal, bands);
       const p = ask.then((pl) => {
         const out = { planes: pl, w, h };
         keep(k, out);
@@ -339,7 +348,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     return new BioLayer({
       id: win ? `change-${lk}` : `biomass-${lk}`,
       source,
-      selection: { time: (win ? win[1] : Number(lk)) - YEAR_ORIGIN, band: null },
+      selection: { time: (win ? win[1] : yearOf(lk)) - YEAR_ORIGIN, band: null },
       getTileData: async (_a, o) => {
         const ys = o.sliceSpec[2] as zarr.Slice, xs = o.sliceSpec[3] as zarr.Slice;
         const py0 = ys.start ?? 0, px0 = xs.start ?? 0;
@@ -384,11 +393,12 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         ] as RasterModule[],
       }),
       visible: opts.visible,
-      minZoom: MIN_ZOOM,
+      // the page puts a layer on only from its band count's zoom (BAND_FLOOR); deck's tiles go by whole zooms
+      minZoom: Math.floor(bandsOf(lk) ? BAND_FLOOR[bandsOf(lk)!] : MIN_ZOOM),
       // the S3 host answers over HTTP/1.1: six at a time is the browser's own limit per host (fire-knn)
       maxRequests: 6,
-      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000
-      maxCacheSize: 1200,
+      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000, a zoom 10 view four times that
+      maxCacheSize: bandsOf(lk) && BAND_FLOOR[bandsOf(lk)!] < MIN_ZOOM ? 4800 : 1200,
       onTileLoad: () => opts.onTile && opts.onTile(),
       onTileUnload: (tile: { content?: TileData | null }) => {
         const t = tile.content;
@@ -418,8 +428,8 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   }
 
   /** Biomass (Mg/ha), canopy height (m) and the head's class at a point for a year, from the planes in hand; null where none. */
-  function valueAtPoint(lon: number, lat: number, year: number): { agb: number; height: number; cls: string } | null {
-    const v = planeAt(lon, lat, yearKey(year));
+  function valueAtPoint(lon: number, lat: number, year: number, bands?: Bands): { agb: number; height: number; cls: string } | null {
+    const v = planeAt(lon, lat, yearKey(year, bands));
     if (!v || v[0] === 0) return null;
     return { agb: codeValue(v[0]), height: codeValue(v[1]), cls: head.classes[v[2]] ?? "" };
   }
@@ -443,7 +453,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
    * its chunk, read where not in hand, and kept for the each-year view), and the one-year step that moved most in
    * the change's direction (sign -1 loss, +1 gain). Null where a year has no data.
    */
-  async function whenAtPoint(lon: number, lat: number, a: number, b: number, sign: number, signal?: AbortSignal): Promise<[number, number] | null> {
+  async function whenAtPoint(lon: number, lat: number, a: number, b: number, sign: number, signal?: AbortSignal, bands?: Bands): Promise<[number, number] | null> {
     if (b - a <= 1) return [a, b];
     const px = Math.floor((lon - X0) / RES), py = Math.floor((Y0 - lat) / RES);
     const r = Math.floor(py / CHUNK), c = Math.floor(px / CHUNK);
@@ -451,7 +461,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
     const ix = px - px0, iy = py - py0;
     if (ix < 0 || iy < 0 || ix >= w || iy >= h) return null;
     const years = Array.from({ length: b - a + 1 }, (_, k) => a + k);
-    const got = await Promise.all(years.map((y) => planesFor(yearKey(y), py0, px0, h, w, signal)));
+    const got = await Promise.all(years.map((y) => planesFor(yearKey(y, bands), py0, px0, h, w, signal)));
     const v = got.map((p) => codeValue(p.planes[iy * p.w + ix]!));
     if (v.some((x) => !(x >= 0))) return null;
     let best = 0;

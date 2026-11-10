@@ -1,0 +1,38 @@
+{
+ "greedy": {
+  "16": {
+   "agb_off_median": 5.27,
+   "agb_median": 20.1,
+   "agb_r2_log": 0.901,
+   "h_off_median": 0.44,
+   "cls_same": 0.793,
+   "n": 720000
+  },
+  "32": {
+   "agb_off_median": 3.3,
+   "agb_median": 20.1,
+   "agb_r2_log": 0.963,
+   "h_off_median": 0.21,
+   "cls_same": 0.871,
+   "n": 720000
+  }
+ },
+ "prefix": {
+  "16": {
+   "agb_off_median": 8.23,
+   "agb_median": 20.1,
+   "agb_r2_log": 0.706,
+   "h_off_median": 0.52,
+   "cls_same": 0.735,
+   "n": 720000
+  },
+  "32": {
+   "agb_off_median": 5.38,
+   "agb_median": 20.1,
+   "agb_r2_log": 0.907,
+   "h_off_median": 0.28,
+   "cls_same": 0.862,
+   "n": 720000
+  }
+ }
+}
