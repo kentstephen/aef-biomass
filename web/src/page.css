@@ -79,6 +79,12 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--cool); outl
 .key .ticks span:first-child { transform: none; }
 .key .ticks span:last-child { transform: translateX(-100%); }
 .key .unit { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.key .legend { display: none; grid-template-columns: repeat(3, 1fr); gap: 3px 10px; font-size: 11px; color: var(--text); margin: 2px 0 4px; }
+.key .legend span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.key .legend i { width: 12px; height: 12px; border-radius: 2px; flex: none; }
+.key .legend i.run { width: 22px; }
+.card.lc .key .legend { display: grid; }
+.card.lc .key .bar, .card.lc .key .ticks { display: none; }
 .readout { margin-top: 8px; min-height: 18px; }
 /* the change in view, counted live (change mode only): totals, columns over the ramp, what it was and became */
 .card:not(.ch) .hist, .card:not(.ch) .pairs { display: none; }

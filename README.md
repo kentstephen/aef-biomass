@@ -16,7 +16,7 @@ summary per 10 m pixel per year (2018 to 2025), read from zoom 11 in. A small mo
 biomass, Meta canopy height and land cover) turns each pixel's embedding into aboveground biomass in Mg/ha, a canopy
 height and a land cover class. Nothing is precomputed; the head runs on the GPU in your browser.
 
-**Each year (C to switch).** One year's biomass per pixel, on a viridis ramp from 0 to 350+ Mg/ha (log scale).
+**Each year (C to switch).** One year's biomass per pixel, on a viridis ramp from 0 to 350+ Mg/ha (log scale). R switches to land cover: the head's class in its own color, shaded as a relief of the biomass so the detail stays.
 Hover a pixel for its biomass, canopy height and class.
 
 **Change (C).** The window of years at the top of the card (drag either end, or the span between them). Orange is

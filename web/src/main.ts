@@ -7,12 +7,12 @@ import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
 import { dropOldCache, MIN_ZOOM, RES, X0, Y0 } from "./aef";
-import { AGB_HI, type ChangeStats, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
+import { AGB_HI, type ChangeStats, HEIGHT_HI, createBiomass, GAIN_END, HIST_N, LOSS_END, windowKey, yearKey } from "./biomass";
 import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
 import type { ConfTables } from "./change";
 import type { BiomassHead } from "./head";
-import { CHANGE_50, cssGradient, VIRIDIS_50 } from "./ramp";
+import { CHANGE_50, classShade, cssBands, cssGradient, LAND_COVER, VIEW_CODE, YEAR_RAMPS } from "./ramp";
 import { S2_CREDIT, s2Layers, s2YearFor } from "./s2";
 import { makeSearch } from "./search";
 
@@ -93,6 +93,8 @@ const st = {
   gamma: Number(stored("aef-biomass-s2-gamma")) || 1,
   // gain by the lidar-taught network instead of the two-part floor (G, change only), remembered
   lidarGain: !!gainHead && stored("aef-biomass-gain") === "lidar",
+  // the each-year view (R): viridis, or the class lit as a relief of biomass (YEAR_RAMPS), remembered
+  ramp: Math.min(YEAR_RAMPS.length - 1, Math.max(0, Number(stored("aef-biomass-ramp")) || 0)),
 };
 /** The layer shown: the year, or the window. */
 const curKey = () => (st.mode === "year" ? yearKey(st.year) : windowKey(st.y0, st.y1, st.lidarGain));
@@ -136,7 +138,7 @@ card.innerHTML = `
     <span class="at-win"><span class="trk"></span><span class="spn" title="drag to move the window, its length kept"></span><span class="tks"></span></span>
     <span class="at-wtxt"></span>
   </div>
-  <div class="key"><div class="hist"><div class="hl"></div><div class="cov"></div><div class="chart"><svg viewBox="0 0 ${HIST_N} 64" preserveAspectRatio="none"></svg><span class="pk l"></span><span class="pk r"></span></div></div><div class="bar"></div><div class="ticks"></div><div class="unit"></div></div>
+  <div class="key"><div class="hist"><div class="hl"></div><div class="cov"></div><div class="chart"><svg viewBox="0 0 ${HIST_N} 64" preserveAspectRatio="none"></svg><span class="pk l"></span><span class="pk r"></span></div></div><div class="bar"></div><div class="ticks"></div><div class="legend"></div><div class="unit"></div></div>
   <div class="pairs"></div>
   <div class="readout">&nbsp;</div>
   <div class="zoom"></div>
@@ -341,6 +343,8 @@ fold((() => {
 function say(s: string) {
   $(".status").textContent = s;
 }
+
+if (head.classes.join() !== LAND_COVER.map(([n]) => n).join()) console.warn("land cover colors out of step with the head's classes", head.classes);
 
 // the biomass draws under the basemap's labels
 let firstLabel: string | undefined;
@@ -609,11 +613,19 @@ function readAhead() {
 /** The card for the mode: only the controls it uses, its ramp, key, words and keys. */
 function styleMode() {
   const ch = st.mode === "change";
+  const view = YEAR_RAMPS[st.ramp]!;
+  const lc = !ch && view.kind !== "ramp";
   card.classList.toggle("ch", ch);
+  card.classList.toggle("lc", lc);
   for (const b of card.querySelectorAll<HTMLButtonElement>(".mode button")) b.classList.toggle("on", b.dataset.m === st.mode);
   // folded, the short title (the card's width goes to the ramp and the years)
-  $(".at-hd .t").innerHTML = ch ? '<span class="tl">Biomass change</span><span class="ts">Change</span>' : "Biomass";
-  const ramp = cssGradient(ch ? CHANGE_50 : VIRIDIS_50);
+  $(".at-hd .t").innerHTML = ch ? '<span class="tl">Biomass change</span><span class="ts">Change</span>' : lc ? "Land cover" : "Biomass";
+  const ramp = ch ? cssGradient(CHANGE_50) : lc ? cssBands(LAND_COVER.map(([, c]) => c)) : cssGradient(view.stops);
+  // the class key: each class's own light to dark run, or its flat color for the relief
+  $(".legend").innerHTML = LAND_COVER.map(([n, c], k) => {
+    const bg = view.kind === "classRelief" ? c : `linear-gradient(90deg, ${[0, 0.25, 0.5, 0.75, 1].map((t) => classShade(k, t)).join(", ")})`;
+    return `<span><i class="${view.kind === "classRelief" ? "" : "run"}" style="background:${bg}"></i>${n}</span>`;
+  }).join("");
   $(".bar").style.background = ramp;
   // folded, the card is its header: the short title, the ramp on the map and the year (Earthwork's card fold)
   $(".at-ramp").style.background = ramp;
@@ -624,13 +636,20 @@ function styleMode() {
     : "AlphaEarth, one year's embedding";
   $(".unit").textContent = ch
     ? "percent of the pixel's own biomass the first year. Faint: steady ground of its class often changes as much. Clear: no change counted"
-    : "Mg/ha aboveground, per 10 m pixel";
+    : view.kind === "classBiomass"
+      ? `the head's class, light to dark by biomass, 0 to ${Math.round(Math.expm1(AGB_HI))}+ Mg/ha (log scale), per 10 m pixel; amounts on hover`
+      : view.kind === "classHeight"
+        ? `the head's class, light to dark by canopy height, 0 to ${HEIGHT_HI}+ m (log scale), per 10 m pixel; amounts on hover`
+        : view.kind === "classRelief"
+          ? "the head's class, shaded as if biomass were terrain lit from the northwest, per 10 m pixel; amounts on hover"
+          : "Mg/ha aboveground, per 10 m pixel";
   $(".keys").innerHTML = ch
     ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
       (gainHead ? `<kbd>G</kbd>&nbsp;lidar gain, ${st.lidarGain ? "on" : "off"} &nbsp; ` : "") +
       "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;tooltip &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about"
     : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; ' +
       (gainHead ? '<kbd>G</kbd>&nbsp;lidar gain (in change) &nbsp; ' : '') +
+      `<kbd>R</kbd>&nbsp;${YEAR_RAMPS[st.ramp]!.name} &nbsp; ` +
       '<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;tooltip &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
@@ -696,13 +715,14 @@ function render() {
     // the layer left keeps drawing under the new one until the new one's view is in, so a step never flashes empty
     if (st.prev != null && st.prev !== k) {
       want.push(st.prev);
-      layers.push(bio.layer({ key: st.prev, visible: true }));
+      layers.push(bio.layer({ key: st.prev, visible: true, ramp: VIEW_CODE[YEAR_RAMPS[st.ramp]!.kind] }));
     }
     want.push(k);
     layers.push(
       bio.layer({
         key: k,
         visible: true,
+        ramp: VIEW_CODE[YEAR_RAMPS[st.ramp]!.kind],
         onTile: () => {
           status();
           readout();
@@ -806,7 +826,7 @@ const about = overlay_("about", `<h2>Biomass</h2>
   per square meter). A small model (the head) turns each 10 m pixel's AlphaEarth embedding for a year into biomass,
   canopy height and a land cover class. It is taught on CTrees biomass, Meta canopy height and land cover, so its
   biomass is mostly the woody kind: trees and shrubs. It runs on your GPU, from zoom 11 in; nothing is precomputed.</p>
-  <p><b>Each year</b> shows one year's biomass on a viridis ramp, 0 to 350+ Mg/ha (log scale). <b>Change</b> shows a window
+  <p><b>Each year</b> shows one year's biomass on a viridis ramp, 0 to 350+ Mg/ha (log scale), or the head's class with the detail kept (R switches). <b>Change</b> shows a window
   of years (drag its ends or the span between them on the card): loss in orange where the biomass fell and the
   embedding itself changed, gain in blue where it rose past a floor (20 to 40 Mg/ha by window length and a quarter
   of what was there), as a percent of the pixel's first-year biomass. Faint is change that steady ground of the same
@@ -936,6 +956,12 @@ window.addEventListener("keydown", (e) => {
   else if (e.code === "KeyP" && !e.shiftKey) setPair(!st.pair);
   else if (e.code === "KeyC" && !e.shiftKey) setMode(st.mode === "year" ? "change" : "year");
   else if (e.code === "KeyG" && !e.shiftKey && st.mode === "change" && gainHead) setLidarGain(!st.lidarGain);
+  else if (e.code === "KeyR" && !e.shiftKey && st.mode === "year") {
+    st.ramp = (st.ramp + 1) % YEAR_RAMPS.length;
+    store("aef-biomass-ramp", String(st.ramp));
+    styleMode();
+    render();
+  }
   else if (e.code === "KeyF") toggleFull();
   else if (e.code === "KeyL" && !e.shiftKey) toggleLabels();
   else if (e.key === "/") search.focus();

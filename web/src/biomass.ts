@@ -10,9 +10,9 @@ import type { FillNet } from "./fill";
 import type { GainHead } from "./gain";
 import { type BiomassHead, CODE, codeValue } from "./head";
 import { Pool } from "./pool";
-import { CHANGE_50, glslRamp, VIRIDIS_50 } from "./ramp";
+import { CHANGE_50, glslRamp, LAND_COVER, LIGHT_HI, LIGHT_LO, toOklab, VIRIDIS_50 } from "./ramp";
 
-/** One chunk on the GPU: a year's biomass codes (r16uint) or a window's change, percent x 100 and confidence x 10000 (rg16sint). */
+/** One chunk on the GPU: a year's biomass codes and classes side by side (rg16uint) or a window's change, percent x 100 and confidence x 10000 (rg16sint). */
 type TileData = MinimalTileData & { key: string; tex: Texture };
 
 /**
@@ -72,31 +72,80 @@ export const ALPHA_MIN = 0.2;
 /** The biomass ramp's ends in log1p(Mg/ha): 0 to 350 Mg/ha, the same in every view and year. */
 export const AGB_LO = 0;
 export const AGB_HI = Math.log1p(350);
+/** The height view's top, m: lightness runs over log1p(0..HEIGHT_HI). */
+export const HEIGHT_HI = 40;
+/** The relief view's slope: this many units of rise per unit of log biomass between neighbors. */
+export const RELIEF_Z = 3;
 
-/** Biomass per pixel, colored on 50-stop viridis over AGB_LO..AGB_HI in log1p(Mg/ha). */
+/**
+ * A year per pixel, by the view's VIEW_CODE (ramp.ts). 0: biomass on viridis over AGB_LO..AGB_HI in log1p(Mg/ha). The class
+ * views take the head's class color's hue and chroma (OKLab) and keep the detail: 1, its lightness from biomass over
+ * the same range; 2, its lightness from canopy height over 0..HEIGHT_HI; 3, its flat color lit as a relief of log
+ * biomass (light from the northwest, RELIEF_Z times the log step between neighbors as the slope).
+ * The texel: biomass code, then the height code with the class in its low four bits.
+ */
 const BiomassColor = {
   name: "biomass",
   fs: `uniform biomassUniforms {
   float lo;
   float hi;
+  float ramp;
 } biomass;`,
   inject: {
     "fs:#decl": `precision highp usampler2D;
 uniform highp usampler2D agbTex;
-${glslRamp("viridis", VIRIDIS_50)}`,
+${glslRamp("viridis", VIRIDIS_50)}
+const vec3 CLASS_LAB[${LAND_COVER.length}] = vec3[${LAND_COVER.length}](${LAND_COVER.map(([, h]) => `vec3(${toOklab(h).map((v) => v.toFixed(5)).join(", ")})`).join(", ")});
+vec3 oklabToSrgb(vec3 c) {
+  float l = c.x + 0.3963377774 * c.y + 0.2158037573 * c.z;
+  float m = c.x - 0.1055613458 * c.y - 0.0638541728 * c.z;
+  float s = c.x - 0.0894841775 * c.y - 1.2914855480 * c.z;
+  l = l * l * l; m = m * m * m; s = s * s * s;
+  vec3 lin = clamp(vec3(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s), 0.0, 1.0);
+  return mix(12.92 * lin, 1.055 * pow(lin, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, lin));
+}
+// the class's hue at lightness t (0 least, 1 most), as ramp.ts classShade
+vec3 classShade(int k, float t) {
+  float L = ${LIGHT_HI.toFixed(3)} + (${LIGHT_LO.toFixed(3)} - ${LIGHT_HI.toFixed(3)}) * clamp(t, 0.0, 1.0);
+  float d = min(1.0, abs(L - 0.62) / 0.36);
+  float f = 1.0 - 0.6 * d * d;
+  return oklabToSrgb(vec3(L, CLASS_LAB[k].yz * f));
+}
+float agbAt(ivec2 p, ivec2 size, float here) {
+  uint c = texelFetch(agbTex, clamp(p, ivec2(0), size - 1), 0).r;
+  return c == 0u ? here : float(c - 1u) / ${CODE.toFixed(1)};
+}`,
     "fs:DECKGL_FILTER_COLOR": /* glsl */ `
       ivec2 size = textureSize(agbTex, 0);
       ivec2 px = clamp(ivec2(geometry.uv * vec2(size)), ivec2(0), size - 1);
-      uint c = texelFetch(agbTex, px, 0).r;
+      uvec2 cc = texelFetch(agbTex, px, 0).rg;
+      uint c = cc.r;
       if (c == 0u) discard;
       float v = float(c - 1u) / ${CODE.toFixed(1)};
       float t = (v - biomass.lo) / max(biomass.hi - biomass.lo, 1e-6);
-      color = vec4(viridis(t), 1.0);
+      int r = int(biomass.ramp + 0.5);
+      int k = min(int(cc.g & 15u), ${LAND_COVER.length - 1});
+      if (r == 1) color = vec4(classShade(k, t), 1.0);
+      else if (r == 2) {
+        float h = float((cc.g & 0xFFF0u) - min(cc.g & 0xFFF0u, 1u)) / ${CODE.toFixed(1)};
+        color = vec4(classShade(k, h / ${Math.log1p(HEIGHT_HI).toFixed(5)}), 1.0);
+      } else if (r == 3) {
+        float dx = agbAt(px + ivec2(1, 0), size, v) - agbAt(px - ivec2(1, 0), size, v);
+        float dy = agbAt(px + ivec2(0, 1), size, v) - agbAt(px - ivec2(0, 1), size, v);
+        // texture rows run north to south; the light from the northwest, 45 degrees up
+        vec3 n = normalize(vec3(-${RELIEF_Z.toFixed(2)} * dx * 0.5, ${RELIEF_Z.toFixed(2)} * dy * 0.5, 1.0));
+        vec3 sun = normalize(vec3(-1.0, 1.0, 1.4142));
+        float shade = dot(n, sun) / sun.z;
+        vec3 base = CLASS_LAB[k];
+        color = vec4(oklabToSrgb(vec3(clamp(base.x * shade, 0.05, 0.99), base.yz)), 1.0);
+      } else color = vec4(viridis(t), 1.0);
     `,
   },
-  uniformTypes: { lo: "f32", hi: "f32" },
+  uniformTypes: { lo: "f32", hi: "f32", ramp: "f32" },
   getUniforms: (p: Record<string, unknown>) => p,
-} as unknown as ShaderModule<{ agbTex: Texture; lo: number; hi: number }>;
+} as unknown as ShaderModule<{ agbTex: Texture; lo: number; hi: number; ramp: number }>;
 
 /**
  * A window's change per pixel on the 50-stop orange (loss) to white to blue (gain) ramp: loss to -LOSS_END %, gain
@@ -195,7 +244,15 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   /** A chunk's planes as its texture holds them: a year's biomass codes, or a window's percent and confidence side by side. */
   const texData = (p: Planes, win: boolean) => {
     const n = p.w * p.h;
-    if (!win) return p.planes.slice(0, n) as Uint16Array;
+    if (!win) {
+      // biomass code; the height code with the class in its low four bits (codes reach 64,001, classes 9)
+      const data = new Uint16Array(2 * n);
+      for (let i = 0; i < n; i++) {
+        data[2 * i] = p.planes[i]!;
+        data[2 * i + 1] = (p.planes[n + i]! & 0xfff0) | (p.planes[2 * n + i]! & 15);
+      }
+      return data;
+    }
     const data = new Int16Array(2 * n);
     for (let i = 0; i < n; i++) {
       data[2 * i] = p.planes[i]!;
@@ -423,7 +480,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
   }
 
   /** A layer: a year's biomass (key "2025") or a window's change (key "2018-2025"). */
-  function layer(opts: { key: string; visible: boolean; onTile?: () => void; onViewportLoad?: () => void }) {
+  function layer(opts: { key: string; visible: boolean; ramp?: number; onTile?: () => void; onViewportLoad?: () => void }) {
     const lk = opts.key;
     const win = windowOf(lk);
     return new BioLayer({
@@ -440,7 +497,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
         // the change's percent and confidence side by side, one texel each
         const data = texData(p, !!win);
         const tex = o.device.createTexture({
-          format: win ? "rg16sint" : "r16uint",
+          format: win ? "rg16sint" : "rg16uint",
           width,
           height,
           mipLevels: 1,
@@ -467,16 +524,18 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
               }
             : {
                 module: BiomassColor,
-                props: { agbTex: data.tex, lo: AGB_LO, hi: AGB_HI },
+                props: { agbTex: data.tex, lo: AGB_LO, hi: AGB_HI, ramp: opts.ramp ?? 0 },
               },
         ] as RasterModule[],
       }),
+      // a new ramp redraws the tiles in hand, no read
+      updateTriggers: { renderTile: opts.ramp ?? 0 },
       visible: opts.visible,
       minZoom: MIN_ZOOM,
       // the view's chunks all asked at once: the workers read them a few at a time, every front before any rest
       // (zread.ts), so the whole view draws rough before it sharpens
       maxRequests: 64,
-      // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000
+      // a tile on the GPU is 256 KB (two 16-bit values a pixel); a zoom 11 view in a large window is about 1,000
       maxCacheSize: 1200,
       onTileLoad: () => opts.onTile && opts.onTile(),
       onTileUnload: (tile: { content?: TileData | null }) => {
