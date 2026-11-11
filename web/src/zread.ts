@@ -1,7 +1,7 @@
 import { Decompress } from "fzstd";
 import { Zstd } from "numcodecs";
 
-import { fromS3, NUM_BANDS, ZARR_URL } from "./aef";
+import { NUM_BANDS, ZARR_URL } from "./aef";
 
 /**
  * The mosaic's chunks read in two parts. Each 256 px inner chunk is the 64 bands one after another (band-major,
@@ -12,7 +12,7 @@ import { fromS3, NUM_BANDS, ZARR_URL } from "./aef";
  * is fetched again.
  */
 
-const ROOT = fromS3(ZARR_URL);
+const ROOT = ZARR_URL;
 const ARRAY = "/embeddings";
 const SHARD = 4096, CHUNK = 256, PER = SHARD / CHUNK;
 /** 256 [offset, length] pairs of uint64, then a crc32c */

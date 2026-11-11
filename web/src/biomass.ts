@@ -474,7 +474,7 @@ export async function createBiomass(head: BiomassHead, conf: ConfTables, gain: G
       visible: opts.visible,
       minZoom: MIN_ZOOM,
       // the view's chunks all asked at once: the workers read them a few at a time, every front before any rest
-      // (zread.ts), so the whole view draws rough before it sharpens (the S3 host's HTTP/1.1 allows six at a time)
+      // (zread.ts), so the whole view draws rough before it sharpens
       maxRequests: 64,
       // a tile on the GPU is 128 KB; a zoom 11 view in a large window is about 1,000
       maxCacheSize: 1200,

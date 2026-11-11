@@ -2,13 +2,14 @@ import * as zarr from "zarrita";
 
 /**
  * The AlphaEarth Zarr mosaic on Source Cooperative, read as fire-knn reads it (web/src/aef/mosaic.ts): one level at
- * 10 m, no overviews, 256 px inner chunks of all 64 bands in 4096 px shards. Read from the S3 host behind the gateway
- * (the gateway throttles many requests at once), with the browser's HTTP cache off (a suffix range answered with a
- * whole shard was coming back short from it). Nothing is written to the reader's disk.
+ * 10 m, no overviews, 256 px inner chunks of all 64 bands in 4096 px shards. Read through the gateway, which speaks
+ * HTTP/2 (the S3 host behind it speaks HTTP/1.1, six reads at a time: a zoom 11 view of 162 chunks sharpened in 15 to
+ * 17 s from the gateway against 26 to 32 s from S3, headless). The browser's HTTP cache is off: a suffix range
+ * answered with a whole shard was coming back short from it, and with it on, the ranges of one shard (one URL) were
+ * read one after another (the same view 15 s against 8.5 s, and no faster seen again). Nothing is written to the
+ * reader's disk.
  */
 export const ZARR_URL = "https://data.source.coop/tge-labs/aef-mosaic";
-export const fromS3 = (url: string) =>
-  url.replace("https://data.source.coop/", "https://s3.us-west-2.amazonaws.com/us-west-2.opendata.source.coop/");
 export const VARIABLE = "embeddings";
 export const NUM_BANDS = 64;
 export const YEAR_ORIGIN = 2017;
@@ -25,7 +26,7 @@ export const CHUNK = 256;
 export type AefArray = zarr.Array<"int8", zarr.Readable>;
 
 export async function openMosaic(): Promise<{ arr: AefArray; attrs: unknown }> {
-  const store = new zarr.FetchStore(fromS3(ZARR_URL), { overrides: { cache: "no-store" } });
+  const store = new zarr.FetchStore(ZARR_URL, { overrides: { cache: "no-store" } });
   const root = await zarr.open.v3(store, { kind: "group" });
   const arr = await zarr.open.v3(root.resolve(VARIABLE), { kind: "array" });
   if (!arr.is("int8")) throw new Error(`Expected int8 embeddings, got ${arr.dtype}`);
