@@ -82,7 +82,7 @@ const st = {
   // Sentinel-2: held over the whole map (Space, one map only), or the pair's left side (P)
   holding: false,
   pair: false,
-  // picking (Q, Earthwork's): the tooltip by the pointer and the picked pixel's gold boundary; remembered. Where the pointer is
+  // the tooltip by the pointer (Q, Earthwork's), remembered; a click's gold boundary stays either way. Where the pointer is
   // on screen; the pixel clicked
   tips: stored("aef-biomass-tips") !== "0",
   // the basemap's place names (L), on both maps; remembered
@@ -628,10 +628,10 @@ function styleMode() {
   $(".keys").innerHTML = ch
     ? "<kbd>[</kbd><kbd>]</kbd>&nbsp;imagery year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;each year &nbsp; " +
       (gainHead ? `<kbd>G</kbd>&nbsp;lidar gain, ${st.lidarGain ? "on" : "off"} &nbsp; ` : "") +
-      "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about"
+      "<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;tooltip &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about"
     : '<kbd>[</kbd><kbd>]</kbd>&nbsp;year &nbsp; <kbd>B</kbd>&nbsp;blink &nbsp; <kbd>C</kbd>&nbsp;change &nbsp; ' +
       (gainHead ? '<kbd>G</kbd>&nbsp;lidar gain (in change) &nbsp; ' : '') +
-      '<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;picking &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about';
+      '<kbd>Space</kbd>&nbsp;imagery &nbsp; <kbd>P</kbd>&nbsp;pair &nbsp; <kbd>Q</kbd>&nbsp;tooltip &nbsp; <kbd>L</kbd>&nbsp;labels &nbsp; <kbd>F</kbd>&nbsp;full screen &nbsp; <kbd>/</kbd>&nbsp;search &nbsp; <kbd>?</kbd>&nbsp;about';
   drag.y0 = st.y0;
   drag.y1 = st.y1;
   styleWin();
@@ -660,7 +660,7 @@ function pixelRing(lon: number, lat: number): [number, number][] {
 /** The picked pixel's boundary, in gold, on both maps. */
 function outlines(side: string) {
   const pt = st.picked;
-  if (!st.tips || !readable() || !pt) return [];
+  if (!readable() || !pt) return [];
   return [new PathLayer({ id: `picked${side}`, data: [pixelRing(pt[0], pt[1])], getPath: (d: [number, number][]) => d,
     getColor: [255, 200, 40, 255], widthUnits: "pixels", getWidth: 2, pickable: false })];
 }
@@ -823,7 +823,7 @@ const about = overlay_("about", `<h2>Biomass</h2>
   year-to-year noise.</p>
   <p><small>Keys: C each year or change; [ and ] the year (in change, the imagery's year); B the first year or the latest;
   G gain by lidar, on or off (change); hold Space for the imagery; P pairs the map with the imagery; Q the tooltip
-  and picking off and on; L place names; ; and ' the imagery's brightness; F full screen; / search; ? this page;
+  off and on (a click still outlines its pixel); L place names; ; and ' the imagery's brightness; F full screen; / search; ? this page;
   Esc closes a card, else folds the main card.</small></p>
   <p><small>AlphaEarth Foundations by Google and Google DeepMind, via Source Cooperative (CC BY 4.0). The head taught on
   CTrees aboveground biomass and Meta and WRI canopy height (CC BY 4.0), with ESA WorldCover and Impact Observatory
@@ -910,12 +910,11 @@ window.addEventListener("keydown", (e) => {
   }
   // ; and ': the imagery's gamma (Earthwork's brightness keys)
   else if (e.code === "Semicolon" || e.code === "Quote") setGamma(st.gamma + (e.code === "Quote" ? 0.1 : -0.1));
-  // Q: picking off and on (the tooltip and the picked pixel's boundary)
+  // Q: the tooltip off and on (the picked pixel's boundary stays, for recording without the tooltip)
   else if (e.code === "KeyQ") {
     st.tips = !st.tips;
     store("aef-biomass-tips", st.tips ? "1" : "0");
     readout();
-    drawLayers();
   }
   // Esc folds the card
   else if (e.code === "Escape") {
@@ -963,7 +962,6 @@ const hoverOff = () => {
 };
 // a click outlines the pixel's boundary, on both maps; with one outlined, a click anywhere lets it go
 const pickAt = (e: maplibregl.MapMouseEvent) => {
-  if (!st.tips) return;
   st.picked = st.picked ? null : [e.lngLat.lng, e.lngLat.lat];
   readout();
   drawLayers();

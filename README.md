@@ -43,7 +43,7 @@ EOxCloudless by EOX. 2018: the Copernicus Sentinel-2 quarterly mosaics (July to 
 Capricorn, January to March south of it), made into map tiles in the browser.
 
 **Keys.** C each year or change; `[` `]` the year (in change, the imagery's year); B blink between the first and the
-latest year; G lidar gain on or off (change view); Space imagery; P pair; Q picking and tooltip; L place names;
+latest year; G lidar gain on or off (change view); Space imagery; P pair; Q tooltip; L place names;
 `;` `'` the imagery's brightness; F full screen; / search; Esc folds the card.
 
 **What it does not do well yet.**
